@@ -1,0 +1,32 @@
+[
+  {
+    "tag": "21-jre",
+    "digest": "sha256:0b99b3376fbb50dbf9c0af8535fdd5b8eb0d3fdfc8b1e4967f383b6919f6901a",
+    "image": "eclipse-temurin:21-jre",
+    "lastUpdated": "2026-11-07T00:05:00+08:00"
+  },
+  {
+    "tag": "3.12-slim",
+    "digest": "sha256:4840d514c583a4d3d8cad3940e68dee6f0f6f3635c12fcd0a3d74c21a5b93a54",
+    "image": "python:3.12-slim",
+    "lastUpdated": "2026-11-07T00:05:00+08:00"
+  },
+  {
+    "tag": "1.29-alpine",
+    "digest": "sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de",
+    "image": "nginx:1.29-alpine",
+    "lastUpdated": "2026-11-07T00:05:00+08:00"
+  },
+  {
+    "tag": "24-alpine",
+    "digest": "sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8",
+    "image": "node:24-alpine",
+    "lastUpdated": "2026-11-07T00:05:00+08:00"
+  },
+  {
+    "tag": "3.20",
+    "digest": "sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc",
+    "image": "alpine:3.20",
+    "lastUpdated": "2026-11-07T00:05:00+08:00"
+  }
+]

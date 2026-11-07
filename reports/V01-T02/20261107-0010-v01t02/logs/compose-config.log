@@ -1,0 +1,235 @@
+﻿name: larder
+services:
+  api:
+    restart: unless-stopped
+    environment:
+      LARDER_DB_HOST: mysql
+      LARDER_DB_NAME: larder
+      LARDER_DB_PASSWORD: 763848ac2651f167f0cf5406
+      LARDER_DB_PORT: "3306"
+      LARDER_DB_USER: larder
+      LARDER_VERSION: 0.1.0
+    image: larder/api:0.1.0
+    networks:
+      default: null
+    build:
+      context: D:\Work\Project\larder\backend
+      dockerfile: Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+        required: true
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080'
+      timeout: 3s
+      interval: 10s
+      retries: 12
+      start_period: 30s
+  meili:
+    restart: unless-stopped
+    environment:
+      MEILI_ENV: production
+      MEILI_MASTER_KEY: 77c42f2e6617d706f4d40b2c04ca36d2
+      MEILI_NO_ANALYTICS: "true"
+      TZ: UTC
+    image: getmeili/meilisearch:v1.56.1@sha256:b7ba431bf6f9b26cc86132798f3640964147a699cf23f026b74c6c05dbb1d60d
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: meili-data
+        target: /meili_data
+        volume: {}
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -q
+        - -O
+        - /dev/null
+        - http://127.0.0.1:7700/health
+      timeout: 3s
+      interval: 10s
+      retries: 6
+      start_period: 10s
+  minio:
+    restart: unless-stopped
+    command:
+      - server
+      - /data
+      - --address
+      - :9000
+      - --console-address
+      - :9001
+    environment:
+      MINIO_ROOT_PASSWORD: 91af3123d76d4019fd35c6bb
+      MINIO_ROOT_USER: larder
+      TZ: UTC
+    image: larder/minio:RELEASE.2025-10-15T17-29-55Z
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: minio-data
+        target: /data
+        volume: {}
+    build:
+      context: D:\Work\Project\larder\infra\minio
+      dockerfile: Dockerfile
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -q
+        - -O
+        - '-'
+        - http://127.0.0.1:9000/minio/health/live
+      timeout: 3s
+      interval: 10s
+      retries: 6
+  mysql:
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+      - --default-time-zone=+00:00
+    environment:
+      MYSQL_DATABASE: larder
+      MYSQL_PASSWORD: 763848ac2651f167f0cf5406
+      MYSQL_ROOT_PASSWORD: 089ed053305f8123387901f7
+      MYSQL_USER: larder
+      TZ: UTC
+    image: mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+        volume: {}
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent
+      timeout: 5s
+      interval: 10s
+      retries: 12
+      start_period: 30s
+  rabbitmq:
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_PASS: f158dd01471d20b693d3a2e5
+      RABBITMQ_DEFAULT_USER: larder
+      TZ: UTC
+    image: rabbitmq:4.3.7-management@sha256:6e51f8f18e055d6dc3d94316db0073da64d811c2e19744661fae06b03c1d6fa8
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: rabbitmq-data
+        target: /var/lib/rabbitmq
+        volume: {}
+    healthcheck:
+      test:
+        - CMD
+        - rabbitmq-diagnostics
+        - -q
+        - ping
+      timeout: 10s
+      interval: 15s
+      retries: 8
+      start_period: 30s
+  redis:
+    restart: unless-stopped
+    command:
+      - redis-server
+      - --save
+      - ""
+      - --appendonly
+      - 'no'
+      - --maxmemory
+      - 256mb
+      - --maxmemory-policy
+      - allkeys-lru
+    image: redis:8.10.3@sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc
+    networks:
+      default: null
+    healthcheck:
+      test:
+        - CMD
+        - redis-cli
+        - ping
+      timeout: 3s
+      interval: 10s
+      retries: 6
+  runner:
+    restart: unless-stopped
+    environment:
+      LARDER_RUNNER_JOURNAL_DIR: /var/lib/larder/journal
+      LARDER_RUNNER_MAX_CONCURRENT_RUNS: "2"
+    image: larder/runner:0.1.0
+    networks:
+      default: null
+    volumes:
+      - type: volume
+        source: runner-journal
+        target: /var/lib/larder/journal
+        volume: {}
+    build:
+      context: D:\Work\Project\larder\runner
+      dockerfile: Dockerfile
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/v1/health',
+          timeout=3).status==200 else 1)
+      timeout: 5s
+      interval: 10s
+      retries: 6
+  web:
+    restart: unless-stopped
+    image: larder/web:0.1.0
+    networks:
+      default: null
+    build:
+      context: D:\Work\Project\larder\frontend
+      dockerfile: Dockerfile
+    depends_on:
+      api:
+        condition: service_healthy
+        required: true
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - -q
+        - -O
+        - /dev/null
+        - http://127.0.0.1/healthz
+      timeout: 3s
+      interval: 10s
+      retries: 6
+    ports:
+      - mode: ingress
+        host_ip: 127.0.0.1
+        target: 80
+        published: "8080"
+        protocol: tcp
+networks:
+  default:
+    name: larder_default
+volumes:
+  meili-data:
+    name: larder_meili-data
+  minio-data:
+    name: larder_minio-data
+  mysql-data:
+    name: larder_mysql-data
+  rabbitmq-data:
+    name: larder_rabbitmq-data
+  runner-journal:
+    name: larder_runner-journal

@@ -1,0 +1,422 @@
+{
+  "taskId": "V01-T02",
+  "sliceId": "V01-T02.FULL",
+  "runId": "20261107-0010-v01t02",
+  "generatedAt": "2026-11-06T16:13:13.099968+00:00",
+  "note": "baseSha256 为 null：仓库未 git init；README.md 与 docs/versions.lock.json 为 modified，其余 added；target/node_modules/.venv/dist 已排除。",
+  "files": [
+    {
+      "path": ".env.example",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "65ebb39d4eb6de3bc6253e16d6fdaa2165a10aaddcf71f0d2c69dbb8d40a58ce",
+      "size": 957
+    },
+    {
+      "path": ".gitignore",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "08db360cd01a6579883ef59a3bbe26f34befd25db25b9df120773b6875e548b0",
+      "size": 593
+    },
+    {
+      "path": "backend/.dockerignore",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a8cf023eecb8eb9945c0ed8a9b73a240f00b03df5186fb70d4d36eb0dce459fc",
+      "size": 153
+    },
+    {
+      "path": "backend/.mvn/wrapper/maven-wrapper.properties",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "821602a8cceb1f8f5945f80b82b27617ba88b74a8afae230a5df80affcb6a8ab",
+      "size": 171
+    },
+    {
+      "path": "backend/Dockerfile",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2ee3288f27a0901d4e8617b802057cc6d876ea6ada6f0656168a24b86bf5f3fd",
+      "size": 563
+    },
+    {
+      "path": "backend/mvnw",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "cae96cef89ebea3531221f4ae17c23cf8edf67d00eae8306d4186ae1bbed4d02",
+      "size": 11790
+    },
+    {
+      "path": "backend/mvnw.cmd",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "46eedb8419bd14fe70d5bb2916d7b6f51806e51b39d5b76a42610384ca929c1c",
+      "size": 8481
+    },
+    {
+      "path": "backend/pom.xml",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "750c8846386af32f3ce57df7e7309159e803c2185fb3ba5496c454f482fa6a35",
+      "size": 2676
+    },
+    {
+      "path": "backend/src/main/java/com/larder/health/PingController.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "37c601c540961603ab81b3cd6314dc0c419e0abdcfa172a9a05293e2728ffe8d",
+      "size": 1465
+    },
+    {
+      "path": "backend/src/main/java/com/larder/health/PingResponse.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "61c08d0817c7f3006c3a841ab900516559b6b1e2c3e6bb99a41c83f1a0544bc5",
+      "size": 446
+    },
+    {
+      "path": "backend/src/main/java/com/larder/LarderApplication.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "8f84710068fe2545d73a0fc3742a7d95ae5e4a03a5854a53e0310c7eefb221eb",
+      "size": 708
+    },
+    {
+      "path": "backend/src/main/java/com/larder/meta/AppMeta.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "eec908a272d382fae6492d6207e2362ced867c48c9398af4044e5451c945eeaf",
+      "size": 1174
+    },
+    {
+      "path": "backend/src/main/java/com/larder/meta/AppMetaMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "4ba5fa922acddc364cc5c5a15c926fd339862f323bbcaf111e54b24cedd77215",
+      "size": 424
+    },
+    {
+      "path": "backend/src/main/resources/application.yml",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ad74a2b50da31ea475f5c754f3697b08ddcbdc4f531a423eaa4f47a571933d62",
+      "size": 1072
+    },
+    {
+      "path": "backend/src/main/resources/db/migration/V1__baseline.sql",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "255ffe970dc0ab4e4b19caf8cf06fc9b5c43bb96cb7611557c0f96e0f1aef5e1",
+      "size": 886
+    },
+    {
+      "path": "compose.dev.yaml",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "abb7e99456c38e34d634c6becdeb2f3f06741cd0be67271f096b55b8c2972152",
+      "size": 580
+    },
+    {
+      "path": "compose.yaml",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "1ab6f267fa2e8903641c553a159ead8d9b6c3a616eb3ed52e353208e921c3921",
+      "size": 5147
+    },
+    {
+      "path": "docs/versions.lock.json",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "36eecb8950de553f8765d1bc35a8088817855fa187e38d62d890089bf64b9854",
+      "size": 59282
+    },
+    {
+      "path": "frontend/.dockerignore",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bc1f130b9c0c286dab0da2b968bcc0e84d440a11b3816d7d1e66f64cc5d30104",
+      "size": 49
+    },
+    {
+      "path": "frontend/Dockerfile",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "86717ddb5d76fc890d03b1e1faf59b7259ad342747ee7be4f0769e0f9ef60092",
+      "size": 607
+    },
+    {
+      "path": "frontend/index.html",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "1d460687214bdcb5026dce8f7f462d62e79ee672ccba5ed25a6fb96ddb40ee87",
+      "size": 303
+    },
+    {
+      "path": "frontend/nginx.conf",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7091691ac74ce6e7f2e8acc429ea205d9c2ba7eed66689ea83adc1fd22a610ca",
+      "size": 687
+    },
+    {
+      "path": "frontend/package.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "91f5c5aedf2b543c37f4d0c97bf06693d9eefc919d0b471edf1b5718fdbe5a5a",
+      "size": 624
+    },
+    {
+      "path": "frontend/pnpm-lock.yaml",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2c6ab6d817fd7aae33fe09338290f1c53ea8577c86b82ededcac57241a7a8b2f",
+      "size": 31962
+    },
+    {
+      "path": "frontend/src/App.tsx",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d6e8bc086e0655d6a07d14c183bff01ec089b6139d7d6065d3668e47f07e9097",
+      "size": 2135
+    },
+    {
+      "path": "frontend/src/index.css",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "4373f302f75584f299cee1262f49a49ea6e5c8ff00d0ddd7daef562d438fe79f",
+      "size": 268
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7286f8ea635c14c4f3d4aa364a9193e14a7f543137b56f2790d782c5a96e5cc3",
+      "size": 337
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f27e4256d01b0c53bb3c271b3343bcea9182f5f31e1005c22d898745425e3292",
+      "size": 448
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ad52bf8b68bd03ae0a198b8b726b857d8357b3d79f6aa462bd07c4ef638bdaab",
+      "size": 669
+    },
+    {
+      "path": "handoffs/V01-T02/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "0de8d65b324293b5b85bb80d39f538bc09b320cc6937df32a9a64a5a270ba52c",
+      "size": 6445
+    },
+    {
+      "path": "infra/minio/Dockerfile",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "18a7b4cf1f69dd2be26a1fe66f071e2a781900aa3fdcc30066196b542c30a893",
+      "size": 595
+    },
+    {
+      "path": "infra/minio/minio-linux-amd64",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "1511a2b15f6513d10cf89d86f8a96e836dfb9bddf6e9c1f3e0c8d9e2cda1920a",
+      "size": 109310112
+    },
+    {
+      "path": "infra/mysql/my.cnf",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "804fba8b67995b05e4aeb841d8037168f7ba6218ef71fa149dcb4641122b290c",
+      "size": 599
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "72fc105515969757ef34ecc96d9a6698df99b480362152ee14d066a0b55dc40c",
+      "size": 5364
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/logs/build.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ee97f60b5bb4a7b900d4b6e58c077f9e0217bd7b1e0babe01c98606efdd34b2e",
+      "size": 10878
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/logs/compose-config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b793078df314cc8a11fc971942ebe0b839cd0fc34c30c7b5940cf1c8dbe91b27",
+      "size": 5790
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/logs/compose-ps.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d32c5de2cac40c496cbb0c7fb4513d7f05a2247e5b3163e09d7261d0f974715d",
+      "size": 320
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "635f298043817f1105565cbcc7ae4a5d8d0d9da5b8658cff5d9c1760fd90642f",
+      "size": 1328
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/logs/docker-images.txt",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "92c9261219835558309dfe40f8c5175173fc38a80ed12e2e3bf57a8728b44944",
+      "size": 623
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/logs/docker-version.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "552788e40c1becdc70c2b350b523c7c713ae5e0346963b1b676bcb21ed13e748",
+      "size": 788
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/logs/mvn-package.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "8a2441cee4db8295b95eec97a14dd60f3836a1bc167cf87c53bd4c25319b1067",
+      "size": 1854
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/logs/verify.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bcbef803857b7bd25e5aeaf6a7cee52fb384b6e600a53f208e8db9b6324fa65e",
+      "size": 952
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/minio-linux-build.txt",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9db191047a3f922dd82deca95d2fe50864018007f6d7c1e16cc4d48521c5e0a7",
+      "size": 358
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f710c16fcd043c4c1f192af219c1cc06fcfb62f62267515c68c4231c1bf6e7a5",
+      "size": 1037
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c5ff235f6e082a2f9ebb5b6a0f8f44143a9c57a4ea7b26d108d7f8545099f95c",
+      "size": 5003
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/tools/fix_evidence.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "93e9a9d6fd8c34f5b9450aa433e9a6ba7c9d5960e7e60afe69836a73dd5d099e",
+      "size": 2819
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/tools/patch_lock.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "71482ead43ef98a3ee9f92fb9f453c0508dc0711130cac7e838bd2d18119e870",
+      "size": 6194
+    },
+    {
+      "path": "reports/V01-T02/20261107-0010-v01t02/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "edf0690a504ab65061ec33a5d872ded79ec33a388b6db63f906492ef01ae725a",
+      "size": 4096
+    },
+    {
+      "path": "runner/.dockerignore",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "efca849dace6f6e36bb792838478e102083e5e0ca6f0f542aa229faf9cfec853",
+      "size": 52
+    },
+    {
+      "path": "runner/app/__init__.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "69c1938034dbf9b47687761654eb5f94c0d9648ef3ac8ff2908b91c8422f7105",
+      "size": 137
+    },
+    {
+      "path": "runner/app/main.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "edef8c5e579a6364f1bb0a4255d0b31e41dd9ac9e1680d15f98ba7f69534ceb0",
+      "size": 1570
+    },
+    {
+      "path": "runner/Dockerfile",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "cef0b25d3918cc2401bac06d549c05dd810a1059efcd68b3ef1b69c30f66ebfc",
+      "size": 801
+    },
+    {
+      "path": "runner/pyproject.toml",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "1cd832913add9aecc73237e07d53fe4f811f0d663f2814fe456130e179df4622",
+      "size": 646
+    },
+    {
+      "path": "runner/tests/test_health.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7256c63d947d4637a9465188399848b6d3aa0cb139c5d33b1e0ce45ed340e9a2",
+      "size": 876
+    },
+    {
+      "path": "runner/uv.lock",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7962430e39bef88bf4a76ed33b029e4c5a6e8ad866baba14c8a75d2c32c30af1",
+      "size": 25560
+    },
+    {
+      "path": "scripts/dev/build-minio.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a9cc19711aeb20c4bf7a544968e7b261d4be941b75548412440d7b830a337568",
+      "size": 1753
+    },
+    {
+      "path": "scripts/dev/down.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c692e2f4d6f591bedca8064b449055d37f53b3ae6e98c7895e5d1100e6a794cf",
+      "size": 522
+    },
+    {
+      "path": "scripts/dev/up.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "508b7df84ce922de0dda4f5bfc881115491bed5205afc9a37a2157cb3b06d2d6",
+      "size": 639
+    },
+    {
+      "path": "scripts/dev/verify.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9b6b757552f5d6e1c636b3394bb99e5538eb48be4741ab31d6bfcc35af7f5bd7",
+      "size": 4026
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+/* 骨架阶段只放全局底色与字体，设计 token 由 F00 按 design/tokens.json 接管 */
+:root {
+  color-scheme: light dark;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, "Segoe UI", "Microsoft YaHei", sans-serif;
+}

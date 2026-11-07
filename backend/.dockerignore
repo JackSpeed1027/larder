@@ -1,0 +1,7 @@
+# 只把运行产物送进镜像；源码/包装器不进去（jar 由 mvnw package 在本机生成）
+src/
+.mvn/
+mvnw
+mvnw.cmd
+Dockerfile
+.dockerignore

@@ -1,0 +1,34 @@
+﻿docker.exe :  Container larder-runner-1 Running 
+所在位置 行:6 字符: 1
++ & docker compose up -d --wait *>&1 | Out-File "$rd\logs\compose-up.lo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( Container larder-runner-1 Running :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+ Container larder-redis-1 Running 
+ Container larder-mysql-1 Running 
+ Container larder-meili-1 Running 
+ Container larder-web-1 Running 
+ Container larder-rabbitmq-1 Running 
+ Container larder-api-1 Running 
+ Container larder-minio-1 Running 
+ Container larder-mysql-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-minio-1 Waiting 
+ Container larder-meili-1 Waiting 
+ Container larder-web-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-redis-1 Waiting 
+ Container larder-runner-1 Waiting 
+ Container larder-api-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-meili-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-api-1 Healthy 
+ Container larder-web-1 Healthy 
+ Container larder-minio-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-runner-1 Healthy 
+ Container larder-redis-1 Healthy 

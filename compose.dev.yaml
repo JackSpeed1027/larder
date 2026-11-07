@@ -1,0 +1,31 @@
+# 开发用端口覆盖：只有显式 docker compose -f compose.yaml -f compose.dev.yaml 才加载。
+# 用法：.\scripts\dev\up.ps1 -Dev
+services:
+  mysql:
+    ports:
+      - "127.0.0.1:3306:3306"
+
+  redis:
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  rabbitmq:
+    ports:
+      - "127.0.0.1:15673:15672"  # 15672 已被本机其它进程占用
+
+  meili:
+    ports:
+      - "127.0.0.1:7700:7700"
+
+  minio:
+    ports:
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
+
+  api:
+    ports:
+      - "127.0.0.1:8080:8080"
+
+  runner:
+    ports:
+      - "127.0.0.1:8000:8000"

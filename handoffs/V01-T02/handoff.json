@@ -1,0 +1,118 @@
+{
+  "taskId": "V01-T02",
+  "sliceId": "V01-T02.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "八服务真实起停与端到端自检通过（10/10、exit 0）；仅本机运行，尚未在干净机器复验，也不代表 V01 整体 DONE",
+  "baseSnapshot": null,
+  "baseSnapshotNote": "仓库尚未 git init；本任务基于 V01-T01 的版本锁与交接包。修改过 docs/versions.lock.json 与 README.md（baseSha256 记 null，因无 git 基线）。",
+  "contractRev": "f67dc0cea05b162017b2a061ae4d44b56f8d6be5042674ca473635cd6a36e9f9",
+  "contractRevScope": "contracts/ 13 个文件按相对路径+sha256 排序拼接（本任务未修改契约）",
+  "summary": "按 docs/06 的八服务拓扑落地：backend（Spring Boot 4.1.2 + MyBatis-Plus boot4 3.5.18 + Flyway 12.4.0 + /api/ping + actuator health + mvnw 包装器）、runner（FastAPI 0.162.0 + /v1/health + pytest + uv.lock）、frontend（React 19 + Vite 8 + TS 7 + Tailwind 4 骨架页，nginx 反代 /api）、compose.yaml（镜像全部按 digest 固定，仅 web 绑 127.0.0.1:8080）、compose.dev.yaml、.env.example、infra（mysql my.cnf、minio Dockerfile）、scripts/dev（up/down/verify/build-minio）。真实运行结果：八服务全部 healthy，Flyway 在真实 MySQL 8.4.13 执行 V1 迁移，/api/ping 读到 app_meta.schema_version=V1，verify.ps1 10 项全过。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    {
+      "command": "docker compose config --quiet",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T02/20261107-0010-v01t02/logs/compose-config.log"
+    },
+    {
+      "command": "docker compose build",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T02/20261107-0010-v01t02/logs/build.log",
+      "note": "passed 为构建的镜像数（api/runner/web/minio）"
+    },
+    {
+      "command": "docker compose up -d --wait",
+      "exitCode": 0,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log",
+      "note": "passed 为 healthy 的服务数"
+    },
+    {
+      "command": "powershell -File scripts/dev/verify.ps1",
+      "exitCode": 0,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T02/20261107-0010-v01t02/logs/verify.log"
+    },
+    {
+      "command": ".\\backend\\mvnw.cmd -B -DskipTests -f backend\\pom.xml package",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T02/20261107-0010-v01t02/logs/mvn-package.log"
+    },
+    {
+      "command": "go build -trimpath (GOOS=linux) 打包 MinIO 二进制",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T02/20261107-0010-v01t02/minio-linux-build.txt"
+    },
+    {
+      "command": "python reports/V01-T01/20261106-2045-v01t01-r2/tools/validate_versions_lock.py",
+      "exitCode": 0,
+      "passed": 45,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T01/20261106-2045-v01t01-r2/validate.log",
+      "note": "V01-T02 后重跑，45 个组件、BLOCKED 收敛到 5 项"
+    }
+  ],
+  "acceptanceEvidence": {
+    "eight-services-topology": "reports/V01-T02/20261107-0010-v01t02/logs/compose-ps.log + compose-up.log",
+    "real-health-and-migration": "reports/V01-T02/20261107-0010-v01t02/logs/verify.log（flyway history=1 1、app_meta=V1）",
+    "build-wrappers": "backend/mvnw + .mvn/wrapper/maven-wrapper.properties、frontend/pnpm-lock.yaml、runner/uv.lock",
+    "env-and-secrets": ".env.example（LARDER_ 前缀）+ .gitignore 排除 .env；本机 .env 随机密码未入库",
+    "image-digests": "compose.yaml / Dockerfile 中所有基础镜像与中间件镜像均 @sha256；docker-images.txt 记录实际拉取"
+  },
+  "notRun": [
+    "后端单元/集成测试（本任务未写测试类）",
+    "Testcontainers 集成测试",
+    "前端 Vitest / 浏览器 E2E",
+    "对象存储/MQ/缓存/检索的业务读写"
+  ],
+  "knownLimitations": [
+    "后端只有骨架接口，无业务代码；ApiResponse/错误码在 V01-T03。",
+    "api healthcheck 为端口级（JRE 镜像无 curl），业务就绪用 /actuator/health 单独验证。",
+    "MySQL my.cnf 在 Windows bind mount 下 0777 会被忽略；字符集/时区走 command 参数，Linux 部署用 my.cnf。",
+    "Docker Hub 需经本机代理；干净机器上要重新配 Docker 代理或换可达 registry。",
+    "应用镜像为本地构建 tag，未推送仓库。"
+  ],
+  "newDependencies": [
+    "com.baomidou:mybatis-plus-spring-boot4-starter:3.5.18",
+    "org.springframework.boot:spring-boot-starter-flyway",
+    "org.flywaydb:flyway-mysql:12.4.0",
+    "com.mysql:mysql-connector-j（runtime，BOM 管理）",
+    "fastapi 0.162.0 / uvicorn 0.54.0 / pydantic 2.14.3 / pydantic-settings 2.16.2 / httpx 0.28.1",
+    "react 19.3.1 / vite 8.3.6 / @vitejs/plugin-react 6.2.1 / typescript 7.0.2 / tailwindcss 4.3.4 / @tailwindcss/vite 4.3.4"
+  ],
+  "migrationNotes": "新增 V1__baseline.sql（app_meta 表，带表/列 COMMENT），已在真实 MySQL 8.4.13 执行成功；后续业务迁移从 V2 起由各任务向协调者申请编号。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "Java 类/方法有 Javadoc（说明骨架边界与失败条件）；FastAPI 路由有 docstring；compose 关键行（healthcheck、digest、端口）有注释；脚本头注明用途与安全约束（down 不带 -v）。",
+    "sqlComments": "app_meta 表与两个列均有 COMMENT；迁移文件头说明它是 V01 最小基线而非 43 张业务表。",
+    "complexMechanisms": [
+      "Boot 4 自动配置拆包导致 Flyway 不执行：ADR-0002 + 本任务 manifest 的注释",
+      "镜像 digest 固定与 docker compose 端口冲突处理：compose.yaml 注释 + README 环境事实",
+      "Windows bind mount 权限导致 MySQL 忽略配置：infra/mysql/my.cnf 文件头 + compose 注释"
+    ]
+  },
+  "nextIntegrationChecks": [
+    "换一台干净机器用同一 compose 复验（含代理配置），确认不是本机残留导致",
+    "V01-T03 生成同一套契约类型后，用 /api/ping 之外的契约端点做 Mock 与真实对比",
+    "V01-T04 的 accept.py 要把 verify.ps1 的 10 项纳入离线验收"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V01-T02"]
+}

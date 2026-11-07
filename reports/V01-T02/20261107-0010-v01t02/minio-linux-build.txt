@@ -1,0 +1,7 @@
+﻿MinIO Linux 二进制构建溯源
+tag=RELEASE.2025-10-15T17-29-55Z
+commit=9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a
+go=go1.27.3 windows/amd64 (CGO_ENABLED=0 GOOS=linux GOARCH=amd64)
+size=109310112
+sha256=1511a2b15f6513d10cf89d86f8a96e836dfb9bddf6e9c1f3e0c8d9e2cda1920a
+image=larder/minio:RELEASE.2025-10-15T17-29-55Z (FROM alpine:3.20@sha256:d9e853e8...)

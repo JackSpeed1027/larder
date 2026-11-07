@@ -1,0 +1,152 @@
+# Larder 单机部署拓扑（八服务）
+# - 只有 web 绑定宿主机，且只绑 127.0.0.1（docs/06 §2）
+# - 其余服务只在 compose 内部网络可达；开发期要直连请用 compose.override.yaml
+# - 镜像 digest 与 docs/versions.lock.json 对应；本文件不出现 latest
+name: larder
+
+services:
+  web:
+    build:
+      context: ./frontend
+    image: larder/web:0.1.0
+    ports:
+      - "127.0.0.1:8080:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+    restart: unless-stopped
+
+  api:
+    build:
+      context: ./backend
+    image: larder/api:0.1.0
+    environment:
+      LARDER_DB_HOST: mysql
+      LARDER_DB_PORT: "3306"
+      LARDER_DB_NAME: ${LARDER_DB_NAME:-larder}
+      LARDER_DB_USER: ${LARDER_DB_USER:-larder}
+      LARDER_DB_PASSWORD: ${LARDER_DB_PASSWORD:?set LARDER_DB_PASSWORD in .env}
+      LARDER_VERSION: ${LARDER_VERSION:-0.1.0}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    healthcheck:
+      # JRE 镜像没有 curl，用 bash 的 /dev/tcp 做端口级探针；业务就绪由 /actuator/health 另行验证
+      test: ["CMD-SHELL", "bash -c 'exec 3<>/dev/tcp/127.0.0.1/8080'"]
+      interval: 10s
+      timeout: 3s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  runner:
+    build:
+      context: ./runner
+    image: larder/runner:0.1.0
+    environment:
+      LARDER_RUNNER_JOURNAL_DIR: /var/lib/larder/journal
+      LARDER_RUNNER_MAX_CONCURRENT_RUNS: "2"
+    volumes:
+      - runner-journal:/var/lib/larder/journal
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8000/v1/health', timeout=3).status==200 else 1)"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:8.4.13@sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_0900_ai_ci
+      - --default-time-zone=+00:00
+    environment:
+      MYSQL_DATABASE: ${LARDER_DB_NAME:-larder}
+      MYSQL_USER: ${LARDER_DB_USER:-larder}
+      MYSQL_PASSWORD: ${LARDER_DB_PASSWORD:?set LARDER_DB_PASSWORD in .env}
+      MYSQL_ROOT_PASSWORD: ${LARDER_DB_ROOT_PASSWORD:?set LARDER_DB_ROOT_PASSWORD in .env}
+      TZ: UTC
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  redis:
+    image: redis:8.10.3@sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc
+    command: ["redis-server", "--save", "", "--appendonly", "no", "--maxmemory", "256mb", "--maxmemory-policy", "allkeys-lru"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+    restart: unless-stopped
+
+  rabbitmq:
+    image: rabbitmq:4.3.7-management@sha256:6e51f8f18e055d6dc3d94316db0073da64d811c2e19744661fae06b03c1d6fa8
+    environment:
+      RABBITMQ_DEFAULT_USER: ${LARDER_RABBITMQ_USER:-larder}
+      RABBITMQ_DEFAULT_PASS: ${LARDER_RABBITMQ_PASSWORD:?set LARDER_RABBITMQ_PASSWORD in .env}
+      TZ: UTC
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 15s
+      timeout: 10s
+      retries: 8
+      start_period: 30s
+    restart: unless-stopped
+
+  meili:
+    image: getmeili/meilisearch:v1.56.1@sha256:b7ba431bf6f9b26cc86132798f3640964147a699cf23f026b74c6c05dbb1d60d
+    environment:
+      MEILI_MASTER_KEY: ${LARDER_MEILI_MASTER_KEY:?set LARDER_MEILI_MASTER_KEY in .env}
+      MEILI_ENV: production
+      MEILI_NO_ANALYTICS: "true"
+      TZ: UTC
+    volumes:
+      - meili-data:/meili_data
+    healthcheck:
+      # Meilisearch 镜像没有 bash，用镜像自带的 busybox wget 打真实 /health
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:7700/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+      start_period: 10s
+    restart: unless-stopped
+
+  minio:
+    build:
+      context: ./infra/minio
+    image: larder/minio:RELEASE.2025-10-15T17-29-55Z
+    command: ["server", "/data", "--address", ":9000", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: ${LARDER_MINIO_ROOT_USER:-larder}
+      MINIO_ROOT_PASSWORD: ${LARDER_MINIO_ROOT_PASSWORD:?set LARDER_MINIO_ROOT_PASSWORD in .env}
+      TZ: UTC
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "-", "http://127.0.0.1:9000/minio/health/live"]
+      interval: 10s
+      timeout: 3s
+      retries: 6
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
+  rabbitmq-data:
+  meili-data:
+  minio-data:
+  runner-journal:

@@ -1,0 +1,31 @@
+[project]
+name = "larder-runner"
+version = "0.1.0"
+description = "Larder Runner：内容处理、模型调用与可恢复 run 的 Python 侧"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi==0.162.0",
+    "uvicorn==0.54.0",
+    "pydantic==2.14.3",
+    "pydantic-settings==2.16.2",
+    "httpx==0.28.1",
+]
+
+[dependency-groups]
+dev = [
+    "pytest==9.2.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = [
+    "live: 需要真实模型/外部服务的用例，默认不跑",
+]

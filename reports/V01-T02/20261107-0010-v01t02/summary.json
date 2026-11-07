@@ -1,0 +1,92 @@
+{
+  "taskId": "V01-T02",
+  "sliceId": "V01-T02.FULL",
+  "title": "八服务与工程骨架",
+  "result": "TASK_LOCAL_PASS",
+  "resultNote": "八服务全部 healthy，Web→API→MySQL 真实链路通过，Flyway 迁移在真实 MySQL 8.4 上执行成功；前端构建、Runner 健康检查、MinIO 容器运行均已验证。",
+  "round": "R1",
+  "runId": "20261107-0010-v01t02",
+  "startedAt": "2026-11-06T22:30:00+08:00",
+  "finishedAt": "2026-11-07T00:15:00+08:00",
+  "dependsOn": ["V01-T01"],
+  "contractRev": "f67dc0cea05b162017b2a061ae4d44b56f8d6be5042674ca473635cd6a36e9f9",
+  "environment": {
+    "os": "Windows 11 (10.0.26200)",
+    "java": "Temurin 21.0.12.1+1",
+    "maven": "3.9.11（mvnw 包装器，distributionUrl 固定 3.9.11）",
+    "node": "24.22.0（容器内 node:24-alpine）",
+    "pnpm": "11.25.0（容器内 npm i -g pnpm@11.25.0）",
+    "python": "3.12.15（容器内 python:3.12-slim）",
+    "docker": "29.9.2 / Docker Desktop 4.98.0（WSL2 后端）",
+    "go": "1.27.3（交叉编译 MinIO Linux 二进制）",
+    "proxyNote": "Docker Hub 直连被墙，Docker Desktop 配置 manual proxy 127.0.0.1:7890 后可用；配置备份见 settings-store.json.bak-v01t02 / daemon.json.bak-v01t02"
+  },
+  "deliverables": {
+    "backend": "backend/：Spring Boot 4.1.2 + MyBatis-Plus boot4 + Flyway 12 + /api/ping + actuator health",
+    "runner": "runner/：FastAPI + /ping + /v1/health + pytest 用例 + uv.lock",
+    "frontend": "frontend/：Vite 8 + React 19 + TS 7 + Tailwind 4 骨架页，nginx 反代 /api",
+    "compose": "compose.yaml（八服务，镜像全部按 digest 固定）+ compose.dev.yaml（开发端口）",
+    "env": ".env.example（LARDER_ 前缀）+ .env（本机生成，不入库）",
+    "infra": "infra/mysql/my.cnf（Linux 部署用）、infra/minio/Dockerfile（alpine + 源码构建二进制）",
+    "scripts": "scripts/dev/{up,down,verify,build-minio}.ps1",
+    "buildTools": "backend/mvnw 包装器、frontend/pnpm-lock.yaml、runner/uv.lock"
+  },
+  "commands": [
+    {
+      "command": "docker compose config --quiet",
+      "exitCode": 0,
+      "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-config.log"
+    },
+    {
+      "command": "docker compose build",
+      "exitCode": 0,
+      "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/build.log",
+      "note": "四个应用镜像：larder/api:0.1.0、larder/runner:0.1.0、larder/web:0.1.0、larder/minio:RELEASE.2025-10-15T17-29-55Z"
+    },
+    {
+      "command": "docker compose up -d --wait",
+      "exitCode": 0,
+      "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log",
+      "note": "八服务全部 healthy（mysql/redis/rabbitmq/meili/minio/api/runner/web）"
+    },
+    {
+      "command": "powershell -File scripts/dev/verify.ps1",
+      "exitCode": 0,
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0,
+      "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/verify.log",
+      "note": "含 web /healthz、web→api→mysql /api/ping、actuator health、runner health、minio live、flyway history、app_meta、meili、rabbitmq、redis"
+    },
+    {
+      "command": "backend/mvnw.cmd -B -DskipTests package",
+      "exitCode": 0,
+      "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/mvn-package.log",
+      "note": "产物 target/larder-backend-0.1.0-SNAPSHOT.jar（31 MB）"
+    },
+    {
+      "command": "go build（GOOS=linux）MinIO 二进制",
+      "exitCode": 0,
+      "evidence": "reports/V01-T02/20261107-0010-v01t02/minio-linux-build.txt",
+      "note": "sha256 1511a2b15f6513d10cf89d86f8a96e836dfb9bddf6e9c1f3e0c8d9e2cda1920a，109,310,112 B"
+    }
+  ],
+  "notRun": [
+    "后端单元测试：本任务未写测试类（V01-T03 生成契约 DTO 时补 controller/service 测试；V01-T04 的 accept.py 会要求测试存在）",
+    "Testcontainers 集成测试（V03 起需要）",
+    "前端 Vitest / 浏览器 E2E（F00 骨架任务）",
+    "对象存储读写（V02-T01 才接入 API）"
+  ],
+  "knownLimitations": [
+    "后端只验证了启动与一次迁移+查询，没有业务接口；ApiResponse 信封与错误码由 V01-T03 生成。",
+    "MySQL 的 my.cnf 在 Windows bind mount 下是 0777 会被忽略，字符集/时区走 command 参数；Linux 部署用 my.cnf（已在文件头注明）。",
+    "RabbitMQ/Meili/MinIO 目前只验证进程与健康检查，没有业务读写；Redis 未接缓存逻辑。",
+    "api 的 healthcheck 是端口级（JRE 镜像无 curl），业务就绪另由 /actuator/health 验证。",
+    "镜像摘要：应用镜像以本地构建 tag（0.1.0）为准，尚未推送仓库；基础镜像与中间件镜像已按 digest 固定。"
+  ],
+  "nextIntegrationChecks": [
+    "V01-T03：从 contracts/ 生成 Java DTO / Python 模型 / TS 类型与 Mock，并补契约用例",
+    "V01-T04：认证最小流程 + CI + scripts/accept.py（含无测试即失败）",
+    "V02-T01：内容模型与幂等（依赖本任务的 MySQL 迁移通道）"
+  ]
+}

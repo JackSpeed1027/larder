@@ -1,0 +1,244 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.84kB 0.0s done
+#1 DONE 0.0s
+
+#2 [runner internal] load build definition from Dockerfile
+#2 transferring dockerfile: 840B done
+#2 DONE 0.0s
+
+#3 [api internal] load build definition from Dockerfile
+#3 transferring dockerfile: 602B done
+#3 DONE 0.0s
+
+#4 [runner internal] load metadata for docker.io/library/python:3.12-slim@sha256:4840d514c583a4d3d8cad3940e68dee6f0f6f3635c12fcd0a3d74c21a5b93a54
+#4 DONE 0.0s
+
+#5 [api internal] load metadata for docker.io/library/eclipse-temurin:21-jre@sha256:0b99b3376fbb50dbf9c0af8535fdd5b8eb0d3fdfc8b1e4967f383b6919f6901a
+#5 DONE 0.0s
+
+#6 [web internal] load build definition from Dockerfile
+#6 transferring dockerfile: 646B done
+#6 DONE 0.1s
+
+#7 [web internal] load metadata for docker.io/library/node:24-alpine@sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8
+#7 DONE 0.0s
+
+#8 [web internal] load metadata for docker.io/library/nginx:1.29-alpine@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+#8 DONE 0.0s
+
+#9 [minio internal] load build definition from Dockerfile
+#9 transferring dockerfile: 634B done
+#9 DONE 0.1s
+
+#10 [api internal] load .dockerignore
+#10 transferring context: 195B done
+#10 DONE 0.1s
+
+#11 [minio internal] load metadata for docker.io/library/alpine:3.20@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc
+#11 DONE 0.0s
+
+#12 [runner internal] load .dockerignore
+#12 transferring context: 92B done
+#12 DONE 0.1s
+
+#13 [runner 1/5] FROM docker.io/library/python:3.12-slim@sha256:4840d514c583a4d3d8cad3940e68dee6f0f6f3635c12fcd0a3d74c21a5b93a54
+#13 DONE 0.0s
+
+#14 [web internal] load .dockerignore
+#14 transferring context: 89B done
+#14 DONE 0.1s
+
+#15 [api 1/3] FROM docker.io/library/eclipse-temurin:21-jre@sha256:0b99b3376fbb50dbf9c0af8535fdd5b8eb0d3fdfc8b1e4967f383b6919f6901a
+#15 DONE 0.0s
+
+#16 [minio internal] load .dockerignore
+#16 transferring context: 2B done
+#16 DONE 0.1s
+
+#17 [runner internal] load build context
+#17 transferring context: 125B done
+#17 DONE 0.0s
+
+#18 [api internal] load build context
+#18 transferring context: 90B done
+#18 DONE 0.0s
+
+#19 [api 2/3] WORKDIR /app
+#19 CACHED
+
+#20 [web build 1/7] FROM docker.io/library/node:24-alpine@sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8
+#20 DONE 0.0s
+
+#21 [web stage-1 1/3] FROM docker.io/library/nginx:1.29-alpine@sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de
+#21 DONE 0.0s
+
+#22 [api 3/3] COPY target/larder-backend-0.1.0-SNAPSHOT.jar /app/app.jar
+#22 CACHED
+
+#23 [runner 3/5] COPY pyproject.toml /app/pyproject.toml
+#23 CACHED
+
+#24 [runner 2/5] WORKDIR /app
+#24 CACHED
+
+#25 [runner 4/5] COPY app /app/app
+#25 CACHED
+
+#26 [minio 1/3] FROM docker.io/library/alpine:3.20@sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc
+#26 DONE 0.0s
+
+#27 [web internal] load build context
+#27 transferring context: 995B done
+#27 DONE 0.0s
+
+#28 [minio internal] load build context
+#28 transferring context: 41B done
+#28 DONE 0.1s
+
+#29 [api] exporting to image
+#29 exporting layers done
+#29 writing image sha256:70f7ee3574166b5f1eba3cbd1bee1b7084a644c6b07a3b7f9e6806b6349d0b70 done
+#29 naming to docker.io/larder/api:0.1.0 done
+#29 DONE 0.0s
+
+#30 [web build 4/7] COPY package.json pnpm-lock.yaml ./
+#30 CACHED
+
+#31 [web build 2/7] WORKDIR /app
+#31 CACHED
+
+#32 [web build 3/7] RUN npm install -g pnpm@11.25.0
+#32 CACHED
+
+#33 [web stage-1 2/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+#33 CACHED
+
+#34 [web build 5/7] RUN pnpm install --frozen-lockfile
+#34 CACHED
+
+#35 [minio 2/3] COPY minio-linux-amd64 /usr/local/bin/minio
+#35 CACHED
+
+#36 [minio 3/3] RUN chmod 0755 /usr/local/bin/minio
+#36 CACHED
+
+#37 [minio] exporting to image
+#37 exporting layers done
+#37 writing image sha256:9ef927498ee97a0d6ac401851d82306e939d1d937ae3871049b5ada692e3960e done
+#37 naming to docker.io/larder/minio:RELEASE.2025-10-15T17-29-55Z done
+#37 DONE 0.0s
+
+#38 [web build 6/7] COPY . .
+#38 DONE 0.2s
+
+#39 [api] resolving provenance for metadata file
+#39 DONE 0.0s
+
+#40 [minio] resolving provenance for metadata file
+#40 DONE 0.0s
+
+#41 [web build 7/7] RUN pnpm build
+#41 1.440 $ tsc --noEmit && vite build
+#41 2.301 vite v8.3.6 building client environment for production...
+#41 2.328 transforming...
+#41 2.461 ✓ 16 modules transformed.
+#41 2.507 rendering chunks...
+#41 2.565 computing gzip size...
+#41 2.570 dist/index.html                   0.40 kB │ gzip:  0.28 kB
+#41 2.570 dist/assets/index-CaTrnG1X.css    6.47 kB │ gzip:  2.21 kB
+#41 2.570 dist/assets/index-C0Vb5Iv8.js   220.97 kB │ gzip: 69.28 kB
+#41 2.570 
+#41 2.571 ✓ built in 264ms
+#41 DONE 2.7s
+
+#42 [web stage-1 3/3] COPY --from=build /app/dist /usr/share/nginx/html
+#42 DONE 0.1s
+
+#43 [runner 5/5] RUN pip install --no-cache-dir         fastapi==0.162.0         uvicorn==0.54.0         pydantic==2.14.3         pydantic-settings==2.16.2         httpx==0.28.1
+#43 ...
+
+#44 [web] exporting to image
+#44 exporting layers 0.1s done
+#44 writing image sha256:b298341e5d2b7ee433f03e3f24cff1d5c06c2467ab375a352529c110de577ddc done
+#44 naming to docker.io/larder/web:0.1.0 done
+#44 DONE 0.1s
+
+#45 [web] resolving provenance for metadata file
+#45 DONE 0.1s
+
+#43 [runner 5/5] RUN pip install --no-cache-dir         fastapi==0.162.0         uvicorn==0.54.0         pydantic==2.14.3         pydantic-settings==2.16.2         httpx==0.28.1
+#43 3.321 Collecting fastapi==0.162.0
+#43 3.908   Downloading fastapi-0.162.0-py3-none-any.whl.metadata (26 kB)
+#43 4.634 Collecting uvicorn==0.54.0
+#43 4.737   Downloading uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+#43 5.864 Collecting pydantic==2.14.3
+#43 6.011   Downloading pydantic-2.14.3-py3-none-any.whl.metadata (141 kB)
+#43 6.663 Collecting pydantic-settings==2.16.2
+#43 6.769   Downloading pydantic_settings-2.16.2-py3-none-any.whl.metadata (4.0 kB)
+#43 7.057 Collecting httpx==0.28.1
+#43 7.145   Downloading httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+#43 7.391 Collecting starlette>=0.46.0 (from fastapi==0.162.0)
+#43 7.515   Downloading starlette-1.10.0-py3-none-any.whl.metadata (6.6 kB)
+#43 7.806 Collecting typing-extensions>=4.8.0 (from fastapi==0.162.0)
+#43 7.923   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+#43 8.058 Collecting typing-inspection>=0.4.2 (from fastapi==0.162.0)
+#43 9.303   Downloading typing_inspection-0.4.5-py3-none-any.whl.metadata (2.6 kB)
+#43 9.404 Collecting annotated-doc>=0.0.2 (from fastapi==0.162.0)
+#43 9.498   Downloading annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+#43 9.661 Collecting opentelemetry-api>=1.44.0 (from fastapi==0.162.0)
+#43 9.757   Downloading opentelemetry_api-1.45.2-py3-none-any.whl.metadata (1.4 kB)
+#43 9.987 Collecting click>=7.0 (from uvicorn==0.54.0)
+#43 10.07   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+#43 10.21 Collecting h11>=0.8 (from uvicorn==0.54.0)
+#43 11.29   Downloading h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+#43 11.42 Collecting annotated-types>=0.6.0 (from pydantic==2.14.3)
+#43 11.55   Downloading annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+#43 16.68 Collecting pydantic-core==2.50.4 (from pydantic==2.14.3)
+#43 16.81   Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (6.6 kB)
+#43 16.95 Collecting python-dotenv>=1.2.2 (from pydantic-settings==2.16.2)
+#43 17.07   Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+#43 17.22 Collecting anyio (from httpx==0.28.1)
+#43 17.31   Downloading anyio-4.16.0-py3-none-any.whl.metadata (4.7 kB)
+#43 17.44 Collecting certifi (from httpx==0.28.1)
+#43 17.54   Downloading certifi-2026.10.23-py3-none-any.whl.metadata (2.5 kB)
+#43 17.66 Collecting httpcore==1.* (from httpx==0.28.1)
+#43 17.75   Downloading httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+#43 17.86 Collecting idna (from httpx==0.28.1)
+#43 17.94   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+#43 18.10 Downloading fastapi-0.162.0-py3-none-any.whl (148 kB)
+#43 18.25 Downloading uvicorn-0.54.0-py3-none-any.whl (87 kB)
+#43 18.35 Downloading pydantic-2.14.3-py3-none-any.whl (494 kB)
+#43 18.61 Downloading pydantic_settings-2.16.2-py3-none-any.whl (81 kB)
+#43 18.71 Downloading httpx-0.28.1-py3-none-any.whl (73 kB)
+#43 18.81 Downloading httpcore-1.0.9-py3-none-any.whl (78 kB)
+#43 18.93 Downloading pydantic_core-2.50.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (2.3 MB)
+#43 19.38    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.3/2.3 MB 5.3 MB/s eta 0:00:00
+#43 19.47 Downloading annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+#43 19.59 Downloading annotated_types-0.8.0-py3-none-any.whl (13 kB)
+#43 19.67 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+#43 19.84 Downloading h11-0.16.0-py3-none-any.whl (37 kB)
+#43 19.95 Downloading opentelemetry_api-1.45.2-py3-none-any.whl (60 kB)
+#43 20.07 Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+#43 20.21 Downloading starlette-1.10.0-py3-none-any.whl (80 kB)
+#43 20.32 Downloading anyio-4.16.0-py3-none-any.whl (134 kB)
+#43 20.47 Downloading idna-3.20-py3-none-any.whl (69 kB)
+#43 20.59 Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+#43 20.70 Downloading typing_inspection-0.4.5-py3-none-any.whl (14 kB)
+#43 20.81 Downloading certifi-2026.10.23-py3-none-any.whl (135 kB)
+#43 20.89 Installing collected packages: typing-extensions, python-dotenv, idna, h11, click, certifi, annotated-types, annotated-doc, uvicorn, typing-inspection, pydantic-core, opentelemetry-api, httpcore, anyio, starlette, pydantic, httpx, pydantic-settings, fastapi
+#43 22.53 Successfully installed annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.16.0 certifi-2026.10.23 click-8.5.0 fastapi-0.162.0 h11-0.16.0 httpcore-1.0.9 httpx-0.28.1 idna-3.20 opentelemetry-api-1.45.2 pydantic-2.14.3 pydantic-core-2.50.4 pydantic-settings-2.16.2 python-dotenv-1.2.4 starlette-1.10.0 typing-extensions-4.16.0 typing-inspection-0.4.5 uvicorn-0.54.0
+#43 22.53 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+#43 23.44 
+#43 23.44 [notice] A new release of pip is available: 25.0.1 -> 26.3
+#43 23.44 [notice] To update, run: pip install --upgrade pip
+#43 DONE 23.7s
+
+#46 [runner] exporting to image
+#46 exporting layers
+#46 exporting layers 0.3s done
+#46 writing image sha256:619a941af4019a4fd6277b199b55c3248b0e694188c478286d7c94a98ff6b06b done
+#46 naming to docker.io/larder/runner:0.1.0 done
+#46 DONE 0.3s
+
+#47 [runner] resolving provenance for metadata file
+#47 DONE 0.0s

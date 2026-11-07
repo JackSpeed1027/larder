@@ -1,0 +1,19 @@
+﻿[PASS] web /healthz: ok
+[PASS] web -> api -> mysql (/api/ping): service=larder-api version=0.1.0 schemaVersion=V1
+[PASS] api /actuator/health: UP
+[PASS] runner /v1/health: version=0.1.0 protocol=v1
+[PASS] minio /minio/health/live: live
+powershell.exe : mysql: [Warning] Using a password on the command line interface can be insecure.
+所在位置 行:12 字符: 1
++ & powershell -NoProfile -ExecutionPolicy Bypass -File "$p\scripts\dev ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (mysql: [Warning...an be insecure.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[PASS] mysql flyway history: 1	1
+mysql: [Warning] Using a password on the command line interface can be insecure.
+[PASS] mysql app_meta row: schema_version=V1
+[PASS] meili /health: available
+[PASS] rabbitmq ping: pong
+[PASS] redis ping: PONG
+ALL CHECKS PASSED

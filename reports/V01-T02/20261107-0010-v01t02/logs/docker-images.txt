@@ -1,0 +1,15 @@
+﻿larder/runner:0.1.0	619a941af401	138MB
+larder/web:0.1.0	b298341e5d2b	62.4MB
+larder/minio:RELEASE.2025-10-15T17-29-55Z	9ef927498ee9	226MB
+larder/api:0.1.0	70f7ee357416	351MB
+node:24-alpine	e01e5017b062	172MB
+python:3.12-slim	78976a69c067	119MB
+redis:8.10.3	978293674c6b	146MB
+debian:bookworm-slim	43f84a0b210f	74.9MB
+mysql:8.4.13	0f1a0ccadda3	810MB
+getmeili/meilisearch:v1.56.1	afc4a96adc5c	375MB
+eclipse-temurin:21-jre	3cfdbb0f75d1	320MB
+rabbitmq:4.3.7-management	a49000f3e62b	251MB
+alpine:3.20	bf8527eb54c3	7.81MB
+nginx:1.29-alpine	812d47f806db	62.2MB
+docker/welcome-to-docker:latest	6caf772f5178	14.1MB
