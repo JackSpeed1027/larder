@@ -1,0 +1,10 @@
+{
+    "name":  "httpx",
+    "version":  "0.28.1",
+    "requiresPython":  "\u003e=3.8",
+    "license":  "BSD-3-Clause",
+    "licenseExpression":  null,
+    "summary":  "The next generation HTTP client.",
+    "uploadTime":  "2024-12-06T15:37:21.509172Z",
+    "sourceUrl":  "https://pypi.org/pypi/httpx/json"
+}

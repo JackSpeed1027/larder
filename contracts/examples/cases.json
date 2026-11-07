@@ -1,0 +1,27 @@
+[
+  {
+    "file": "valid-ingest.json",
+    "schema": "run-request.schema.json",
+    "valid": true
+  },
+  {
+    "file": "invalid-extra-field.json",
+    "schema": "run-request.schema.json",
+    "valid": false
+  },
+  {
+    "file": "invalid-mode-input.json",
+    "schema": "run-request.schema.json",
+    "valid": false
+  },
+  {
+    "file": "invalid-budget.json",
+    "schema": "run-request.schema.json",
+    "valid": false
+  },
+  {
+    "file": "journal-golden.json",
+    "schema": "journal-record.schema.json",
+    "valid": true
+  }
+]

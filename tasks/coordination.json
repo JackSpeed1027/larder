@@ -1,0 +1,335 @@
+{
+  "version": "agent-playbook-v3",
+  "coreTaskCount": 48,
+  "labTaskCount": 8,
+  "roundCount": 4,
+  "versionsPerRound": 3,
+  "applicationImplemented": false,
+  "roles": {
+    "C": "Coordinator",
+    "B": "Backend",
+    "R": "Runner",
+    "W": "Web",
+    "Q": "QA"
+  },
+  "taskStates": [
+    "PLANNED",
+    "IN_PROGRESS",
+    "READY_FOR_INTEGRATION",
+    "VERIFYING",
+    "DONE",
+    "BLOCKED"
+  ],
+  "rounds": [
+    {
+      "id": "R1",
+      "versions": [
+        "V01",
+        "V02",
+        "V03"
+      ],
+      "coreTasks": [
+        "V01-T01",
+        "V01-T02",
+        "V01-T03",
+        "V01-T04",
+        "V02-T01",
+        "V02-T02",
+        "V02-T03",
+        "V02-T04",
+        "V03-T01",
+        "V03-T02",
+        "V03-T03",
+        "V03-T04"
+      ],
+      "entryGate": null,
+      "contractGate": "R1-CONTRACT",
+      "exitGate": "R1-ACCEPTED"
+    },
+    {
+      "id": "R2",
+      "versions": [
+        "V04",
+        "V05",
+        "V06"
+      ],
+      "coreTasks": [
+        "V04-T01",
+        "V04-T02",
+        "V04-T03",
+        "V04-T04",
+        "V05-T01",
+        "V05-T02",
+        "V05-T03",
+        "V05-T04",
+        "V06-T01",
+        "V06-T02",
+        "V06-T03",
+        "V06-T04"
+      ],
+      "entryGate": "R1-ACCEPTED",
+      "contractGate": "R2-CONTRACT",
+      "exitGate": "R2-ACCEPTED"
+    },
+    {
+      "id": "R3",
+      "versions": [
+        "V07",
+        "V08",
+        "V09"
+      ],
+      "coreTasks": [
+        "V07-T01",
+        "V07-T02",
+        "V07-T03",
+        "V07-T04",
+        "V08-T01",
+        "V08-T02",
+        "V08-T03",
+        "V08-T04",
+        "V09-T01",
+        "V09-T02",
+        "V09-T03",
+        "V09-T04"
+      ],
+      "entryGate": "R2-ACCEPTED",
+      "contractGate": "R3-CONTRACT",
+      "exitGate": "R3-ACCEPTED"
+    },
+    {
+      "id": "R4",
+      "versions": [
+        "V10",
+        "V11",
+        "V12"
+      ],
+      "coreTasks": [
+        "V10-T01",
+        "V10-T02",
+        "V10-T03",
+        "V10-T04",
+        "V11-T01",
+        "V11-T02",
+        "V11-T03",
+        "V11-T04",
+        "V12-T01",
+        "V12-T02",
+        "V12-T03",
+        "V12-T04"
+      ],
+      "entryGate": "R3-ACCEPTED",
+      "contractGate": "R4-CONTRACT",
+      "exitGate": "R4-ACCEPTED"
+    }
+  ],
+  "gates": [
+    {
+      "id": "R1-CONTRACT",
+      "kind": "CONTRACT",
+      "dependsOnGates": [],
+      "dependsOnTasks": [
+        "V01-T03"
+      ],
+      "evidenceRequired": [
+        "contractRev",
+        "designRev",
+        "consumerImpact",
+        "fixtures",
+        "reviewReport"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": "R1-ACCEPTED",
+      "kind": "ROUND",
+      "dependsOnGates": [
+        "R1-CONTRACT"
+      ],
+      "dependsOnTasks": [
+        "V01-T01",
+        "V01-T02",
+        "V01-T03",
+        "V01-T04",
+        "V02-T01",
+        "V02-T02",
+        "V02-T03",
+        "V02-T04",
+        "V03-T01",
+        "V03-T02",
+        "V03-T03",
+        "V03-T04"
+      ],
+      "evidenceRequired": [
+        "integratedBaseline",
+        "versionReports",
+        "crossFeatureChecks",
+        "frontendStates",
+        "knownLimitations"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": "R2-CONTRACT",
+      "kind": "CONTRACT",
+      "dependsOnGates": [
+        "R1-ACCEPTED"
+      ],
+      "dependsOnTasks": [],
+      "evidenceRequired": [
+        "contractRev",
+        "designRev",
+        "consumerImpact",
+        "fixtures",
+        "reviewReport"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": "R2-ACCEPTED",
+      "kind": "ROUND",
+      "dependsOnGates": [
+        "R2-CONTRACT"
+      ],
+      "dependsOnTasks": [
+        "V04-T01",
+        "V04-T02",
+        "V04-T03",
+        "V04-T04",
+        "V05-T01",
+        "V05-T02",
+        "V05-T03",
+        "V05-T04",
+        "V06-T01",
+        "V06-T02",
+        "V06-T03",
+        "V06-T04"
+      ],
+      "evidenceRequired": [
+        "integratedBaseline",
+        "versionReports",
+        "crossFeatureChecks",
+        "frontendStates",
+        "knownLimitations"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": "R3-CONTRACT",
+      "kind": "CONTRACT",
+      "dependsOnGates": [
+        "R2-ACCEPTED"
+      ],
+      "dependsOnTasks": [],
+      "evidenceRequired": [
+        "contractRev",
+        "designRev",
+        "consumerImpact",
+        "fixtures",
+        "reviewReport"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": "R3-ACCEPTED",
+      "kind": "ROUND",
+      "dependsOnGates": [
+        "R3-CONTRACT"
+      ],
+      "dependsOnTasks": [
+        "V07-T01",
+        "V07-T02",
+        "V07-T03",
+        "V07-T04",
+        "V08-T01",
+        "V08-T02",
+        "V08-T03",
+        "V08-T04",
+        "V09-T01",
+        "V09-T02",
+        "V09-T03",
+        "V09-T04"
+      ],
+      "evidenceRequired": [
+        "integratedBaseline",
+        "versionReports",
+        "crossFeatureChecks",
+        "frontendStates",
+        "knownLimitations"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": "R4-CONTRACT",
+      "kind": "CONTRACT",
+      "dependsOnGates": [
+        "R3-ACCEPTED"
+      ],
+      "dependsOnTasks": [],
+      "evidenceRequired": [
+        "contractRev",
+        "designRev",
+        "consumerImpact",
+        "fixtures",
+        "reviewReport"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "id": "R4-ACCEPTED",
+      "kind": "ROUND",
+      "dependsOnGates": [
+        "R4-CONTRACT"
+      ],
+      "dependsOnTasks": [
+        "V10-T01",
+        "V10-T02",
+        "V10-T03",
+        "V10-T04",
+        "V11-T01",
+        "V11-T02",
+        "V11-T03",
+        "V11-T04",
+        "V12-T01",
+        "V12-T02",
+        "V12-T03",
+        "V12-T04"
+      ],
+      "evidenceRequired": [
+        "integratedBaseline",
+        "versionReports",
+        "crossFeatureChecks",
+        "frontendStates",
+        "knownLimitations"
+      ],
+      "status": "PENDING"
+    }
+  ],
+  "sharedOwner": "C",
+  "sharedResources": [
+    "contracts",
+    "migration-registry",
+    "root-build-and-locks",
+    "root-compose-and-ci",
+    "frontend:design-system",
+    "frontend:routes",
+    "frontend:query-keys",
+    "runtime:public-models"
+  ],
+  "claimPolicy": {
+    "heartbeatStaleMinutes": 30,
+    "automaticReclaim": false,
+    "requiresOldWriterStopped": true
+  },
+  "releasePolicy": {
+    "productGate": "R4-ACCEPTED",
+    "fullLearningGoalRequiresLabs": true,
+    "publicPublishAuthorized": false
+  },
+  "stateExample": {
+    "version": "agent-playbook-v3",
+    "baseline": "<真实集成manifest sha256>",
+    "tasks": {},
+    "gates": {},
+    "claims": []
+  }
+}

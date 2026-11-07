@@ -1,0 +1,10 @@
+{
+    "name":  "starlette",
+    "version":  "1.10.0",
+    "requiresPython":  "\u003e=3.11",
+    "license":  null,
+    "licenseExpression":  "BSD-3-Clause",
+    "summary":  "The little ASGI library that shines.",
+    "uploadTime":  "2026-10-24T15:04:10.371825Z",
+    "sourceUrl":  "https://pypi.org/pypi/starlette/json"
+}

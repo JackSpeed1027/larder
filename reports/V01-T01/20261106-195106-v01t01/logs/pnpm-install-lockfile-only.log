@@ -1,0 +1,67 @@
+Progress: resolved 1, reused 0, downloaded 0, added 0
+Progress: resolved 2, reused 0, downloaded 0, added 0
+Progress: resolved 3, reused 0, downloaded 0, added 0
+Progress: resolved 6, reused 0, downloaded 0, added 0
+Progress: resolved 7, reused 0, downloaded 0, added 0
+[WARN] Request took 11179ms: https://registry.npmjs.org/vite
+Progress: resolved 8, reused 0, downloaded 0, added 0
+[WARN] Request took 11291ms: https://registry.npmjs.org/tailwindcss
+[WARN] Request took 13180ms: https://registry.npmjs.org/@types%2Freact-dom
+Progress: resolved 9, reused 0, downloaded 0, added 0
+[WARN] Request took 11487ms: https://registry.npmjs.org/@tailwindcss%2Fvite
+Progress: resolved 10, reused 0, downloaded 0, added 0
+[WARN] Request took 20993ms: https://registry.npmjs.org/react-dom
+[WARN] Request took 10100ms: https://registry.npmjs.org/tailwindcss
+Progress: resolved 11, reused 0, downloaded 0, added 0
+[WARN] Request took 23508ms: https://registry.npmjs.org/react
+[WARN] Request took 23677ms: https://registry.npmjs.org/pnpm
+
+   ╭────────────────────────────────────────────────────────────────────────╮
+   │                                                                        │
+   │                  Update available! 11.25.0 → 12.18.0.                  │
+   │                  Changelog: https://pnpm.io/v/12.18.0                  │
+   │   To update, run: Invoke-WebRequest https://get.pnpm.io/install.ps1    │
+   │                 -UseBasicParsing | Invoke-Expression                   │
+   │                                                                        │
+   ╰────────────────────────────────────────────────────────────────────────╯
+
+Progress: resolved 12, reused 0, downloaded 0, added 0
+[WARN] Request took 56097ms: https://registry.npmjs.org/react-dom
+Progress: resolved 13, reused 0, downloaded 0, added 0
+Progress: resolved 14, reused 0, downloaded 0, added 0
+Progress: resolved 17, reused 0, downloaded 0, added 0
+Progress: resolved 33, reused 0, downloaded 0, added 0
+Progress: resolved 42, reused 0, downloaded 0, added 0
+Progress: resolved 51, reused 0, downloaded 0, added 0
+Progress: resolved 55, reused 0, downloaded 0, added 0
+Progress: resolved 56, reused 0, downloaded 0, added 0
+[WARN] Request took 13697ms: https://registry.npmjs.org/scheduler
+[WARN] Request took 15827ms: https://registry.npmjs.org/@tailwindcss%2Foxide
+Progress: resolved 57, reused 0, downloaded 0, added 0
+Progress: resolved 58, reused 0, downloaded 0, added 0
+Progress: resolved 61, reused 0, downloaded 0, added 0
+Progress: resolved 77, reused 0, downloaded 0, added 0
+Progress: resolved 81, reused 0, downloaded 0, added 0
+Progress: resolved 83, reused 0, downloaded 0, added 0
+Progress: resolved 88, reused 0, downloaded 0, added 0
+Progress: resolved 90, reused 0, downloaded 0, added 0
+Progress: resolved 99, reused 0, downloaded 0, added 0
+Progress: resolved 101, reused 0, downloaded 0, added 0
+Progress: resolved 103, reused 0, downloaded 0, added 0
+Progress: resolved 105, reused 0, downloaded 0, added 0
+[WARN] Request took 10670ms: https://registry.npmjs.org/@tailwindcss%2Foxide-win32-x64-msvc
+Progress: resolved 106, reused 0, downloaded 0, added 0
+[WARN] Request took 11261ms: https://registry.npmjs.org/@tailwindcss%2Foxide-freebsd-x64
+Progress: resolved 107, reused 0, downloaded 0, added 0
+[WARN] Request took 12458ms: https://registry.npmjs.org/@tailwindcss%2Foxide-linux-arm64-gnu
+[WARN] Request took 12900ms: https://registry.npmjs.org/@tailwindcss%2Foxide-linux-arm-gnueabihf
+Progress: resolved 109, reused 0, downloaded 0, added 0
+[WARN] Request took 13432ms: https://registry.npmjs.org/@tailwindcss%2Foxide-linux-x64-musl
+Progress: resolved 110, reused 0, downloaded 0, added 0
+[WARN] Request took 16583ms: https://registry.npmjs.org/@tailwindcss%2Foxide-wasm32-wasi
+Progress: resolved 111, reused 0, downloaded 0, added 0
+Progress: resolved 114, reused 0, downloaded 0, added 0
+Progress: resolved 116, reused 0, downloaded 0, added 0
+Progress: resolved 116, reused 0, downloaded 0, added 0, done
+
+Done in 2m 2.3s using pnpm v11.25.0

@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="F01 资料库线框"><title>F01 资料库线框</title>
+<style>text{font-family:Segoe UI,Microsoft YaHei,sans-serif;fill:#182230}.muted{fill:#526173}.blue{fill:#1D4ED8}.white{fill:white}</style>
+<rect x="0" y="0" width="1440" height="900" rx="0" fill="#F7F8FA" stroke="#D8DEE8"/>
+<rect x="0" y="0" width="216" height="900" rx="0" fill="#FFFFFF" stroke="#D8DEE8"/>
+<rect x="216" y="0" width="1224" height="56" rx="0" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="18" y="35" font-size="21" font-weight="600" class="">Larder  拾藏</text>
+<rect x="8" y="68" width="200" height="40" rx="6" fill="#E8EEFC" stroke="none"/>
+<text x="20" y="93" font-size="14" font-weight="400" class="blue">资料库</text>
+<text x="20" y="141" font-size="14" font-weight="400" class="">搜索</text>
+<text x="20" y="189" font-size="14" font-weight="400" class="">Agent</text>
+<text x="20" y="237" font-size="14" font-weight="400" class="">学习</text>
+<text x="20" y="285" font-size="14" font-weight="400" class="">任务</text>
+<text x="20" y="333" font-size="14" font-weight="400" class="">集合</text>
+<text x="20" y="381" font-size="14" font-weight="400" class="">标签</text>
+<text x="20" y="810" font-size="14" font-weight="400" class="muted">回收站</text>
+<text x="20" y="856" font-size="14" font-weight="400" class="muted">设置</text>
+<text x="240" y="35" font-size="13" font-weight="400" class="muted">DESIGN  /  本地原创线框 · 非已实现产品</text>
+<rect x="1296" y="8" width="120" height="40" rx="8" fill="#1D4ED8" stroke="#D8DEE8"/>
+<text x="1312" y="34" font-size="14" font-weight="400" class="white">保存内容</text>
+<text x="240" y="112" font-size="26" font-weight="600" class="">资料库</text>
+<text x="240" y="144" font-size="14" font-weight="400" class="muted">保存、阅读与组织你的资料。示例数据，不代表实际数量。</text>
+<rect x="240" y="176" width="140" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="256" y="202" font-size="14" font-weight="400" class="">类型：全部</text>
+<rect x="392" y="176" width="140" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="408" y="202" font-size="14" font-weight="400" class="">状态：全部</text>
+<rect x="544" y="176" width="112" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="560" y="202" font-size="14" font-weight="400" class="">标签</text>
+<rect x="668" y="176" width="112" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="684" y="202" font-size="14" font-weight="400" class="">集合</text>
+<rect x="1200" y="176" width="216" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="1216" y="202" font-size="14" font-weight="400" class="">最近保存</text>
+<rect x="240" y="240" width="1176" height="504" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<rect x="264" y="264" width="40" height="40" rx="8" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="276" y="290" font-size="15" font-weight="400" class="muted">1</text>
+<text x="324" y="280" font-size="18" font-weight="600" class="">Outbox 与可靠异步任务</text>
+<text x="324" y="307" font-size="13" font-weight="400" class="muted">网页 · engineering.example · 今天</text>
+<text x="324" y="330" font-size="12" font-weight="400" class="blue">工程实践   /   待读</text>
+<rect x="1240" y="270" width="96" height="28" rx="14" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="1256" y="289" font-size="12" font-weight="400" class="">可阅读</text>
+<text x="1372" y="289" font-size="15" font-weight="400" class="">•••</text>
+<path d="M264 344H1392" stroke="#D8DEE8"/>
+<rect x="264" y="360" width="40" height="40" rx="8" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="276" y="386" font-size="15" font-weight="400" class="muted">2</text>
+<text x="324" y="376" font-size="18" font-weight="600" class="">构建可信的个人知识索引</text>
+<text x="324" y="403" font-size="13" font-weight="400" class="muted">PDF · 示例资料 · 今天</text>
+<text x="324" y="426" font-size="12" font-weight="400" class="blue">工程实践   /   待读</text>
+<rect x="1240" y="366" width="96" height="28" rx="14" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="1256" y="385" font-size="12" font-weight="400" class="">索引中</text>
+<text x="1372" y="385" font-size="15" font-weight="400" class="">•••</text>
+<path d="M264 440H1392" stroke="#D8DEE8"/>
+<rect x="264" y="456" width="40" height="40" rx="8" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="276" y="482" font-size="15" font-weight="400" class="muted">3</text>
+<text x="324" y="472" font-size="18" font-weight="600" class="">工具调用与人工审批边界</text>
+<text x="324" y="499" font-size="13" font-weight="400" class="muted">粘贴文本 · 昨天</text>
+<text x="324" y="522" font-size="12" font-weight="400" class="blue">工程实践   /   待读</text>
+<rect x="1240" y="462" width="96" height="28" rx="14" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="1256" y="481" font-size="12" font-weight="400" class="">可阅读</text>
+<text x="1372" y="481" font-size="15" font-weight="400" class="">•••</text>
+<path d="M264 536H1392" stroke="#D8DEE8"/>
+<rect x="264" y="552" width="40" height="40" rx="8" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="276" y="578" font-size="15" font-weight="400" class="muted">4</text>
+<text x="324" y="568" font-size="18" font-weight="600" class="">学习：间隔复习算法</text>
+<text x="324" y="595" font-size="13" font-weight="400" class="muted">网页 · study.example · 昨天</text>
+<text x="324" y="618" font-size="12" font-weight="400" class="blue">工程实践   /   待读</text>
+<rect x="1240" y="558" width="96" height="28" rx="14" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="1256" y="577" font-size="12" font-weight="400" class="">待处理</text>
+<text x="1372" y="577" font-size="15" font-weight="400" class="">•••</text>
+<path d="M264 632H1392" stroke="#D8DEE8"/>
+<rect x="264" y="648" width="40" height="40" rx="8" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="276" y="674" font-size="15" font-weight="400" class="muted">5</text>
+<text x="324" y="664" font-size="18" font-weight="600" class="">上下文压缩与事实快照</text>
+<text x="324" y="691" font-size="13" font-weight="400" class="muted">字幕 · 示例视频 · 11月3日</text>
+<text x="324" y="714" font-size="12" font-weight="400" class="blue">工程实践   /   待读</text>
+<rect x="1240" y="654" width="96" height="28" rx="14" fill="#EFF3F8" stroke="#D8DEE8"/>
+<text x="1256" y="673" font-size="12" font-weight="400" class="">需处理</text>
+<text x="1372" y="673" font-size="15" font-weight="400" class="">•••</text>
+<text x="240" y="785" font-size="13" font-weight="400" class="muted">每页 20 条  ·  按后端游标翻页，不展示虚假总数</text>
+<rect x="1200" y="760" width="100" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="1216" y="786" font-size="14" font-weight="400" class="">上一页</text>
+<rect x="1312" y="760" width="104" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="1328" y="786" font-size="14" font-weight="400" class="">下一页</text>
+<text x="240" y="850" font-size="14" font-weight="400" class="muted">约束：侧栏216 / 顶栏56 / 行高至少88 / 主内容padding24 / error与empty不同</text></svg>

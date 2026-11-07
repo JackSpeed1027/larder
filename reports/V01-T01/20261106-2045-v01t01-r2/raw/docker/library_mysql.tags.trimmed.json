@@ -1,0 +1,310 @@
+[
+    {
+        "tag":  "8.4.13-oraclelinux9",
+        "digest":  "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+        "lastUpdated":  "2026-11-03T02:02:56.996098Z",
+        "fullSize":  238256607,
+        "amd64Digest":  "sha256:72c368d898861f3b3a07af0e6d690400f44f048799ed46822783d9224cc2c86d"
+    },
+    {
+        "tag":  "8.4.13-oracle",
+        "digest":  "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+        "lastUpdated":  "2026-11-03T02:02:55.016217Z",
+        "fullSize":  238256607,
+        "amd64Digest":  "sha256:72c368d898861f3b3a07af0e6d690400f44f048799ed46822783d9224cc2c86d"
+    },
+    {
+        "tag":  "8.4.13",
+        "digest":  "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+        "lastUpdated":  "2026-11-03T02:02:53.12058Z",
+        "fullSize":  238256607,
+        "amd64Digest":  "sha256:72c368d898861f3b3a07af0e6d690400f44f048799ed46822783d9224cc2c86d"
+    },
+    {
+        "tag":  "8.4-oraclelinux9",
+        "digest":  "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+        "lastUpdated":  "2026-11-03T02:02:51.178121Z",
+        "fullSize":  238256607,
+        "amd64Digest":  "sha256:72c368d898861f3b3a07af0e6d690400f44f048799ed46822783d9224cc2c86d"
+    },
+    {
+        "tag":  "8.4-oracle",
+        "digest":  "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+        "lastUpdated":  "2026-11-03T02:02:49.151293Z",
+        "fullSize":  238256607,
+        "amd64Digest":  "sha256:72c368d898861f3b3a07af0e6d690400f44f048799ed46822783d9224cc2c86d"
+    },
+    {
+        "tag":  "8.4",
+        "digest":  "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+        "lastUpdated":  "2026-11-03T02:02:47.001626Z",
+        "fullSize":  238256607,
+        "amd64Digest":  "sha256:72c368d898861f3b3a07af0e6d690400f44f048799ed46822783d9224cc2c86d"
+    },
+    {
+        "tag":  "8.4.11-oraclelinux9",
+        "digest":  "sha256:0f51e63e537a1f176423fa03ef559aabe6fa4372a53160a44bc7e75da7d15364",
+        "lastUpdated":  "2026-10-19T23:02:57.151798Z",
+        "fullSize":  238271081,
+        "amd64Digest":  "sha256:6f3a50835c54d61ffdcf78d71381ba268c27804cd96755231d2fd6f180f822f0"
+    },
+    {
+        "tag":  "8.4.11-oracle",
+        "digest":  "sha256:0f51e63e537a1f176423fa03ef559aabe6fa4372a53160a44bc7e75da7d15364",
+        "lastUpdated":  "2026-10-19T23:02:55.25967Z",
+        "fullSize":  238271081,
+        "amd64Digest":  "sha256:6f3a50835c54d61ffdcf78d71381ba268c27804cd96755231d2fd6f180f822f0"
+    },
+    {
+        "tag":  "8.4.11",
+        "digest":  "sha256:0f51e63e537a1f176423fa03ef559aabe6fa4372a53160a44bc7e75da7d15364",
+        "lastUpdated":  "2026-10-19T23:02:53.335134Z",
+        "fullSize":  238271081,
+        "amd64Digest":  "sha256:6f3a50835c54d61ffdcf78d71381ba268c27804cd96755231d2fd6f180f822f0"
+    },
+    {
+        "tag":  "8.4.10-oraclelinux9",
+        "digest":  "sha256:8dbcf531a03aade657e181b9cf2f1d1803ce621a1d55610cb44cb531ab7d7db6",
+        "lastUpdated":  "2026-07-24T02:02:32.585078Z",
+        "fullSize":  238952505,
+        "amd64Digest":  "sha256:870634c634aae968ea1a93e5c094a14e00c692da2ee9bed956b3dfcc7bd08cb0"
+    },
+    {
+        "tag":  "8.4.10-oracle",
+        "digest":  "sha256:8dbcf531a03aade657e181b9cf2f1d1803ce621a1d55610cb44cb531ab7d7db6",
+        "lastUpdated":  "2026-07-24T02:02:30.563858Z",
+        "fullSize":  238952505,
+        "amd64Digest":  "sha256:870634c634aae968ea1a93e5c094a14e00c692da2ee9bed956b3dfcc7bd08cb0"
+    },
+    {
+        "tag":  "8.4.10",
+        "digest":  "sha256:8dbcf531a03aade657e181b9cf2f1d1803ce621a1d55610cb44cb531ab7d7db6",
+        "lastUpdated":  "2026-07-24T02:02:28.61532Z",
+        "fullSize":  238952505,
+        "amd64Digest":  "sha256:870634c634aae968ea1a93e5c094a14e00c692da2ee9bed956b3dfcc7bd08cb0"
+    },
+    {
+        "tag":  "8.4.9-oraclelinux9",
+        "digest":  "sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084",
+        "lastUpdated":  "2026-05-12T23:02:36.636944Z",
+        "fullSize":  238253989,
+        "amd64Digest":  "sha256:14690274f4967ba207939c97dd79a8d6604f1d532218ea6be69c0001ddd2d45f"
+    },
+    {
+        "tag":  "8.4.9-oracle",
+        "digest":  "sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084",
+        "lastUpdated":  "2026-05-12T23:02:34.579334Z",
+        "fullSize":  238253989,
+        "amd64Digest":  "sha256:14690274f4967ba207939c97dd79a8d6604f1d532218ea6be69c0001ddd2d45f"
+    },
+    {
+        "tag":  "8.4.9",
+        "digest":  "sha256:c36050afdca850f23cef85703f84c7531a5ae155a11b5ee1c60acb09937c4084",
+        "lastUpdated":  "2026-05-12T23:02:32.564167Z",
+        "fullSize":  238253989,
+        "amd64Digest":  "sha256:14690274f4967ba207939c97dd79a8d6604f1d532218ea6be69c0001ddd2d45f"
+    },
+    {
+        "tag":  "8.4.8-oraclelinux9",
+        "digest":  "sha256:2952e3be7807f06fc18de50b3ea1a632d5c70d63482ff7d7376fe3aa8999babf",
+        "lastUpdated":  "2026-04-18T02:02:53.582411Z",
+        "fullSize":  233200125,
+        "amd64Digest":  "sha256:4fc4bca5a26c5aa2246a92779d238bc2d34f0373e65dc083d7b635b02780dd3d"
+    },
+    {
+        "tag":  "8.4.8-oracle",
+        "digest":  "sha256:2952e3be7807f06fc18de50b3ea1a632d5c70d63482ff7d7376fe3aa8999babf",
+        "lastUpdated":  "2026-04-18T02:02:51.538255Z",
+        "fullSize":  233200125,
+        "amd64Digest":  "sha256:4fc4bca5a26c5aa2246a92779d238bc2d34f0373e65dc083d7b635b02780dd3d"
+    },
+    {
+        "tag":  "8.4.8",
+        "digest":  "sha256:2952e3be7807f06fc18de50b3ea1a632d5c70d63482ff7d7376fe3aa8999babf",
+        "lastUpdated":  "2026-04-18T02:02:49.571197Z",
+        "fullSize":  233200125,
+        "amd64Digest":  "sha256:4fc4bca5a26c5aa2246a92779d238bc2d34f0373e65dc083d7b635b02780dd3d"
+    },
+    {
+        "tag":  "8.4.7-oraclelinux9",
+        "digest":  "sha256:0426ec38c7a10aa45ba383887df7878f74ee70e2fd589c7b69207f3577901903",
+        "lastUpdated":  "2026-01-17T01:02:53.09022Z",
+        "fullSize":  233029943,
+        "amd64Digest":  "sha256:6c6706ec58d3ac9e925d5f0435c6a923117f68232551b9c8271a294ea72ee331"
+    },
+    {
+        "tag":  "8.4.7-oracle",
+        "digest":  "sha256:0426ec38c7a10aa45ba383887df7878f74ee70e2fd589c7b69207f3577901903",
+        "lastUpdated":  "2026-01-17T01:02:51.004289Z",
+        "fullSize":  233029943,
+        "amd64Digest":  "sha256:6c6706ec58d3ac9e925d5f0435c6a923117f68232551b9c8271a294ea72ee331"
+    },
+    {
+        "tag":  "8.4.7",
+        "digest":  "sha256:0426ec38c7a10aa45ba383887df7878f74ee70e2fd589c7b69207f3577901903",
+        "lastUpdated":  "2026-01-17T01:02:48.969206Z",
+        "fullSize":  233029943,
+        "amd64Digest":  "sha256:6c6706ec58d3ac9e925d5f0435c6a923117f68232551b9c8271a294ea72ee331"
+    },
+    {
+        "tag":  "8.4.6-oraclelinux9",
+        "digest":  "sha256:869218921e61d6c3c89820955d63cca42971f0e3e6c1e2792247bbd944ebc6e9",
+        "lastUpdated":  "2025-10-18T03:02:52.465242Z",
+        "fullSize":  236856592,
+        "amd64Digest":  "sha256:c296d65ee6ab3ce2f608c1d1b2bdd3c08b087a5834101d76a6db2e00875216cc"
+    },
+    {
+        "tag":  "8.4.6-oracle",
+        "digest":  "sha256:869218921e61d6c3c89820955d63cca42971f0e3e6c1e2792247bbd944ebc6e9",
+        "lastUpdated":  "2025-10-18T03:02:50.496699Z",
+        "fullSize":  236856592,
+        "amd64Digest":  "sha256:c296d65ee6ab3ce2f608c1d1b2bdd3c08b087a5834101d76a6db2e00875216cc"
+    },
+    {
+        "tag":  "8.4.6",
+        "digest":  "sha256:869218921e61d6c3c89820955d63cca42971f0e3e6c1e2792247bbd944ebc6e9",
+        "lastUpdated":  "2025-10-18T03:02:48.6634Z",
+        "fullSize":  236856592,
+        "amd64Digest":  "sha256:c296d65ee6ab3ce2f608c1d1b2bdd3c08b087a5834101d76a6db2e00875216cc"
+    },
+    {
+        "tag":  "8.4.5-oraclelinux9",
+        "digest":  "sha256:679e7e924f38a3cbb62a3d7df32924b83f7321a602d3f9f967c01b3df18495d6",
+        "lastUpdated":  "2025-07-17T06:02:33.802436Z",
+        "fullSize":  236089462,
+        "amd64Digest":  "sha256:bd045a5ea8c8d25f497731fea5c50c3aceae7bb22bff543c424bb60052d55840"
+    },
+    {
+        "tag":  "8.4.5-oracle",
+        "digest":  "sha256:679e7e924f38a3cbb62a3d7df32924b83f7321a602d3f9f967c01b3df18495d6",
+        "lastUpdated":  "2025-07-17T06:02:32.793735Z",
+        "fullSize":  236089462,
+        "amd64Digest":  "sha256:bd045a5ea8c8d25f497731fea5c50c3aceae7bb22bff543c424bb60052d55840"
+    },
+    {
+        "tag":  "8.4.5",
+        "digest":  "sha256:679e7e924f38a3cbb62a3d7df32924b83f7321a602d3f9f967c01b3df18495d6",
+        "lastUpdated":  "2025-07-17T06:02:31.655328Z",
+        "fullSize":  236089462,
+        "amd64Digest":  "sha256:bd045a5ea8c8d25f497731fea5c50c3aceae7bb22bff543c424bb60052d55840"
+    },
+    {
+        "tag":  "8.4.4-oraclelinux9",
+        "digest":  "sha256:23818b7d7de427096ab1427b2e3d9d5e14a5b933f9a4431a482d6414bc879091",
+        "lastUpdated":  "2025-04-01T03:02:36.560312Z",
+        "fullSize":  232885973,
+        "amd64Digest":  "sha256:d895a591bdc9fbd228dc75f4859791160f321b839bad18bba44811834143b0c4"
+    },
+    {
+        "tag":  "8.4.4-oracle",
+        "digest":  "sha256:23818b7d7de427096ab1427b2e3d9d5e14a5b933f9a4431a482d6414bc879091",
+        "lastUpdated":  "2025-04-01T03:02:35.650654Z",
+        "fullSize":  232885973,
+        "amd64Digest":  "sha256:d895a591bdc9fbd228dc75f4859791160f321b839bad18bba44811834143b0c4"
+    },
+    {
+        "tag":  "8.4.4",
+        "digest":  "sha256:23818b7d7de427096ab1427b2e3d9d5e14a5b933f9a4431a482d6414bc879091",
+        "lastUpdated":  "2025-04-01T03:02:34.718981Z",
+        "fullSize":  232885973,
+        "amd64Digest":  "sha256:d895a591bdc9fbd228dc75f4859791160f321b839bad18bba44811834143b0c4"
+    },
+    {
+        "tag":  "8.4.3-oraclelinux9",
+        "digest":  "sha256:106d5197fd8e4892980469ad42eb20f7a336bd81509aae4ee175d852f5cc4565",
+        "lastUpdated":  "2024-11-22T07:02:34.016893Z",
+        "fullSize":  171508490,
+        "amd64Digest":  "sha256:1ecf42d360987627bcf76572ba479f3b5b0a5391a125801617909cc56e7cb22e"
+    },
+    {
+        "tag":  "8.4.3-oracle",
+        "digest":  "sha256:106d5197fd8e4892980469ad42eb20f7a336bd81509aae4ee175d852f5cc4565",
+        "lastUpdated":  "2024-11-22T07:02:33.049633Z",
+        "fullSize":  171508490,
+        "amd64Digest":  "sha256:1ecf42d360987627bcf76572ba479f3b5b0a5391a125801617909cc56e7cb22e"
+    },
+    {
+        "tag":  "8.4.3",
+        "digest":  "sha256:106d5197fd8e4892980469ad42eb20f7a336bd81509aae4ee175d852f5cc4565",
+        "lastUpdated":  "2024-11-22T07:02:32.059661Z",
+        "fullSize":  171508490,
+        "amd64Digest":  "sha256:1ecf42d360987627bcf76572ba479f3b5b0a5391a125801617909cc56e7cb22e"
+    },
+    {
+        "tag":  "8.4.2-oraclelinux9",
+        "digest":  "sha256:ac80b6e09e5b12b4f9d5cd4f6425e43464247aa4ba4f6169da5daf59e5877f7d",
+        "lastUpdated":  "2024-09-21T00:02:30.845196Z",
+        "fullSize":  169774555,
+        "amd64Digest":  "sha256:cd8ec80bddd4d6da7e22763e79efc7c63da19c3503b1f90987320d0e6d5cedaa"
+    },
+    {
+        "tag":  "8.4.2-oracle",
+        "digest":  "sha256:ac80b6e09e5b12b4f9d5cd4f6425e43464247aa4ba4f6169da5daf59e5877f7d",
+        "lastUpdated":  "2024-09-21T00:02:30.055946Z",
+        "fullSize":  169774555,
+        "amd64Digest":  "sha256:cd8ec80bddd4d6da7e22763e79efc7c63da19c3503b1f90987320d0e6d5cedaa"
+    },
+    {
+        "tag":  "8.4.2",
+        "digest":  "sha256:ac80b6e09e5b12b4f9d5cd4f6425e43464247aa4ba4f6169da5daf59e5877f7d",
+        "lastUpdated":  "2024-09-21T00:02:29.22902Z",
+        "fullSize":  169774555,
+        "amd64Digest":  "sha256:cd8ec80bddd4d6da7e22763e79efc7c63da19c3503b1f90987320d0e6d5cedaa"
+    },
+    {
+        "tag":  "8.4.1-oraclelinux9",
+        "digest":  "sha256:a7dc4a4e07a9c5d53c0cf36b5b4e8a1b3bb677cb0d544256a0581114a93ddf0f",
+        "lastUpdated":  "2024-07-09T03:02:48.622253Z",
+        "fullSize":  169469298,
+        "amd64Digest":  "sha256:ce6497879691267927fee3ab5540483d48c5a29523602531f56777233d4cdbbe"
+    },
+    {
+        "tag":  "8.4.1-oracle",
+        "digest":  "sha256:a7dc4a4e07a9c5d53c0cf36b5b4e8a1b3bb677cb0d544256a0581114a93ddf0f",
+        "lastUpdated":  "2024-07-09T03:02:47.397499Z",
+        "fullSize":  169469298,
+        "amd64Digest":  "sha256:ce6497879691267927fee3ab5540483d48c5a29523602531f56777233d4cdbbe"
+    },
+    {
+        "tag":  "8.4.1",
+        "digest":  "sha256:a7dc4a4e07a9c5d53c0cf36b5b4e8a1b3bb677cb0d544256a0581114a93ddf0f",
+        "lastUpdated":  "2024-07-09T03:02:46.276013Z",
+        "fullSize":  169469298,
+        "amd64Digest":  "sha256:ce6497879691267927fee3ab5540483d48c5a29523602531f56777233d4cdbbe"
+    },
+    {
+        "tag":  "8.4.0-oraclelinux9",
+        "digest":  "sha256:dab7049abafe3a0e12cbe5e49050cf149881c0cd9665c289e5808b9dad39c9e0",
+        "lastUpdated":  "2024-06-22T00:02:50.666662Z",
+        "fullSize":  168695819,
+        "amd64Digest":  "sha256:3e5649c69e6d75cf88fc6f8f39f877453faa4e5167b5e648007e45f54bb17f6b"
+    },
+    {
+        "tag":  "8.4.0-oracle",
+        "digest":  "sha256:dab7049abafe3a0e12cbe5e49050cf149881c0cd9665c289e5808b9dad39c9e0",
+        "lastUpdated":  "2024-06-22T00:02:49.681295Z",
+        "fullSize":  168695819,
+        "amd64Digest":  "sha256:3e5649c69e6d75cf88fc6f8f39f877453faa4e5167b5e648007e45f54bb17f6b"
+    },
+    {
+        "tag":  "8.4.0",
+        "digest":  "sha256:dab7049abafe3a0e12cbe5e49050cf149881c0cd9665c289e5808b9dad39c9e0",
+        "lastUpdated":  "2024-06-22T00:02:48.619417Z",
+        "fullSize":  168695819,
+        "amd64Digest":  "sha256:3e5649c69e6d75cf88fc6f8f39f877453faa4e5167b5e648007e45f54bb17f6b"
+    },
+    {
+        "tag":  "8.4.0-oraclelinux8",
+        "digest":  "sha256:f7a8e140a7d6d1e6e0c99eeb0489c50a186ee4ac44ff55323a176529b9a43d33",
+        "lastUpdated":  "2024-05-01T03:02:57.259042Z",
+        "fullSize":  179341247,
+        "amd64Digest":  "sha256:53a71a83be1fcbb1489c0fe23d377297f55b77a6c6ce816ca8fa30225adfe2df"
+    },
+    {
+        "tag":  "8.4-oraclelinux8",
+        "digest":  "sha256:f7a8e140a7d6d1e6e0c99eeb0489c50a186ee4ac44ff55323a176529b9a43d33",
+        "lastUpdated":  "2024-05-01T03:02:53.94868Z",
+        "fullSize":  179341247,
+        "amd64Digest":  "sha256:53a71a83be1fcbb1489c0fe23d377297f55b77a6c6ce816ca8fa30225adfe2df"
+    }
+]

@@ -1,0 +1,124 @@
+
+The following files have been resolved:
+   org.springframework.boot:spring-boot-starter-web:jar:3.5.16:compile -- module spring.boot.starter.web [auto]
+   org.springframework.boot:spring-boot-starter:jar:3.5.16:compile -- module spring.boot.starter [auto]
+   org.springframework.boot:spring-boot:jar:3.5.16:compile -- module spring.boot [auto]
+   org.springframework.boot:spring-boot-starter-logging:jar:3.5.16:compile -- module spring.boot.starter.logging [auto]
+   ch.qos.logback:logback-classic:jar:1.5.34:compile -- module ch.qos.logback.classic
+   ch.qos.logback:logback-core:jar:1.5.34:compile -- module ch.qos.logback.core
+   org.apache.logging.log4j:log4j-to-slf4j:jar:2.24.3:compile -- module org.apache.logging.log4j.to.slf4j
+   org.apache.logging.log4j:log4j-api:jar:2.24.3:compile -- module org.apache.logging.log4j
+   org.slf4j:jul-to-slf4j:jar:2.0.18:compile -- module jul.to.slf4j
+   jakarta.annotation:jakarta.annotation-api:jar:2.1.1:compile -- module jakarta.annotation
+   org.yaml:snakeyaml:jar:2.4:compile -- module org.yaml.snakeyaml
+   org.springframework.boot:spring-boot-starter-json:jar:3.5.16:compile -- module spring.boot.starter.json [auto]
+   com.fasterxml.jackson.core:jackson-databind:jar:2.21.4:compile -- module com.fasterxml.jackson.databind
+   com.fasterxml.jackson.datatype:jackson-datatype-jdk8:jar:2.21.4:compile -- module com.fasterxml.jackson.datatype.jdk8
+   com.fasterxml.jackson.module:jackson-module-parameter-names:jar:2.21.4:compile -- module com.fasterxml.jackson.module.paramnames
+   org.springframework.boot:spring-boot-starter-tomcat:jar:3.5.16:compile -- module spring.boot.starter.tomcat [auto]
+   org.apache.tomcat.embed:tomcat-embed-core:jar:10.1.55:compile -- module org.apache.tomcat.embed.core
+   org.apache.tomcat.embed:tomcat-embed-websocket:jar:10.1.55:compile -- module org.apache.tomcat.embed.websocket
+   org.springframework:spring-web:jar:6.2.19:compile -- module spring.web [auto]
+   org.springframework:spring-beans:jar:6.2.19:compile -- module spring.beans [auto]
+   org.springframework:spring-webmvc:jar:6.2.19:compile -- module spring.webmvc [auto]
+   org.springframework:spring-context:jar:6.2.19:compile -- module spring.context [auto]
+   org.springframework:spring-expression:jar:6.2.19:compile -- module spring.expression [auto]
+   org.springframework.boot:spring-boot-starter-validation:jar:3.5.16:compile -- module spring.boot.starter.validation [auto]
+   org.apache.tomcat.embed:tomcat-embed-el:jar:10.1.55:compile -- module org.apache.tomcat.embed.el
+   org.hibernate.validator:hibernate-validator:jar:8.0.3.Final:compile -- module org.hibernate.validator [auto]
+   jakarta.validation:jakarta.validation-api:jar:3.0.2:compile -- module jakarta.validation
+   org.jboss.logging:jboss-logging:jar:3.6.3.Final:compile -- module org.jboss.logging
+   com.fasterxml:classmate:jar:1.7.3:compile -- module com.fasterxml.classmate
+   org.springframework.boot:spring-boot-starter-security:jar:3.5.16:compile -- module spring.boot.starter.security [auto]
+   org.springframework:spring-aop:jar:6.2.19:compile -- module spring.aop [auto]
+   org.springframework.security:spring-security-config:jar:6.5.11:compile -- module spring.security.config [auto]
+   org.springframework.security:spring-security-web:jar:6.5.11:compile -- module spring.security.web [auto]
+   org.springframework.boot:spring-boot-starter-amqp:jar:3.5.16:compile -- module spring.boot.starter.amqp [auto]
+   org.springframework:spring-messaging:jar:6.2.19:compile -- module spring.messaging [auto]
+   org.springframework.amqp:spring-rabbit:jar:3.2.12:compile -- module spring.rabbit [auto]
+   org.springframework.amqp:spring-amqp:jar:3.2.12:compile -- module spring.amqp [auto]
+   org.springframework.retry:spring-retry:jar:2.0.13:compile -- module spring.retry [auto]
+   com.rabbitmq:amqp-client:jar:5.25.0:compile -- module com.rabbitmq.client [auto]
+   org.springframework:spring-tx:jar:6.2.19:compile -- module spring.tx [auto]
+   org.springframework.boot:spring-boot-starter-actuator:jar:3.5.16:compile -- module spring.boot.starter.actuator [auto]
+   org.springframework.boot:spring-boot-actuator-autoconfigure:jar:3.5.16:compile -- module spring.boot.actuator.autoconfigure [auto]
+   org.springframework.boot:spring-boot-actuator:jar:3.5.16:compile -- module spring.boot.actuator [auto]
+   io.micrometer:micrometer-observation:jar:1.15.12:compile -- module micrometer.observation [auto]
+   io.micrometer:micrometer-commons:jar:1.15.12:compile -- module micrometer.commons [auto]
+   io.micrometer:micrometer-jakarta9:jar:1.15.12:compile -- module micrometer.jakarta9 [auto]
+   io.micrometer:micrometer-core:jar:1.15.12:compile -- module micrometer.core [auto]
+   org.hdrhistogram:HdrHistogram:jar:2.2.2:runtime -- module HdrHistogram (auto)
+   org.latencyutils:LatencyUtils:jar:2.0.3:runtime -- module LatencyUtils (auto)
+   com.baomidou:mybatis-plus-spring-boot3-starter:jar:3.5.18:compile -- module com.baomidou.mybatis.plus.spring.boot3.starter [auto]
+   com.baomidou:mybatis-plus:jar:3.5.18:compile -- module com.baomidou.mybatis.plus [auto]
+   com.baomidou:mybatis-plus-core:jar:3.5.18:compile -- module com.baomidou.mybatis.plus.core [auto]
+   com.baomidou:mybatis-plus-annotation:jar:3.5.18:compile -- module com.baomidou.mybatis.plus.annotation [auto]
+   com.baomidou:mybatis-plus-spring:jar:3.5.18:compile -- module com.baomidou.mybatis.plus.spring [auto]
+   com.baomidou:mybatis-plus-extension:jar:3.5.18:compile -- module com.baomidou.mybatis.plus.extension [auto]
+   org.mybatis:mybatis:jar:3.5.19:compile -- module org.mybatis [auto]
+   org.mybatis:mybatis-spring:jar:3.0.6:compile -- module org.mybatis.spring [auto]
+   com.baomidou:mybatis-plus-spring-boot-autoconfigure:jar:3.5.18:compile -- module com.baomidou.mybatis.plus.spring.boot.autoconfigure [auto]
+   com.baomidou:mybatis-plus-spring-boot-native-image:jar:3.5.18:compile
+   org.springframework.boot:spring-boot-autoconfigure:jar:3.5.16:compile -- module spring.boot.autoconfigure [auto]
+   org.springframework.boot:spring-boot-starter-jdbc:jar:3.5.16:compile -- module spring.boot.starter.jdbc [auto]
+   com.zaxxer:HikariCP:jar:6.3.3:compile -- module com.zaxxer.hikari
+   org.springframework:spring-jdbc:jar:6.2.19:compile -- module spring.jdbc [auto]
+   org.flywaydb:flyway-core:jar:11.7.2:compile -- module flyway.core (auto)
+   com.fasterxml.jackson.dataformat:jackson-dataformat-toml:jar:2.21.4:compile -- module com.fasterxml.jackson.dataformat.toml
+   com.fasterxml.jackson.core:jackson-core:jar:2.21.4:compile -- module com.fasterxml.jackson.core
+   com.fasterxml.jackson.datatype:jackson-datatype-jsr310:jar:2.21.4:compile -- module com.fasterxml.jackson.datatype.jsr310
+   com.fasterxml.jackson.core:jackson-annotations:jar:2.21:compile -- module com.fasterxml.jackson.annotation
+   org.flywaydb:flyway-mysql:jar:11.7.2:compile -- module flyway.mysql (auto)
+   com.mysql:mysql-connector-j:jar:9.7.0:runtime -- module mysql.connector.j (auto)
+   software.amazon.awssdk:s3:jar:2.57.10:compile -- module software.amazon.awssdk.services.s3 [auto]
+   software.amazon.awssdk:aws-xml-protocol:jar:2.57.10:compile -- module software.amazon.awssdk.protocols.xml [auto]
+   software.amazon.awssdk:aws-query-protocol:jar:2.57.10:compile -- module software.amazon.awssdk.protocols.query [auto]
+   software.amazon.awssdk:protocol-core:jar:2.57.10:compile -- module software.amazon.awssdk.protocols.core [auto]
+   software.amazon.awssdk:arns:jar:2.57.10:compile -- module software.amazon.awssdk.arns [auto]
+   software.amazon.awssdk:profiles:jar:2.57.10:compile -- module software.amazon.awssdk.profiles [auto]
+   software.amazon.awssdk:crt-core:jar:2.57.10:compile -- module software.amazon.awssdk.crtcore [auto]
+   software.amazon.awssdk:http-auth:jar:2.57.10:compile -- module software.amazon.awssdk.http.auth [auto]
+   software.amazon.awssdk:identity-spi:jar:2.57.10:compile -- module software.amazon.awssdk.identity.spi [auto]
+   software.amazon.awssdk:http-auth-spi:jar:2.57.10:compile -- module software.amazon.awssdk.http.auth.spi [auto]
+   org.reactivestreams:reactive-streams:jar:1.0.4:compile -- module org.reactivestreams [auto]
+   software.amazon.awssdk:http-auth-aws:jar:2.57.10:compile -- module software.amazon.awssdk.http.auth.aws [auto]
+   software.amazon.awssdk:checksums:jar:2.57.10:compile -- module software.amazon.awssdk.checksums [auto]
+   software.amazon.awssdk:checksums-spi:jar:2.57.10:compile -- module software.amazon.awssdk.checksums.spi [auto]
+   software.amazon.awssdk:retries-spi:jar:2.57.10:compile -- module software.amazon.awssdk.retries.api [auto]
+   software.amazon.awssdk:sdk-core:jar:2.57.10:compile -- module software.amazon.awssdk.core [auto]
+   software.amazon.awssdk:retries:jar:2.57.10:compile -- module software.amazon.awssdk.retries [auto]
+   org.slf4j:slf4j-api:jar:2.0.18:compile -- module org.slf4j
+   software.amazon.awssdk:auth:jar:2.57.10:compile -- module software.amazon.awssdk.auth [auto]
+   software.amazon.awssdk:http-auth-aws-eventstream:jar:2.57.10:compile -- module software.amazon.awssdk.http.auth.aws.eventstream [auto]
+   software.amazon.awssdk:eventstream:jar:2.57.10:compile -- module software.amazon.awssdk.eventstream [auto]
+   software.amazon.awssdk:http-client-spi:jar:2.57.10:compile -- module software.amazon.awssdk.http [auto]
+   software.amazon.awssdk:regions:jar:2.57.10:compile -- module software.amazon.awssdk.regions [auto]
+   software.amazon.awssdk:annotations:jar:2.57.10:compile -- module software.amazon.awssdk.annotations [auto]
+   software.amazon.awssdk:utils:jar:2.57.10:compile -- module software.amazon.awssdk.utils [auto]
+   software.amazon.awssdk:aws-core:jar:2.57.10:compile -- module software.amazon.awssdk.awscore [auto]
+   software.amazon.awssdk:utils-lite:jar:2.57.10:compile -- module software.amazon.awssdk.utilslite [auto]
+   software.amazon.awssdk:metrics-spi:jar:2.57.10:compile -- module software.amazon.awssdk.metrics [auto]
+   software.amazon.awssdk:json-utils:jar:2.57.10:compile -- module software.amazon.awssdk.protocols.jsoncore [auto]
+   software.amazon.awssdk:third-party-jackson-core:jar:2.57.10:compile -- module software.amazon.awssdk.thirdparty.jackson.core [auto]
+   software.amazon.awssdk:endpoints-spi:jar:2.57.10:compile -- module software.amazon.awssdk.endpoints [auto]
+   software.amazon.awssdk:apache5-client:jar:2.57.10:runtime -- module software.amazon.awssdk.http.apache5 [auto]
+   org.apache.httpcomponents.client5:httpclient5:jar:5.5.2:runtime -- module org.apache.httpcomponents.client5.httpclient5 [auto]
+   org.apache.httpcomponents.core5:httpcore5-h2:jar:5.3.6:runtime -- module org.apache.httpcomponents.core5.httpcore5.h2 [auto]
+   org.apache.httpcomponents.core5:httpcore5:jar:5.3.6:runtime -- module org.apache.httpcomponents.core5.httpcore5 [auto]
+   software.amazon.awssdk:netty-nio-client:jar:2.57.10:runtime -- module software.amazon.awssdk.http.nio.netty [auto]
+   io.netty:netty-codec-http:jar:4.1.135.Final:runtime -- module io.netty.codec.http [auto]
+   io.netty:netty-codec-http2:jar:4.1.135.Final:runtime -- module io.netty.codec.http2 [auto]
+   io.netty:netty-codec:jar:4.1.135.Final:runtime -- module io.netty.codec [auto]
+   io.netty:netty-transport:jar:4.1.135.Final:runtime -- module io.netty.transport [auto]
+   io.netty:netty-common:jar:4.1.135.Final:runtime -- module io.netty.common [auto]
+   io.netty:netty-buffer:jar:4.1.135.Final:runtime -- module io.netty.buffer [auto]
+   io.netty:netty-handler:jar:4.1.135.Final:runtime -- module io.netty.handler [auto]
+   io.netty:netty-transport-native-unix-common:jar:4.1.135.Final:runtime -- module io.netty.transport.unix.common [auto]
+   io.netty:netty-transport-classes-epoll:jar:4.1.135.Final:runtime -- module io.netty.transport.classes.epoll [auto]
+   io.netty:netty-resolver:jar:4.1.135.Final:runtime -- module io.netty.resolver [auto]
+   com.h2database:h2:jar:2.3.232:runtime -- module com.h2database [auto]
+   org.springframework:spring-core:jar:6.2.19:compile -- module spring.core [auto]
+   org.springframework:spring-jcl:jar:6.2.19:compile -- module spring.jcl [auto]
+   org.springframework.security:spring-security-core:jar:6.5.11:compile -- module spring.security.core [auto]
+   org.springframework.security:spring-security-crypto:jar:6.5.11:compile -- module spring.security.crypto [auto]
+

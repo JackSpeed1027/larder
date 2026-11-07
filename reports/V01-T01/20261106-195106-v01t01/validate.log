@@ -1,0 +1,4 @@
+components=39 blocked=12 adr=7
+INFO lock parsed: D:\Work\Project\larder\docs\versions.lock.json
+INFO evidence root: D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01 (exists=True)
+RESULT PASS

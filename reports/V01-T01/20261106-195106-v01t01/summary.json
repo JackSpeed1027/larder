@@ -1,0 +1,174 @@
+{
+  "taskId": "V01-T01",
+  "sliceId": "V01-T01.FULL",
+  "title": "版本与兼容性冻结",
+  "result": "TASK_LOCAL_PASS",
+  "resultNote": "本地可证伪的部分全部通过；运行期依赖真实中间件的 12 项验证为 BLOCKED（本机无 Docker），不得据此宣称完整验收。",
+  "round": "R1",
+  "runId": "20261106-195106-v01t01",
+  "startedAt": "2026-11-06T19:41:36+08:00",
+  "finishedAt": "2026-11-06T20:35:00+08:00",
+  "contractRev": "f67dc0cea05b162017b2a061ae4d44b56f8d6be5042674ca473635cd6a36e9f9",
+  "baseSnapshot": null,
+  "baseSnapshotNote": "仓库尚未 git init，无 commit 基线；交接包完整性以来源 SHA256SUMS.txt 校验（122/122 一致，7 个交付校验文件按约定留在来源目录未复制）。",
+  "environment": {
+    "os": "Microsoft Windows NT 10.0.26200.0 (Windows 11)",
+    "java": "Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS)",
+    "maven": "Apache Maven 3.9.11",
+    "node": "v24.22.0",
+    "pnpm": "11.25.0",
+    "pythonSystem": "3.13.16",
+    "pythonProject": "3.12.15 (uv 安装, python-build-standalone)",
+    "uv": "0.13.1",
+    "git": "2.56.0.windows.2",
+    "docker": "NOT FOUND (docker CLI 不在 PATH，Docker Desktop 未安装，WSL 无发行版)",
+    "evidence": "reports/V01-T01/20261106-195106-v01t01/environment.txt"
+  },
+  "versions": {
+    "springBoot": "3.5.16",
+    "springFramework": "6.2.19",
+    "springSecurity": "6.5.11",
+    "springAmqp": "3.2.12",
+    "mybatisPlus": "3.5.18",
+    "flyway": "11.7.2",
+    "mysqlConnectorJ": "9.7.0",
+    "testcontainers": "1.21.4",
+    "awsSdkS3": "2.57.10",
+    "python": "3.12.15",
+    "fastapi": "0.162.0",
+    "pydantic": "2.14.3",
+    "node": "24.22.0",
+    "pnpm": "11.25.0",
+    "react": "19.3.1",
+    "vite": "8.3.6",
+    "typescript": "7.0.2",
+    "tailwindcss": "4.3.4",
+    "imageMySQL": "8.4.13 (sha256:a81d0439…)",
+    "imageRedis": "8.10.3 (sha256:f245f4c8…)",
+    "imageRabbitMQ": "4.3.7-management (sha256:6e51f8f1…)",
+    "imageMeilisearch": "v1.56.1 (sha256:b7ba431b…)",
+    "imageMinIO": "BLOCKED — 公开镜像已下线"
+  },
+  "commands": [
+    {
+      "command": "mvn -B -ntp dependency:list -DoutputFile=logs/dependency-list.txt -DincludeScope=runtime",
+      "cwd": "reports/V01-T01/20261106-195106-v01t01/compat-check-backend",
+      "exitCode": 0,
+      "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/mvn-dependency-list.log"
+    },
+    {
+      "command": "mvn -B -ntp test",
+      "cwd": "reports/V01-T01/20261106-195106-v01t01/compat-check-backend",
+      "exitCode": 0,
+      "testsRun": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/mvn-test.log"
+    },
+    {
+      "command": "pnpm install --lockfile-only --ignore-scripts",
+      "cwd": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend",
+      "exitCode": 0,
+      "resolvedPackages": 116,
+      "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/pnpm-install-lockfile-only.log"
+    },
+    {
+      "command": "uv venv --python 3.12 .venv",
+      "cwd": "reports/V01-T01/20261106-195106-v01t01/compat-check-runner",
+      "exitCode": 0,
+      "interpretedAs": "CPython 3.12.15 (uv 下载的托管发行版)",
+      "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/uv-venv.log"
+    },
+    {
+      "command": "uv pip install --python .venv/Scripts/python.exe fastapi==0.162.0 uvicorn==0.54.0 pydantic==2.14.3 pydantic-settings==2.16.2 httpx==0.28.1",
+      "cwd": "reports/V01-T01/20261106-195106-v01t01/compat-check-runner",
+      "exitCode": 0,
+      "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/uv-pip-install.log"
+    },
+    {
+      "command": ".venv/Scripts/python.exe smoke.py",
+      "cwd": "reports/V01-T01/20261106-195106-v01t01/compat-check-runner",
+      "exitCode": 0,
+      "checks": 4,
+      "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/smoke.log"
+    },
+    {
+      "command": "python reports/V01-T01/20261106-195106-v01t01/tools/validate_versions_lock.py",
+      "cwd": "项目根目录",
+      "exitCode": 0,
+      "result": "PASS",
+      "components": 39,
+      "blocked": 12,
+      "evidence": "reports/V01-T01/20261106-195106-v01t01/validate.log"
+    }
+  ],
+  "notRun": [
+    "python scripts/accept.py --task V01-T01 --profile offline（该入口属于 V01-T04，本任务只登记计划命令，未实现也未运行）",
+    "docker compose config --quiet / up -d --wait（本机无 Docker）",
+    "真实 MySQL 8.4 的 Flyway 迁移与 CRUD 集成测试（无 Docker）",
+    "RabbitMQ confirm/ack/DLQ、Redis Lua 限流、Meilisearch 异步 task、S3 读写/分片/校验（无 Docker 且 MinIO 镜像下线）",
+    "pnpm install（真实包体）、vite build、tsc --noEmit、Vitest、浏览器 E2E（V01-T02/T03 才有前端工程）",
+    "pytest 执行（V01-T02 才有 runner/tests）"
+  ],
+  "blocked": [
+    "mysql-connector-j",
+    "spring-amqp",
+    "testcontainers",
+    "mysql-image",
+    "redis-image",
+    "rabbitmq-image",
+    "meilisearch-image",
+    "minio-server-image",
+    "aws-sdk-s3",
+    "pytest",
+    "vitest",
+    "shadcn-cli"
+  ],
+  "blockedReasonRoot": "本机无 Docker 守护进程（docker CLI 缺失、Docker Desktop 未安装、WSL 无发行版）；另有 MinIO 公开镜像下线（ADR-0003）。",
+  "artifacts": {
+    "lock": "docs/versions.lock.json",
+    "adrDirectory": "docs/adr/versions/",
+    "evidenceRoot": "reports/V01-T01/20261106-195106-v01t01",
+    "rawRegistrySnapshots": "reports/V01-T01/20261106-195106-v01t01/raw/",
+    "verificationReport": "reports/V01-T01/20261106-195106-v01t01/verification.md",
+    "handoff": "handoffs/V01-T01/handoff.json",
+    "fileManifest": "handoffs/V01-T01/file-manifest.json"
+  },
+  "acceptance": [
+    {
+      "criterion": "锁清单无 latest、无虚构 digest",
+      "status": "PASS",
+      "evidence": "validate.log：pin 禁词检查 + 每个 pin/digest 必须出现在本 run 落盘的注册源快照中"
+    },
+    {
+      "criterion": "未能验证的依赖明确 BLOCKED",
+      "status": "PASS",
+      "evidence": "versions.lock.json 的 blockedSummary 12 项，逐项写明原因；本文档 blocked 列表同源"
+    },
+    {
+      "criterion": "命令/退出码/用例/skip 与原始报告齐全",
+      "status": "PASS",
+      "evidence": "logs/ 下 7 份原始输出；commands[] 与之一一对应"
+    },
+    {
+      "criterion": "集成树验证后 C 才可标 DONE",
+      "status": "NOT_APPLICABLE",
+      "evidence": "本任务只报 TASK_LOCAL_PASS；全局 DONE 由协调者在集成树验证后决定"
+    }
+  ],
+  "limitations": [
+    "H2(MODE=MySQL) 代替 MySQL，只证明 Java 组合与装配正确，不等于 MySQL 8.4 兼容。",
+    "镜像 digest 来自 Docker Hub registry API 当日快照，未在本机拉取校验；tag 可能被重新指向，因此必须按 digest 而不是按 tag 部署。",
+    "前端只到 lockfile 解析；TypeScript 7.0.2 是未验证的编译器大版本，V01-T03 首次 tsc 若失败需按 ADR-0006 回退 5.9.x。",
+    "Python 锁 3.12.15 而非上游 3.12.16，因为本机 uv 0.13.1 尚未提供 3.12.16。",
+    "accept.py 尚未实现（V01-T04），V01-T01 没有统一验收入口，证据按本报告目录归档。"
+  ],
+  "nextIntegrationChecks": [
+    "在有 Docker 的机器上 docker compose up -d --wait，跑真实 MySQL 8.4 迁移与 MyBatis-Plus CRUD",
+    "核对镜像 digest 与 versions.lock.json 一致（docker image inspect --format '{{index .RepoDigests 0}}'）",
+    "确认对象存储决策（ADR-0003）后更新 docs/06 服务表与 compose",
+    "跑 pnpm install + vite build + tsc --noEmit，复核 TypeScript 7.0.2 是否可用",
+    "跑 runner pytest -m 'not live'，确认 fastapi/starlette/httpx 测试客户端无 deprecation 阻塞"
+  ]
+}

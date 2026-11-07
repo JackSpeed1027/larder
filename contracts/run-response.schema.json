@@ -1,0 +1,55 @@
+{
+  "type": "object",
+  "properties": {
+    "runId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+      "description": "稳定运行ID；接管与对账复用"
+    },
+    "status": {
+      "enum": [
+        "QUEUED",
+        "RUNNING",
+        "WAITING_APPROVAL",
+        "NEEDS_DECISION",
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELLED",
+        "CORRUPT"
+      ],
+      "description": "持久运行状态，不依赖SSE连接是否存在"
+    },
+    "lastSeq": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991,
+      "description": "快照已应用最大序号"
+    },
+    "stage": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "description": "当前具名处理阶段"
+    },
+    "usage": {
+      "type": "object",
+      "description": "已知用量与估算/未知状态，不能假装精确账单"
+    },
+    "manifest": {
+      "type": "object",
+      "description": "不可变产物清单，Java重新校验内容hash"
+    },
+    "error": {
+      "type": "object",
+      "description": "安全可公开错误，不包含秘密或堆栈"
+    }
+  },
+  "required": [
+    "runId",
+    "status",
+    "lastSeq"
+  ],
+  "additionalProperties": false
+}

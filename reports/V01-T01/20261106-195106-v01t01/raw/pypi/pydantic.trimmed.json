@@ -1,0 +1,10 @@
+{
+    "name":  "pydantic",
+    "version":  "2.14.3",
+    "requiresPython":  "\u003e=3.10",
+    "license":  null,
+    "licenseExpression":  "MIT",
+    "summary":  "Data validation using Python type hints",
+    "uploadTime":  "2026-11-05T09:17:02.426672Z",
+    "sourceUrl":  "https://pypi.org/pypi/pydantic/json"
+}

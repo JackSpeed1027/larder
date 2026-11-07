@@ -1,0 +1,3371 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Larder Runner",
+    "version": "1.0.0",
+    "description": "设计起始契约；无业务实现。payload/manifest详细schema在对应任务扩充，禁止将其误称完整生产契约。"
+  },
+  "servers": [
+    {
+      "url": "http://runner:8000"
+    }
+  ],
+  "security": [
+    {
+      "serviceToken": []
+    }
+  ],
+  "paths": {
+    "/v1/runs": {
+      "post": {
+        "operationId": "createRun",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            },
+            "description": "Must equal runId; same ID different body is 409"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persisted snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Durably accepted, not completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RunRequest"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/runs/{runId}": {
+      "get": {
+        "operationId": "getRun",
+        "parameters": [
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persisted snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/runs/{runId}/events": {
+      "get": {
+        "operationId": "getEvents",
+        "parameters": [
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            }
+          },
+          {
+            "name": "Last-Event-ID",
+            "in": "header",
+            "schema": {
+              "type": "string",
+              "pattern": "^[0-9]+$"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "SSE id=seq; data conforms to RunEvent, persisted before delivery",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Cursor unavailable; get snapshot"
+          }
+        }
+      }
+    },
+    "/v1/runs/{runId}/cancel": {
+      "post": {
+        "operationId": "cancelRun",
+        "parameters": [
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persisted snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "reason": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "description": "决定原因或安全状态说明"
+                  }
+                },
+                "required": [],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/runs/{runId}/resume": {
+      "post": {
+        "operationId": "resumeRun",
+        "parameters": [
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persisted snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "decisionId": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 64,
+                    "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                    "description": "用户明确作出的恢复决定ID"
+                  },
+                  "decision": {
+                    "enum": [
+                      "CONTINUE",
+                      "RETRY_UNKNOWN"
+                    ],
+                    "description": "恢复或未知外部效果的明确决定"
+                  }
+                },
+                "required": [
+                  "decisionId",
+                  "decision"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/runs/{runId}/artifacts/{artifactId}": {
+      "get": {
+        "operationId": "getArtifact",
+        "parameters": [
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            }
+          },
+          {
+            "name": "artifactId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Bounded artifact bytes; caller must verify manifest hash",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/runs/{runId}/ack": {
+      "post": {
+        "operationId": "ackRun",
+        "parameters": [
+          {
+            "name": "runId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persisted snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "manifestHash": {
+                    "type": "string",
+                    "pattern": "^[0-9a-f]{64}$",
+                    "description": "规范化产物清单SHA-256"
+                  }
+                },
+                "required": [
+                  "manifestHash"
+                ],
+                "additionalProperties": false
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/embeddings": {
+      "post": {
+        "operationId": "embed",
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+            },
+            "description": "Must equal runId; same ID different body is 409"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "413": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Typed error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "稳定错误码，客户端不按中文消息分支"
+                    },
+                    "message": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 160,
+                      "description": "安全可读描述"
+                    },
+                    "traceId": {
+                      "type": "string",
+                      "minLength": 2,
+                      "maxLength": 64,
+                      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+                      "description": "链路关联标识，不是授权凭据"
+                    },
+                    "retryable": {
+                      "type": "boolean",
+                      "description": "是否允许按具体幂等/预算规则重试"
+                    },
+                    "details": {
+                      "type": "object",
+                      "description": "白名单错误详情，禁止正文及秘密"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message",
+                    "traceId",
+                    "retryable"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Persisted snapshot",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Durably accepted, not completed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RunResponse"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/RunRequest"
+                  },
+                  {
+                    "properties": {
+                      "mode": {
+                        "const": "EMBED",
+                        "description": "INGEST/ENRICH/ASSIST/EMBED执行模式"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "serviceToken": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "schemas": {
+      "RunRequest": {
+        "$ref": "./run-request.schema.json"
+      },
+      "RunResponse": {
+        "$ref": "./run-response.schema.json"
+      },
+      "RunEvent": {
+        "$ref": "./run-event.schema.json"
+      }
+    }
+  }
+}

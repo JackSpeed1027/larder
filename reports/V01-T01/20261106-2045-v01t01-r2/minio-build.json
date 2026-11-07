@@ -1,0 +1,12 @@
+{
+    "sourceUrl":  "https://github.com/minio/minio",
+    "tag":  "RELEASE.2025-10-15T17-29-55Z",
+    "commit":  "9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a",
+    "buildTool":  "go1.27.3 windows/amd64",
+    "buildCommand":  "go build -trimpath -ldflags \"-s -w -X github.com/minio/minio/cmd.Version=2025-10-15T17-29-55Z -X github.com/minio/minio/cmd.ReleaseTag=RELEASE.2025-10-15T17-29-55Z -X github.com/minio/minio/cmd.CopyrightYear=2025\" -o minio.exe .",
+    "goroxy":  "https://goproxy.cn（proxy.golang.org 的 IPv6 连接在本机超时）",
+    "binarySha256":  "0347a92d13165c0a1659ded11658f9993e3174dab3b8c746e7abf195bc9277a6",
+    "binarySize":  111360000,
+    "versionBanner":  "RELEASE.2025-10-15T17-29-55Z (commit-id=DEVELOPMENT.GOGET)",
+    "note":  "官方 dl.min.io 下载通道已 410、GitHub release 无附件；按用户决定继续用 MinIO，从归档源码固定 tag 构建，二进制 SHA256 作为锁；Docker 镜像路线待 WSL2 就绪后按同一二进制打包。"
+}

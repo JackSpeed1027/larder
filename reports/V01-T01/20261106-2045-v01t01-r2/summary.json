@@ -1,0 +1,149 @@
+{
+  "taskId": "V01-T01",
+  "revision": "R2",
+  "sliceId": "V01-T01.FULL",
+  "title": "版本与兼容性冻结（R2：Boot 4.1.2 + MinIO）",
+  "result": "TASK_LOCAL_PASS",
+  "resultNote": "本地可证伪部分全部通过（Boot 4 组合 3/3 测试、MinIO 真实 S3 往返、前端 lockfile 解析）；11 项依赖 Docker 守护进程或后续工程的运行期验证仍为 BLOCKED，不得据此宣称完整验收。",
+  "round": "R1",
+  "runId": "20261106-2045-v01t01-r2",
+  "previousRun": "reports/V01-T01/20261106-195106-v01t01",
+  "startedAt": "2026-11-06T20:30:00+08:00",
+  "finishedAt": "2026-11-06T21:15:00+08:00",
+  "contractRev": "f67dc0cea05b162017b2a061ae4d44b56f8d6be5042674ca473635cd6a36e9f9",
+  "baseSnapshot": null,
+  "baseSnapshotNote": "仓库未 git init；交接包完整性以来源 SHA256SUMS.txt 校验（122/122 一致）。R2 只改本项目自有文件，未动 contracts/tasks/prompts/design/scripts。",
+  "decisionsFromUser": [
+    "对象存储继续用 MinIO（不换 SeaweedFS/Garage/RustFS）",
+    "Docker 可以安装（已装 Docker Desktop，守护进程待 WSL2 + 重启）",
+    "Boot 如果以后要升、现在升也行，只要版本兼容（已升 4.1.2）"
+  ],
+  "environment": {
+    "java": "Temurin 21.0.12.1+1",
+    "maven": "3.9.11",
+    "go": "1.27.3（构建 MinIO 用）",
+    "docker": "CLI 29.9.2 / Desktop 4.98.0.245422（守护进程未就绪：WSL2 未启用）",
+    "node": "24.22.0",
+    "pnpm": "11.25.0",
+    "python": "3.12.15（uv 管理）",
+    "uv": "0.13.1",
+    "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+  },
+  "versions": {
+    "springBoot": "4.1.2",
+    "springFramework": "7.0.10",
+    "springSecurity": "7.1.2",
+    "springAmqp": "4.1.2",
+    "mybatisPlus": "3.5.18 (spring-boot4-starter)",
+    "flyway": "12.4.0 (starter-flyway + flyway-mysql)",
+    "mysqlConnectorJ": "9.7.0",
+    "testcontainers": "2.0.5",
+    "junit": "6.0.3",
+    "awsSdkS3": "2.57.10",
+    "minioServer": "RELEASE.2025-10-15T17-29-55Z (commit 9e49d5e7, sha256:0347a92d…)",
+    "python": "3.12.15",
+    "fastapi": "0.162.0",
+    "pydantic": "2.14.3",
+    "node": "24.22.0",
+    "pnpm": "11.25.0",
+    "react": "19.3.1",
+    "vite": "8.3.6",
+    "typescript": "7.0.2",
+    "tailwindcss": "4.3.4"
+  },
+  "commands": [
+    {
+      "command": "mvn -B -ntp test（Boot 4.1.2 脚手架，含 VersionCompatibilityTest + S3ClientSmokeTest）",
+      "cwd": "reports/V01-T01/20261106-2045-v01t01-r2/compat-check-backend",
+      "exitCode": 0,
+      "testsRun": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log",
+      "note": "首次运行失败：Boot 4 未注册 Flyway bean（只加了 flyway-core），改为 spring-boot-starter-flyway 后通过"
+    },
+    {
+      "command": "mvn -B -ntp test（MinIO 已启动，LARDER_S3_ENDPOINT 指向 127.0.0.1:9000）",
+      "cwd": "reports/V01-T01/20261106-2045-v01t01-r2/compat-check-backend",
+      "exitCode": 0,
+      "testsRun": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test-s3.log"
+    },
+    {
+      "command": "git clone --branch RELEASE.2025-10-15T17-29-55Z + go build（-trimpath + ldflags 注入版本）",
+      "cwd": "临时构建目录（非项目）",
+      "exitCode": 0,
+      "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/minio-build.json",
+      "note": "产物 minio.exe 111,360,000 B, sha256 0347a92d…；二进制自报 RELEASE.2025-10-15T17-29-55Z"
+    },
+    {
+      "command": "minio server + boto3 冒烟",
+      "cwd": "临时运行目录",
+      "exitCode": 0,
+      "checks": 7,
+      "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/s3-smoke.log",
+      "note": "建桶/put/get/head/预签名/版本化(2 版本)/6MiB 对象全部 PASS"
+    },
+    {
+      "command": "python reports/V01-T01/20261106-2045-v01t01-r2/tools/validate_versions_lock.py",
+      "cwd": "项目根目录",
+      "exitCode": 0,
+      "result": "PASS",
+      "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/validate.log"
+    }
+  ],
+  "notRun": [
+    "docker compose config / up -d --wait（守护进程未就绪：WSL2 需提权安装 + 重启）",
+    "MySQL 8.4 真实迁移与 CRUD、RabbitMQ 语义、Redis 限流、Meili task、Testcontainers 容器测试",
+    "MinIO 容器镜像构建与 compose 验证（Docker 就绪后补）",
+    "前端 pnpm install 真实包体 / vite build / tsc / Vitest / 浏览器 E2E",
+    "pytest（runner 工程尚未创建）",
+    "scripts/accept.py（V01-T04 才实现）"
+  ],
+  "blocked": [
+    "docker-engine",
+    "spring-amqp",
+    "mysql-connector-j",
+    "testcontainers",
+    "mysql-image",
+    "redis-image",
+    "rabbitmq-image",
+    "meilisearch-image",
+    "pytest",
+    "vitest",
+    "shadcn-cli"
+  ],
+  "blockedReasonRoot": "Docker 守护进程未就绪（WSL2 未启用，wsl --install 需提权 + 重启）；前端/runner 工程按计划在 V01-T02 才创建。",
+  "artifacts": {
+    "lock": "docs/versions.lock.json",
+    "adrDirectory": "docs/adr/versions/",
+    "r2EvidenceRoot": "reports/V01-T01/20261106-2045-v01t01-r2",
+    "r1EvidenceRoot": "reports/V01-T01/20261106-195106-v01t01",
+    "minioProvenance": "reports/V01-T01/20261106-2045-v01t01-r2/minio-build.json",
+    "handoff": "handoffs/V01-T01/handoff.json",
+    "fileManifest": "handoffs/V01-T01/file-manifest.json"
+  },
+  "acceptance": [
+    { "criterion": "锁清单无 latest、无虚构 digest", "status": "PASS", "evidence": "validate.log：pin 禁词 + pin/digest 必须出现在当日注册源快照" },
+    { "criterion": "未能验证的依赖明确 BLOCKED", "status": "PASS", "evidence": "versions.lock.json#blockedSummary 11 项，逐项写明原因" },
+    { "criterion": "命令/退出码/用例/skip 与原始报告齐全", "status": "PASS", "evidence": "logs/ 下 5 份原始输出；commands[] 一一对应" },
+    { "criterion": "集成树验证后 C 才可标 DONE", "status": "NOT_APPLICABLE", "evidence": "本任务只报 TASK_LOCAL_PASS" }
+  ],
+  "limitations": [
+    "H2(MODE=MySQL) 代替 MySQL，只能证明 Boot 4 组合与装配正确。",
+    "镜像 digest 未在本机 docker pull 校验。",
+    "MinIO 无上游安全更新；当前以源码固定构建自证，容器化在 Docker 就绪后补。",
+    "TypeScript 7.0.2 未跑 tsc；首次失败按 ADR-0006 回退 5.9.x。"
+  ],
+  "nextIntegrationChecks": [
+    "提权执行 wsl --install 并重启，docker info 能看到 ServerVersion",
+    "docker compose up -d --wait 起 MySQL/Redis/RabbitMQ/Meili/MinIO，跑真实迁移与 S3 分片/校验",
+    "docker image inspect 核对 digest 与 versions.lock.json 一致",
+    "用同一 minio.exe 构建镜像并核对二进制 sha256",
+    "前端安装真实包体后跑 vite build 与 tsc --noEmit"
+  ]
+}

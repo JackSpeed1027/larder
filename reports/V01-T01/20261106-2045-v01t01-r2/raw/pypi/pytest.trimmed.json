@@ -1,0 +1,10 @@
+{
+    "name":  "pytest",
+    "version":  "9.2.0",
+    "requiresPython":  "\u003e=3.10",
+    "license":  null,
+    "licenseExpression":  "MIT",
+    "summary":  "pytest: simple powerful testing with Python",
+    "uploadTime":  "2026-10-27T21:30:19.131148Z",
+    "sourceUrl":  "https://pypi.org/pypi/pytest/json"
+}

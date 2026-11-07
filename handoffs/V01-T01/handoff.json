@@ -1,0 +1,125 @@
+{
+  "taskId": "V01-T01",
+  "revision": "R2",
+  "sliceId": "V01-T01.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "本地可证伪部分通过（Boot 4 组合 3/3、MinIO 真实 S3 往返、前端 lockfile 解析、锁自检）；11 项运行期验证 BLOCKED，全局 DONE 由协调者在集成树验证后决定",
+  "baseSnapshot": null,
+  "baseSnapshotNote": "仓库尚未 git init；交接包完整性用来源 SHA256SUMS.txt 校验（122/122）。R2 未改动 contracts/tasks/prompts/design/scripts 与用户数据。",
+  "contractRev": "f67dc0cea05b162017b2a061ae4d44b56f8d6be5042674ca473635cd6a36e9f9",
+  "contractRevScope": "contracts/ 13 个文件按相对路径+sha256 排序拼接后的 sha256（R2 未修改契约）",
+  "summary": "按用户三条决定重冻结：①Spring Boot 3.5.16(EOL) → 4.1.2，连带 Framework 7.0.10 / Security 7.1.2 / AMQP 4.1.2 / Flyway 12.4.0 / Testcontainers 2.0.5 / JUnit 6.0.3，MyBatis-Plus 改用 spring-boot4-starter 3.5.18；实测发现 Boot 4 必须用 spring-boot-starter-flyway（只加 flyway-core 时迁移不执行），已修并写进 ADR。②继续用 MinIO：官方渠道全部关闭（dl.min.io 410 / GitHub assets 空 / Docker Hub 404 / quay 401），改为归档源码固定 tag 构建，commit 9e49d5e7、二进制 sha256 0347a92d，本机跑通 boto3 的建桶/读写/预签名/版本化/6MiB 与 AWS SDK v2 的 S3 往返。③安装 Docker Desktop 4.98.0（CLI 29.9.2），守护进程待 WSL2 提权安装+重启。",
+  "changedFilesManifest": "file-manifest.json",
+  "bootstrap": {
+    "targetRoot": "D:\\Work\\Project\\larder",
+    "sourceRoot": "D:\\Work\\Project\\vibe-project\\larder-agent-playbook-2026-11-05",
+    "copiedFiles": 122,
+    "identicalFiles": 122,
+    "notCopiedByDesign": ["README.md（改为根 README + docs/交接资料导航.md）", "SOURCE-BASELINE.json", "SHA256SUMS.txt", "DELIVERY-CHECK.json", "reports/design-validation/*"],
+    "layoutRecord": "reports/V01-T01/20261106-195106-v01t01/bootstrap-layout.md"
+  },
+  "decisionsExecuted": [
+    "对象存储：MinIO（源码固定构建），见 ADR-0003",
+    "Boot：直接升级 4.1.2，见 ADR-0002",
+    "Docker：已安装 Desktop/CLI，守护进程待 WSL2 + 重启"
+  ],
+  "checks": [
+    {
+      "command": "mvn -B -ntp test（Boot 4.1.2 兼容脚手架）",
+      "cwd": "reports/V01-T01/20261106-2045-v01t01-r2/compat-check-backend",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+    },
+    {
+      "command": "mvn -B -ntp test（MinIO 已启动，S3 往返）",
+      "cwd": "reports/V01-T01/20261106-2045-v01t01-r2/compat-check-backend",
+      "exitCode": 0,
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test-s3.log"
+    },
+    {
+      "command": "git clone --branch RELEASE.2025-10-15T17-29-55Z + go build -trimpath + ldflags",
+      "cwd": "临时构建目录（非项目）",
+      "exitCode": 0,
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T01/20261106-2045-v01t01-r2/minio-build.json"
+    },
+    {
+      "command": "minio server + python boto3 s3_smoke.py",
+      "cwd": "临时运行目录",
+      "exitCode": 0,
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T01/20261106-2045-v01t01-r2/logs/s3-smoke.log"
+    },
+    {
+      "command": "python reports/V01-T01/20261106-2045-v01t01-r2/tools/validate_versions_lock.py",
+      "cwd": "项目根目录",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T01/20261106-2045-v01t01-r2/validate.log",
+      "note": "passed 为 null：校验器验证的是 40 个组件条目，不是测试用例；结果 PASS 见日志"
+    }
+  ],
+  "acceptanceEvidence": {
+    "lock-no-latest-no-fake-digest": "reports/V01-T01/20261106-2045-v01t01-r2/validate.log",
+    "blocked-dependencies-declared": "docs/versions.lock.json#blockedSummary（11 项）+ verification.md §5",
+    "boot4-compatibility": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log",
+    "minio-provenance-and-s3": "reports/V01-T01/20261106-2045-v01t01-r2/minio-build.json + logs/s3-smoke.log + logs/mvn-boot4-test-s3.log",
+    "maintenance-risks-as-adr": "docs/adr/versions/ADR-0002、ADR-0003、ADR-0005、ADR-0007",
+    "handoff-and-hashes": "handoffs/V01-T01/handoff.json + file-manifest.json",
+    "integration-checks": "reports/V01-T01/20261106-2045-v01t01-r2/summary.json#nextIntegrationChecks"
+  },
+  "notRun": [
+    "docker compose config / up -d --wait（守护进程未就绪）",
+    "MySQL 8.4 真实迁移/CRUD、RabbitMQ、Redis、Meili、Testcontainers",
+    "MinIO 容器镜像构建与 compose 验证",
+    "pnpm install 真实包体 / vite build / tsc / Vitest / 浏览器 E2E",
+    "pytest（runner 工程未建）",
+    "scripts/accept.py（V01-T04）"
+  ],
+  "knownLimitations": [
+    "H2(MODE=MySQL) 不能替代 MySQL 兼容结论。",
+    "镜像 digest 未 docker pull 校验。",
+    "MinIO 上游已归档、无安全更新，V12 需复评。",
+    "MinIO 目前仅原生进程验证，容器内行为待 Docker 就绪。",
+    "TypeScript 7.0.2 未跑 tsc。"
+  ],
+  "newDependencies": [
+    "org.springframework.boot:spring-boot-starter-flyway（Boot 4 必需，替代裸 flyway-core）",
+    "com.baomidou:mybatis-plus-spring-boot4-starter:3.5.18（替代 boot3 starter）",
+    "Go 1.27.3（仅构建 MinIO，不进入运行时）"
+  ],
+  "migrationNotes": "N/A：未新增/修改产品 Flyway 迁移；V1__compat_init.sql 仅存在于 reports 验证脚手架。Boot 4 升级带来的 Flyway 12 与 starter-flyway 变更已写进 ADR-0002，V01-T02 建工程时按此执行。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "新增 S3ClientSmokeTest 含类级/方法级 Javadoc（说明需要 MinIO 端点、skipped 语义）；versions.lock.json 的 revision/revisionNote 字段说明 R2 取代 R1 的边界。",
+    "sqlComments": "N/A：无产品 DDL/DML 变更。",
+    "complexMechanisms": [
+      "Boot 4 模块化自动配置（starter-flyway 必需）：ADR-0002 + logs/mvn-boot4-test.log",
+      "MinIO 源码固定构建与二进制校验：ADR-0003 + minio-build.json",
+      "两级验证（artifact vs runtime）与 BLOCKED 规则：lock policy + validate.log"
+    ]
+  },
+  "decisionsNeeded": [
+    "无阻塞性决策；如需在重启前做别的工作，可先做 V01-T03 的契约/类型生成（不依赖 Docker）"
+  ],
+  "nextIntegrationChecks": [
+    "提权执行 wsl --install 并重启，docker info 返回 ServerVersion",
+    "docker compose up -d --wait 起八服务，跑真实 MySQL 迁移",
+    "docker image inspect 核对 digest 与 versions.lock.json",
+    "用同一 minio.exe 构建镜像并核对 sha256",
+    "前端装真实包体后跑 vite build 与 tsc --noEmit"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V01-T01", "foundation:shared"]
+}

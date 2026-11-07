@@ -1,0 +1,3351 @@
+{
+  "version": "agent-playbook-v3",
+  "applicationImplemented": false,
+  "coreTaskCount": 48,
+  "labTaskCount": 8,
+  "tasks": [
+    {
+      "id": "V01-T01",
+      "title": "版本与兼容性冻结",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "核验固定技术方向的版本/许可/兼容；输出精确版本和真实来源；维护风险形成ADR不暗删组件",
+      "paths": [
+        "docs/versions.lock.json",
+        "docs/adr/versions/",
+        "reports/V01-T01/",
+        "handoffs/V01-T01/"
+      ],
+      "deliverables": [
+        "核验固定技术方向的版本/许可/兼容",
+        "输出精确版本和真实来源",
+        "维护风险形成ADR不暗删组件",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "锁清单无latest、无虚构digest",
+        "未能验证的依赖明确BLOCKED",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V01-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V01-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "C",
+      "contributors": [
+        "C",
+        "Q"
+      ],
+      "instructions": [
+        "核验固定技术方向的版本/许可/兼容",
+        "输出精确版本和真实来源",
+        "维护风险形成ADR不暗删组件"
+      ],
+      "specificAcceptance": [
+        "锁清单无latest、无虚构digest",
+        "未能验证的依赖明确BLOCKED"
+      ],
+      "exclusiveResources": [
+        "workpackage:V01-T01",
+        "foundation:shared"
+      ],
+      "requiresGates": [],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V01-T01.md"
+    },
+    {
+      "id": "V01-T02",
+      "title": "八服务与工程骨架",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V01-T01"
+      ],
+      "goal": "生成三端工程和八服务拓扑；真实health与MySQL迁移；构建工具wrapper与隔离环境脚本",
+      "paths": [
+        "backend/",
+        "runner/",
+        "frontend/",
+        "compose.yaml",
+        ".env.example",
+        "infra/",
+        "scripts/dev/",
+        "reports/V01-T02/",
+        "handoffs/V01-T02/"
+      ],
+      "deliverables": [
+        "生成三端工程和八服务拓扑",
+        "真实health与MySQL迁移",
+        "构建工具wrapper与隔离环境脚本",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "八服务健康检查有真实输出",
+        "重启保留数据",
+        "配置无明文凭据",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V01-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V01-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "C",
+      "contributors": [
+        "C",
+        "Q"
+      ],
+      "instructions": [
+        "生成三端工程和八服务拓扑",
+        "真实health与MySQL迁移",
+        "构建工具wrapper与隔离环境脚本"
+      ],
+      "specificAcceptance": [
+        "八服务健康检查有真实输出",
+        "重启保留数据",
+        "配置无明文凭据"
+      ],
+      "exclusiveResources": [
+        "workpackage:V01-T02",
+        "foundation:shared"
+      ],
+      "requiresGates": [],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V01-T02.md"
+    },
+    {
+      "id": "V01-T03",
+      "title": "契约/Mock/类型生成",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V01-T02"
+      ],
+      "goal": "补齐本轮公共API/事件/错误schema；生成消费者类型；正常/异常fixture及Mock同源",
+      "paths": [
+        "contracts/",
+        "frontend/src/generated/",
+        "frontend/src/shared/",
+        "frontend/src/app/",
+        "design/",
+        "backend/src/main/java/com/larder/common/contract/",
+        "runner/src/larder_runner/api/models/",
+        "frontend/mocks/",
+        "scripts/contracts/",
+        "reports/V01-T03/",
+        "handoffs/V01-T03/"
+      ],
+      "deliverables": [
+        "补齐本轮公共API/事件/错误schema",
+        "生成消费者类型",
+        "正常/异常fixture及Mock同源",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "合法与非法样例双向校验",
+        "生成结果可重复",
+        "冻结contractRev和designRev",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V01-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V01-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "C",
+      "contributors": [
+        "C",
+        "Q"
+      ],
+      "instructions": [
+        "补齐本轮公共API/事件/错误schema",
+        "生成消费者类型",
+        "正常/异常fixture及Mock同源"
+      ],
+      "specificAcceptance": [
+        "合法与非法样例双向校验",
+        "生成结果可重复",
+        "冻结contractRev和designRev"
+      ],
+      "exclusiveResources": [
+        "workpackage:V01-T03",
+        "foundation:shared"
+      ],
+      "requiresGates": [],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V01-T03.md"
+    },
+    {
+      "id": "V01-T04",
+      "title": "认证与验收基础",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V01-T03"
+      ],
+      "goal": "实现session/CSRF/初始化权限；建立CI和accept入口；零测试/缺环境必须失败",
+      "paths": [
+        "backend/src/main/java/com/larder/identity/",
+        "backend/src/test/java/com/larder/identity/",
+        "frontend/src/features/auth/",
+        "frontend/e2e/auth/",
+        ".github/workflows/",
+        "scripts/accept.py",
+        "reports/V01-T04/",
+        "handoffs/V01-T04/"
+      ],
+      "deliverables": [
+        "实现session/CSRF/初始化权限",
+        "建立CI和accept入口",
+        "零测试/缺环境必须失败",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "未登录/跨owner/CSRF拒绝",
+        "真实三端测试可发现",
+        "不自动提交Git",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V01-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V01-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "实现session/CSRF/初始化权限",
+        "建立CI和accept入口",
+        "零测试/缺环境必须失败"
+      ],
+      "specificAcceptance": [
+        "未登录/跨owner/CSRF拒绝",
+        "真实三端测试可发现",
+        "不自动提交Git"
+      ],
+      "exclusiveResources": [
+        "java:identity",
+        "web:auth",
+        "foundation:shared"
+      ],
+      "requiresGates": [],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V01-T04.md"
+    },
+    {
+      "id": "V02-T01",
+      "title": "内容模型与幂等",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V01-T04"
+      ],
+      "goal": "定义Item/revision/job/outbox事务模型；唯一约束支持幂等与URL去重；创建时保留输入与响应快照",
+      "paths": [
+        "backend/src/main/java/com/larder/content/model/",
+        "backend/src/test/java/com/larder/content/model/",
+        "backend/src/main/java/com/larder/content/api/",
+        "backend/src/test/java/com/larder/content/api/",
+        "backend/src/main/java/com/larder/ingest/",
+        "backend/src/test/java/com/larder/ingest/",
+        "backend/src/main/java/com/larder/pipeline/model/",
+        "backend/src/test/java/com/larder/pipeline/model/",
+        "reports/V02-T01/",
+        "handoffs/V02-T01/"
+      ],
+      "deliverables": [
+        "定义Item/revision/job/outbox事务模型",
+        "唯一约束支持幂等与URL去重",
+        "创建时保留输入与响应快照",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "同key同body返原结果、不同body409",
+        "并发唯一",
+        "schema迁移可重复部署",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V02-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V02-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "定义Item/revision/job/outbox事务模型",
+        "唯一约束支持幂等与URL去重",
+        "创建时保留输入与响应快照"
+      ],
+      "specificAcceptance": [
+        "同key同body返原结果、不同body409",
+        "并发唯一",
+        "schema迁移可重复部署"
+      ],
+      "exclusiveResources": [
+        "java:content/model",
+        "java:content/api",
+        "java:ingest",
+        "java:pipeline/model"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V02-T01.md"
+    },
+    {
+      "id": "V02-T02",
+      "title": "MinIO不可变产物",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V02-T01"
+      ],
+      "goal": "实现受控artifact接收、不可变S3对象及hash校验；对象写后再发布DB引用；孤立对象保留清单",
+      "paths": [
+        "backend/src/main/java/com/larder/content/storage/",
+        "backend/src/test/java/com/larder/content/storage/",
+        "backend/src/main/java/com/larder/runner/artifacts/",
+        "backend/src/test/java/com/larder/runner/artifacts/",
+        "reports/V02-T02/",
+        "handoffs/V02-T02/"
+      ],
+      "deliverables": [
+        "实现受控artifact接收、不可变S3对象及hash校验",
+        "对象写后再发布DB引用",
+        "孤立对象保留清单",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "对象写失败无有效正文引用",
+        "multipart不把ETag当hash",
+        "重传不覆写不同内容",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V02-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V02-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "实现受控artifact接收、不可变S3对象及hash校验",
+        "对象写后再发布DB引用",
+        "孤立对象保留清单"
+      ],
+      "specificAcceptance": [
+        "对象写失败无有效正文引用",
+        "multipart不把ETag当hash",
+        "重传不覆写不同内容"
+      ],
+      "exclusiveResources": [
+        "java:content/storage",
+        "java:runner/artifacts"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V02-T02.md"
+    },
+    {
+      "id": "V02-T03",
+      "title": "真实网页/粘贴链路",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V02-T02",
+        "V03-T03"
+      ],
+      "goal": "实现真实网页/粘贴抓取与正文分段；网络每跳SSRF约束；通过可靠job入口回传产物",
+      "paths": [
+        "backend/src/main/java/com/larder/runner/ingest/",
+        "backend/src/test/java/com/larder/runner/ingest/",
+        "backend/src/main/java/com/larder/content/publication/",
+        "backend/src/test/java/com/larder/content/publication/",
+        "runner/src/larder_runner/stages/fetch.py",
+        "runner/tests/stages/fetch/",
+        "runner/src/larder_runner/stages/extract.py",
+        "runner/tests/stages/extract/",
+        "runner/src/larder_runner/stages/chunk.py",
+        "runner/tests/stages/chunk/",
+        "reports/V02-T03/",
+        "handoffs/V02-T03/"
+      ],
+      "deliverables": [
+        "实现真实网页/粘贴抓取与正文分段",
+        "网络每跳SSRF约束",
+        "通过可靠job入口回传产物",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "真实网页与粘贴各可读",
+        "失败保留输入",
+        "旧epoch不能发布",
+        "关闭AI链路可用",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V02-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V02-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "R",
+      "contributors": [
+        "B",
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "实现真实网页/粘贴抓取与正文分段",
+        "网络每跳SSRF约束",
+        "通过可靠job入口回传产物"
+      ],
+      "specificAcceptance": [
+        "真实网页与粘贴各可读",
+        "失败保留输入",
+        "旧epoch不能发布",
+        "关闭AI链路可用"
+      ],
+      "exclusiveResources": [
+        "java:runner/ingest",
+        "java:content/publication",
+        "python:stages/fetch.py",
+        "python:stages/extract.py",
+        "python:stages/chunk.py"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V02-T03.md"
+    },
+    {
+      "id": "V02-T04",
+      "title": "阅读/标签/笔记基础",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V02-T03"
+      ],
+      "goal": "实现阅读/基础标签集合笔记及F01/F02/F03/F15基础；引用固定revision；列表和表单错误态完整",
+      "paths": [
+        "backend/src/main/java/com/larder/organize/",
+        "backend/src/test/java/com/larder/organize/",
+        "frontend/src/features/library/",
+        "frontend/e2e/library/",
+        "frontend/src/features/capture/",
+        "frontend/e2e/capture/",
+        "frontend/src/features/reader/",
+        "frontend/e2e/reader/",
+        "frontend/src/features/organization/",
+        "frontend/e2e/organization/",
+        "reports/V02-T04/",
+        "handoffs/V02-T04/"
+      ],
+      "deliverables": [
+        "实现阅读/基础标签集合笔记及F01/F02/F03/F15基础",
+        "引用固定revision",
+        "列表和表单错误态完整",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "保存→阅读→笔记→回列表真实E2E",
+        "空/失败/长文本/移动端可用",
+        "不伪造正文",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V02-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V02-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "W",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "实现阅读/基础标签集合笔记及F01/F02/F03/F15基础",
+        "引用固定revision",
+        "列表和表单错误态完整"
+      ],
+      "specificAcceptance": [
+        "保存→阅读→笔记→回列表真实E2E",
+        "空/失败/长文本/移动端可用",
+        "不伪造正文"
+      ],
+      "exclusiveResources": [
+        "java:organize",
+        "web:library",
+        "web:capture",
+        "web:reader",
+        "web:organization"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V02-T04.md"
+    },
+    {
+      "id": "V03-T01",
+      "title": "Outbox投递与confirm",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V02-T01"
+      ],
+      "goal": "实现短事务领取Outbox和事务外投递；confirm+mandatory return相关性；幂等重发与退避",
+      "paths": [
+        "backend/src/main/java/com/larder/pipeline/outbox/",
+        "backend/src/test/java/com/larder/pipeline/outbox/",
+        "reports/V03-T01/",
+        "handoffs/V03-T01/"
+      ],
+      "deliverables": [
+        "实现短事务领取Outbox和事务外投递",
+        "confirm+mandatory return相关性",
+        "幂等重发与退避",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "DB成功MQ断开后可恢复",
+        "confirm丢失允许重投",
+        "unroutable不能标SENT",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V03-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V03-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "实现短事务领取Outbox和事务外投递",
+        "confirm+mandatory return相关性",
+        "幂等重发与退避"
+      ],
+      "specificAcceptance": [
+        "DB成功MQ断开后可恢复",
+        "confirm丢失允许重投",
+        "unroutable不能标SENT"
+      ],
+      "exclusiveResources": [
+        "java:pipeline/outbox"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V03-T01.md"
+    },
+    {
+      "id": "V03-T02",
+      "title": "Inbox及持久接管",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V03-T01"
+      ],
+      "goal": "实现Inbox唯一事件及job持久接管；成功事务后手动ack；有界prefetch与死信可诊断",
+      "paths": [
+        "backend/src/main/java/com/larder/pipeline/inbox/",
+        "backend/src/test/java/com/larder/pipeline/inbox/",
+        "reports/V03-T02/",
+        "handoffs/V03-T02/"
+      ],
+      "deliverables": [
+        "实现Inbox唯一事件及job持久接管",
+        "成功事务后手动ack",
+        "有界prefetch与死信可诊断",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "接管前后/ack前后崩溃可恢复",
+        "Inbox不能掩盖未执行job",
+        "重复消息不重复发布",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V03-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V03-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "实现Inbox唯一事件及job持久接管",
+        "成功事务后手动ack",
+        "有界prefetch与死信可诊断"
+      ],
+      "specificAcceptance": [
+        "接管前后/ack前后崩溃可恢复",
+        "Inbox不能掩盖未执行job",
+        "重复消息不重复发布"
+      ],
+      "exclusiveResources": [
+        "java:pipeline/inbox"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V03-T02.md"
+    },
+    {
+      "id": "V03-T03",
+      "title": "lease/reconcile/SSE",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V03-T02"
+      ],
+      "goal": "实现DB fencing token/epoch、runId稳定提交与对账；SSE snapshot/重连；最小持久run适配为V05预留",
+      "paths": [
+        "backend/src/main/java/com/larder/pipeline/lease/",
+        "backend/src/test/java/com/larder/pipeline/lease/",
+        "backend/src/main/java/com/larder/pipeline/reconcile/",
+        "backend/src/test/java/com/larder/pipeline/reconcile/",
+        "backend/src/main/java/com/larder/runner/client/",
+        "backend/src/test/java/com/larder/runner/client/",
+        "runner/src/larder_runner/runtime/scheduler.py",
+        "runner/tests/runtime/scheduler/",
+        "runner/src/larder_runner/runtime/cancellation.py",
+        "runner/tests/runtime/cancellation/",
+        "runner/src/larder_runner/api/events.py",
+        "runner/tests/api/events/",
+        "reports/V03-T03/",
+        "handoffs/V03-T03/"
+      ],
+      "deliverables": [
+        "实现DB fencing token/epoch、runId稳定提交与对账",
+        "SSE snapshot/重连",
+        "最小持久run适配为V05预留",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "旧worker迟到被拒绝",
+        "ack后HTTP前崩溃对账可续",
+        "SSE重复/断流可还原状态",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V03-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V03-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "实现DB fencing token/epoch、runId稳定提交与对账",
+        "SSE snapshot/重连",
+        "最小持久run适配为V05预留"
+      ],
+      "specificAcceptance": [
+        "旧worker迟到被拒绝",
+        "ack后HTTP前崩溃对账可续",
+        "SSE重复/断流可还原状态"
+      ],
+      "exclusiveResources": [
+        "java:pipeline/lease",
+        "java:pipeline/reconcile",
+        "java:runner/client",
+        "python:runtime/scheduler.py",
+        "python:runtime/cancellation.py",
+        "python:api/events.py"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V03-T03.md"
+    },
+    {
+      "id": "V03-T04",
+      "title": "取消/重试/故障矩阵",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V03-T03",
+        "V02-T03"
+      ],
+      "goal": "实现取消/重试与任务中心；隔离环境注入MQ/worker故障；检查取消与完成竞争",
+      "paths": [
+        "backend/src/main/java/com/larder/pipeline/control/",
+        "backend/src/test/java/com/larder/pipeline/control/",
+        "frontend/src/features/jobs/",
+        "frontend/e2e/jobs/",
+        "reports/V03-T04/",
+        "handoffs/V03-T04/"
+      ],
+      "deliverables": [
+        "实现取消/重试与任务中心",
+        "隔离环境注入MQ/worker故障",
+        "检查取消与完成竞争",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A02–A07逐项有证据",
+        "取消生效后不发布",
+        "状态未知不伪装成功",
+        "无真实库损坏",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V03-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V03-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "Q",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "实现取消/重试与任务中心",
+        "隔离环境注入MQ/worker故障",
+        "检查取消与完成竞争"
+      ],
+      "specificAcceptance": [
+        "A02–A07逐项有证据",
+        "取消生效后不发布",
+        "状态未知不伪装成功",
+        "无真实库损坏"
+      ],
+      "exclusiveResources": [
+        "java:pipeline/control",
+        "web:jobs"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V03-T04.md"
+    },
+    {
+      "id": "V04-T01",
+      "title": "GenerationBuilder",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "构建条目级generation和不可变manifest；记录chunker/embedder/schema版本；跟踪Meili异步task",
+      "paths": [
+        "backend/src/main/java/com/larder/indexing/build/",
+        "backend/src/test/java/com/larder/indexing/build/",
+        "reports/V04-T01/",
+        "handoffs/V04-T01/"
+      ],
+      "deliverables": [
+        "构建条目级generation和不可变manifest",
+        "记录chunker/embedder/schema版本",
+        "跟踪Meili异步task",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "部分写入/202未完成时不发布",
+        "新旧generation隔离",
+        "构建可重试且可诊断",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V04-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V04-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "构建条目级generation和不可变manifest",
+        "记录chunker/embedder/schema版本",
+        "跟踪Meili异步task"
+      ],
+      "specificAcceptance": [
+        "部分写入/202未完成时不发布",
+        "新旧generation隔离",
+        "构建可重试且可诊断"
+      ],
+      "exclusiveResources": [
+        "java:indexing/build"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V04-T01.md"
+    },
+    {
+      "id": "V04-T02",
+      "title": "校验与CAS发布",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V04-T01"
+      ],
+      "goal": "验证所有task、数量、身份和hash；MySQL条件更新active指针；失败保留旧版本",
+      "paths": [
+        "backend/src/main/java/com/larder/indexing/validate/",
+        "backend/src/test/java/com/larder/indexing/validate/",
+        "backend/src/main/java/com/larder/indexing/publish/",
+        "backend/src/test/java/com/larder/indexing/publish/",
+        "reports/V04-T02/",
+        "handoffs/V04-T02/"
+      ],
+      "deliverables": [
+        "验证所有task、数量、身份和hash",
+        "MySQL条件更新active指针",
+        "失败保留旧版本",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A08",
+        "外部索引失败/缺块/过期构建不能切指针",
+        "成功CAS只有合法新generation",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V04-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V04-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "验证所有task、数量、身份和hash",
+        "MySQL条件更新active指针",
+        "失败保留旧版本"
+      ],
+      "specificAcceptance": [
+        "A08",
+        "外部索引失败/缺块/过期构建不能切指针",
+        "成功CAS只有合法新generation"
+      ],
+      "exclusiveResources": [
+        "java:indexing/validate",
+        "java:indexing/publish"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V04-T02.md"
+    },
+    {
+      "id": "V04-T03",
+      "title": "搜索复核/分页",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V04-T02"
+      ],
+      "goal": "关键词候选经owner/删除/generation权威复核；稳定游标和partial；F05固定版本打开",
+      "paths": [
+        "backend/src/main/java/com/larder/search/",
+        "backend/src/test/java/com/larder/search/",
+        "frontend/src/features/search/",
+        "frontend/e2e/search/",
+        "reports/V04-T03/",
+        "handoffs/V04-T03/"
+      ],
+      "deliverables": [
+        "关键词候选经owner/删除/generation权威复核",
+        "稳定游标和partial",
+        "F05固定版本打开",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A09/A10",
+        "脏候选过滤",
+        "切换中不混版",
+        "游标与过滤不匹配拒绝",
+        "UI展示降级",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V04-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V04-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "关键词候选经owner/删除/generation权威复核",
+        "稳定游标和partial",
+        "F05固定版本打开"
+      ],
+      "specificAcceptance": [
+        "A09/A10",
+        "脏候选过滤",
+        "切换中不混版",
+        "游标与过滤不匹配拒绝",
+        "UI展示降级"
+      ],
+      "exclusiveResources": [
+        "java:search",
+        "web:search"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V04-T03.md"
+    },
+    {
+      "id": "V04-T04",
+      "title": "导出/回收站/恢复基线",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V04-T03"
+      ],
+      "goal": "实现导出/回收站/恢复基线；备份包含对象及manifest；恢复到新目标并验证",
+      "paths": [
+        "backend/src/main/java/com/larder/content/export/",
+        "backend/src/test/java/com/larder/content/export/",
+        "backend/src/main/java/com/larder/content/trash/",
+        "backend/src/test/java/com/larder/content/trash/",
+        "backend/src/main/java/com/larder/platform/backup/",
+        "backend/src/test/java/com/larder/platform/backup/",
+        "frontend/src/features/backups/",
+        "frontend/e2e/backups/",
+        "frontend/src/features/trash/",
+        "frontend/e2e/trash/",
+        "reports/V04-T04/",
+        "handoffs/V04-T04/"
+      ],
+      "deliverables": [
+        "实现导出/回收站/恢复基线",
+        "备份包含对象及manifest",
+        "恢复到新目标并验证",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "删除后搜索复核拒绝",
+        "恢复旧内容与引用",
+        "缺对象备份验证失败",
+        "不清原库",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V04-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V04-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "实现导出/回收站/恢复基线",
+        "备份包含对象及manifest",
+        "恢复到新目标并验证"
+      ],
+      "specificAcceptance": [
+        "删除后搜索复核拒绝",
+        "恢复旧内容与引用",
+        "缺对象备份验证失败",
+        "不清原库"
+      ],
+      "exclusiveResources": [
+        "java:content/export",
+        "java:content/trash",
+        "java:platform/backup",
+        "web:backups",
+        "web:trash"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V04-T04.md"
+    },
+    {
+      "id": "V05-T01",
+      "title": "JSONL writer和段恢复",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "单writer序号/hash链/fsync；段衔接定义；尾写保留、中段损坏停止；持久run入口适配",
+      "paths": [
+        "runner/src/larder_runner/transcript/writer.py",
+        "runner/tests/transcript/writer/",
+        "runner/src/larder_runner/transcript/records.py",
+        "runner/tests/transcript/records/",
+        "runner/src/larder_runner/transcript/segments.py",
+        "runner/tests/transcript/segments/",
+        "reports/V05-T01/",
+        "handoffs/V05-T01/"
+      ],
+      "deliverables": [
+        "单writer序号/hash链/fsync",
+        "段衔接定义",
+        "尾写保留、中段损坏停止",
+        "持久run入口适配",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "真实进程终止后只回放有效提交",
+        "第二writer拒绝",
+        "中间损坏不静默截断",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V05-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V05-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "R",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "单writer序号/hash链/fsync",
+        "段衔接定义",
+        "尾写保留、中段损坏停止",
+        "持久run入口适配"
+      ],
+      "specificAcceptance": [
+        "真实进程终止后只回放有效提交",
+        "第二writer拒绝",
+        "中间损坏不静默截断"
+      ],
+      "exclusiveResources": [
+        "python:transcript/writer.py",
+        "python:transcript/records.py",
+        "python:transcript/segments.py"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V05-T01.md"
+    },
+    {
+      "id": "V05-T02",
+      "title": "Checkpoint与重放",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V05-T01"
+      ],
+      "goal": "原子写派生checkpoint后提交日志事件；验证引用及hash；从有效事实重放",
+      "paths": [
+        "runner/src/larder_runner/transcript/checkpoint.py",
+        "runner/tests/transcript/checkpoint/",
+        "runner/src/larder_runner/transcript/replay.py",
+        "runner/tests/transcript/replay/",
+        "runner/src/larder_runner/runtime/recovery.py",
+        "runner/tests/runtime/recovery/",
+        "reports/V05-T02/",
+        "handoffs/V05-T02/"
+      ],
+      "deliverables": [
+        "原子写派生checkpoint后提交日志事件",
+        "验证引用及hash",
+        "从有效事实重放",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "未提交checkpoint不采用",
+        "提交后未通知仍可恢复",
+        "重复重放状态一致且无外部副作用",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V05-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V05-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "R",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "原子写派生checkpoint后提交日志事件",
+        "验证引用及hash",
+        "从有效事实重放"
+      ],
+      "specificAcceptance": [
+        "未提交checkpoint不采用",
+        "提交后未通知仍可恢复",
+        "重复重放状态一致且无外部副作用"
+      ],
+      "exclusiveResources": [
+        "python:transcript/checkpoint.py",
+        "python:transcript/replay.py",
+        "python:runtime/recovery.py"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V05-T02.md"
+    },
+    {
+      "id": "V05-T03",
+      "title": "call/UNKNOWN状态",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V05-T02"
+      ],
+      "goal": "模型call intent/结果持久边界；请求身份和attempt；未知外部效果NEEDS_DECISION",
+      "paths": [
+        "runner/src/larder_runner/runtime/calls.py",
+        "runner/tests/runtime/calls/",
+        "runner/src/larder_runner/providers/base.py",
+        "runner/tests/providers/base/",
+        "reports/V05-T03/",
+        "handoffs/V05-T03/"
+      ],
+      "deliverables": [
+        "模型call intent/结果持久边界",
+        "请求身份和attempt",
+        "未知外部效果NEEDS_DECISION",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "stub收到后响应丢失不自动重发",
+        "明确决策后才新attempt",
+        "完成结果可重放而不再次计费调用",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V05-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V05-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "R",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "模型call intent/结果持久边界",
+        "请求身份和attempt",
+        "未知外部效果NEEDS_DECISION"
+      ],
+      "specificAcceptance": [
+        "stub收到后响应丢失不自动重发",
+        "明确决策后才新attempt",
+        "完成结果可重放而不再次计费调用"
+      ],
+      "exclusiveResources": [
+        "python:runtime/calls.py",
+        "python:providers/base.py"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V05-T03.md"
+    },
+    {
+      "id": "V05-T04",
+      "title": "崩溃/尾写/损坏测试",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V05-T03"
+      ],
+      "goal": "构造真实进程崩溃/半写/hash损坏/孤立快照矩阵；保留故障前后目录证据",
+      "paths": [
+        "runner/tests/transcript/",
+        "runner/tests/runtime/",
+        "reports/V05-T04/",
+        "handoffs/V05-T04/"
+      ],
+      "deliverables": [
+        "构造真实进程崩溃/半写/hash损坏/孤立快照矩阵",
+        "保留故障前后目录证据",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A11–A13逐项可复现",
+        "历史文件hash不被修复流程覆盖",
+        "重启不重复未知调用",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V05-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V05-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "Q",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "构造真实进程崩溃/半写/hash损坏/孤立快照矩阵",
+        "保留故障前后目录证据"
+      ],
+      "specificAcceptance": [
+        "A11–A13逐项可复现",
+        "历史文件hash不被修复流程覆盖",
+        "重启不重复未知调用"
+      ],
+      "exclusiveResources": [
+        "python:tests/transcript",
+        "python:tests/runtime"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V05-T04.md"
+    },
+    {
+      "id": "V06-T01",
+      "title": "PDF/字幕/合法音频",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "PDF文本提取/字幕时间定位/合法音频转写；受限解析进程与大小时间限制",
+      "paths": [
+        "runner/src/larder_runner/stages/pdf.py",
+        "runner/tests/stages/pdf/",
+        "runner/src/larder_runner/stages/subtitles.py",
+        "runner/tests/stages/subtitles/",
+        "runner/src/larder_runner/stages/transcribe.py",
+        "runner/tests/stages/transcribe/",
+        "runner/src/larder_runner/providers/transcription.py",
+        "runner/tests/providers/transcription/",
+        "reports/V06-T01/",
+        "handoffs/V06-T01/"
+      ],
+      "deliverables": [
+        "PDF文本提取/字幕时间定位/合法音频转写",
+        "受限解析进程与大小时间限制",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "扫描件/无字幕/损坏/超大输入有界失败",
+        "原输入保留",
+        "引用页码/时间可定位",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V06-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V06-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "R",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "PDF文本提取/字幕时间定位/合法音频转写",
+        "受限解析进程与大小时间限制"
+      ],
+      "specificAcceptance": [
+        "扫描件/无字幕/损坏/超大输入有界失败",
+        "原输入保留",
+        "引用页码/时间可定位"
+      ],
+      "exclusiveResources": [
+        "python:stages/pdf.py",
+        "python:stages/subtitles.py",
+        "python:stages/transcribe.py",
+        "python:providers/transcription.py"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V06-T01.md"
+    },
+    {
+      "id": "V06-T02",
+      "title": "模型与结构化产物",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V05-T03",
+        "V06-T01"
+      ],
+      "goal": "接入结构化模型输出和受控修复；供应商能力探测；稳定prompt/hash和产物schema",
+      "paths": [
+        "runner/src/larder_runner/providers/model.py",
+        "runner/tests/providers/model/",
+        "runner/src/larder_runner/providers/capabilities.py",
+        "runner/tests/providers/capabilities/",
+        "runner/src/larder_runner/stages/enrich.py",
+        "runner/tests/stages/enrich/",
+        "reports/V06-T02/",
+        "handoffs/V06-T02/"
+      ],
+      "deliverables": [
+        "接入结构化模型输出和受控修复",
+        "供应商能力探测",
+        "稳定prompt/hash和产物schema",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "非法输出不能发布",
+        "有限次数修复仍失败给明确错误",
+        "真实模型样例与stub分开",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V06-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V06-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "R",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "接入结构化模型输出和受控修复",
+        "供应商能力探测",
+        "稳定prompt/hash和产物schema"
+      ],
+      "specificAcceptance": [
+        "非法输出不能发布",
+        "有限次数修复仍失败给明确错误",
+        "真实模型样例与stub分开"
+      ],
+      "exclusiveResources": [
+        "python:providers/model.py",
+        "python:providers/capabilities.py",
+        "python:stages/enrich.py"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V06-T02.md"
+    },
+    {
+      "id": "V06-T03",
+      "title": "预算与引用验证",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V06-T02"
+      ],
+      "goal": "原子预留/结算/未知用量与并发预算；引用对照原文；形成完整context结构接口",
+      "paths": [
+        "backend/src/main/java/com/larder/platform/budget/",
+        "backend/src/test/java/com/larder/platform/budget/",
+        "backend/src/main/java/com/larder/assistant/citation/",
+        "backend/src/test/java/com/larder/assistant/citation/",
+        "runner/src/larder_runner/agent/citations.py",
+        "runner/tests/agent/citations/",
+        "runner/src/larder_runner/compression/budget.py",
+        "runner/tests/compression/budget/",
+        "reports/V06-T03/",
+        "handoffs/V06-T03/"
+      ],
+      "deliverables": [
+        "原子预留/结算/未知用量与并发预算",
+        "引用对照原文",
+        "形成完整context结构接口",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A15并发不越内部预算、usage重复不重复记账",
+        "不存在引用拒绝",
+        "不承诺账单绝对一次",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V06-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V06-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "原子预留/结算/未知用量与并发预算",
+        "引用对照原文",
+        "形成完整context结构接口"
+      ],
+      "specificAcceptance": [
+        "A15并发不越内部预算、usage重复不重复记账",
+        "不存在引用拒绝",
+        "不承诺账单绝对一次"
+      ],
+      "exclusiveResources": [
+        "java:platform/budget",
+        "java:assistant/citation",
+        "python:agent/citations.py",
+        "python:compression/budget.py"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V06-T03.md"
+    },
+    {
+      "id": "V06-T04",
+      "title": "UI/降级与真实样例",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V06-T03",
+        "V04-T03",
+        "V05-T04"
+      ],
+      "goal": "整合多来源、摘要/标签与引用UI；AI关闭降级；解析失败和预算错误可行动",
+      "paths": [
+        "frontend/src/features/reader/",
+        "frontend/e2e/reader/",
+        "frontend/src/features/settings/",
+        "frontend/e2e/settings/",
+        "frontend/src/features/jobs/",
+        "frontend/e2e/jobs/",
+        "reports/V06-T04/",
+        "handoffs/V06-T04/"
+      ],
+      "deliverables": [
+        "整合多来源、摘要/标签与引用UI",
+        "AI关闭降级",
+        "解析失败和预算错误可行动",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A14及真实来源样例",
+        "正文/引用可读",
+        "关闭AI保存阅读检索正常",
+        "手机右栏不挤正文",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V06-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V06-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "W",
+      "contributors": [
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "整合多来源、摘要/标签与引用UI",
+        "AI关闭降级",
+        "解析失败和预算错误可行动"
+      ],
+      "specificAcceptance": [
+        "A14及真实来源样例",
+        "正文/引用可读",
+        "关闭AI保存阅读检索正常",
+        "手机右栏不挤正文"
+      ],
+      "exclusiveResources": [
+        "web:reader",
+        "web:settings",
+        "web:jobs"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V06-T04.md"
+    },
+    {
+      "id": "V07-T01",
+      "title": "embedding/profile",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "统一document/query向量profile；维度/model/version绑定generation；Java调用Runner生成向量",
+      "paths": [
+        "backend/src/main/java/com/larder/indexing/embedding/",
+        "backend/src/test/java/com/larder/indexing/embedding/",
+        "runner/src/larder_runner/providers/embeddings.py",
+        "runner/tests/providers/embeddings/",
+        "runner/src/larder_runner/api/embeddings.py",
+        "runner/tests/api/embeddings/",
+        "reports/V07-T01/",
+        "handoffs/V07-T01/"
+      ],
+      "deliverables": [
+        "统一document/query向量profile",
+        "维度/model/version绑定generation",
+        "Java调用Runner生成向量",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "profile变更不混用旧向量",
+        "部分失败不发布",
+        "AI关闭仍关键词可用",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V07-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V07-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "R",
+      "contributors": [
+        "B",
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "统一document/query向量profile",
+        "维度/model/version绑定generation",
+        "Java调用Runner生成向量"
+      ],
+      "specificAcceptance": [
+        "profile变更不混用旧向量",
+        "部分失败不发布",
+        "AI关闭仍关键词可用"
+      ],
+      "exclusiveResources": [
+        "java:indexing/embedding",
+        "python:providers/embeddings.py",
+        "python:api/embeddings.py"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V07-T01.md"
+    },
+    {
+      "id": "V07-T02",
+      "title": "双路召回和RRF",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V07-T01"
+      ],
+      "goal": "实现lexical/semantic双路召回与RRF、按item聚合；权威过滤；native hybrid对照",
+      "paths": [
+        "backend/src/main/java/com/larder/search/retrieval/",
+        "backend/src/test/java/com/larder/search/retrieval/",
+        "backend/src/main/java/com/larder/search/ranking/",
+        "backend/src/test/java/com/larder/search/ranking/",
+        "reports/V07-T02/",
+        "handoffs/V07-T02/"
+      ],
+      "deliverables": [
+        "实现lexical/semantic双路召回与RRF、按item聚合",
+        "权威过滤",
+        "native hybrid对照",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "手算fixture验证RRF/去重/并列排序",
+        "每路缺失与索引脏候选明确处理",
+        "不把关键词说成BM25",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V07-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V07-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "实现lexical/semantic双路召回与RRF、按item聚合",
+        "权威过滤",
+        "native hybrid对照"
+      ],
+      "specificAcceptance": [
+        "手算fixture验证RRF/去重/并列排序",
+        "每路缺失与索引脏候选明确处理",
+        "不把关键词说成BM25"
+      ],
+      "exclusiveResources": [
+        "java:search/retrieval",
+        "java:search/ranking"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V07-T02.md"
+    },
+    {
+      "id": "V07-T03",
+      "title": "Redis限流与缓存",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V07-T02"
+      ],
+      "goal": "实现带profile/version的缓存key、TTL抖动/单飞与限流；失效及Redis不可用策略",
+      "paths": [
+        "backend/src/main/java/com/larder/platform/cache/",
+        "backend/src/test/java/com/larder/platform/cache/",
+        "backend/src/main/java/com/larder/platform/ratelimit/",
+        "backend/src/test/java/com/larder/platform/ratelimit/",
+        "reports/V07-T03/",
+        "handoffs/V07-T03/"
+      ],
+      "deliverables": [
+        "实现带profile/version的缓存key、TTL抖动/单飞与限流",
+        "失效及Redis不可用策略",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "热点并发/缓存过期/Redis断连可观察",
+        "不绕过最终权限复核",
+        "拒绝与降级行为有测试",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V07-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V07-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "实现带profile/version的缓存key、TTL抖动/单飞与限流",
+        "失效及Redis不可用策略"
+      ],
+      "specificAcceptance": [
+        "热点并发/缓存过期/Redis断连可观察",
+        "不绕过最终权限复核",
+        "拒绝与降级行为有测试"
+      ],
+      "exclusiveResources": [
+        "java:platform/cache",
+        "java:platform/ratelimit"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V07-T03.md"
+    },
+    {
+      "id": "V07-T04",
+      "title": "query/qrels与归因评测",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V07-T03"
+      ],
+      "goal": "冻结query/qrels与split；逐query指标和miss归因；固定配置对比keyword/semantic/RRF",
+      "paths": [
+        "evals/retrieval/",
+        "scripts/evals/retrieval/",
+        "reports/V07-T04/",
+        "handoffs/V07-T04/"
+      ],
+      "deliverables": [
+        "冻结query/qrels与split",
+        "逐query指标和miss归因",
+        "固定配置对比keyword/semantic/RRF",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "指标分母正确、失败计入",
+        "记录数据/模型/硬件/冷热缓存",
+        "原始结果可重算",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V07-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V07-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "instructions": [
+        "冻结query/qrels与split",
+        "逐query指标和miss归因",
+        "固定配置对比keyword/semantic/RRF"
+      ],
+      "specificAcceptance": [
+        "指标分母正确、失败计入",
+        "记录数据/模型/硬件/冷热缓存",
+        "原始结果可重算"
+      ],
+      "exclusiveResources": [
+        "workpackage:V07-T04"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V07-T04.md"
+    },
+    {
+      "id": "V08-T01",
+      "title": "工具registry和scope",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "注册read/propose/apply分类与schema/scope；工具调用由Java最终授权；禁任意shell",
+      "paths": [
+        "backend/src/main/java/com/larder/assistant/tools/",
+        "backend/src/test/java/com/larder/assistant/tools/",
+        "runner/src/larder_runner/tools/registry.py",
+        "runner/tests/tools/registry/",
+        "runner/src/larder_runner/tools/schemas.py",
+        "runner/tests/tools/schemas/",
+        "runner/src/larder_runner/tools/policy.py",
+        "runner/tests/tools/policy/",
+        "reports/V08-T01/",
+        "handoffs/V08-T01/"
+      ],
+      "deliverables": [
+        "注册read/propose/apply分类与schema/scope",
+        "工具调用由Java最终授权",
+        "禁任意shell",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "非法参数/越scope/越owner拒绝",
+        "只读工具也校验权限",
+        "工具schema与生成类型一致",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V08-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V08-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "R",
+      "contributors": [
+        "B",
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "注册read/propose/apply分类与schema/scope",
+        "工具调用由Java最终授权",
+        "禁任意shell"
+      ],
+      "specificAcceptance": [
+        "非法参数/越scope/越owner拒绝",
+        "只读工具也校验权限",
+        "工具schema与生成类型一致"
+      ],
+      "exclusiveResources": [
+        "java:assistant/tools",
+        "python:tools/registry.py",
+        "python:tools/schemas.py",
+        "python:tools/policy.py"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V08-T01.md"
+    },
+    {
+      "id": "V08-T02",
+      "title": "并发/去重/大结果",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V08-T01"
+      ],
+      "goal": "有界只读并发、callId结果配对、重复读结果复用、大结果artifact引用；超时/取消传播",
+      "paths": [
+        "runner/src/larder_runner/tools/executor.py",
+        "runner/tests/tools/executor/",
+        "runner/src/larder_runner/tools/results.py",
+        "runner/tests/tools/results/",
+        "reports/V08-T02/",
+        "handoffs/V08-T02/"
+      ],
+      "deliverables": [
+        "有界只读并发、callId结果配对、重复读结果复用、大结果artifact引用",
+        "超时/取消传播",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "乱序返回仍配对",
+        "并发峰值不超限",
+        "大结果不撑爆context",
+        "写工具不乱并行",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V08-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V08-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "R",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "有界只读并发、callId结果配对、重复读结果复用、大结果artifact引用",
+        "超时/取消传播"
+      ],
+      "specificAcceptance": [
+        "乱序返回仍配对",
+        "并发峰值不超限",
+        "大结果不撑爆context",
+        "写工具不乱并行"
+      ],
+      "exclusiveResources": [
+        "python:tools/executor.py",
+        "python:tools/results.py"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V08-T02.md"
+    },
+    {
+      "id": "V08-T03",
+      "title": "proposal/approval/apply",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V08-T01"
+      ],
+      "goal": "proposal绑定hash/version/run/expiry；Java审批事务和action幂等；F07完整diff/冲突/过期态",
+      "paths": [
+        "backend/src/main/java/com/larder/assistant/approval/",
+        "backend/src/test/java/com/larder/assistant/approval/",
+        "runner/src/larder_runner/agent/proposals.py",
+        "runner/tests/agent/proposals/",
+        "frontend/src/features/approvals/",
+        "frontend/e2e/approvals/",
+        "reports/V08-T03/",
+        "handoffs/V08-T03/"
+      ],
+      "deliverables": [
+        "proposal绑定hash/version/run/expiry",
+        "Java审批事务和action幂等",
+        "F07完整diff/冲突/过期态",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A19/A20",
+        "响应丢失查询原结果",
+        "拒绝/过期/参数变更没有业务写入",
+        "不得无限自动批准",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V08-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V08-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "R",
+        "W"
+      ],
+      "instructions": [
+        "proposal绑定hash/version/run/expiry",
+        "Java审批事务和action幂等",
+        "F07完整diff/冲突/过期态"
+      ],
+      "specificAcceptance": [
+        "A19/A20",
+        "响应丢失查询原结果",
+        "拒绝/过期/参数变更没有业务写入",
+        "不得无限自动批准"
+      ],
+      "exclusiveResources": [
+        "java:assistant/approval",
+        "python:agent/proposals.py",
+        "web:approvals"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V08-T03.md"
+    },
+    {
+      "id": "V08-T04",
+      "title": "Agent循环与端到端",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V08-T02",
+        "V08-T03"
+      ],
+      "goal": "真实有限Agent循环与会话/run；工具结果和引用汇总；F06流式/断线/待审批",
+      "paths": [
+        "backend/src/main/java/com/larder/assistant/session/",
+        "backend/src/test/java/com/larder/assistant/session/",
+        "runner/src/larder_runner/agent/loop.py",
+        "runner/tests/agent/loop/",
+        "runner/src/larder_runner/agent/context.py",
+        "runner/tests/agent/context/",
+        "frontend/src/features/agent/",
+        "frontend/e2e/agent/",
+        "reports/V08-T04/",
+        "handoffs/V08-T04/"
+      ],
+      "deliverables": [
+        "真实有限Agent循环与会话/run",
+        "工具结果和引用汇总",
+        "F06流式/断线/待审批",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "真实read+批准mutation端到端",
+        "步数/预算/时间终止",
+        "恢复不重复外部效果",
+        "UI不显示隐藏思维",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V08-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V08-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "R",
+      "contributors": [
+        "B",
+        "Q",
+        "R",
+        "W"
+      ],
+      "instructions": [
+        "真实有限Agent循环与会话/run",
+        "工具结果和引用汇总",
+        "F06流式/断线/待审批"
+      ],
+      "specificAcceptance": [
+        "真实read+批准mutation端到端",
+        "步数/预算/时间终止",
+        "恢复不重复外部效果",
+        "UI不显示隐藏思维"
+      ],
+      "exclusiveResources": [
+        "java:assistant/session",
+        "python:agent/loop.py",
+        "python:agent/context.py",
+        "web:agent"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V08-T04.md"
+    },
+    {
+      "id": "V09-T01",
+      "title": "记忆模型/显式写入",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "显式确认写入的结构化记忆；scope、替代关系、墓碑与版本；权威记录和审计",
+      "paths": [
+        "backend/src/main/java/com/larder/assistant/memory/model/",
+        "backend/src/test/java/com/larder/assistant/memory/model/",
+        "backend/src/main/java/com/larder/assistant/memory/api/",
+        "backend/src/test/java/com/larder/assistant/memory/api/",
+        "reports/V09-T01/",
+        "handoffs/V09-T01/"
+      ],
+      "deliverables": [
+        "显式确认写入的结构化记忆",
+        "scope、替代关系、墓碑与版本",
+        "权威记录和审计",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "不能模型自行推断就生效",
+        "替代/撤销可追溯",
+        "唯一状态约束",
+        "跨owner拒绝",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V09-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V09-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q"
+      ],
+      "instructions": [
+        "显式确认写入的结构化记忆",
+        "scope、替代关系、墓碑与版本",
+        "权威记录和审计"
+      ],
+      "specificAcceptance": [
+        "不能模型自行推断就生效",
+        "替代/撤销可追溯",
+        "唯一状态约束",
+        "跨owner拒绝"
+      ],
+      "exclusiveResources": [
+        "java:assistant/memory/model",
+        "java:assistant/memory/api"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V09-T01.md"
+    },
+    {
+      "id": "V09-T02",
+      "title": "召回/撤销/call授权",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V09-T01",
+        "V08-T03",
+        "V07-T02"
+      ],
+      "goal": "语义召回候选后MySQL复核；每次call授权冻结可注入记忆；撤销与授权竞争定义",
+      "paths": [
+        "backend/src/main/java/com/larder/assistant/memory/retrieval/",
+        "backend/src/test/java/com/larder/assistant/memory/retrieval/",
+        "backend/src/main/java/com/larder/assistant/callgrant/",
+        "backend/src/test/java/com/larder/assistant/callgrant/",
+        "runner/src/larder_runner/memory/",
+        "runner/tests/memory/",
+        "frontend/src/features/memory/",
+        "frontend/e2e/memory/",
+        "reports/V09-T02/",
+        "handoffs/V09-T02/"
+      ],
+      "deliverables": [
+        "语义召回候选后MySQL复核",
+        "每次call授权冻结可注入记忆",
+        "撤销与授权竞争定义",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A21/A22",
+        "旧索引/缓存/恢复context不能复活记忆",
+        "授权后在途call边界明确",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V09-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V09-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "R",
+        "W"
+      ],
+      "instructions": [
+        "语义召回候选后MySQL复核",
+        "每次call授权冻结可注入记忆",
+        "撤销与授权竞争定义"
+      ],
+      "specificAcceptance": [
+        "A21/A22",
+        "旧索引/缓存/恢复context不能复活记忆",
+        "授权后在途call边界明确"
+      ],
+      "exclusiveResources": [
+        "java:assistant/memory/retrieval",
+        "java:assistant/callgrant",
+        "python:memory",
+        "web:memory"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V09-T02.md"
+    },
+    {
+      "id": "V09-T03",
+      "title": "完整预算/压缩提交",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V08-T04"
+      ],
+      "goal": "完整请求token预算；Key Fact Snapshot+Summary；不可变artifact和context.committed提交",
+      "paths": [
+        "runner/src/larder_runner/compression/facts.py",
+        "runner/tests/compression/facts/",
+        "runner/src/larder_runner/compression/compressor.py",
+        "runner/tests/compression/compressor/",
+        "runner/src/larder_runner/compression/verifier.py",
+        "runner/tests/compression/verifier/",
+        "reports/V09-T03/",
+        "handoffs/V09-T03/"
+      ],
+      "deliverables": [
+        "完整请求token预算",
+        "Key Fact Snapshot+Summary",
+        "不可变artifact和context.committed提交",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A23/A24",
+        "半产物不生效、提交后可恢复",
+        "数字/否定/来源丢失失败",
+        "不混合新旧context",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V09-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V09-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "R",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "完整请求token预算",
+        "Key Fact Snapshot+Summary",
+        "不可变artifact和context.committed提交"
+      ],
+      "specificAcceptance": [
+        "A23/A24",
+        "半产物不生效、提交后可恢复",
+        "数字/否定/来源丢失失败",
+        "不混合新旧context"
+      ],
+      "exclusiveResources": [
+        "python:compression/facts.py",
+        "python:compression/compressor.py",
+        "python:compression/verifier.py"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V09-T03.md"
+    },
+    {
+      "id": "V09-T04",
+      "title": "记忆+压缩恢复/消融",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V09-T02",
+        "V09-T03",
+        "V07-T04"
+      ],
+      "goal": "跨session记忆生命周期与压缩恢复场景；真实模型预算内消融；独立Verifier",
+      "paths": [
+        "evals/agent/memory-compression/",
+        "tests/e2e/memory-compression/",
+        "reports/V09-T04/",
+        "handoffs/V09-T04/"
+      ],
+      "deliverables": [
+        "跨session记忆生命周期与压缩恢复场景",
+        "真实模型预算内消融",
+        "独立Verifier",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "保留撤销前后实际请求注入证据",
+        "压缩节省与任务质量都报告",
+        "失败不从样本中删除",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V09-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V09-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "instructions": [
+        "跨session记忆生命周期与压缩恢复场景",
+        "真实模型预算内消融",
+        "独立Verifier"
+      ],
+      "specificAcceptance": [
+        "保留撤销前后实际请求注入证据",
+        "压缩节省与任务质量都报告",
+        "失败不从样本中删除"
+      ],
+      "exclusiveResources": [
+        "workpackage:V09-T04"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V09-T04.md"
+    },
+    {
+      "id": "V10-T01",
+      "title": "四卡型schema/UI",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "四类卡片schema与来源绑定；手动编辑/AI草稿确认；F09列表/预览/冲突",
+      "paths": [
+        "backend/src/main/java/com/larder/learning/card/",
+        "backend/src/test/java/com/larder/learning/card/",
+        "frontend/src/features/cards/",
+        "frontend/e2e/cards/",
+        "reports/V10-T01/",
+        "handoffs/V10-T01/"
+      ],
+      "deliverables": [
+        "四类卡片schema与来源绑定",
+        "手动编辑/AI草稿确认",
+        "F09列表/预览/冲突",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "四卡型正常与非法输入",
+        "旧来源卡仍保留",
+        "保存失败不丢草稿",
+        "未批准AI不直接写库",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V10-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V10-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "四类卡片schema与来源绑定",
+        "手动编辑/AI草稿确认",
+        "F09列表/预览/冲突"
+      ],
+      "specificAcceptance": [
+        "四卡型正常与非法输入",
+        "旧来源卡仍保留",
+        "保存失败不丢草稿",
+        "未批准AI不直接写库"
+      ],
+      "exclusiveResources": [
+        "java:learning/card",
+        "web:cards"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V10-T01.md"
+    },
+    {
+      "id": "V10-T02",
+      "title": "调度/评分幂等",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V10-T01"
+      ],
+      "goal": "SM2适配q0/3/4/5、stateVersion和评分requestId；服务端时钟；F10流程",
+      "paths": [
+        "backend/src/main/java/com/larder/learning/review/",
+        "backend/src/test/java/com/larder/learning/review/",
+        "frontend/src/features/review/",
+        "frontend/e2e/review/",
+        "reports/V10-T02/",
+        "handoffs/V10-T02/"
+      ],
+      "deliverables": [
+        "SM2适配q0/3/4/5、stateVersion和评分requestId",
+        "服务端时钟",
+        "F10流程",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A25",
+        "重复评分返原结果、旧版本409",
+        "初始1/6/后续间隔固定例",
+        "失败不提前切卡",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V10-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V10-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "SM2适配q0/3/4/5、stateVersion和评分requestId",
+        "服务端时钟",
+        "F10流程"
+      ],
+      "specificAcceptance": [
+        "A25",
+        "重复评分返原结果、旧版本409",
+        "初始1/6/后续间隔固定例",
+        "失败不提前切卡"
+      ],
+      "exclusiveResources": [
+        "java:learning/review",
+        "web:review"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V10-T02.md"
+    },
+    {
+      "id": "V10-T03",
+      "title": "leech/统计/组织完善",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V10-T02"
+      ],
+      "goal": "leech/暂停/统计与标签集合笔记完善；统一时区日界线；统计可重算",
+      "paths": [
+        "backend/src/main/java/com/larder/learning/stats/",
+        "backend/src/test/java/com/larder/learning/stats/",
+        "backend/src/main/java/com/larder/organize/",
+        "backend/src/test/java/com/larder/organize/",
+        "frontend/src/features/cards/",
+        "frontend/e2e/cards/",
+        "frontend/src/features/organization/",
+        "frontend/e2e/organization/",
+        "reports/V10-T03/",
+        "handoffs/V10-T03/"
+      ],
+      "deliverables": [
+        "leech/暂停/统计与标签集合笔记完善",
+        "统一时区日界线",
+        "统计可重算",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "边界时区/夏令时/重复评分不重复统计",
+        "暂停卡不进入队列",
+        "组织缓存正确失效",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V10-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V10-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "leech/暂停/统计与标签集合笔记完善",
+        "统一时区日界线",
+        "统计可重算"
+      ],
+      "specificAcceptance": [
+        "边界时区/夏令时/重复评分不重复统计",
+        "暂停卡不进入队列",
+        "组织缓存正确失效"
+      ],
+      "exclusiveResources": [
+        "java:learning/stats",
+        "java:organize",
+        "web:cards",
+        "web:organization"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V10-T03.md"
+    },
+    {
+      "id": "V10-T04",
+      "title": "学习端到端和离线功能",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V10-T03"
+      ],
+      "goal": "四卡型跨页学习E2E、AI关闭、来源失效、网络未知与重复提交",
+      "paths": [
+        "tests/e2e/learning/",
+        "frontend/e2e/learning/",
+        "reports/V10-T04/",
+        "handoffs/V10-T04/"
+      ],
+      "deliverables": [
+        "四卡型跨页学习E2E、AI关闭、来源失效、网络未知与重复提交",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A26",
+        "AI关闭仍手动学习",
+        "脱网不虚假提交",
+        "评分/进度/调度权威一致",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V10-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V10-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "instructions": [
+        "四卡型跨页学习E2E、AI关闭、来源失效、网络未知与重复提交"
+      ],
+      "specificAcceptance": [
+        "A26",
+        "AI关闭仍手动学习",
+        "脱网不虚假提交",
+        "评分/进度/调度权威一致"
+      ],
+      "exclusiveResources": [
+        "workpackage:V10-T04"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V10-T04.md"
+    },
+    {
+      "id": "V11-T01",
+      "title": "八类任务与rubric",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "冻结八类任务、开发/验收集、人工rubric、数据许可；明确成功/失败/超时分母",
+      "paths": [
+        "evals/agent/datasets/",
+        "evals/agent/rubrics/",
+        "reports/V11-T01/",
+        "handoffs/V11-T01/"
+      ],
+      "deliverables": [
+        "冻结八类任务、开发/验收集、人工rubric、数据许可",
+        "明确成功/失败/超时分母",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "每类至少初始可执行样例",
+        "验收集不用于无记录调参",
+        "无私密语料泄漏",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V11-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V11-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "instructions": [
+        "冻结八类任务、开发/验收集、人工rubric、数据许可",
+        "明确成功/失败/超时分母"
+      ],
+      "specificAcceptance": [
+        "每类至少初始可执行样例",
+        "验收集不用于无记录调参",
+        "无私密语料泄漏"
+      ],
+      "exclusiveResources": [
+        "workpackage:V11-T01"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V11-T01.md"
+    },
+    {
+      "id": "V11-T02",
+      "title": "Verifier与Trace",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V11-T01"
+      ],
+      "goal": "独立Verifier与trace导出/聚合；权限/引用/恢复效果断言；LLM judge仅辅助",
+      "paths": [
+        "runner/src/larder_runner/evals/",
+        "runner/tests/evals/",
+        "scripts/evals/agent/",
+        "reports/V11-T02/",
+        "handoffs/V11-T02/"
+      ],
+      "deliverables": [
+        "独立Verifier与trace导出/聚合",
+        "权限/引用/恢复效果断言",
+        "LLM judge仅辅助",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "刻意错误输出能被拒绝",
+        "聚合可从原始trace重算",
+        "真实使用量与估算分开",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V11-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V11-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "Q",
+      "contributors": [
+        "Q",
+        "R"
+      ],
+      "instructions": [
+        "独立Verifier与trace导出/聚合",
+        "权限/引用/恢复效果断言",
+        "LLM judge仅辅助"
+      ],
+      "specificAcceptance": [
+        "刻意错误输出能被拒绝",
+        "聚合可从原始trace重算",
+        "真实使用量与估算分开"
+      ],
+      "exclusiveResources": [
+        "python:evals"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V11-T02.md"
+    },
+    {
+      "id": "V11-T03",
+      "title": "真实模型/消融对照",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V11-T02",
+        "V10-T04"
+      ],
+      "goal": "按预算跑真实模型与模块消融；固定dataset/model/prompt/config；保留每条失败",
+      "paths": [
+        "evals/agent/experiments/",
+        "reports/V11-T03/",
+        "handoffs/V11-T03/"
+      ],
+      "deliverables": [
+        "按预算跑真实模型与模块消融",
+        "固定dataset/model/prompt/config",
+        "保留每条失败",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "八类结果/质量/成本/时延可回查",
+        "无模型环境标BLOCKED",
+        "不复制简历数字",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V11-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V11-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "instructions": [
+        "按预算跑真实模型与模块消融",
+        "固定dataset/model/prompt/config",
+        "保留每条失败"
+      ],
+      "specificAcceptance": [
+        "八类结果/质量/成本/时延可回查",
+        "无模型环境标BLOCKED",
+        "不复制简历数字"
+      ],
+      "exclusiveResources": [
+        "workpackage:V11-T03"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V11-T03.md"
+    },
+    {
+      "id": "V11-T04",
+      "title": "性能/故障证据汇总",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V11-T03"
+      ],
+      "goal": "真实依赖压力/故障回归与资源曲线；冷热缓存、并发、超时及错误率；汇总E证据",
+      "paths": [
+        "tests/performance/",
+        "tests/faults/",
+        "scripts/benchmarks/",
+        "reports/V11-T04/",
+        "handoffs/V11-T04/"
+      ],
+      "deliverables": [
+        "真实依赖压力/故障回归与资源曲线",
+        "冷热缓存、并发、超时及错误率",
+        "汇总E证据",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "p95分母/失败率清楚",
+        "故障恢复可复现",
+        "不把单节点说成高可用",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V11-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V11-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "instructions": [
+        "真实依赖压力/故障回归与资源曲线",
+        "冷热缓存、并发、超时及错误率",
+        "汇总E证据"
+      ],
+      "specificAcceptance": [
+        "p95分母/失败率清楚",
+        "故障恢复可复现",
+        "不把单节点说成高可用"
+      ],
+      "exclusiveResources": [
+        "workpackage:V11-T04"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V11-T04.md"
+    },
+    {
+      "id": "V12-T01",
+      "title": "镜像/配置/doctor",
+      "status": "PLANNED",
+      "dependsOn": [],
+      "goal": "生产镜像/配置/doctor与新机安装脚本；固定版本/digest；默认无秘密与安全暴露端口",
+      "paths": [
+        "infra/",
+        "scripts/doctor/",
+        "scripts/install/",
+        "compose.yaml",
+        ".env.example",
+        "reports/V12-T01/",
+        "handoffs/V12-T01/"
+      ],
+      "deliverables": [
+        "生产镜像/配置/doctor与新机安装脚本",
+        "固定版本/digest",
+        "默认无秘密与安全暴露端口",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "从空的隔离部署目录安装成功",
+        "doctor定位缺配置/权限",
+        "不影响用户现有实例",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V12-T01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V12-T01 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "C",
+      "contributors": [
+        "C",
+        "Q"
+      ],
+      "instructions": [
+        "生产镜像/配置/doctor与新机安装脚本",
+        "固定版本/digest",
+        "默认无秘密与安全暴露端口"
+      ],
+      "specificAcceptance": [
+        "从空的隔离部署目录安装成功",
+        "doctor定位缺配置/权限",
+        "不影响用户现有实例"
+      ],
+      "exclusiveResources": [
+        "workpackage:V12-T01",
+        "deployment:root"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V12-T01.md"
+    },
+    {
+      "id": "V12-T02",
+      "title": "备份/升级/独立恢复",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V12-T01",
+        "V10-T04"
+      ],
+      "goal": "完整备份manifest、升级兼容检查、新实例恢复、恢复后索引校验；F11/F12最终流程",
+      "paths": [
+        "backend/src/main/java/com/larder/platform/backup/",
+        "backend/src/test/java/com/larder/platform/backup/",
+        "frontend/src/features/backups/",
+        "frontend/e2e/backups/",
+        "frontend/src/features/settings/",
+        "frontend/e2e/settings/",
+        "scripts/backup/",
+        "scripts/restore/",
+        "reports/V12-T02/",
+        "handoffs/V12-T02/"
+      ],
+      "deliverables": [
+        "完整备份manifest、升级兼容检查、新实例恢复、恢复后索引校验",
+        "F11/F12最终流程",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "A28",
+        "缺对象/损坏备份拒绝",
+        "原实例保留",
+        "升级失败有可执行恢复路径",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V12-T02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V12-T02 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "B",
+      "contributors": [
+        "B",
+        "Q",
+        "W"
+      ],
+      "instructions": [
+        "完整备份manifest、升级兼容检查、新实例恢复、恢复后索引校验",
+        "F11/F12最终流程"
+      ],
+      "specificAcceptance": [
+        "A28",
+        "缺对象/损坏备份拒绝",
+        "原实例保留",
+        "升级失败有可执行恢复路径"
+      ],
+      "exclusiveResources": [
+        "java:platform/backup",
+        "web:backups",
+        "web:settings"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V12-T02.md"
+    },
+    {
+      "id": "V12-T03",
+      "title": "安全与发布演练",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V12-T02",
+        "V11-T04"
+      ],
+      "goal": "SSRF/注入/权限/依赖与秘密检查；发布候选安装升级恢复演练；关键UI全状态",
+      "paths": [
+        "tests/security/",
+        "tests/release/",
+        "frontend/e2e/release/",
+        "reports/V12-T03/",
+        "handoffs/V12-T03/"
+      ],
+      "deliverables": [
+        "SSRF/注入/权限/依赖与秘密检查",
+        "发布候选安装升级恢复演练",
+        "关键UI全状态",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "P01–P12/E01–E10适用门禁齐全",
+        "缺核心不签RELEASE_READY",
+        "安全失败有复现",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V12-T03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V12-T03 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "instructions": [
+        "SSRF/注入/权限/依赖与秘密检查",
+        "发布候选安装升级恢复演练",
+        "关键UI全状态"
+      ],
+      "specificAcceptance": [
+        "P01–P12/E01–E10适用门禁齐全",
+        "缺核心不签RELEASE_READY",
+        "安全失败有复现"
+      ],
+      "exclusiveResources": [
+        "workpackage:V12-T03"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V12-T03.md"
+    },
+    {
+      "id": "V12-T04",
+      "title": "文档/截图/简历证据",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V12-T03"
+      ],
+      "goal": "完成用户/开发/运维README、真实截图、changelog、许可证清单；一个项目两块简历有据描述",
+      "paths": [
+        "README.md",
+        "CHANGELOG.md",
+        "LICENSE",
+        "docs/user/",
+        "docs/developer/",
+        "docs/operations/",
+        "docs/resume/",
+        "docs/release/",
+        "reports/V12-T04/",
+        "handoffs/V12-T04/"
+      ],
+      "deliverables": [
+        "完成用户/开发/运维README、真实截图、changelog、许可证清单",
+        "一个项目两块简历有据描述",
+        "实现与边界测试",
+        "handoff.json和修改/新增文件hash清单",
+        "集成后验证清单"
+      ],
+      "acceptance": [
+        "文档命令可执行",
+        "截图来自真实产品",
+        "每条指标链接报告",
+        "准备就绪不自动公开发布",
+        "命令/退出码/用例/skip与原始报告齐全；集成树验证后C才可标DONE"
+      ],
+      "evidencePath": "reports/V12-T04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task V12-T04 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "C",
+      "contributors": [
+        "C",
+        "Q"
+      ],
+      "instructions": [
+        "完成用户/开发/运维README、真实截图、changelog、许可证清单",
+        "一个项目两块简历有据描述"
+      ],
+      "specificAcceptance": [
+        "文档命令可执行",
+        "截图来自真实产品",
+        "每条指标链接报告",
+        "准备就绪不自动公开发布"
+      ],
+      "exclusiveResources": [
+        "workpackage:V12-T04"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "sharedChangesPolicy": "禁止直接修改未授权共享文件；schema/迁移/配置/路由变更经C分配独占slice。允许路径含测试和证据，按具体派工单进一步收窄。",
+      "promptPath": "prompts/tasks/V12-T04.md"
+    },
+    {
+      "id": "L01",
+      "title": "MySQL隔离与锁实验",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V03-T04"
+      ],
+      "goal": "MySQL隔离与锁实验，使用隔离环境验证官方语义与本项目边界。",
+      "paths": [
+        "labs/L01/",
+        "reports/L01/",
+        "handoffs/L01/"
+      ],
+      "deliverables": [
+        "可重复实验脚本",
+        "输入/环境/原始结果",
+        "结论与面试解释"
+      ],
+      "acceptance": [
+        "锁等待与重试报告；没有以错误隔离假设保证唯一性",
+        "实际实验报告，缺环境不得PASS"
+      ],
+      "evidencePath": "reports/L01/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task L01 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "exclusiveResources": [
+        "lab:L01"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "instructions": [
+        "复现RC/RR、范围锁/死锁；对照业务幂等事务",
+        "隔离环境执行；完整记录配置/输入/命令/原始数据"
+      ],
+      "specificAcceptance": [
+        "锁等待与重试报告；没有以错误隔离假设保证唯一性"
+      ],
+      "sharedChangesPolicy": "实验只写labs专属目录；生产改进另开修复slice。",
+      "promptPath": "prompts/tasks/L01.md"
+    },
+    {
+      "id": "L02",
+      "title": "SQL执行计划与索引实验",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V04-T04"
+      ],
+      "goal": "SQL执行计划与索引实验，使用隔离环境验证官方语义与本项目边界。",
+      "paths": [
+        "labs/L02/",
+        "reports/L02/",
+        "handoffs/L02/"
+      ],
+      "deliverables": [
+        "可重复实验脚本",
+        "输入/环境/原始结果",
+        "结论与面试解释"
+      ],
+      "acceptance": [
+        "保留SQL/数据规模/前后计划与耗时；不强行声称优化",
+        "实际实验报告，缺环境不得PASS"
+      ],
+      "evidencePath": "reports/L02/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task L02 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "exclusiveResources": [
+        "lab:L02"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "instructions": [
+        "真实规模fixture下EXPLAIN ANALYZE、复合索引/分页对照",
+        "隔离环境执行；完整记录配置/输入/命令/原始数据"
+      ],
+      "specificAcceptance": [
+        "保留SQL/数据规模/前后计划与耗时；不强行声称优化"
+      ],
+      "sharedChangesPolicy": "实验只写labs专属目录；生产改进另开修复slice。",
+      "promptPath": "prompts/tasks/L02.md"
+    },
+    {
+      "id": "L03",
+      "title": "Redis热点与回源实验",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V07-T04"
+      ],
+      "goal": "Redis热点与回源实验，使用隔离环境验证官方语义与本项目边界。",
+      "paths": [
+        "labs/L03/",
+        "reports/L03/",
+        "handoffs/L03/"
+      ],
+      "deliverables": [
+        "可重复实验脚本",
+        "输入/环境/原始结果",
+        "结论与面试解释"
+      ],
+      "acceptance": [
+        "命中率/后端请求量/延迟/故障路径可复现",
+        "实际实验报告，缺环境不得PASS"
+      ],
+      "evidencePath": "reports/L03/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task L03 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "exclusiveResources": [
+        "lab:L03"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "instructions": [
+        "热点/穿透/雪崩/限流故障对照；cache版本与降级",
+        "隔离环境执行；完整记录配置/输入/命令/原始数据"
+      ],
+      "specificAcceptance": [
+        "命中率/后端请求量/延迟/故障路径可复现"
+      ],
+      "sharedChangesPolicy": "实验只写labs专属目录；生产改进另开修复slice。",
+      "promptPath": "prompts/tasks/L03.md"
+    },
+    {
+      "id": "L04",
+      "title": "三节点quorum故障实验",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V03-T04"
+      ],
+      "goal": "三节点quorum故障实验，使用隔离环境验证官方语义与本项目边界。",
+      "paths": [
+        "labs/L04/",
+        "reports/L04/",
+        "handoffs/L04/"
+      ],
+      "deliverables": [
+        "可重复实验脚本",
+        "输入/环境/原始结果",
+        "结论与面试解释"
+      ],
+      "acceptance": [
+        "区分confirm、ack、业务完成；单机三节点不称跨机HA",
+        "实际实验报告，缺环境不得PASS"
+      ],
+      "evidencePath": "reports/L04/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task L04 --profile offline",
+      "commandImplemented": false,
+      "round": "R1",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "exclusiveResources": [
+        "lab:L04"
+      ],
+      "requiresGates": [
+        "R1-CONTRACT"
+      ],
+      "instructions": [
+        "隔离实验Compose三broker；多数/少数分区和恢复",
+        "隔离环境执行；完整记录配置/输入/命令/原始数据"
+      ],
+      "specificAcceptance": [
+        "区分confirm、ack、业务完成；单机三节点不称跨机HA"
+      ],
+      "sharedChangesPolicy": "实验只写labs专属目录；生产改进另开修复slice。",
+      "promptPath": "prompts/tasks/L04.md"
+    },
+    {
+      "id": "L05",
+      "title": "S3分片与发布失败实验",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V04-T04"
+      ],
+      "goal": "S3分片与发布失败实验，使用隔离环境验证官方语义与本项目边界。",
+      "paths": [
+        "labs/L05/",
+        "reports/L05/",
+        "handoffs/L05/"
+      ],
+      "deliverables": [
+        "可重复实验脚本",
+        "输入/环境/原始结果",
+        "结论与面试解释"
+      ],
+      "acceptance": [
+        "真实ETag与SHA区别；恢复不覆写原件",
+        "实际实验报告，缺环境不得PASS"
+      ],
+      "evidencePath": "reports/L05/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task L05 --profile offline",
+      "commandImplemented": false,
+      "round": "R2",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "exclusiveResources": [
+        "lab:L05"
+      ],
+      "requiresGates": [
+        "R1-ACCEPTED",
+        "R2-CONTRACT"
+      ],
+      "instructions": [
+        "multipart/断流/重复上传/hash/孤立对象对账",
+        "隔离环境执行；完整记录配置/输入/命令/原始数据"
+      ],
+      "specificAcceptance": [
+        "真实ETag与SHA区别；恢复不覆写原件"
+      ],
+      "sharedChangesPolicy": "实验只写labs专属目录；生产改进另开修复slice。",
+      "promptPath": "prompts/tasks/L05.md"
+    },
+    {
+      "id": "L06",
+      "title": "OpenTelemetry跨端链路",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V08-T04"
+      ],
+      "goal": "OpenTelemetry跨端链路，使用隔离环境验证官方语义与本项目边界。",
+      "paths": [
+        "labs/L06/",
+        "reports/L06/",
+        "handoffs/L06/"
+      ],
+      "deliverables": [
+        "可重复实验脚本",
+        "输入/环境/原始结果",
+        "结论与面试解释"
+      ],
+      "acceptance": [
+        "一次请求可追踪跨进程；敏感信息脱敏；观测非业务权威",
+        "实际实验报告，缺环境不得PASS"
+      ],
+      "evidencePath": "reports/L06/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task L06 --profile offline",
+      "commandImplemented": false,
+      "round": "R3",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "exclusiveResources": [
+        "lab:L06"
+      ],
+      "requiresGates": [
+        "R2-ACCEPTED",
+        "R3-CONTRACT"
+      ],
+      "instructions": [
+        "贯通HTTP/MQ/run/tool trace，低基数metrics",
+        "隔离环境执行；完整记录配置/输入/命令/原始数据"
+      ],
+      "specificAcceptance": [
+        "一次请求可追踪跨进程；敏感信息脱敏；观测非业务权威"
+      ],
+      "sharedChangesPolicy": "实验只写labs专属目录；生产改进另开修复slice。",
+      "promptPath": "prompts/tasks/L06.md"
+    },
+    {
+      "id": "L07",
+      "title": "Flyway升级兼容实验",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V12-T02"
+      ],
+      "goal": "Flyway升级兼容实验，使用隔离环境验证官方语义与本项目边界。",
+      "paths": [
+        "labs/L07/",
+        "reports/L07/",
+        "handoffs/L07/"
+      ],
+      "deliverables": [
+        "可重复实验脚本",
+        "输入/环境/原始结果",
+        "结论与面试解释"
+      ],
+      "acceptance": [
+        "新旧版本兼容说明；禁止清库绕过历史迁移",
+        "实际实验报告，缺环境不得PASS"
+      ],
+      "evidencePath": "reports/L07/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task L07 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "exclusiveResources": [
+        "lab:L07"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "instructions": [
+        "已有数据下前滚、checksum、失败恢复和备份校验",
+        "隔离环境执行；完整记录配置/输入/命令/原始数据"
+      ],
+      "specificAcceptance": [
+        "新旧版本兼容说明；禁止清库绕过历史迁移"
+      ],
+      "sharedChangesPolicy": "实验只写labs专属目录；生产改进另开修复slice。",
+      "promptPath": "prompts/tasks/L07.md"
+    },
+    {
+      "id": "L08",
+      "title": "真实依赖与Mock语义对照",
+      "status": "PLANNED",
+      "dependsOn": [
+        "V11-T04"
+      ],
+      "goal": "真实依赖与Mock语义对照，使用隔离环境验证官方语义与本项目边界。",
+      "paths": [
+        "labs/L08/",
+        "reports/L08/",
+        "handoffs/L08/"
+      ],
+      "deliverables": [
+        "可重复实验脚本",
+        "输入/环境/原始结果",
+        "结论与面试解释"
+      ],
+      "acceptance": [
+        "列出Mock漏检失败；真实模型质量另列不混同基础设施测试",
+        "实际实验报告，缺环境不得PASS"
+      ],
+      "evidencePath": "reports/L08/<runId>/",
+      "plannedCommand": "python scripts/accept.py --task L08 --profile offline",
+      "commandImplemented": false,
+      "round": "R4",
+      "leadRole": "Q",
+      "contributors": [
+        "Q"
+      ],
+      "exclusiveResources": [
+        "lab:L08"
+      ],
+      "requiresGates": [
+        "R3-ACCEPTED",
+        "R4-CONTRACT"
+      ],
+      "instructions": [
+        "同场景对照Mock/真实MySQL/Rabbit/Meili与供应商stub",
+        "隔离环境执行；完整记录配置/输入/命令/原始数据"
+      ],
+      "specificAcceptance": [
+        "列出Mock漏检失败；真实模型质量另列不混同基础设施测试"
+      ],
+      "sharedChangesPolicy": "实验只写labs专属目录；生产改进另开修复slice。",
+      "promptPath": "prompts/tasks/L08.md"
+    }
+  ],
+  "stateAuthority": "Coordinator; DONE means integrated and verified",
+  "schedulingAuthority": "tasks/coordination.json"
+}

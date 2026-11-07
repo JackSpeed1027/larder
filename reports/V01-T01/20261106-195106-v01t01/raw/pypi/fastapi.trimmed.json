@@ -1,0 +1,10 @@
+{
+    "name":  "fastapi",
+    "version":  "0.162.0",
+    "requiresPython":  "\u003e=3.10",
+    "license":  null,
+    "licenseExpression":  "MIT",
+    "summary":  "FastAPI framework, high performance, easy to learn, fast to code, ready for production",
+    "uploadTime":  "2026-10-23T18:47:31.734776Z",
+    "sourceUrl":  "https://pypi.org/pypi/fastapi/json"
+}

@@ -1,0 +1,1537 @@
+{
+  "schemaVersion": "1.0",
+  "revision": "R2 + V01-T02 运行期验证",
+  "supersedes": "reports/V01-T01/20261106-195106-v01t01/（R1：Spring Boot 3.5.16 冻结）",
+  "taskId": "V01-T01",
+  "title": "版本与兼容性冻结",
+  "runId": "20261106-2045-v01t01-r2",
+  "generatedAt": "2026-11-07T00:20:00+08:00",
+  "generatedBy": "C 角色实现 Agent（V01-T01 R2）",
+  "scope": "Java 21 / Spring Boot 4.1 / MyBatis-Plus / MySQL 8.4 / Redis / RabbitMQ / Meilisearch / MinIO-S3 / Flyway / Testcontainers / Python 3.12 / FastAPI / React 19 / Vite / TypeScript / Tailwind 4",
+  "revisionNote": "R2 按用户决定改为 Spring Boot 4.1.2 并确定使用 MinIO（源码固定构建）。R1 的 Boot 3.5.16 数字已被本文件取代；R1 报告保留作历史证据，不得再作为当前锁依据。",
+  "policy": {
+    "pinRule": "每个组件只写精确版本号、commit 或 sha256；禁止 latest、禁止 ^ ~ > < * 等范围符。",
+    "sourceRule": "版本必须能在本 run 落盘的注册源快照中找到；本 run 未取到的版本不写。",
+    "digestRule": "镜像 digest 取 registry API 返回的 manifest digest；从源码构建的服务端记录 git commit + 二进制 sha256。",
+    "runtimeRule": "artifact=构件/源码真实存在且校验过；runtime=本机真实跑过。两者分开，runtime 未验证一律 BLOCKED 并写明原因。",
+    "blockedRule": "BLOCKED 表示本机当前环境无法验证，不代表组件被移除；补齐环境后必须重跑。",
+    "latestClarification": "source.url 与证据文件名里的 /latest 是 npm 注册源端点名，不是版本范围；pin 字段一律精确。"
+  },
+  "baseline": {
+    "javaVersionPinned": "21",
+    "javaRuntimeVerified": "Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS)",
+    "springBootLine": "4.1",
+    "pythonVersionPinned": "3.12",
+    "nodeVersionPinned": "24",
+    "bootUpgradePolicy": "已按用户决定升级到 4.1.2（ADR-0002）；不再维持 3.5"
+  },
+  "artifacts": {
+    "evidenceRoot": "reports/V01-T01/20261106-2045-v01t01-r2",
+    "previousRun": "reports/V01-T01/20261106-195106-v01t01",
+    "environment": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt",
+    "backendCompat": "reports/V01-T01/20261106-2045-v01t01-r2/compat-check-backend",
+    "minioBuild": "reports/V01-T01/20261106-2045-v01t01-r2/minio-build.json",
+    "verificationReport": "reports/V01-T01/20261106-2045-v01t01-r2/verification.md",
+    "summary": "reports/V01-T01/20261106-2045-v01t01-r2/summary.json",
+    "v01t02EvidenceRoot": "reports/V01-T02/20261107-0010-v01t02"
+  },
+  "components": [
+    {
+      "id": "jdk",
+      "kind": "runtime",
+      "name": "Eclipse Temurin JDK",
+      "pin": "21.0.12.1+1",
+      "source": {
+        "url": "https://adoptium.net/temurin/releases/?version=21",
+        "retrievedAt": "2026-11-06T19:51:50+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+      },
+      "license": {
+        "spdx": "GPL-2.0-with-classpath-exception",
+        "evidence": "OpenJDK 发行版声明；java -version 显示 Temurin-21.0.12.1+1"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "LTS 线"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "本机 java -version / mvn -v",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "Boot 4 兼容工程的 mvn test 在 JDK 21.0.12.1 上通过",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        }
+      }
+    },
+    {
+      "id": "maven",
+      "kind": "tool",
+      "name": "Apache Maven",
+      "pin": "3.9.11",
+      "source": {
+        "url": "https://maven.apache.org/download.cgi",
+        "retrievedAt": "2026-11-06T19:51:50+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "Maven 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "3.9.x 稳定线"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "mvn -v",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/environment.txt"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "dependency:list 与 test 成功",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        }
+      }
+    },
+    {
+      "id": "go",
+      "kind": "tool",
+      "name": "Go 工具链（构建 MinIO 用）",
+      "pin": "1.27.3",
+      "source": {
+        "url": "https://go.dev/dl/",
+        "retrievedAt": "2026-11-06T20:44:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+      },
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "evidence": "Go 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "仅用于从源码构建 MinIO；不进入产品运行时"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "go version",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "成功构建 minio.exe",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/minio-build.json"
+        }
+      }
+    },
+    {
+      "id": "docker-engine",
+      "kind": "tool",
+      "name": "Docker Desktop / Docker CLI",
+      "pin": "29.9.2",
+      "desktopVersion": "4.98.0.245422",
+      "source": {
+        "url": "https://www.docker.com/products/docker-desktop/",
+        "retrievedAt": "2026-11-06T21:00:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+      },
+      "license": {
+        "spdx": "Docker-Subscription-Service-Agreement",
+        "evidence": "Docker Desktop 商业条款（个人/小规模免费）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "本次通过 winget 安装；守护进程需 WSL2 内核与重启，当前未就绪"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "winget 安装成功 + docker --version",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "Docker 29.9.2 守护进程就绪；docker compose up -d --wait 八服务全部 healthy",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "spring-boot",
+      "kind": "framework",
+      "name": "Spring Boot (spring-boot-starter-parent BOM)",
+      "pin": "4.1.2",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/4.1.2/spring-boot-dependencies-4.1.2.pom",
+        "retrievedAt": "2026-11-06T20:45:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-starter-parent-4.1.2.pom"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "4.1 线 OSS 支持到 2027-07-31；4.0 线 2026-12-31 到期，故直接选 4.1.2"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "Maven Central BOM + 元数据确认 4.1.2 存在",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "SpringBootVersion 运行时断言 4.1.2，上下文真实启动",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        }
+      },
+      "adr": "docs/adr/versions/ADR-0002-spring-boot-eol.md"
+    },
+    {
+      "id": "spring-framework",
+      "kind": "framework",
+      "name": "Spring Framework",
+      "pin": "7.0.10",
+      "managedBy": "spring-boot-dependencies:4.1.2 (property spring-framework.version)",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/4.1.2/spring-boot-dependencies-4.1.2.pom",
+        "retrievedAt": "2026-11-06T20:45:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "Spring 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "随 Boot 4.1 线支持到 2027-07"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "BOM 属性 + 运行时 jar 名断言 spring-context-7.0.10.jar",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "上下文启动 + Flyway/MyBatis 全链路",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        }
+      }
+    },
+    {
+      "id": "spring-security",
+      "kind": "framework",
+      "name": "Spring Security",
+      "pin": "7.1.2",
+      "managedBy": "spring-boot-dependencies:4.1.2 (property spring-security.version)",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/4.1.2/spring-boot-dependencies-4.1.2.pom",
+        "retrievedAt": "2026-11-06T20:45:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "Spring Security 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "7.x 与 Boot 4.1 同代"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "BOM 属性",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "starter-security 在上下文中装配成功（默认安全链生效，日志有生成密码提示）",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        }
+      }
+    },
+    {
+      "id": "spring-amqp",
+      "kind": "framework",
+      "name": "Spring AMQP",
+      "pin": "4.1.2",
+      "managedBy": "spring-boot-dependencies:4.1.2 (property spring-amqp.version)",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/4.1.2/spring-boot-dependencies-4.1.2.pom",
+        "retrievedAt": "2026-11-06T20:45:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "Spring AMQP 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "4.1 与 Boot 4.1 同步"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "BOM 属性 + 依赖解析",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/boot4-dependency-list.txt"
+        },
+        "runtime": {
+          "status": "BLOCKED",
+          "reason": "无 RabbitMQ 实例（Docker 守护进程未就绪）"
+        }
+      }
+    },
+    {
+      "id": "mybatis-plus",
+      "kind": "library",
+      "name": "MyBatis-Plus (spring-boot4-starter)",
+      "pin": "3.5.18",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/com/baomidou/mybatis-plus-spring-boot4-starter/maven-metadata.xml",
+        "retrievedAt": "2026-11-06T20:45:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/mybatis-plus-spring-boot4-starter.maven-metadata.xml"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/mybatis-plus-spring-boot3-starter-3.5.18.pom（同版本 POM，boot4 starter 同仓库同许可）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "boot4 starter 自 3.5.13 起提供，3.5.18 为最新；boot3 starter 不能用于 Boot 4"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "Maven Central 元数据确认 3.5.18 存在",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/mybatis-plus-spring-boot4-starter.maven-metadata.xml"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "Boot 4 上下文中 BaseMapper.selectCount/selectList 真实执行（H2）",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        }
+      },
+      "compatibility": {
+        "notes": "Boot 4 必须用 mybatis-plus-spring-boot4-starter；boot3 starter 会引 Boot 3 的 autoconfigure API，运行期不兼容。"
+      }
+    },
+    {
+      "id": "flyway",
+      "kind": "library",
+      "name": "Flyway (starter-flyway + flyway-mysql)",
+      "pin": "12.4.0",
+      "managedBy": "spring-boot-dependencies:4.1.2 (property flyway.version)",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/4.1.2/spring-boot-dependencies-4.1.2.pom",
+        "retrievedAt": "2026-11-06T20:45:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "Flyway 父 POM（flyway-parent 11.7.2 与 12.x 同为 Apache-2.0 声明）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED_BY_BOM",
+        "note": "由 Boot 4.1.2 BOM 管理；不单独升级"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "BOM 属性 + 运行时 jar 断言 flyway-core-12.4.0.jar",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "H2(MODE=MySQL) 上执行 V1 迁移，flyway-mysql 类可加载",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+        }
+      },
+      "compatibility": {
+        "notes": "Boot 4 把 Flyway 自动配置拆到 spring-boot-flyway：只加 flyway-core 时上下文能起但**没有 Flyway bean、迁移不会执行**（本 run 第一次跑就是这个错误：No qualifying bean of type Flyway，见 mvn-boot4-test.log 的首次运行记录）。必须用 spring-boot-starter-flyway，并显式加 flyway-mysql。",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test.log"
+      }
+    },
+    {
+      "id": "mysql-connector-j",
+      "kind": "library",
+      "name": "MySQL Connector/J",
+      "pin": "9.7.0",
+      "managedBy": "spring-boot-dependencies:4.1.2 (property mysql.version)",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/4.1.2/spring-boot-dependencies-4.1.2.pom",
+        "retrievedAt": "2026-11-06T20:45:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+      },
+      "license": {
+        "spdx": "GPL-2.0-with-FOSS-exception",
+        "evidence": "Oracle Connector/J 许可声明（未在本 run 拉取原文）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "9.7.0 支持 MySQL 8.0+"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "BOM 属性 + 依赖解析",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/boot4-dependency-list.txt"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "API 通过 Connector/J 9.7.0 连上 MySQL 8.4.13，执行 Flyway 迁移并查询 app_meta",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/verify.log"
+        }
+      }
+    },
+    {
+      "id": "testcontainers",
+      "kind": "test-library",
+      "name": "Testcontainers (BOM)",
+      "pin": "2.0.5",
+      "managedBy": "spring-boot-dependencies:4.1.2 (property testcontainers.version)",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/4.1.2/spring-boot-dependencies-4.1.2.pom",
+        "retrievedAt": "2026-11-06T20:45:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-195106-v01t01/raw/maven/testcontainers-1.21.4.pom（同项目 MIT 声明）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED_BY_BOM",
+        "note": "Boot 4.1 管理 2.0.5（与 Boot 3 的 1.21.x 不同，升级后自动对齐）"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "BOM 属性",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/spring-boot-dependencies-4.1.2.pom"
+        },
+        "runtime": {
+          "status": "BLOCKED",
+          "reason": "依赖 Docker 守护进程；WSL2 未启用"
+        }
+      }
+    },
+    {
+      "id": "aws-sdk-s3",
+      "kind": "library",
+      "name": "AWS SDK for Java v2 - S3",
+      "pin": "2.57.10",
+      "source": {
+        "url": "https://repo1.maven.org/maven2/software/amazon/awssdk/s3/maven-metadata.xml",
+        "retrievedAt": "2026-11-06T20:10:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/awssdk-s3.maven-metadata.xml"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/aws-sdk-java-pom.pom"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "AWS SDK v2 持续发布"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "Maven Central 元数据 + 依赖解析",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/maven/awssdk-s3.maven-metadata.xml"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "S3ClientSmokeTest 对本地 MinIO 完成建桶/写入/读取/HEAD（path-style）",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/logs/mvn-boot4-test-s3.log"
+        }
+      },
+      "adr": "docs/adr/versions/ADR-0004-s3-client-adapter.md"
+    },
+    {
+      "id": "minio-server",
+      "kind": "service",
+      "name": "MinIO 服务端（源码固定构建）",
+      "pin": "RELEASE.2025-10-15T17-29-55Z",
+      "commit": "9e49d5e7a648f00e26f2246f4dc28e6b07f8c84a",
+      "binarySha256": "0347a92d13165c0a1659ded11658f9993e3174dab3b8c746e7abf195bc9277a6",
+      "source": {
+        "url": "https://github.com/minio/minio",
+        "retrievedAt": "2026-11-06T20:47:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/minio-build.json"
+      },
+      "license": {
+        "spdx": "AGPL-3.0-only",
+        "evidence": "reports/V01-T01/20261106-195106-v01t01/raw/platform/license-minio.txt"
+      },
+      "maintenance": {
+        "status": "ARCHIVED_UPSTREAM",
+        "note": "仓库已归档、dl.min.io 下载站 410、GitHub release 无附件、Docker Hub 镜像 404：本项目按用户决定继续用 MinIO，从归档源码固定 tag 构建并在锁里记 commit+sha256；无上游安全更新，V12 必须重新评估"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "源码 tag/commit + go build 产物 sha256 + 二进制自报版本",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/minio-build.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "Linux 二进制打进 larder/minio 镜像，容器 healthy，/minio/health/live 通过",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      },
+      "adr": "docs/adr/versions/ADR-0003-object-storage-build.md",
+      "binarySha256Linux": "1511a2b15f6513d10cf89d86f8a96e836dfb9bddf6e9c1f3e0c8d9e2cda1920a",
+      "containerImage": "larder/minio:RELEASE.2025-10-15T17-29-55Z"
+    },
+    {
+      "id": "mysql-image",
+      "kind": "image",
+      "name": "MySQL 8.4 (LTS) 镜像",
+      "pin": "8.4.13",
+      "digest": "sha256:a81d043930e51745522bd5c430961cf8286f0a23f0a9a2a6e0108f7ea71b0902",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/library/mysql/tags?page_size=100&name=8.4",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/docker/library_mysql.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "GPL-2.0",
+        "evidence": "reports/V01-T01/20261106-195106-v01t01/raw/platform/license-mysql-8.4.txt"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "8.4 LTS 线，8.4.13 为 2026-11-03 补丁"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "Docker Hub registry API digest",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/docker/library_mysql.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "mysql:8.4.13 容器 healthy，Flyway 在真实库执行 V1 迁移成功",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "redis-image",
+      "kind": "image",
+      "name": "Redis 镜像",
+      "pin": "8.10.3",
+      "digest": "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/library/redis/tags?page_size=100",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/docker/library_redis.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "AGPL-3.0-only",
+        "evidence": "reports/V01-T01/20261106-195106-v01t01/raw/platform/license-redis-8.10.txt"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "AGPLv3（三许可择一），见 ADR-0005"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "Docker Hub registry API digest",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/docker/library_redis.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "redis:8.10.3 容器 healthy，redis-cli ping 返回 PONG",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "rabbitmq-image",
+      "kind": "image",
+      "name": "RabbitMQ 镜像（含管理台）",
+      "pin": "4.3.7-management",
+      "digest": "sha256:6e51f8f18e055d6dc3d94316db0073da64d811c2e19744661fae06b03c1d6fa8",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/library/rabbitmq/tags?page_size=100&name=4",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/docker/library_rabbitmq.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "MPL-2.0",
+        "evidence": "reports/V01-T01/20261106-195106-v01t01/raw/platform/license-rabbitmq.txt"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "4.3 成熟补丁线（4.4.0 刚发布未采用）"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "Docker Hub registry API digest",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/docker/library_rabbitmq.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "rabbitmq:4.3.7-management 容器 healthy，rabbitmq-diagnostics ping 通过",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "meilisearch-image",
+      "kind": "image",
+      "name": "Meilisearch 镜像",
+      "pin": "v1.56.1",
+      "digest": "sha256:b7ba431bf6f9b26cc86132798f3640964147a699cf23f026b74c6c05dbb1d60d",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/getmeili/meilisearch/tags?page_size=100&name=v1",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/docker/getmeili_meilisearch.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-195106-v01t01/raw/platform/license-meilisearch.txt"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "1.56.1 为最新 1.x 补丁"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "Docker Hub registry API digest",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/docker/getmeili_meilisearch.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "meilisearch:v1.56.1 容器 healthy，/health 返回 available",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "python",
+      "kind": "runtime",
+      "name": "CPython (uv 管理)",
+      "pin": "3.12.15",
+      "source": {
+        "url": "https://www.python.org/ftp/python/",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/platform/python-ftp-index.html"
+      },
+      "license": {
+        "spdx": "PSF-2.0",
+        "evidence": "Python 官方许可"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "3.12 安全支持线；上游 3.12.16 需更高版本 uv"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "uv 下载 cpython-3.12.15-windows-x86_64-none",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/uv-venv.log"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "解释器真实运行 smoke.py",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/smoke.log"
+        }
+      }
+    },
+    {
+      "id": "uv",
+      "kind": "tool",
+      "name": "uv",
+      "pin": "0.13.1",
+      "source": {
+        "url": "https://github.com/astral-sh/uv/releases",
+        "retrievedAt": "2026-11-06T19:51:50+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "uv 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "0.13.1"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "uv --version",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/environment-r2.txt"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "uv venv / uv pip install 成功",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/uv-pip-install.log"
+        }
+      }
+    },
+    {
+      "id": "fastapi",
+      "kind": "library",
+      "name": "FastAPI",
+      "pin": "0.162.0",
+      "source": {
+        "url": "https://pypi.org/pypi/fastapi/json",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/fastapi.trimmed.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/fastapi.trimmed.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "0.162.0"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "PyPI JSON API",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/fastapi.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "TestClient GET /ping",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/smoke.log"
+        }
+      }
+    },
+    {
+      "id": "starlette",
+      "kind": "library",
+      "name": "Starlette（FastAPI 传递依赖）",
+      "pin": "1.10.0",
+      "source": {
+        "url": "https://pypi.org/pypi/starlette/json",
+        "retrievedAt": "2026-11-06T20:13:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/starlette.trimmed.json"
+      },
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "evidence": "Starlette 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "由 fastapi 0.162.0 决定"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "uv pip install 实际版本",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/uv-pip-install.log"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "TestClient 工作正常",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/smoke.log"
+        }
+      }
+    },
+    {
+      "id": "uvicorn",
+      "kind": "library",
+      "name": "Uvicorn",
+      "pin": "0.54.0",
+      "source": {
+        "url": "https://pypi.org/pypi/uvicorn/json",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/uvicorn.trimmed.json"
+      },
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/uvicorn.trimmed.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "0.54.0"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "PyPI JSON API",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/uvicorn.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "import 成功",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/smoke.log"
+        }
+      }
+    },
+    {
+      "id": "pydantic",
+      "kind": "library",
+      "name": "Pydantic",
+      "pin": "2.14.3",
+      "source": {
+        "url": "https://pypi.org/pypi/pydantic/json",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pydantic.trimmed.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pydantic.trimmed.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "2.14.3"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "PyPI JSON API",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pydantic.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "未知字段拒绝 + 合法输入接受",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/smoke.log"
+        }
+      }
+    },
+    {
+      "id": "pydantic-settings",
+      "kind": "library",
+      "name": "pydantic-settings",
+      "pin": "2.16.2",
+      "source": {
+        "url": "https://pypi.org/pypi/pydantic-settings/json",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pydantic-settings.trimmed.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pydantic-settings.trimmed.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "2.16.2"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "PyPI JSON API",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pydantic-settings.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "与 pydantic 2.14.3 同装",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/uv-pip-install.log"
+        }
+      }
+    },
+    {
+      "id": "httpx",
+      "kind": "library",
+      "name": "httpx",
+      "pin": "0.28.1",
+      "source": {
+        "url": "https://pypi.org/pypi/httpx/json",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/httpx.trimmed.json"
+      },
+      "license": {
+        "spdx": "BSD-3-Clause",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/httpx.trimmed.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "0.28.1"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "PyPI JSON API",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/httpx.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "被 FastAPI TestClient 使用",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/smoke.log"
+        }
+      },
+      "compatibility": {
+        "notes": "Starlette 1.10.0 提示 testclient+httpx 已 deprecated（建议 httpx2）；只影响测试客户端。"
+      }
+    },
+    {
+      "id": "pytest",
+      "kind": "test-library",
+      "name": "pytest",
+      "pin": "9.2.0",
+      "source": {
+        "url": "https://pypi.org/pypi/pytest/json",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pytest.trimmed.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pytest.trimmed.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "V01-T02 建 runner 时使用"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "PyPI JSON API",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/pypi/pytest.trimmed.json"
+        },
+        "runtime": {
+          "status": "BLOCKED",
+          "reason": "runner 工程尚未创建（V01-T02）"
+        }
+      }
+    },
+    {
+      "id": "node",
+      "kind": "runtime",
+      "name": "Node.js",
+      "pin": "24.22.0",
+      "source": {
+        "url": "https://nodejs.org/dist/index.json",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/platform/node-index.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "Node.js 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "24.x LTS Krypton；注册源已有 24.22.2"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "node -v",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/environment.txt"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "pnpm lockfile 解析运行在 Node 24.22.0",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/pnpm-install-lockfile-only.log"
+        }
+      }
+    },
+    {
+      "id": "pnpm",
+      "kind": "tool",
+      "name": "pnpm",
+      "pin": "11.25.0",
+      "source": {
+        "url": "https://pnpm.io/installation",
+        "retrievedAt": "2026-11-06T19:51:50+08:00",
+        "evidence": "reports/V01-T01/20261106-195106-v01t01/environment.txt"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "pnpm 项目声明"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "注册源最新 12.18.0；跨大版本换 lockfile 格式，需单独决定"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "pnpm -v",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/environment.txt"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "pnpm install --lockfile-only 退出码 0",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/logs/pnpm-install-lockfile-only.log"
+        }
+      }
+    },
+    {
+      "id": "react",
+      "kind": "library",
+      "name": "React / React DOM",
+      "pin": "19.3.1",
+      "source": {
+        "url": "https://registry.npmjs.org/react/latest",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/react.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/react.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "19.3.1"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/react.latest.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "lockfile 解析通过，未浏览器渲染",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "vite",
+      "kind": "tool",
+      "name": "Vite",
+      "pin": "8.3.6",
+      "source": {
+        "url": "https://registry.npmjs.org/vite/latest",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/vite.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/vite.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "8.3.6"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/vite.latest.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "lockfile 解析通过，未 build",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "vite-react-plugin",
+      "kind": "tool",
+      "name": "@vitejs/plugin-react",
+      "pin": "6.2.1",
+      "source": {
+        "url": "https://registry.npmjs.org/@vitejs/plugin-react/latest",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/_vitejs_plugin-react.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/_vitejs_plugin-react.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "6.2.1"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/_vitejs_plugin-react.latest.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "peer 解析通过",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "typescript",
+      "kind": "tool",
+      "name": "TypeScript",
+      "pin": "7.0.2",
+      "source": {
+        "url": "https://registry.npmjs.org/-/package/typescript/dist-tags",
+        "retrievedAt": "2026-11-06T20:10:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/typescript.dist-tags.json"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/typescript.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "7.x 原生编译器大版本；首次 tsc 失败时按 ADR-0006 回退 5.9.x"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm dist-tags",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/typescript.dist-tags.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "lockfile 解析通过，未 tsc",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "tailwindcss",
+      "kind": "library",
+      "name": "Tailwind CSS + @tailwindcss/vite",
+      "pin": "4.3.4",
+      "source": {
+        "url": "https://registry.npmjs.org/@tailwindcss/vite/latest",
+        "retrievedAt": "2026-11-06T20:10:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/@tailwindcss_vite.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/tailwindcss.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "peer 允许 vite ^5.2 || ^6 || ^7 || ^8"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry + peerDependencies",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/@tailwindcss_vite.latest.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "peer 解析通过，未构建样式",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "tanstack-query",
+      "kind": "library",
+      "name": "@tanstack/react-query",
+      "pin": "5.106.1",
+      "source": {
+        "url": "https://registry.npmjs.org/@tanstack/react-query/latest",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/_tanstack_react-query.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/_tanstack_react-query.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "5.106.1"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/_tanstack_react-query.latest.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "lockfile 解析通过",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "react-router",
+      "kind": "library",
+      "name": "React Router",
+      "pin": "8.5.1",
+      "source": {
+        "url": "https://registry.npmjs.org/react-router/latest",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/react-router.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/react-router.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "engines node >=22.22.0 满足"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/react-router.latest.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "lockfile 解析通过",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "zustand",
+      "kind": "library",
+      "name": "Zustand",
+      "pin": "5.0.16",
+      "source": {
+        "url": "https://registry.npmjs.org/zustand/latest",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/zustand.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/zustand.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "仅存跨页 UI 偏好（docs/09）"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/zustand.latest.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "lockfile 解析通过",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "vitest",
+      "kind": "test-library",
+      "name": "Vitest",
+      "pin": "5.1.0",
+      "source": {
+        "url": "https://registry.npmjs.org/vitest/latest",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/vitest.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/vitest.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "engines 满足 Node 24"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/vitest.latest.json"
+        },
+        "runtime": {
+          "status": "BLOCKED",
+          "reason": "前端工程尚未创建（V01-T02）"
+        }
+      }
+    },
+    {
+      "id": "shadcn-cli",
+      "kind": "tool",
+      "name": "shadcn CLI",
+      "pin": "4.23.0",
+      "source": {
+        "url": "https://registry.npmjs.org/shadcn/latest",
+        "retrievedAt": "2026-11-06T19:51:10+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/shadcn.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/shadcn.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "生成的组件是受控源码（F00 owner）"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/shadcn.latest.json"
+        },
+        "runtime": {
+          "status": "BLOCKED",
+          "reason": "前端工程尚未创建（V01-T02）"
+        }
+      }
+    },
+    {
+      "id": "types-react",
+      "kind": "dev-library",
+      "name": "@types/react + @types/react-dom",
+      "pin": "19.3.0",
+      "source": {
+        "url": "https://registry.npmjs.org/@types/react/latest",
+        "retrievedAt": "2026-11-06T20:10:00+08:00",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/@types_react.latest.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/@types_react.latest.json"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "与 React 19.3.1 同代"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "npm registry",
+          "evidence": "reports/V01-T01/20261106-2045-v01t01-r2/raw/npm/@types_react.latest.json"
+        },
+        "runtime": {
+          "status": "PARTIAL",
+          "method": "lockfile 解析通过",
+          "evidence": "reports/V01-T01/20261106-195106-v01t01/compat-check-frontend/pnpm-lock.yaml"
+        }
+      }
+    },
+    {
+      "id": "image-eclipse-temurin",
+      "kind": "image",
+      "name": "Eclipse Temurin 21 JRE 运行镜像",
+      "pin": "21-jre",
+      "digest": "sha256:0b99b3376fbb50dbf9c0af8535fdd5b8eb0d3fdfc8b1e4967f383b6919f6901a",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/library/eclipse-temurin/tags?page_size=100&name=21-jre",
+        "retrievedAt": "2026-11-07T00:05:00+08:00",
+        "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "GPL-2.0-with-classpath-exception",
+        "evidence": "镜像内 /usr/share/doc 或上游项目声明（本 run 未逐字核验）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "V01-T02 按 digest 固定并真实拉取"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "docker pull + docker image inspect RepoDigests",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "作为 api/runner/web/minio 构建基底或运行基底实际使用",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "image-python-slim",
+      "kind": "image",
+      "name": "Python 3.12 slim 运行镜像",
+      "pin": "3.12-slim",
+      "digest": "sha256:4840d514c583a4d3d8cad3940e68dee6f0f6f3635c12fcd0a3d74c21a5b93a54",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/library/python/tags?page_size=100&name=3.12-slim",
+        "retrievedAt": "2026-11-07T00:05:00+08:00",
+        "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "PSF-2.0",
+        "evidence": "镜像内 /usr/share/doc 或上游项目声明（本 run 未逐字核验）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "V01-T02 按 digest 固定并真实拉取"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "docker pull + docker image inspect RepoDigests",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "作为 api/runner/web/minio 构建基底或运行基底实际使用",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "image-nginx-alpine",
+      "kind": "image",
+      "name": "nginx 1.29 alpine（Web 静态服务）",
+      "pin": "1.29-alpine",
+      "digest": "sha256:5616878291a2eed594aee8db4dade5878cf7edcb475e59193904b198d9b830de",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/library/nginx/tags?page_size=100&name=1.29",
+        "retrievedAt": "2026-11-07T00:05:00+08:00",
+        "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "BSD-2-Clause",
+        "evidence": "镜像内 /usr/share/doc 或上游项目声明（本 run 未逐字核验）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "V01-T02 按 digest 固定并真实拉取"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "docker pull + docker image inspect RepoDigests",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "作为 api/runner/web/minio 构建基底或运行基底实际使用",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "image-node-alpine",
+      "kind": "image",
+      "name": "Node 24 alpine（前端构建期）",
+      "pin": "24-alpine",
+      "digest": "sha256:a34ab6d7f6f4813f4d0c5469d74685604b962fbdbf5793a7bc7b4998ecb867c8",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/library/node/tags?page_size=100&name=24-alpine",
+        "retrievedAt": "2026-11-07T00:05:00+08:00",
+        "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "镜像内 /usr/share/doc 或上游项目声明（本 run 未逐字核验）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "V01-T02 按 digest 固定并真实拉取"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "docker pull + docker image inspect RepoDigests",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "作为 api/runner/web/minio 构建基底或运行基底实际使用",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    },
+    {
+      "id": "image-alpine",
+      "kind": "image",
+      "name": "Alpine 3.20（MinIO 运行镜像基底）",
+      "pin": "3.20",
+      "digest": "sha256:d9e853e87e55526f6b2917df91a2115c36dd7c696a35be12163d44e6e2a4b6bc",
+      "source": {
+        "url": "https://hub.docker.com/v2/repositories/library/alpine/tags?page_size=5&name=3.20",
+        "retrievedAt": "2026-11-07T00:05:00+08:00",
+        "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+      },
+      "license": {
+        "spdx": "MIT",
+        "evidence": "镜像内 /usr/share/doc 或上游项目声明（本 run 未逐字核验）"
+      },
+      "maintenance": {
+        "status": "SUPPORTED",
+        "note": "V01-T02 按 digest 固定并真实拉取"
+      },
+      "verification": {
+        "artifact": {
+          "status": "VERIFIED",
+          "method": "docker pull + docker image inspect RepoDigests",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/raw/docker/base-images.tags.trimmed.json"
+        },
+        "runtime": {
+          "status": "VERIFIED",
+          "method": "作为 api/runner/web/minio 构建基底或运行基底实际使用",
+          "evidence": "reports/V01-T02/20261107-0010-v01t02/logs/compose-up.log"
+        }
+      }
+    }
+  ],
+  "blockedSummary": [
+    {
+      "id": "pytest",
+      "reason": "runner 已有 pytest 用例但本任务未执行（V01-T03 起跑）"
+    },
+    {
+      "id": "shadcn-cli",
+      "reason": "尚未生成 shadcn 组件（F00 前端骨架）"
+    },
+    {
+      "id": "spring-amqp",
+      "reason": "容器已跑，但 API 尚未接入 AMQP，confirm/ack/DLQ 行为未验证"
+    },
+    {
+      "id": "testcontainers",
+      "reason": "未编写 Testcontainers 集成测试（V03 起）"
+    },
+    {
+      "id": "vitest",
+      "reason": "前端测试框架已装但无测试用例（F00/V01-T03）"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "ADR-0001",
+      "title": "Java/Boot/MyBatis/Flyway 版本冻结与兼容验证（R2 修订）",
+      "path": "docs/adr/versions/ADR-0001-java-boot-mybatis-flyway.md",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "ADR-0002",
+      "title": "Spring Boot 3.5 EOL：升级到 4.1.2（已执行）",
+      "path": "docs/adr/versions/ADR-0002-spring-boot-eol.md",
+      "status": "ACCEPTED_EXECUTED"
+    },
+    {
+      "id": "ADR-0003",
+      "title": "对象存储：采用 MinIO（源码固定构建 + 镜像路线）",
+      "path": "docs/adr/versions/ADR-0003-object-storage-build.md",
+      "status": "ACCEPTED_EXECUTED"
+    },
+    {
+      "id": "ADR-0004",
+      "title": "S3 客户端选 AWS SDK v2（适配器隔离，已对 MinIO 验证）",
+      "path": "docs/adr/versions/ADR-0004-s3-client-adapter.md",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "ADR-0005",
+      "title": "Redis 8 三许可与选择 AGPLv3",
+      "path": "docs/adr/versions/ADR-0005-redis-license.md",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "ADR-0006",
+      "title": "Python/Node/前端组合与降级路线",
+      "path": "docs/adr/versions/ADR-0006-python-node-frontend.md",
+      "status": "ACCEPTED"
+    },
+    {
+      "id": "ADR-0007",
+      "title": "中间件镜像 digest 锁定策略与版本线选择",
+      "path": "docs/adr/versions/ADR-0007-image-digest-policy.md",
+      "status": "ACCEPTED"
+    }
+  ],
+  "limitations": [
+    "Docker Hub 直连在本机被阻断，Docker Desktop 需要 manual proxy（127.0.0.1:7890）；这是环境事实，不影响镜像 digest 的可复核性（digest 已由真实拉取确认）。",
+    "MySQL 的 my.cnf 在 Windows bind mount 下是 0777 会被 MySQL 忽略，字符集/时区改由 command 参数传入；Linux 部署仍用 my.cnf。",
+    "镜像 digest 已在 docker image inspect 中确认；应用镜像（larder/api|runner|web|minio）是本地构建，尚未推送仓库。",
+    "H2(MODE=MySQL) 的兼容脚手架仍在，但真实 MySQL 迁移已在本任务跑通。",
+    "前端只验证构建与静态服务，未做浏览器 E2E；TypeScript 7.0.2 已真实通过 tsc --noEmit（vite build 内含）。",
+    "MinIO 仍无上游安全更新（仓库归档），V12 需重新评估。"
+  ]
+}

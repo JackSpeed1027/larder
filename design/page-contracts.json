@@ -1,0 +1,539 @@
+{
+  "designVersion": "design-v1",
+  "pages": [
+    {
+      "id": "F00",
+      "title": "应用底座",
+      "routes": [
+        "AppShell"
+      ],
+      "feature": "foundation",
+      "parentTask": "V01-T03",
+      "rounds": [
+        "R1"
+      ],
+      "dependsOnPages": [],
+      "constraints": [
+        "路由/Query key/http/组件/tokens单owner",
+        "侧栏216顶栏56",
+        "主题和键盘一致"
+      ],
+      "requiredStates": [
+        "loading",
+        "unauthorized",
+        "not-found",
+        "offline"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F01",
+      "title": "资料库",
+      "routes": [
+        "/library"
+      ],
+      "feature": "library",
+      "parentTask": "V02-T04",
+      "rounds": [
+        "R1"
+      ],
+      "dependsOnPages": [
+        "F00"
+      ],
+      "constraints": [
+        "列表20条每页",
+        "标题最多2行",
+        "URL筛选",
+        "选中只作用当前页"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "no-results",
+        "error",
+        "processing",
+        "failed",
+        "stale",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F02",
+      "title": "保存内容",
+      "routes": [
+        "global:capture-dialog"
+      ],
+      "feature": "capture",
+      "parentTask": "V02-T04",
+      "rounds": [
+        "R1"
+      ],
+      "dependsOnPages": [
+        "F00"
+      ],
+      "constraints": [
+        "链接/粘贴/上传三Tab",
+        "640px",
+        "幂等提交",
+        "未知响应先查结果"
+      ],
+      "requiredStates": [
+        "idle",
+        "invalid",
+        "submitting",
+        "unknown-result",
+        "saved",
+        "upload-failed",
+        "dirty-close"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F03",
+      "title": "阅读器",
+      "routes": [
+        "/items/:itemId"
+      ],
+      "feature": "reader",
+      "parentTask": "V02-T04",
+      "rounds": [
+        "R1"
+      ],
+      "dependsOnPages": [
+        "F00",
+        "F01"
+      ],
+      "constraints": [
+        "正文720px/18px/1.8",
+        "引用固定revision",
+        "目录和证据栏响应式"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "error",
+        "old-revision",
+        "anchor-missing",
+        "ai-off",
+        "ai-failed",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F04",
+      "title": "任务中心",
+      "routes": [
+        "/jobs"
+      ],
+      "feature": "jobs",
+      "parentTask": "V03-T04",
+      "rounds": [
+        "R1"
+      ],
+      "dependsOnPages": [
+        "F00"
+      ],
+      "constraints": [
+        "阶段步骤不假百分比",
+        "SSE去重/snapshot",
+        "取消必须服务器确认"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "error",
+        "running",
+        "reconnecting",
+        "cancelling",
+        "needs-decision",
+        "failed"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F05",
+      "title": "搜索",
+      "routes": [
+        "/search"
+      ],
+      "feature": "search",
+      "parentTask": "V04-T03",
+      "rounds": [
+        "R2"
+      ],
+      "dependsOnPages": [
+        "F00",
+        "F03"
+      ],
+      "constraints": [
+        "300ms debounce/abort",
+        "query绑定",
+        "固定revision",
+        "partial和关键词降级"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "no-results",
+        "error",
+        "partial",
+        "keyword-fallback",
+        "stale",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F06",
+      "title": "Agent工作台",
+      "routes": [
+        "/agent/sessions/:sessionId"
+      ],
+      "feature": "agent",
+      "parentTask": "V08-T04",
+      "rounds": [
+        "R3"
+      ],
+      "dependsOnPages": [
+        "F00",
+        "F03",
+        "F04",
+        "F07"
+      ],
+      "constraints": [
+        "scope/预算明确",
+        "工具卡/引用可追溯",
+        "不显示隐藏思维",
+        "不强制滚底"
+      ],
+      "requiredStates": [
+        "empty",
+        "running",
+        "reconnecting",
+        "waiting-approval",
+        "needs-decision",
+        "compressing",
+        "budget-exceeded",
+        "cancelled",
+        "failed"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F07",
+      "title": "审批",
+      "routes": [
+        "/approvals/:approvalId"
+      ],
+      "feature": "approvals",
+      "parentTask": "V08-T03",
+      "rounds": [
+        "R3"
+      ],
+      "dependsOnPages": [
+        "F00"
+      ],
+      "constraints": [
+        "720px diff",
+        "批准绑定proposal",
+        "409重新提议",
+        "未知效果先查询"
+      ],
+      "requiredStates": [
+        "loading",
+        "pending",
+        "submitting",
+        "applied",
+        "rejected",
+        "expired",
+        "conflict",
+        "unknown-result",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F08",
+      "title": "记忆管理",
+      "routes": [
+        "/settings/memory"
+      ],
+      "feature": "memory",
+      "parentTask": "V09-T02",
+      "rounds": [
+        "R3"
+      ],
+      "dependsOnPages": [
+        "F00"
+      ],
+      "constraints": [
+        "显式确认",
+        "ACTIVE/替代/墓碑",
+        "撤销文案承认在途边界"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "error",
+        "active",
+        "superseded",
+        "tombstoned",
+        "conflict",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F09",
+      "title": "卡片库与编辑",
+      "routes": [
+        "/cards"
+      ],
+      "feature": "cards",
+      "parentTask": "V10-T01",
+      "rounds": [
+        "R4"
+      ],
+      "dependsOnPages": [
+        "F00",
+        "F03"
+      ],
+      "constraints": [
+        "四卡型/来源anchor/左右预览",
+        "问答挖空可翻面预览",
+        "AI只生成草稿"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "error",
+        "dirty",
+        "invalid",
+        "conflict",
+        "source-missing",
+        "ai-draft"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F10",
+      "title": "翻卡复习",
+      "routes": [
+        "/review"
+      ],
+      "feature": "review",
+      "parentTask": "V10-T02",
+      "rounds": [
+        "R4"
+      ],
+      "dependsOnPages": [
+        "F00",
+        "F09"
+      ],
+      "constraints": [
+        "问答挖空280ms翻卡",
+        "背诵时间戳展开",
+        "翻完才评分",
+        "reduced-motion无旋转"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "error",
+        "question",
+        "flipping",
+        "answer",
+        "submitting",
+        "conflict",
+        "offline",
+        "complete"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F11",
+      "title": "设置",
+      "routes": [
+        "/settings/:section"
+      ],
+      "feature": "settings",
+      "parentTask": "V12-T02",
+      "rounds": [
+        "R2",
+        "R4"
+      ],
+      "dependsOnPages": [
+        "F00"
+      ],
+      "constraints": [
+        "分组保存",
+        "主题",
+        "secret不回显",
+        "预算单位/预留/未知量"
+      ],
+      "requiredStates": [
+        "loading",
+        "error",
+        "dirty",
+        "saving",
+        "conflict",
+        "ai-off",
+        "not-configured",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F12",
+      "title": "备份恢复",
+      "routes": [
+        "/settings/backups"
+      ],
+      "feature": "backups",
+      "parentTask": "V12-T02",
+      "rounds": [
+        "R2",
+        "R4"
+      ],
+      "dependsOnPages": [
+        "F00",
+        "F04"
+      ],
+      "constraints": [
+        "备份与资料导出分开",
+        "只读验证后新目标恢复",
+        "具体影响确认"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "error",
+        "validating",
+        "invalid",
+        "ready",
+        "restoring",
+        "failed",
+        "succeeded",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F13",
+      "title": "回收站",
+      "routes": [
+        "/trash"
+      ],
+      "feature": "trash",
+      "parentTask": "V04-T04",
+      "rounds": [
+        "R2"
+      ],
+      "dependsOnPages": [
+        "F00",
+        "F01"
+      ],
+      "constraints": [
+        "逻辑恢复",
+        "逐项结果",
+        "搜索未就绪提示",
+        "不自动永久清除"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "error",
+        "restoring",
+        "partial",
+        "restored",
+        "indexing-pending",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F14",
+      "title": "登录初始化",
+      "routes": [
+        "/login",
+        "/setup"
+      ],
+      "feature": "auth",
+      "parentTask": "V01-T04",
+      "rounds": [
+        "R1"
+      ],
+      "dependsOnPages": [
+        "F00"
+      ],
+      "constraints": [
+        "400px登录卡",
+        "初始化服务器裁决",
+        "合法站内returnTo",
+        "不泄账号"
+      ],
+      "requiredStates": [
+        "initializing",
+        "idle",
+        "invalid",
+        "submitting",
+        "failed",
+        "expired",
+        "setup-closed"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    },
+    {
+      "id": "F15",
+      "title": "集合标签",
+      "routes": [
+        "/collections/:id",
+        "/tags/:id"
+      ],
+      "feature": "organization",
+      "parentTask": "V10-T03",
+      "rounds": [
+        "R1",
+        "R4"
+      ],
+      "dependsOnPages": [
+        "F00",
+        "F01"
+      ],
+      "constraints": [
+        "复用library列表",
+        "关联语义按后端",
+        "并发冲突",
+        "count正确失效"
+      ],
+      "requiredStates": [
+        "loading",
+        "empty",
+        "error",
+        "editing",
+        "conflict",
+        "partial",
+        "unauthorized"
+      ],
+      "spec": "docs/14-前端页面与视觉强约束.md",
+      "visualAcceptance": "docs/15-前端任务与视觉验收.md"
+    }
+  ]
+}

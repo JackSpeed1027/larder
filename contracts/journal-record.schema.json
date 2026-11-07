@@ -1,0 +1,85 @@
+{
+  "type": "object",
+  "properties": {
+    "protocolVersion": {
+      "const": "1",
+      "description": "协议主版本；不兼容变化必须升级"
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+      "description": "稳定运行ID；接管与对账复用"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 9007199254740991,
+      "description": "单run递增事实序号"
+    },
+    "eventId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+      "description": "事件唯一身份，重发复用"
+    },
+    "type": {
+      "enum": [
+        "run.created",
+        "run.started",
+        "stage.started",
+        "stage.committed",
+        "call.started",
+        "call.completed",
+        "call.unknown",
+        "tool.completed",
+        "proposal.created",
+        "approval.observed",
+        "memory.revalidated",
+        "context.committed",
+        "checkpoint.committed",
+        "run.succeeded",
+        "run.failed",
+        "run.cancelled",
+        "run.needs_decision",
+        "run.waiting_approval",
+        "journal.recovered"
+      ],
+      "description": "版本化事件类型"
+    },
+    "time": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}T.*Z$",
+      "description": "UTC事件时间"
+    },
+    "payload": {
+      "type": "object",
+      "description": "事件专用载荷，按对应事件schema验证"
+    },
+    "prevHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "上一有效记录hash，构成完整性链"
+    },
+    "recordHash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "排除自身字段后的规范化记录SHA-256"
+    }
+  },
+  "required": [
+    "protocolVersion",
+    "runId",
+    "seq",
+    "eventId",
+    "type",
+    "time",
+    "payload",
+    "prevHash",
+    "recordHash"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

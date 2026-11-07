@@ -1,0 +1,381 @@
+{
+  "type": "object",
+  "properties": {
+    "protocolVersion": {
+      "const": "1",
+      "description": "协议主版本；不兼容变化必须升级"
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+      "description": "稳定运行ID；接管与对账复用"
+    },
+    "jobId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+      "description": "Java持久业务任务ID"
+    },
+    "mode": {
+      "enum": [
+        "INGEST",
+        "ENRICH",
+        "ASSIST",
+        "EMBED"
+      ],
+      "description": "INGEST/ENRICH/ASSIST/EMBED执行模式"
+    },
+    "input": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "URL",
+              "description": "输入来源类别，决定互斥字段"
+            },
+            "url": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 8192,
+              "description": "来源URL；每次跳转仍受SSRF限制"
+            }
+          },
+          "required": [
+            "kind",
+            "url"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "TEXT",
+              "description": "输入来源类别，决定互斥字段"
+            },
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000000,
+              "description": "输入正文，受大小及授权范围限制"
+            }
+          },
+          "required": [
+            "kind",
+            "text"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "UPLOAD",
+              "description": "输入来源类别，决定互斥字段"
+            },
+            "uploadId": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 64,
+              "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+              "description": "已授权输入文件引用"
+            }
+          },
+          "required": [
+            "kind",
+            "uploadId"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "REVISION",
+              "description": "输入来源类别，决定互斥字段"
+            },
+            "revisionIds": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 2,
+                "maxLength": 64,
+                "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+              },
+              "minItems": 1,
+              "maxItems": 20,
+              "description": "明确授权的不可变正文版本"
+            }
+          },
+          "required": [
+            "kind",
+            "revisionIds"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "QUESTION",
+              "description": "输入来源类别，决定互斥字段"
+            },
+            "question": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 10000,
+              "description": "用户本次任务，不将原文指令提升为权限"
+            }
+          },
+          "required": [
+            "kind",
+            "question"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "EMBED",
+              "description": "输入来源类别，决定互斥字段"
+            },
+            "texts": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100000
+              },
+              "minItems": 1,
+              "maxItems": 64,
+              "description": "待嵌入文本数组，有界批次"
+            },
+            "profile": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 160,
+              "description": "固定embedding模型、维度与配置身份"
+            }
+          },
+          "required": [
+            "kind",
+            "texts",
+            "profile"
+          ],
+          "additionalProperties": false
+        }
+      ],
+      "description": "按kind区分的严格输入联合类型"
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "ownerId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+          "description": "所属账户；必须复核持久授权"
+        },
+        "itemIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 64,
+            "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+          },
+          "minItems": 0,
+          "maxItems": 100,
+          "description": "明确授权条目ID集合"
+        },
+        "scopeVersion": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2147483647,
+          "description": "授权范围版本，不能用客户端值扩权"
+        }
+      },
+      "required": [
+        "ownerId",
+        "itemIds",
+        "scopeVersion"
+      ],
+      "additionalProperties": false,
+      "description": "本run可访问的持久授权范围"
+    },
+    "budget": {
+      "type": "object",
+      "properties": {
+        "grantId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+          "description": "持久预算授权引用，不是秘密token"
+        },
+        "maxSeconds": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 3600,
+          "description": "运行总期限，秒"
+        },
+        "maxTotalTokens": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 1000000,
+          "description": "完整模型请求与输出的token预算上限"
+        },
+        "maxModelCalls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "本run模型调用次数上限"
+        },
+        "maxToolCalls": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "本run工具调用次数上限"
+        }
+      },
+      "required": [
+        "grantId",
+        "maxSeconds",
+        "maxTotalTokens",
+        "maxModelCalls",
+        "maxToolCalls"
+      ],
+      "additionalProperties": false,
+      "description": "本run资源上限，不能超过Java授权额度"
+    },
+    "traceId": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 64,
+      "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+      "description": "链路关联标识，不是授权凭据"
+    }
+  },
+  "required": [
+    "protocolVersion",
+    "runId",
+    "jobId",
+    "mode",
+    "input",
+    "scope",
+    "budget",
+    "traceId"
+  ],
+  "additionalProperties": false,
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "INGEST",
+            "description": "INGEST/ENRICH/ASSIST/EMBED执行模式"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "URL",
+                  "TEXT",
+                  "UPLOAD"
+                ],
+                "description": "输入来源类别，决定互斥字段"
+              }
+            },
+            "description": "按kind区分的严格输入联合类型"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "ENRICH",
+            "description": "INGEST/ENRICH/ASSIST/EMBED执行模式"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "REVISION"
+                ],
+                "description": "输入来源类别，决定互斥字段"
+              }
+            },
+            "description": "按kind区分的严格输入联合类型"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "ASSIST",
+            "description": "INGEST/ENRICH/ASSIST/EMBED执行模式"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "QUESTION"
+                ],
+                "description": "输入来源类别，决定互斥字段"
+              }
+            },
+            "description": "按kind区分的严格输入联合类型"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "mode": {
+            "const": "EMBED",
+            "description": "INGEST/ENRICH/ASSIST/EMBED执行模式"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "input": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "EMBED"
+                ],
+                "description": "输入来源类别，决定互斥字段"
+              }
+            },
+            "description": "按kind区分的严格输入联合类型"
+          }
+        }
+      }
+    }
+  ]
+}

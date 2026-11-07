@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="F03 阅读器线框"><title>F03 阅读器线框</title>
+<style>text{font-family:Segoe UI,Microsoft YaHei,sans-serif;fill:#182230}.muted{fill:#526173}.blue{fill:#1D4ED8}.white{fill:white}</style>
+<rect x="0" y="0" width="1440" height="900" rx="0" fill="#F7F8FA" stroke="#D8DEE8"/>
+<rect x="0" y="0" width="64" height="900" rx="0" fill="#FFFFFF" stroke="#D8DEE8"/>
+<rect x="64" y="0" width="1376" height="56" rx="0" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="18" y="35" font-size="21" font-weight="600" class="">L</text>
+<rect x="8" y="68" width="48" height="40" rx="6" fill="#E8EEFC" stroke="none"/>
+<text x="20" y="93" font-size="14" font-weight="400" class="blue">资</text>
+<text x="20" y="141" font-size="14" font-weight="400" class="">搜</text>
+<text x="20" y="189" font-size="14" font-weight="400" class="">A</text>
+<text x="20" y="237" font-size="14" font-weight="400" class="">学</text>
+<text x="20" y="285" font-size="14" font-weight="400" class="">任</text>
+<text x="20" y="333" font-size="14" font-weight="400" class="">集</text>
+<text x="20" y="381" font-size="14" font-weight="400" class="">标</text>
+<text x="20" y="810" font-size="14" font-weight="400" class="muted">回</text>
+<text x="20" y="856" font-size="14" font-weight="400" class="muted">设</text>
+<text x="88" y="35" font-size="13" font-weight="400" class="muted">DESIGN  /  本地原创线框 · 非已实现产品</text>
+<rect x="1296" y="8" width="120" height="40" rx="8" fill="#1D4ED8" stroke="#D8DEE8"/>
+<text x="1312" y="34" font-size="14" font-weight="400" class="white">保存内容</text>
+<text x="88" y="92" font-size="14" font-weight="400" class="blue">← 返回搜索结果</text>
+<text x="842" y="92" font-size="14" font-weight="400" class="muted">Aa   笔记   AI辅助   •••</text>
+<rect x="232" y="120" width="720" height="46" rx="8" fill="#FEFCE8" stroke="#D8DEE8"/>
+<text x="248" y="149" font-size="14" font-weight="400" class="">正在查看检索时的版本  ·  查看最新版本 →</text>
+<text x="232" y="214" font-size="28" font-weight="600" class="">可靠的异步任务，如何安全恢复？</text>
+<text x="232" y="250" font-size="13" font-weight="400" class="muted">保存版本 r3  ·  原文来源 engineering.example  ·  阅读设置可调整</text>
+<path d="M232 275H952" stroke="#D8DEE8"/>
+<text x="232" y="304" font-size="18" font-weight="400" class="">一次请求跨过数据库、消息队列和外部调用，失败可能发生在任意一步。</text>
+<text x="232" y="343" font-size="18" font-weight="400" class="">系统需要记录已经发生的事实，并明确哪些结果仍然未知。</text>
+<text x="232" y="382" font-size="18" font-weight="400" class=""></text>
+<text x="232" y="421" font-size="18" font-weight="600" class="">1. 先持久接管，再确认消息</text>
+<text x="232" y="460" font-size="18" font-weight="400" class="">消息消费者先在事务中登记接管记录和后续对账时间，再发送确认。</text>
+<text x="232" y="499" font-size="18" font-weight="400" class="">如果进程此时退出，新的工作进程仍可从数据库找回未完成的任务。</text>
+<text x="232" y="538" font-size="18" font-weight="400" class=""></text>
+<text x="232" y="577" font-size="18" font-weight="600" class="">2. 旧任务不能覆盖新结果</text>
+<text x="232" y="616" font-size="18" font-weight="400" class="">租约令牌保护执行权，处理代次保护用户最新的处理请求。</text>
+<text x="232" y="655" font-size="18" font-weight="400" class="">两个条件都通过后，才能把候选版本发布为当前正文。</text>
+<text x="232" y="694" font-size="18" font-weight="400" class=""></text>
+<text x="232" y="733" font-size="18" font-weight="400" class="">划选文字可以记笔记、解释或制卡，引用始终绑定这个保存版本。</text>
+<rect x="1096" y="56" width="344" height="844" rx="0" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="1116" y="95" font-size="16" font-weight="600" class="">笔记     AI     信息</text>
+<path d="M1112 115H1424" stroke="#D8DEE8"/>
+<text x="1116" y="156" font-size="18" font-weight="600" class="">本篇笔记</text>
+<rect x="1112" y="180" width="312" height="160" rx="8" fill="#F7F8FA" stroke="#D8DEE8"/>
+<text x="1128" y="210" font-size="15" font-weight="600" class="">持久接管 ≠ 已执行完成</text>
+<text x="1128" y="242" font-size="14" font-weight="400" class="muted">这里保存了阅读时的关键问题。</text>
+<text x="1128" y="278" font-size="13" font-weight="400" class="blue">引用：r3 / 片段 12 →</text>
+<text x="1116" y="385" font-size="14" font-weight="400" class="muted">AI 生成内容需保留来源引用。</text>
+<text x="1116" y="418" font-size="14" font-weight="400" class="muted">失败不影响正文继续阅读。</text>
+<text x="232" y="850" font-size="14" font-weight="400" class="muted">正文最大720px / 18px / 行高1.8；小屏证据栏改drawer</text></svg>

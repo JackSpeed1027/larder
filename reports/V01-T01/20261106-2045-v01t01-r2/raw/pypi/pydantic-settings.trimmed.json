@@ -1,0 +1,10 @@
+{
+    "name":  "pydantic-settings",
+    "version":  "2.16.2",
+    "requiresPython":  "\u003e=3.11",
+    "license":  null,
+    "licenseExpression":  "MIT",
+    "summary":  "Settings management using Pydantic",
+    "uploadTime":  "2026-10-28T11:14:26.716329Z",
+    "sourceUrl":  "https://pypi.org/pypi/pydantic-settings/json"
+}

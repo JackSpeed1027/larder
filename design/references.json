@@ -1,0 +1,30 @@
+{
+  "checkedOn": "2026-11-05",
+  "licensePolicy": "External reference links only. Local wireframes are original Larder specification drawings; no third-party screenshot redistribution.",
+  "references": [
+    {
+      "id": "REF-LW-LIST",
+      "source": "https://docs.linkwarden.app/usage/links",
+      "image": "https://docs.linkwarden.app/assets/images/all_links-55346e773fe47d4ee9a0f8d21851ec21.png",
+      "purpose": "资料库的信息层级与导航参考；最终布局以本地F01为准"
+    },
+    {
+      "id": "REF-LW-DETAIL",
+      "source": "https://docs.linkwarden.app/usage/links",
+      "image": "https://docs.linkwarden.app/assets/images/link_details-38677ab5e72850f8ba81b805014e30d5.png",
+      "purpose": "内容详情与保存版本入口参考"
+    },
+    {
+      "id": "REF-RW-LEFT",
+      "source": "https://docs.readwise.io/reader/docs/faqs/appearance",
+      "image": "https://docs.readwise.io/images/side-panel_close-left_web.png",
+      "purpose": "阅读目录侧栏收起参考"
+    },
+    {
+      "id": "REF-RW-RIGHT",
+      "source": "https://docs.readwise.io/reader/docs/faqs/appearance",
+      "image": "https://docs.readwise.io/images/side-panel_close-right_web.png",
+      "purpose": "阅读证据侧栏收起参考"
+    }
+  ]
+}

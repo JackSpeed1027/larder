@@ -1,0 +1,702 @@
+[
+    {
+        "tag":  "latest",
+        "digest":  "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+        "lastUpdated":  "2026-11-05T12:07:34.031806Z",
+        "fullSize":  55599487,
+        "amd64Digest":  "sha256:e2728231060693472a8efb488dd139a8142a01bd0612ae70429bf5b5be924be1"
+    },
+    {
+        "tag":  "alpine3.23",
+        "digest":  "sha256:71885d8cc6e42f2bc0aa2eb853bfc4be200b5108a46ac50e117ae1df0531fb80",
+        "lastUpdated":  "2026-11-06T00:08:11.588382Z",
+        "fullSize":  39522149,
+        "amd64Digest":  "sha256:41ed50f5c0d9cf8b2151ad63df24ba96d018ccc84804d0688e9b9f1ed3d9f558"
+    },
+    {
+        "tag":  "alpine3.22",
+        "digest":  "sha256:44b295aedd412d52a9846f51573e906e0a9c7d83ba431f4134b1b338d45ba732",
+        "lastUpdated":  "2026-11-06T00:08:08.590479Z",
+        "fullSize":  34094399,
+        "amd64Digest":  "sha256:35b3979c49e47dd206645bf8416fad4f93dd7527f925a6426a2594cf16bf6e63"
+    },
+    {
+        "tag":  "alpine",
+        "digest":  "sha256:71885d8cc6e42f2bc0aa2eb853bfc4be200b5108a46ac50e117ae1df0531fb80",
+        "lastUpdated":  "2026-11-06T00:08:05.52173Z",
+        "fullSize":  39522149,
+        "amd64Digest":  "sha256:41ed50f5c0d9cf8b2151ad63df24ba96d018ccc84804d0688e9b9f1ed3d9f558"
+    },
+    {
+        "tag":  "8.8.4-alpine3.23",
+        "digest":  "sha256:c027ae0f677dcf73d74038256f5b88c9ba7b11ccbfae97e96a9f091208d36125",
+        "lastUpdated":  "2026-11-06T00:08:01.280976Z",
+        "fullSize":  37890008,
+        "amd64Digest":  "sha256:b85e284e14f616937c8e94a5d0374a6cfa6eb4bc5d6ab4ce59e38eca2fcec476"
+    },
+    {
+        "tag":  "8.8.4-alpine",
+        "digest":  "sha256:c027ae0f677dcf73d74038256f5b88c9ba7b11ccbfae97e96a9f091208d36125",
+        "lastUpdated":  "2026-11-06T00:07:58.440709Z",
+        "fullSize":  37890008,
+        "amd64Digest":  "sha256:b85e284e14f616937c8e94a5d0374a6cfa6eb4bc5d6ab4ce59e38eca2fcec476"
+    },
+    {
+        "tag":  "8.8-alpine3.23",
+        "digest":  "sha256:c027ae0f677dcf73d74038256f5b88c9ba7b11ccbfae97e96a9f091208d36125",
+        "lastUpdated":  "2026-11-06T00:07:52.772512Z",
+        "fullSize":  37890008,
+        "amd64Digest":  "sha256:b85e284e14f616937c8e94a5d0374a6cfa6eb4bc5d6ab4ce59e38eca2fcec476"
+    },
+    {
+        "tag":  "8.8-alpine",
+        "digest":  "sha256:c027ae0f677dcf73d74038256f5b88c9ba7b11ccbfae97e96a9f091208d36125",
+        "lastUpdated":  "2026-11-06T00:07:49.742294Z",
+        "fullSize":  37890008,
+        "amd64Digest":  "sha256:b85e284e14f616937c8e94a5d0374a6cfa6eb4bc5d6ab4ce59e38eca2fcec476"
+    },
+    {
+        "tag":  "8.6.8-alpine3.23",
+        "digest":  "sha256:c343030a535c8c2e430e038f25cca7cfa7497a2b290f12ba2f9003bdfb3086b9",
+        "lastUpdated":  "2026-11-06T00:07:35.037135Z",
+        "fullSize":  34753555,
+        "amd64Digest":  "sha256:560c2beb31bcae27bd07dd8579229eb31f38f44627bd9d6eb8debf005b50beb0"
+    },
+    {
+        "tag":  "8.6.8-alpine",
+        "digest":  "sha256:c343030a535c8c2e430e038f25cca7cfa7497a2b290f12ba2f9003bdfb3086b9",
+        "lastUpdated":  "2026-11-06T00:07:32.075512Z",
+        "fullSize":  34753555,
+        "amd64Digest":  "sha256:560c2beb31bcae27bd07dd8579229eb31f38f44627bd9d6eb8debf005b50beb0"
+    },
+    {
+        "tag":  "8.6-alpine3.23",
+        "digest":  "sha256:c343030a535c8c2e430e038f25cca7cfa7497a2b290f12ba2f9003bdfb3086b9",
+        "lastUpdated":  "2026-11-06T00:07:26.434868Z",
+        "fullSize":  34753555,
+        "amd64Digest":  "sha256:560c2beb31bcae27bd07dd8579229eb31f38f44627bd9d6eb8debf005b50beb0"
+    },
+    {
+        "tag":  "8.6-alpine",
+        "digest":  "sha256:c343030a535c8c2e430e038f25cca7cfa7497a2b290f12ba2f9003bdfb3086b9",
+        "lastUpdated":  "2026-11-06T00:07:23.343369Z",
+        "fullSize":  34753555,
+        "amd64Digest":  "sha256:560c2beb31bcae27bd07dd8579229eb31f38f44627bd9d6eb8debf005b50beb0"
+    },
+    {
+        "tag":  "8.4.8-alpine3.22",
+        "digest":  "sha256:44b295aedd412d52a9846f51573e906e0a9c7d83ba431f4134b1b338d45ba732",
+        "lastUpdated":  "2026-11-06T00:07:07.823628Z",
+        "fullSize":  34094399,
+        "amd64Digest":  "sha256:35b3979c49e47dd206645bf8416fad4f93dd7527f925a6426a2594cf16bf6e63"
+    },
+    {
+        "tag":  "8.4.8-alpine",
+        "digest":  "sha256:44b295aedd412d52a9846f51573e906e0a9c7d83ba431f4134b1b338d45ba732",
+        "lastUpdated":  "2026-11-06T00:07:04.985585Z",
+        "fullSize":  34094399,
+        "amd64Digest":  "sha256:35b3979c49e47dd206645bf8416fad4f93dd7527f925a6426a2594cf16bf6e63"
+    },
+    {
+        "tag":  "8.4-alpine3.22",
+        "digest":  "sha256:44b295aedd412d52a9846f51573e906e0a9c7d83ba431f4134b1b338d45ba732",
+        "lastUpdated":  "2026-11-06T00:06:59.477141Z",
+        "fullSize":  34094399,
+        "amd64Digest":  "sha256:35b3979c49e47dd206645bf8416fad4f93dd7527f925a6426a2594cf16bf6e63"
+    },
+    {
+        "tag":  "8.4-alpine",
+        "digest":  "sha256:44b295aedd412d52a9846f51573e906e0a9c7d83ba431f4134b1b338d45ba732",
+        "lastUpdated":  "2026-11-06T00:06:56.491728Z",
+        "fullSize":  34094399,
+        "amd64Digest":  "sha256:35b3979c49e47dd206645bf8416fad4f93dd7527f925a6426a2594cf16bf6e63"
+    },
+    {
+        "tag":  "8.2.11-alpine3.22",
+        "digest":  "sha256:fe9daae35cd4fd6ec22416aa4fe0cf6b3e36741e06ff45b9986253fe2a81c041",
+        "lastUpdated":  "2026-11-06T00:06:51.153335Z",
+        "fullSize":  27857503,
+        "amd64Digest":  "sha256:a18fce2f705d9782ccf6968f8dd94fa04566ff97e10a8d322ad72645243e4c0c"
+    },
+    {
+        "tag":  "8.2.11-alpine",
+        "digest":  "sha256:fe9daae35cd4fd6ec22416aa4fe0cf6b3e36741e06ff45b9986253fe2a81c041",
+        "lastUpdated":  "2026-11-06T00:06:48.28155Z",
+        "fullSize":  27857503,
+        "amd64Digest":  "sha256:a18fce2f705d9782ccf6968f8dd94fa04566ff97e10a8d322ad72645243e4c0c"
+    },
+    {
+        "tag":  "8.2-alpine3.22",
+        "digest":  "sha256:fe9daae35cd4fd6ec22416aa4fe0cf6b3e36741e06ff45b9986253fe2a81c041",
+        "lastUpdated":  "2026-11-06T00:06:43.682407Z",
+        "fullSize":  27857503,
+        "amd64Digest":  "sha256:a18fce2f705d9782ccf6968f8dd94fa04566ff97e10a8d322ad72645243e4c0c"
+    },
+    {
+        "tag":  "8.2-alpine",
+        "digest":  "sha256:fe9daae35cd4fd6ec22416aa4fe0cf6b3e36741e06ff45b9986253fe2a81c041",
+        "lastUpdated":  "2026-11-06T00:06:40.735718Z",
+        "fullSize":  27857503,
+        "amd64Digest":  "sha256:a18fce2f705d9782ccf6968f8dd94fa04566ff97e10a8d322ad72645243e4c0c"
+    },
+    {
+        "tag":  "8.10.3-alpine3.23",
+        "digest":  "sha256:71885d8cc6e42f2bc0aa2eb853bfc4be200b5108a46ac50e117ae1df0531fb80",
+        "lastUpdated":  "2026-11-06T00:06:25.126291Z",
+        "fullSize":  39522149,
+        "amd64Digest":  "sha256:41ed50f5c0d9cf8b2151ad63df24ba96d018ccc84804d0688e9b9f1ed3d9f558"
+    },
+    {
+        "tag":  "8.10.3-alpine",
+        "digest":  "sha256:71885d8cc6e42f2bc0aa2eb853bfc4be200b5108a46ac50e117ae1df0531fb80",
+        "lastUpdated":  "2026-11-06T00:06:19.393552Z",
+        "fullSize":  39522149,
+        "amd64Digest":  "sha256:41ed50f5c0d9cf8b2151ad63df24ba96d018ccc84804d0688e9b9f1ed3d9f558"
+    },
+    {
+        "tag":  "8.10-alpine3.23",
+        "digest":  "sha256:71885d8cc6e42f2bc0aa2eb853bfc4be200b5108a46ac50e117ae1df0531fb80",
+        "lastUpdated":  "2026-11-06T00:06:14.063467Z",
+        "fullSize":  39522149,
+        "amd64Digest":  "sha256:41ed50f5c0d9cf8b2151ad63df24ba96d018ccc84804d0688e9b9f1ed3d9f558"
+    },
+    {
+        "tag":  "8.10-alpine",
+        "digest":  "sha256:71885d8cc6e42f2bc0aa2eb853bfc4be200b5108a46ac50e117ae1df0531fb80",
+        "lastUpdated":  "2026-11-06T00:06:11.194462Z",
+        "fullSize":  39522149,
+        "amd64Digest":  "sha256:41ed50f5c0d9cf8b2151ad63df24ba96d018ccc84804d0688e9b9f1ed3d9f558"
+    },
+    {
+        "tag":  "8-alpine3.23",
+        "digest":  "sha256:71885d8cc6e42f2bc0aa2eb853bfc4be200b5108a46ac50e117ae1df0531fb80",
+        "lastUpdated":  "2026-11-06T00:06:04.751322Z",
+        "fullSize":  39522149,
+        "amd64Digest":  "sha256:41ed50f5c0d9cf8b2151ad63df24ba96d018ccc84804d0688e9b9f1ed3d9f558"
+    },
+    {
+        "tag":  "8-alpine3.22",
+        "digest":  "sha256:44b295aedd412d52a9846f51573e906e0a9c7d83ba431f4134b1b338d45ba732",
+        "lastUpdated":  "2026-11-06T00:06:01.770536Z",
+        "fullSize":  34094399,
+        "amd64Digest":  "sha256:35b3979c49e47dd206645bf8416fad4f93dd7527f925a6426a2594cf16bf6e63"
+    },
+    {
+        "tag":  "8-alpine",
+        "digest":  "sha256:71885d8cc6e42f2bc0aa2eb853bfc4be200b5108a46ac50e117ae1df0531fb80",
+        "lastUpdated":  "2026-11-06T00:05:49.457428Z",
+        "fullSize":  39522149,
+        "amd64Digest":  "sha256:41ed50f5c0d9cf8b2151ad63df24ba96d018ccc84804d0688e9b9f1ed3d9f558"
+    },
+    {
+        "tag":  "7.4.12-alpine3.21",
+        "digest":  "sha256:c5d34a98396a4775e223c74e929162c35c5a2182901ba26b50ade939941ce14b",
+        "lastUpdated":  "2026-11-06T00:05:34.780695Z",
+        "fullSize":  16243788,
+        "amd64Digest":  "sha256:ec1c2d3603c3d7d65b153bedda0248b641aa3bd7684503406b27b9e870ac0796"
+    },
+    {
+        "tag":  "7.4.12-alpine",
+        "digest":  "sha256:c5d34a98396a4775e223c74e929162c35c5a2182901ba26b50ade939941ce14b",
+        "lastUpdated":  "2026-11-06T00:05:31.995499Z",
+        "fullSize":  16243788,
+        "amd64Digest":  "sha256:ec1c2d3603c3d7d65b153bedda0248b641aa3bd7684503406b27b9e870ac0796"
+    },
+    {
+        "tag":  "7.4-alpine3.21",
+        "digest":  "sha256:c5d34a98396a4775e223c74e929162c35c5a2182901ba26b50ade939941ce14b",
+        "lastUpdated":  "2026-11-06T00:05:27.332019Z",
+        "fullSize":  16243788,
+        "amd64Digest":  "sha256:ec1c2d3603c3d7d65b153bedda0248b641aa3bd7684503406b27b9e870ac0796"
+    },
+    {
+        "tag":  "7.4-alpine",
+        "digest":  "sha256:c5d34a98396a4775e223c74e929162c35c5a2182901ba26b50ade939941ce14b",
+        "lastUpdated":  "2026-11-06T00:05:24.535586Z",
+        "fullSize":  16243788,
+        "amd64Digest":  "sha256:ec1c2d3603c3d7d65b153bedda0248b641aa3bd7684503406b27b9e870ac0796"
+    },
+    {
+        "tag":  "7.2.17-alpine3.21",
+        "digest":  "sha256:3d2b46efa3280299fe6e117a33fccdfeb495c39098f95d076fadd12a88005b0a",
+        "lastUpdated":  "2026-11-06T00:05:19.95346Z",
+        "fullSize":  15848452,
+        "amd64Digest":  "sha256:178da10c9e50c7e7c047261c7c2927089a3b3a9cf7446c0149c341de260733a1"
+    },
+    {
+        "tag":  "7.2.17-alpine",
+        "digest":  "sha256:3d2b46efa3280299fe6e117a33fccdfeb495c39098f95d076fadd12a88005b0a",
+        "lastUpdated":  "2026-11-06T00:05:17.123248Z",
+        "fullSize":  15848452,
+        "amd64Digest":  "sha256:178da10c9e50c7e7c047261c7c2927089a3b3a9cf7446c0149c341de260733a1"
+    },
+    {
+        "tag":  "7.2-alpine3.21",
+        "digest":  "sha256:3d2b46efa3280299fe6e117a33fccdfeb495c39098f95d076fadd12a88005b0a",
+        "lastUpdated":  "2026-11-06T00:05:12.522847Z",
+        "fullSize":  15848452,
+        "amd64Digest":  "sha256:178da10c9e50c7e7c047261c7c2927089a3b3a9cf7446c0149c341de260733a1"
+    },
+    {
+        "tag":  "7.2-alpine",
+        "digest":  "sha256:3d2b46efa3280299fe6e117a33fccdfeb495c39098f95d076fadd12a88005b0a",
+        "lastUpdated":  "2026-11-06T00:05:09.583924Z",
+        "fullSize":  15848452,
+        "amd64Digest":  "sha256:178da10c9e50c7e7c047261c7c2927089a3b3a9cf7446c0149c341de260733a1"
+    },
+    {
+        "tag":  "7-alpine3.21",
+        "digest":  "sha256:c5d34a98396a4775e223c74e929162c35c5a2182901ba26b50ade939941ce14b",
+        "lastUpdated":  "2026-11-06T00:04:56.045104Z",
+        "fullSize":  16243788,
+        "amd64Digest":  "sha256:ec1c2d3603c3d7d65b153bedda0248b641aa3bd7684503406b27b9e870ac0796"
+    },
+    {
+        "tag":  "7-alpine",
+        "digest":  "sha256:c5d34a98396a4775e223c74e929162c35c5a2182901ba26b50ade939941ce14b",
+        "lastUpdated":  "2026-11-06T00:04:53.132388Z",
+        "fullSize":  16243788,
+        "amd64Digest":  "sha256:ec1c2d3603c3d7d65b153bedda0248b641aa3bd7684503406b27b9e870ac0796"
+    },
+    {
+        "tag":  "6.2.24-alpine3.21",
+        "digest":  "sha256:5e38c443bd83d7d5214648d5de0a7d47f72cbb5141c50dcabcfc40f191b5b369",
+        "lastUpdated":  "2026-11-06T00:04:39.019635Z",
+        "fullSize":  11426562,
+        "amd64Digest":  "sha256:38592b7f38cfe11b6390a0000c60fc69e9b14bd964b8754971cf4b2e6b74b04b"
+    },
+    {
+        "tag":  "6.2.24-alpine",
+        "digest":  "sha256:5e38c443bd83d7d5214648d5de0a7d47f72cbb5141c50dcabcfc40f191b5b369",
+        "lastUpdated":  "2026-11-06T00:04:35.984899Z",
+        "fullSize":  11426562,
+        "amd64Digest":  "sha256:38592b7f38cfe11b6390a0000c60fc69e9b14bd964b8754971cf4b2e6b74b04b"
+    },
+    {
+        "tag":  "6.2-alpine3.21",
+        "digest":  "sha256:5e38c443bd83d7d5214648d5de0a7d47f72cbb5141c50dcabcfc40f191b5b369",
+        "lastUpdated":  "2026-11-06T00:04:31.424753Z",
+        "fullSize":  11426562,
+        "amd64Digest":  "sha256:38592b7f38cfe11b6390a0000c60fc69e9b14bd964b8754971cf4b2e6b74b04b"
+    },
+    {
+        "tag":  "6.2-alpine",
+        "digest":  "sha256:5e38c443bd83d7d5214648d5de0a7d47f72cbb5141c50dcabcfc40f191b5b369",
+        "lastUpdated":  "2026-11-06T00:04:28.459949Z",
+        "fullSize":  11426562,
+        "amd64Digest":  "sha256:38592b7f38cfe11b6390a0000c60fc69e9b14bd964b8754971cf4b2e6b74b04b"
+    },
+    {
+        "tag":  "6-alpine3.21",
+        "digest":  "sha256:5e38c443bd83d7d5214648d5de0a7d47f72cbb5141c50dcabcfc40f191b5b369",
+        "lastUpdated":  "2026-11-06T00:04:23.868438Z",
+        "fullSize":  11426562,
+        "amd64Digest":  "sha256:38592b7f38cfe11b6390a0000c60fc69e9b14bd964b8754971cf4b2e6b74b04b"
+    },
+    {
+        "tag":  "6-alpine",
+        "digest":  "sha256:5e38c443bd83d7d5214648d5de0a7d47f72cbb5141c50dcabcfc40f191b5b369",
+        "lastUpdated":  "2026-11-06T00:04:20.949152Z",
+        "fullSize":  11426562,
+        "amd64Digest":  "sha256:38592b7f38cfe11b6390a0000c60fc69e9b14bd964b8754971cf4b2e6b74b04b"
+    },
+    {
+        "tag":  "trixie",
+        "digest":  "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+        "lastUpdated":  "2026-11-05T12:07:36.836418Z",
+        "fullSize":  55599487,
+        "amd64Digest":  "sha256:e2728231060693472a8efb488dd139a8142a01bd0612ae70429bf5b5be924be1"
+    },
+    {
+        "tag":  "bookworm",
+        "digest":  "sha256:b0b01167ff47bc3868e56a967895a26be4230891a1f42a78ab61cdd227accc8d",
+        "lastUpdated":  "2026-11-05T12:07:31.229014Z",
+        "fullSize":  52851620,
+        "amd64Digest":  "sha256:c13389a69fa54b26002fb052b062be6175f915e314d38969f7293ffc27b02d31"
+    },
+    {
+        "tag":  "8.8.4-trixie",
+        "digest":  "sha256:a008e2cb5579f3616b29bd9e9913a25f16ec09ae2f56ddab524664663b581228",
+        "lastUpdated":  "2026-11-05T12:07:24.721224Z",
+        "fullSize":  54585995,
+        "amd64Digest":  "sha256:f00c54d05acbb9f6b9ce47e3dbd03d7ed16d94c274470be17acd6b0112734162"
+    },
+    {
+        "tag":  "8.8.4",
+        "digest":  "sha256:a008e2cb5579f3616b29bd9e9913a25f16ec09ae2f56ddab524664663b581228",
+        "lastUpdated":  "2026-11-05T12:07:15.168649Z",
+        "fullSize":  54585995,
+        "amd64Digest":  "sha256:f00c54d05acbb9f6b9ce47e3dbd03d7ed16d94c274470be17acd6b0112734162"
+    },
+    {
+        "tag":  "8.8-trixie",
+        "digest":  "sha256:a008e2cb5579f3616b29bd9e9913a25f16ec09ae2f56ddab524664663b581228",
+        "lastUpdated":  "2026-11-05T12:07:12.299887Z",
+        "fullSize":  54585995,
+        "amd64Digest":  "sha256:f00c54d05acbb9f6b9ce47e3dbd03d7ed16d94c274470be17acd6b0112734162"
+    },
+    {
+        "tag":  "8.8",
+        "digest":  "sha256:a008e2cb5579f3616b29bd9e9913a25f16ec09ae2f56ddab524664663b581228",
+        "lastUpdated":  "2026-11-05T12:07:04.937547Z",
+        "fullSize":  54585995,
+        "amd64Digest":  "sha256:f00c54d05acbb9f6b9ce47e3dbd03d7ed16d94c274470be17acd6b0112734162"
+    },
+    {
+        "tag":  "8.6.8-trixie",
+        "digest":  "sha256:7e2de3b74f334048ac1de3db8e088c940043a10c47bcf48c6367992ac7007189",
+        "lastUpdated":  "2026-11-05T12:06:58.587058Z",
+        "fullSize":  53641302,
+        "amd64Digest":  "sha256:2990182da8be1ca1272f449beef6256ea05d155c75d503d5910e39bd40b1b5ed"
+    },
+    {
+        "tag":  "8.6.8",
+        "digest":  "sha256:7e2de3b74f334048ac1de3db8e088c940043a10c47bcf48c6367992ac7007189",
+        "lastUpdated":  "2026-11-05T12:06:53.149652Z",
+        "fullSize":  53641302,
+        "amd64Digest":  "sha256:2990182da8be1ca1272f449beef6256ea05d155c75d503d5910e39bd40b1b5ed"
+    },
+    {
+        "tag":  "8.6-trixie",
+        "digest":  "sha256:7e2de3b74f334048ac1de3db8e088c940043a10c47bcf48c6367992ac7007189",
+        "lastUpdated":  "2026-11-05T12:06:50.356835Z",
+        "fullSize":  53641302,
+        "amd64Digest":  "sha256:2990182da8be1ca1272f449beef6256ea05d155c75d503d5910e39bd40b1b5ed"
+    },
+    {
+        "tag":  "8.6",
+        "digest":  "sha256:7e2de3b74f334048ac1de3db8e088c940043a10c47bcf48c6367992ac7007189",
+        "lastUpdated":  "2026-11-05T12:06:44.071693Z",
+        "fullSize":  53641302,
+        "amd64Digest":  "sha256:2990182da8be1ca1272f449beef6256ea05d155c75d503d5910e39bd40b1b5ed"
+    },
+    {
+        "tag":  "8.4.8-trixie",
+        "digest":  "sha256:c42cbf17e7b09eaf4e8e7a8603a74e954e3118a461373a8b4396e7c32bd3fe5f",
+        "lastUpdated":  "2026-11-05T12:06:37.971821Z",
+        "fullSize":  53218674,
+        "amd64Digest":  "sha256:9a810a3212fef8da57447b25f70422d0c374b81cf7de86a76270e77bad298414"
+    },
+    {
+        "tag":  "8.4.8",
+        "digest":  "sha256:c42cbf17e7b09eaf4e8e7a8603a74e954e3118a461373a8b4396e7c32bd3fe5f",
+        "lastUpdated":  "2026-11-05T12:06:32.204769Z",
+        "fullSize":  53218674,
+        "amd64Digest":  "sha256:9a810a3212fef8da57447b25f70422d0c374b81cf7de86a76270e77bad298414"
+    },
+    {
+        "tag":  "8.4-trixie",
+        "digest":  "sha256:c42cbf17e7b09eaf4e8e7a8603a74e954e3118a461373a8b4396e7c32bd3fe5f",
+        "lastUpdated":  "2026-11-05T12:06:29.362071Z",
+        "fullSize":  53218674,
+        "amd64Digest":  "sha256:9a810a3212fef8da57447b25f70422d0c374b81cf7de86a76270e77bad298414"
+    },
+    {
+        "tag":  "8.4",
+        "digest":  "sha256:c42cbf17e7b09eaf4e8e7a8603a74e954e3118a461373a8b4396e7c32bd3fe5f",
+        "lastUpdated":  "2026-11-05T12:06:16.227617Z",
+        "fullSize":  53218674,
+        "amd64Digest":  "sha256:9a810a3212fef8da57447b25f70422d0c374b81cf7de86a76270e77bad298414"
+    },
+    {
+        "tag":  "8.2.11-bookworm",
+        "digest":  "sha256:b0b01167ff47bc3868e56a967895a26be4230891a1f42a78ab61cdd227accc8d",
+        "lastUpdated":  "2026-11-05T12:06:10.025288Z",
+        "fullSize":  52851620,
+        "amd64Digest":  "sha256:c13389a69fa54b26002fb052b062be6175f915e314d38969f7293ffc27b02d31"
+    },
+    {
+        "tag":  "8.2.11",
+        "digest":  "sha256:b0b01167ff47bc3868e56a967895a26be4230891a1f42a78ab61cdd227accc8d",
+        "lastUpdated":  "2026-11-05T12:06:05.03539Z",
+        "fullSize":  52851620,
+        "amd64Digest":  "sha256:c13389a69fa54b26002fb052b062be6175f915e314d38969f7293ffc27b02d31"
+    },
+    {
+        "tag":  "8.2-bookworm",
+        "digest":  "sha256:b0b01167ff47bc3868e56a967895a26be4230891a1f42a78ab61cdd227accc8d",
+        "lastUpdated":  "2026-11-05T12:06:02.552694Z",
+        "fullSize":  52851620,
+        "amd64Digest":  "sha256:c13389a69fa54b26002fb052b062be6175f915e314d38969f7293ffc27b02d31"
+    },
+    {
+        "tag":  "8.2",
+        "digest":  "sha256:b0b01167ff47bc3868e56a967895a26be4230891a1f42a78ab61cdd227accc8d",
+        "lastUpdated":  "2026-11-05T12:05:57.165547Z",
+        "fullSize":  52851620,
+        "amd64Digest":  "sha256:c13389a69fa54b26002fb052b062be6175f915e314d38969f7293ffc27b02d31"
+    },
+    {
+        "tag":  "8.10.3-trixie",
+        "digest":  "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+        "lastUpdated":  "2026-11-05T12:05:54.539521Z",
+        "fullSize":  55599487,
+        "amd64Digest":  "sha256:e2728231060693472a8efb488dd139a8142a01bd0612ae70429bf5b5be924be1"
+    },
+    {
+        "tag":  "8.10.3",
+        "digest":  "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+        "lastUpdated":  "2026-11-05T12:05:48.946453Z",
+        "fullSize":  55599487,
+        "amd64Digest":  "sha256:e2728231060693472a8efb488dd139a8142a01bd0612ae70429bf5b5be924be1"
+    },
+    {
+        "tag":  "8.10-trixie",
+        "digest":  "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+        "lastUpdated":  "2026-11-05T12:05:46.096262Z",
+        "fullSize":  55599487,
+        "amd64Digest":  "sha256:e2728231060693472a8efb488dd139a8142a01bd0612ae70429bf5b5be924be1"
+    },
+    {
+        "tag":  "8.10",
+        "digest":  "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+        "lastUpdated":  "2026-11-05T12:05:40.478997Z",
+        "fullSize":  55599487,
+        "amd64Digest":  "sha256:e2728231060693472a8efb488dd139a8142a01bd0612ae70429bf5b5be924be1"
+    },
+    {
+        "tag":  "8-trixie",
+        "digest":  "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+        "lastUpdated":  "2026-11-05T12:05:37.577664Z",
+        "fullSize":  55599487,
+        "amd64Digest":  "sha256:e2728231060693472a8efb488dd139a8142a01bd0612ae70429bf5b5be924be1"
+    },
+    {
+        "tag":  "8-bookworm",
+        "digest":  "sha256:b0b01167ff47bc3868e56a967895a26be4230891a1f42a78ab61cdd227accc8d",
+        "lastUpdated":  "2026-11-05T12:05:34.643808Z",
+        "fullSize":  52851620,
+        "amd64Digest":  "sha256:c13389a69fa54b26002fb052b062be6175f915e314d38969f7293ffc27b02d31"
+    },
+    {
+        "tag":  "8",
+        "digest":  "sha256:f245f4c83b84a9e9a0588da1c9456e579455310f0945d5db52cd2ba27f2000cc",
+        "lastUpdated":  "2026-11-05T12:05:25.131611Z",
+        "fullSize":  55599487,
+        "amd64Digest":  "sha256:e2728231060693472a8efb488dd139a8142a01bd0612ae70429bf5b5be924be1"
+    },
+    {
+        "tag":  "7.4.12-bookworm",
+        "digest":  "sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+        "lastUpdated":  "2026-11-05T12:05:18.527942Z",
+        "fullSize":  43607458,
+        "amd64Digest":  "sha256:a6dd428750118c2c2c67d3f555faef0aa15a2b71198b40e1cb3b9229b1cf3094"
+    },
+    {
+        "tag":  "7.4.12",
+        "digest":  "sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+        "lastUpdated":  "2026-11-05T12:05:13.406454Z",
+        "fullSize":  43607458,
+        "amd64Digest":  "sha256:a6dd428750118c2c2c67d3f555faef0aa15a2b71198b40e1cb3b9229b1cf3094"
+    },
+    {
+        "tag":  "7.4-bookworm",
+        "digest":  "sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+        "lastUpdated":  "2026-11-05T12:05:10.975378Z",
+        "fullSize":  43607458,
+        "amd64Digest":  "sha256:a6dd428750118c2c2c67d3f555faef0aa15a2b71198b40e1cb3b9229b1cf3094"
+    },
+    {
+        "tag":  "7.4",
+        "digest":  "sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+        "lastUpdated":  "2026-11-05T12:05:05.827612Z",
+        "fullSize":  43607458,
+        "amd64Digest":  "sha256:a6dd428750118c2c2c67d3f555faef0aa15a2b71198b40e1cb3b9229b1cf3094"
+    },
+    {
+        "tag":  "7.2.17-bookworm",
+        "digest":  "sha256:5b816bb37d9707a70f10ef5002ecf8ee431750d397010fc4314c93dca887962f",
+        "lastUpdated":  "2026-11-05T12:05:03.414177Z",
+        "fullSize":  43207580,
+        "amd64Digest":  "sha256:b690ae83413c6051e087c9fb92a420b002e820a9fe434ef6e266d612e3915306"
+    },
+    {
+        "tag":  "7.2.17",
+        "digest":  "sha256:5b816bb37d9707a70f10ef5002ecf8ee431750d397010fc4314c93dca887962f",
+        "lastUpdated":  "2026-11-05T12:04:58.298225Z",
+        "fullSize":  43207580,
+        "amd64Digest":  "sha256:b690ae83413c6051e087c9fb92a420b002e820a9fe434ef6e266d612e3915306"
+    },
+    {
+        "tag":  "7.2-bookworm",
+        "digest":  "sha256:5b816bb37d9707a70f10ef5002ecf8ee431750d397010fc4314c93dca887962f",
+        "lastUpdated":  "2026-11-05T12:04:55.816185Z",
+        "fullSize":  43207580,
+        "amd64Digest":  "sha256:b690ae83413c6051e087c9fb92a420b002e820a9fe434ef6e266d612e3915306"
+    },
+    {
+        "tag":  "7.2",
+        "digest":  "sha256:5b816bb37d9707a70f10ef5002ecf8ee431750d397010fc4314c93dca887962f",
+        "lastUpdated":  "2026-11-05T12:04:50.397687Z",
+        "fullSize":  43207580,
+        "amd64Digest":  "sha256:b690ae83413c6051e087c9fb92a420b002e820a9fe434ef6e266d612e3915306"
+    },
+    {
+        "tag":  "7-bookworm",
+        "digest":  "sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+        "lastUpdated":  "2026-11-05T12:04:44.852727Z",
+        "fullSize":  43607458,
+        "amd64Digest":  "sha256:a6dd428750118c2c2c67d3f555faef0aa15a2b71198b40e1cb3b9229b1cf3094"
+    },
+    {
+        "tag":  "7",
+        "digest":  "sha256:2e3eb11462c4e3759e6972678dd051d150ff54b1e60714b3c33b701260172a90",
+        "lastUpdated":  "2026-11-05T12:04:39.487838Z",
+        "fullSize":  43607458,
+        "amd64Digest":  "sha256:a6dd428750118c2c2c67d3f555faef0aa15a2b71198b40e1cb3b9229b1cf3094"
+    },
+    {
+        "tag":  "6.2.24-bookworm",
+        "digest":  "sha256:a08354a6199cf1008897c893e1a679e6cf7ee803ee9f34a50b991b8200a0e8dc",
+        "lastUpdated":  "2026-11-05T12:04:33.546065Z",
+        "fullSize":  38751970,
+        "amd64Digest":  "sha256:7adef2fce425567d6f1573ad43987e7b2c94132eed61c6dea3e88a29ffb11621"
+    },
+    {
+        "tag":  "6.2.24",
+        "digest":  "sha256:a08354a6199cf1008897c893e1a679e6cf7ee803ee9f34a50b991b8200a0e8dc",
+        "lastUpdated":  "2026-11-05T12:04:28.524615Z",
+        "fullSize":  38751970,
+        "amd64Digest":  "sha256:7adef2fce425567d6f1573ad43987e7b2c94132eed61c6dea3e88a29ffb11621"
+    },
+    {
+        "tag":  "6.2-bookworm",
+        "digest":  "sha256:a08354a6199cf1008897c893e1a679e6cf7ee803ee9f34a50b991b8200a0e8dc",
+        "lastUpdated":  "2026-11-05T12:04:26.041631Z",
+        "fullSize":  38751970,
+        "amd64Digest":  "sha256:7adef2fce425567d6f1573ad43987e7b2c94132eed61c6dea3e88a29ffb11621"
+    },
+    {
+        "tag":  "6.2",
+        "digest":  "sha256:a08354a6199cf1008897c893e1a679e6cf7ee803ee9f34a50b991b8200a0e8dc",
+        "lastUpdated":  "2026-11-05T12:04:21.081452Z",
+        "fullSize":  38751970,
+        "amd64Digest":  "sha256:7adef2fce425567d6f1573ad43987e7b2c94132eed61c6dea3e88a29ffb11621"
+    },
+    {
+        "tag":  "6-bookworm",
+        "digest":  "sha256:a08354a6199cf1008897c893e1a679e6cf7ee803ee9f34a50b991b8200a0e8dc",
+        "lastUpdated":  "2026-11-05T12:04:18.631561Z",
+        "fullSize":  38751970,
+        "amd64Digest":  "sha256:7adef2fce425567d6f1573ad43987e7b2c94132eed61c6dea3e88a29ffb11621"
+    },
+    {
+        "tag":  "6",
+        "digest":  "sha256:a08354a6199cf1008897c893e1a679e6cf7ee803ee9f34a50b991b8200a0e8dc",
+        "lastUpdated":  "2026-11-05T12:04:12.56493Z",
+        "fullSize":  38751970,
+        "amd64Digest":  "sha256:7adef2fce425567d6f1573ad43987e7b2c94132eed61c6dea3e88a29ffb11621"
+    },
+    {
+        "tag":  "8.8.3-alpine3.23",
+        "digest":  "sha256:cc9d0aecc235bda23e80287b5ef7c131cae443045b9a332d45932feb71a1e70e",
+        "lastUpdated":  "2026-10-26T15:07:14.516861Z",
+        "fullSize":  37889860,
+        "amd64Digest":  "sha256:76966e9b9b1fff0790abae8c7ffd8ad8946c384f3684d492f7a199370a7746a7"
+    },
+    {
+        "tag":  "8.8.3-alpine",
+        "digest":  "sha256:cc9d0aecc235bda23e80287b5ef7c131cae443045b9a332d45932feb71a1e70e",
+        "lastUpdated":  "2026-10-26T15:07:11.642985Z",
+        "fullSize":  37889860,
+        "amd64Digest":  "sha256:76966e9b9b1fff0790abae8c7ffd8ad8946c384f3684d492f7a199370a7746a7"
+    },
+    {
+        "tag":  "8.6.7-alpine3.23",
+        "digest":  "sha256:75f8173a27d79a75dea9b6c2ca306bac4f61abb1a772b3f5de804a748964c7e5",
+        "lastUpdated":  "2026-10-26T15:06:54.332085Z",
+        "fullSize":  34752293,
+        "amd64Digest":  "sha256:3247e05722d248a515f7554707085bb31440618c400b147e4e8a10d66c065d50"
+    },
+    {
+        "tag":  "8.6.7-alpine",
+        "digest":  "sha256:75f8173a27d79a75dea9b6c2ca306bac4f61abb1a772b3f5de804a748964c7e5",
+        "lastUpdated":  "2026-10-26T15:06:51.208747Z",
+        "fullSize":  34752293,
+        "amd64Digest":  "sha256:3247e05722d248a515f7554707085bb31440618c400b147e4e8a10d66c065d50"
+    },
+    {
+        "tag":  "8.4.7-alpine3.22",
+        "digest":  "sha256:c1cdaebb11554eab9f48515a31b86e78319c087a5f939dcc092c3066ecf15c4f",
+        "lastUpdated":  "2026-10-26T15:06:32.428298Z",
+        "fullSize":  34092943,
+        "amd64Digest":  "sha256:cd0663530bb2e14b744212bd619fa2caba937a16280d3d513a1cb87c5fe32ab1"
+    },
+    {
+        "tag":  "8.4.7-alpine",
+        "digest":  "sha256:c1cdaebb11554eab9f48515a31b86e78319c087a5f939dcc092c3066ecf15c4f",
+        "lastUpdated":  "2026-10-26T15:06:29.650087Z",
+        "fullSize":  34092943,
+        "amd64Digest":  "sha256:cd0663530bb2e14b744212bd619fa2caba937a16280d3d513a1cb87c5fe32ab1"
+    },
+    {
+        "tag":  "8.2.10-alpine3.22",
+        "digest":  "sha256:cead8b06d60a363832e64f5007101ae917fe8a77ec354dfb3be3655a2a351018",
+        "lastUpdated":  "2026-10-26T15:06:13.098783Z",
+        "fullSize":  27855903,
+        "amd64Digest":  "sha256:d856c5d2e96e9b013ca776b2ac4a4686d7ff8072d9ad6e1140d3aa79f277ee5c"
+    },
+    {
+        "tag":  "8.2.10-alpine",
+        "digest":  "sha256:cead8b06d60a363832e64f5007101ae917fe8a77ec354dfb3be3655a2a351018",
+        "lastUpdated":  "2026-10-26T15:06:10.296923Z",
+        "fullSize":  27855903,
+        "amd64Digest":  "sha256:d856c5d2e96e9b013ca776b2ac4a4686d7ff8072d9ad6e1140d3aa79f277ee5c"
+    },
+    {
+        "tag":  "8.10.2-alpine3.23",
+        "digest":  "sha256:9f8d2d789b9a1d1e3f283f979aa9cbf393373806472e1ccd460e2f9c869b833b",
+        "lastUpdated":  "2026-10-26T15:05:54.042285Z",
+        "fullSize":  39106726,
+        "amd64Digest":  "sha256:16b124a2d3eacd620d917ead6fd26cbf1f1d7117fa94122398971931cfe2d403"
+    },
+    {
+        "tag":  "8.10.2-alpine",
+        "digest":  "sha256:9f8d2d789b9a1d1e3f283f979aa9cbf393373806472e1ccd460e2f9c869b833b",
+        "lastUpdated":  "2026-10-26T15:05:51.188261Z",
+        "fullSize":  39106726,
+        "amd64Digest":  "sha256:16b124a2d3eacd620d917ead6fd26cbf1f1d7117fa94122398971931cfe2d403"
+    },
+    {
+        "tag":  "7.4.11-alpine3.21",
+        "digest":  "sha256:d9436322172a5b482c187bf1f363d3c4fea086fcca6b9c8a94de8f0f39ed3193",
+        "lastUpdated":  "2026-10-26T15:05:18.162596Z",
+        "fullSize":  16241702,
+        "amd64Digest":  "sha256:8be847644e195abc4c10c8d9936cfa45332eccc6b714fa7b186ff43f1f4d5579"
+    },
+    {
+        "tag":  "7.4.11-alpine",
+        "digest":  "sha256:d9436322172a5b482c187bf1f363d3c4fea086fcca6b9c8a94de8f0f39ed3193",
+        "lastUpdated":  "2026-10-26T15:05:15.314937Z",
+        "fullSize":  16241702,
+        "amd64Digest":  "sha256:8be847644e195abc4c10c8d9936cfa45332eccc6b714fa7b186ff43f1f4d5579"
+    },
+    {
+        "tag":  "7.2.16-alpine3.21",
+        "digest":  "sha256:ee061d86c25773048211e99f00d63b47b9ecfe28560113e16cce2c962d5bec1c",
+        "lastUpdated":  "2026-10-26T15:05:03.227424Z",
+        "fullSize":  15847366,
+        "amd64Digest":  "sha256:f2c5eb3d970536f4bd6538875f650cc8482284fc828d7de20fd25a5f16fa7fdc"
+    },
+    {
+        "tag":  "7.2.16-alpine",
+        "digest":  "sha256:ee061d86c25773048211e99f00d63b47b9ecfe28560113e16cce2c962d5bec1c",
+        "lastUpdated":  "2026-10-26T15:05:00.211774Z",
+        "fullSize":  15847366,
+        "amd64Digest":  "sha256:f2c5eb3d970536f4bd6538875f650cc8482284fc828d7de20fd25a5f16fa7fdc"
+    },
+    {
+        "tag":  "8.8.3-trixie",
+        "digest":  "sha256:418e397fd48d66e450af13baab123397f2d2580b07ef310c3a5dbe96c3d731f1",
+        "lastUpdated":  "2026-10-22T06:06:32.586527Z",
+        "fullSize":  54572216,
+        "amd64Digest":  "sha256:cc040fa9d0f6480ffb14f895c48953104e1087f21ec2a705395f213510785feb"
+    },
+    {
+        "tag":  "8.8.3",
+        "digest":  "sha256:418e397fd48d66e450af13baab123397f2d2580b07ef310c3a5dbe96c3d731f1",
+        "lastUpdated":  "2026-10-22T06:06:19.736412Z",
+        "fullSize":  54572216,
+        "amd64Digest":  "sha256:cc040fa9d0f6480ffb14f895c48953104e1087f21ec2a705395f213510785feb"
+    }
+]

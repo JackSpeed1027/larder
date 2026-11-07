@@ -1,0 +1,702 @@
+[
+    {
+        "tag":  "4.4.0-alpine",
+        "digest":  "sha256:8425b8435b0203e87292cf1a4a7e5f8108c610bbd8217f8cc952f43628b24987",
+        "lastUpdated":  "2026-11-06T08:53:36.599646Z",
+        "fullSize":  90210648,
+        "amd64Digest":  "sha256:a4328c48117c7f82167ae3a247250bbd5853fde574dfe30b3f62aa3ebfe75832"
+    },
+    {
+        "tag":  "4.4-alpine",
+        "digest":  "sha256:8425b8435b0203e87292cf1a4a7e5f8108c610bbd8217f8cc952f43628b24987",
+        "lastUpdated":  "2026-11-06T08:53:30.819056Z",
+        "fullSize":  90210648,
+        "amd64Digest":  "sha256:a4328c48117c7f82167ae3a247250bbd5853fde574dfe30b3f62aa3ebfe75832"
+    },
+    {
+        "tag":  "4.3.7-alpine",
+        "digest":  "sha256:68fd0566c1c5a5aef2d7b3ad55af8be503a767c1ff8646d7088c8c7946270cf9",
+        "lastUpdated":  "2026-11-06T08:53:24.757049Z",
+        "fullSize":  84661128,
+        "amd64Digest":  "sha256:ba5a2c7d6968a9dda7c68862994893d58ea76339726c2f6e452ab112f80a23c4"
+    },
+    {
+        "tag":  "4.3-alpine",
+        "digest":  "sha256:68fd0566c1c5a5aef2d7b3ad55af8be503a767c1ff8646d7088c8c7946270cf9",
+        "lastUpdated":  "2026-11-06T08:53:17.936923Z",
+        "fullSize":  84661128,
+        "amd64Digest":  "sha256:ba5a2c7d6968a9dda7c68862994893d58ea76339726c2f6e452ab112f80a23c4"
+    },
+    {
+        "tag":  "4.2.9-alpine",
+        "digest":  "sha256:dea0f5843025e0c3c1a128b14fc2e181ea59ff369e7048e6a7fbac83bd8c4f9d",
+        "lastUpdated":  "2026-11-06T08:53:07.270767Z",
+        "fullSize":  84369143,
+        "amd64Digest":  "sha256:9015fa22092a415b9ce09d6d90f8838ff0a5b320f14bb376f83f85e350e17219"
+    },
+    {
+        "tag":  "4.2-alpine",
+        "digest":  "sha256:dea0f5843025e0c3c1a128b14fc2e181ea59ff369e7048e6a7fbac83bd8c4f9d",
+        "lastUpdated":  "2026-11-06T08:53:00.434405Z",
+        "fullSize":  84369143,
+        "amd64Digest":  "sha256:9015fa22092a415b9ce09d6d90f8838ff0a5b320f14bb376f83f85e350e17219"
+    },
+    {
+        "tag":  "4.1.8-alpine",
+        "digest":  "sha256:425307007e5a54b20fe6b6da718c2e385999eddda28d44d329b7e7bfabe45610",
+        "lastUpdated":  "2026-11-06T08:52:50.213458Z",
+        "fullSize":  83156549,
+        "amd64Digest":  "sha256:ff6d50caacf674e7465ae5f296e287aa16da12931bfc3b99f386cf61774160ed"
+    },
+    {
+        "tag":  "4.1-alpine",
+        "digest":  "sha256:425307007e5a54b20fe6b6da718c2e385999eddda28d44d329b7e7bfabe45610",
+        "lastUpdated":  "2026-11-06T08:52:43.710884Z",
+        "fullSize":  83156549,
+        "amd64Digest":  "sha256:ff6d50caacf674e7465ae5f296e287aa16da12931bfc3b99f386cf61774160ed"
+    },
+    {
+        "tag":  "4.0.9-alpine",
+        "digest":  "sha256:0a09ddfd00a1ef2e58f497d731e9b2814ef3bebb3668069185c54d085352d2b9",
+        "lastUpdated":  "2026-11-06T08:52:32.774823Z",
+        "fullSize":  76607769,
+        "amd64Digest":  "sha256:3e4a7593d8c3b27a92a645a831c13c41e11906bfdc35ff5e8b99edeabb4957bf"
+    },
+    {
+        "tag":  "4.0-alpine",
+        "digest":  "sha256:0a09ddfd00a1ef2e58f497d731e9b2814ef3bebb3668069185c54d085352d2b9",
+        "lastUpdated":  "2026-11-06T08:52:26.218277Z",
+        "fullSize":  76607769,
+        "amd64Digest":  "sha256:3e4a7593d8c3b27a92a645a831c13c41e11906bfdc35ff5e8b99edeabb4957bf"
+    },
+    {
+        "tag":  "4-alpine",
+        "digest":  "sha256:8425b8435b0203e87292cf1a4a7e5f8108c610bbd8217f8cc952f43628b24987",
+        "lastUpdated":  "2026-11-06T08:52:15.589563Z",
+        "fullSize":  90210648,
+        "amd64Digest":  "sha256:a4328c48117c7f82167ae3a247250bbd5853fde574dfe30b3f62aa3ebfe75832"
+    },
+    {
+        "tag":  "4.4.0-management-alpine",
+        "digest":  "sha256:6cb708876a6163c93f1e5af03a649db13765027ff7a7d775c01a63b6a80545ee",
+        "lastUpdated":  "2026-11-05T23:55:58.071471Z",
+        "fullSize":  94635136,
+        "amd64Digest":  "sha256:598b474e2511f37a7408f3fa580f002684638f4ad6401395102b51e3209a9a51"
+    },
+    {
+        "tag":  "4.4-management-alpine",
+        "digest":  "sha256:6cb708876a6163c93f1e5af03a649db13765027ff7a7d775c01a63b6a80545ee",
+        "lastUpdated":  "2026-11-05T23:55:50.858064Z",
+        "fullSize":  94635136,
+        "amd64Digest":  "sha256:598b474e2511f37a7408f3fa580f002684638f4ad6401395102b51e3209a9a51"
+    },
+    {
+        "tag":  "4.3.7-management-alpine",
+        "digest":  "sha256:d306c4fdd095ef42c10d428c5858e139bbcbddb2d4a2cd97c0ee87502305d7d5",
+        "lastUpdated":  "2026-11-05T23:55:43.213456Z",
+        "fullSize":  89085617,
+        "amd64Digest":  "sha256:de0d0aadd78c3cb9cf94a6acf5651e170dc35d2130a66b3594504fb9e7be3373"
+    },
+    {
+        "tag":  "4.3-management-alpine",
+        "digest":  "sha256:d306c4fdd095ef42c10d428c5858e139bbcbddb2d4a2cd97c0ee87502305d7d5",
+        "lastUpdated":  "2026-11-05T23:55:35.261043Z",
+        "fullSize":  89085617,
+        "amd64Digest":  "sha256:de0d0aadd78c3cb9cf94a6acf5651e170dc35d2130a66b3594504fb9e7be3373"
+    },
+    {
+        "tag":  "4.2.9-management-alpine",
+        "digest":  "sha256:b54aeb5c3e81b3cf3855355e76066b5c86f791699025036acfe51e3e75a552bb",
+        "lastUpdated":  "2026-11-05T23:55:00.41892Z",
+        "fullSize":  88793631,
+        "amd64Digest":  "sha256:69781e1c9c8cc04dfc373f9e7ddee76b8010cdf3946e073d69385dbc9cf98e60"
+    },
+    {
+        "tag":  "4.2-management-alpine",
+        "digest":  "sha256:b54aeb5c3e81b3cf3855355e76066b5c86f791699025036acfe51e3e75a552bb",
+        "lastUpdated":  "2026-11-05T23:54:52.523031Z",
+        "fullSize":  88793631,
+        "amd64Digest":  "sha256:69781e1c9c8cc04dfc373f9e7ddee76b8010cdf3946e073d69385dbc9cf98e60"
+    },
+    {
+        "tag":  "4.1.8-management-alpine",
+        "digest":  "sha256:303bfcd1f2ee4395b7e02a8afab1819dc5867728cacdf34f466b8cff4568b956",
+        "lastUpdated":  "2026-11-05T23:54:15.970087Z",
+        "fullSize":  87581038,
+        "amd64Digest":  "sha256:974220adc602b36b9a8e6be1b9535fd46315ea6075c5a5f5784a231bdd4fa563"
+    },
+    {
+        "tag":  "4.1-management-alpine",
+        "digest":  "sha256:303bfcd1f2ee4395b7e02a8afab1819dc5867728cacdf34f466b8cff4568b956",
+        "lastUpdated":  "2026-11-05T23:54:08.052134Z",
+        "fullSize":  87581038,
+        "amd64Digest":  "sha256:974220adc602b36b9a8e6be1b9535fd46315ea6075c5a5f5784a231bdd4fa563"
+    },
+    {
+        "tag":  "4.0.9-management-alpine",
+        "digest":  "sha256:83403abe36383e93ac0f4e466fffbf32d88b521e7f5dd163b1491ade9e1ce37a",
+        "lastUpdated":  "2026-11-05T23:53:31.082319Z",
+        "fullSize":  81032258,
+        "amd64Digest":  "sha256:cdd817d91c66b9ba5638587f30f0eda4f945ae2457589bc4e9e59a1bb2b4d008"
+    },
+    {
+        "tag":  "4.0-management-alpine",
+        "digest":  "sha256:83403abe36383e93ac0f4e466fffbf32d88b521e7f5dd163b1491ade9e1ce37a",
+        "lastUpdated":  "2026-11-05T23:53:23.060309Z",
+        "fullSize":  81032258,
+        "amd64Digest":  "sha256:cdd817d91c66b9ba5638587f30f0eda4f945ae2457589bc4e9e59a1bb2b4d008"
+    },
+    {
+        "tag":  "4-management-alpine",
+        "digest":  "sha256:6cb708876a6163c93f1e5af03a649db13765027ff7a7d775c01a63b6a80545ee",
+        "lastUpdated":  "2026-11-05T23:52:45.472858Z",
+        "fullSize":  94635136,
+        "amd64Digest":  "sha256:598b474e2511f37a7408f3fa580f002684638f4ad6401395102b51e3209a9a51"
+    },
+    {
+        "tag":  "4.3.7-management",
+        "digest":  "sha256:6e51f8f18e055d6dc3d94316db0073da64d811c2e19744661fae06b03c1d6fa8",
+        "lastUpdated":  "2026-11-04T02:53:14.284242Z",
+        "fullSize":  118654369,
+        "amd64Digest":  "sha256:0b1463ed47510cde3c4df497271173ddecfd87b713e6605a382f3f402d2dda28"
+    },
+    {
+        "tag":  "4.3-management",
+        "digest":  "sha256:6e51f8f18e055d6dc3d94316db0073da64d811c2e19744661fae06b03c1d6fa8",
+        "lastUpdated":  "2026-11-04T02:53:07.787375Z",
+        "fullSize":  118654369,
+        "amd64Digest":  "sha256:0b1463ed47510cde3c4df497271173ddecfd87b713e6605a382f3f402d2dda28"
+    },
+    {
+        "tag":  "4.2.9-management",
+        "digest":  "sha256:4e1c1636957aa13c2dbeb8c92606891ac0c396999bb4d7c3a7e3ba38430df7fa",
+        "lastUpdated":  "2026-11-04T02:52:58.420218Z",
+        "fullSize":  118359894,
+        "amd64Digest":  "sha256:ea7ab4e31b19f77f9b5d3e2e887aebe9100f0ac83a7b77d7bb612067d88076bd"
+    },
+    {
+        "tag":  "4.2-management",
+        "digest":  "sha256:4e1c1636957aa13c2dbeb8c92606891ac0c396999bb4d7c3a7e3ba38430df7fa",
+        "lastUpdated":  "2026-11-04T02:52:51.839751Z",
+        "fullSize":  118359894,
+        "amd64Digest":  "sha256:ea7ab4e31b19f77f9b5d3e2e887aebe9100f0ac83a7b77d7bb612067d88076bd"
+    },
+    {
+        "tag":  "4.1.8-management",
+        "digest":  "sha256:e1763bfb4a15f9646f9bad2fbae857f4499614577d1165450331189efdb6ea3b",
+        "lastUpdated":  "2026-11-04T02:52:42.359672Z",
+        "fullSize":  117142582,
+        "amd64Digest":  "sha256:f09d07c1a7bd488ff31788f8510ccb6e8bedc832cff5d07e079e9da44ef30169"
+    },
+    {
+        "tag":  "4.1-management",
+        "digest":  "sha256:e1763bfb4a15f9646f9bad2fbae857f4499614577d1165450331189efdb6ea3b",
+        "lastUpdated":  "2026-11-04T02:52:35.771743Z",
+        "fullSize":  117142582,
+        "amd64Digest":  "sha256:f09d07c1a7bd488ff31788f8510ccb6e8bedc832cff5d07e079e9da44ef30169"
+    },
+    {
+        "tag":  "4.0.9-management",
+        "digest":  "sha256:9a89f8c721b75af21c6e13df21cf4d284c26d0ca6f5e4e61178f963c776241bd",
+        "lastUpdated":  "2026-11-04T02:52:26.240963Z",
+        "fullSize":  110599700,
+        "amd64Digest":  "sha256:cad3d3f89740fda91e8339c46e6bd6ab7c93da85bc2e06fe02e9574687987b77"
+    },
+    {
+        "tag":  "4.0-management",
+        "digest":  "sha256:9a89f8c721b75af21c6e13df21cf4d284c26d0ca6f5e4e61178f963c776241bd",
+        "lastUpdated":  "2026-11-04T02:52:19.694881Z",
+        "fullSize":  110599700,
+        "amd64Digest":  "sha256:cad3d3f89740fda91e8339c46e6bd6ab7c93da85bc2e06fe02e9574687987b77"
+    },
+    {
+        "tag":  "4.3.7",
+        "digest":  "sha256:2afee120d039c78a16c930036ac47568ed7fc45dabdc56fc3d890d2d9273ac49",
+        "lastUpdated":  "2026-11-02T14:53:20.933576Z",
+        "fullSize":  114073909,
+        "amd64Digest":  "sha256:b9f06590656d916b212a14559e987c7be50f0c360d5881536203ee1fd051b4af"
+    },
+    {
+        "tag":  "4.3",
+        "digest":  "sha256:2afee120d039c78a16c930036ac47568ed7fc45dabdc56fc3d890d2d9273ac49",
+        "lastUpdated":  "2026-11-02T14:53:14.268892Z",
+        "fullSize":  114073909,
+        "amd64Digest":  "sha256:b9f06590656d916b212a14559e987c7be50f0c360d5881536203ee1fd051b4af"
+    },
+    {
+        "tag":  "4.2.9",
+        "digest":  "sha256:97f4d5e14f7c59e585554b9e90c3dec2c7bb6b249792fa54f7e7cf56b6582203",
+        "lastUpdated":  "2026-11-02T14:53:04.334355Z",
+        "fullSize":  113779417,
+        "amd64Digest":  "sha256:72a08a1d9c37795e6885dcf006f2ea64aa0a11e6c6b026f642550e3819316e29"
+    },
+    {
+        "tag":  "4.2",
+        "digest":  "sha256:97f4d5e14f7c59e585554b9e90c3dec2c7bb6b249792fa54f7e7cf56b6582203",
+        "lastUpdated":  "2026-11-02T14:52:57.516016Z",
+        "fullSize":  113779417,
+        "amd64Digest":  "sha256:72a08a1d9c37795e6885dcf006f2ea64aa0a11e6c6b026f642550e3819316e29"
+    },
+    {
+        "tag":  "4.1.8",
+        "digest":  "sha256:fd72ff40a622af2f4ac889716aef26c5255dc12d46080ef58c814bdc0021decb",
+        "lastUpdated":  "2026-11-02T14:52:47.210257Z",
+        "fullSize":  112562149,
+        "amd64Digest":  "sha256:b16b984fb8567c9c3d35d9586d742067a9b609f848000dcc510ea04d9880f2e0"
+    },
+    {
+        "tag":  "4.1",
+        "digest":  "sha256:fd72ff40a622af2f4ac889716aef26c5255dc12d46080ef58c814bdc0021decb",
+        "lastUpdated":  "2026-11-02T14:52:40.440914Z",
+        "fullSize":  112562149,
+        "amd64Digest":  "sha256:b16b984fb8567c9c3d35d9586d742067a9b609f848000dcc510ea04d9880f2e0"
+    },
+    {
+        "tag":  "4.0.9",
+        "digest":  "sha256:abd4261d92e76837fe82201196e77076d7f3ff08c92282e5b7bce8828ee20283",
+        "lastUpdated":  "2026-11-02T14:52:29.731138Z",
+        "fullSize":  106019242,
+        "amd64Digest":  "sha256:4f44c3c18fe6147732779faf6797f04c933b930430ff62f342431076888461f3"
+    },
+    {
+        "tag":  "4.0",
+        "digest":  "sha256:abd4261d92e76837fe82201196e77076d7f3ff08c92282e5b7bce8828ee20283",
+        "lastUpdated":  "2026-11-02T14:52:22.949307Z",
+        "fullSize":  106019242,
+        "amd64Digest":  "sha256:4f44c3c18fe6147732779faf6797f04c933b930430ff62f342431076888461f3"
+    },
+    {
+        "tag":  "4.4.0-management",
+        "digest":  "sha256:af6f50d38098d8bd52fef7f3fa85015dd8b2bf6def58e995bf584ae9ba0f6407",
+        "lastUpdated":  "2026-10-28T02:53:16.425068Z",
+        "fullSize":  135536792,
+        "amd64Digest":  "sha256:9f48a2c0a501c5a7cf520d69eb3369ba85e614a195dde071f3dfa20077e54d26"
+    },
+    {
+        "tag":  "4.4.0",
+        "digest":  "sha256:485319d42170eab53d8a030e1cc49d95e41f5d325479fa504736db8091981eb7",
+        "lastUpdated":  "2026-10-28T02:53:12.70911Z",
+        "fullSize":  131007715,
+        "amd64Digest":  "sha256:184d4ae2a5d7fd4cbe1ad7165d1fb6c1377735ed2744c6be478deed5e8f0ba88"
+    },
+    {
+        "tag":  "4.4-management",
+        "digest":  "sha256:af6f50d38098d8bd52fef7f3fa85015dd8b2bf6def58e995bf584ae9ba0f6407",
+        "lastUpdated":  "2026-10-28T02:53:08.954877Z",
+        "fullSize":  135536792,
+        "amd64Digest":  "sha256:9f48a2c0a501c5a7cf520d69eb3369ba85e614a195dde071f3dfa20077e54d26"
+    },
+    {
+        "tag":  "4.4",
+        "digest":  "sha256:485319d42170eab53d8a030e1cc49d95e41f5d325479fa504736db8091981eb7",
+        "lastUpdated":  "2026-10-28T02:53:05.187684Z",
+        "fullSize":  131007715,
+        "amd64Digest":  "sha256:184d4ae2a5d7fd4cbe1ad7165d1fb6c1377735ed2744c6be478deed5e8f0ba88"
+    },
+    {
+        "tag":  "4-management",
+        "digest":  "sha256:af6f50d38098d8bd52fef7f3fa85015dd8b2bf6def58e995bf584ae9ba0f6407",
+        "lastUpdated":  "2026-10-28T02:52:22.519421Z",
+        "fullSize":  135536792,
+        "amd64Digest":  "sha256:9f48a2c0a501c5a7cf520d69eb3369ba85e614a195dde071f3dfa20077e54d26"
+    },
+    {
+        "tag":  "4",
+        "digest":  "sha256:485319d42170eab53d8a030e1cc49d95e41f5d325479fa504736db8091981eb7",
+        "lastUpdated":  "2026-10-28T02:52:14.475322Z",
+        "fullSize":  131007715,
+        "amd64Digest":  "sha256:184d4ae2a5d7fd4cbe1ad7165d1fb6c1377735ed2744c6be478deed5e8f0ba88"
+    },
+    {
+        "tag":  "4.3.6-management",
+        "digest":  "sha256:54cb013d76cd1fd6c0a0708f34062ad61c452bb6f016b434c6c33f1a765d2b58",
+        "lastUpdated":  "2026-10-17T23:53:13.510306Z",
+        "fullSize":  118553268,
+        "amd64Digest":  "sha256:2b0728651f6867d6421311165b94f7c9b8e9b8390045df1f0cb6b52f128d451a"
+    },
+    {
+        "tag":  "4.3.6",
+        "digest":  "sha256:3e5cc23235b0eb850f604e8ace10d9a9b6d05be3e36730e53522ee9ead707a9e",
+        "lastUpdated":  "2026-10-17T20:53:15.138091Z",
+        "fullSize":  113972632,
+        "amd64Digest":  "sha256:49bf725e596e1b0f74e5461a09163372292611258ce85073fbbdd61cc9d56644"
+    },
+    {
+        "tag":  "4.3.6-management-alpine",
+        "digest":  "sha256:3505b6096cdbc083bcc363e74366f575ecd0c1a55be4dadcbc60fa08e34647e1",
+        "lastUpdated":  "2026-10-16T11:53:43.65985Z",
+        "fullSize":  88983254,
+        "amd64Digest":  "sha256:78e8cca4758ef23fb96fee8a88a4bc66286827ffa8ad11987cb74e0a1fd9a147"
+    },
+    {
+        "tag":  "4.3.6-alpine",
+        "digest":  "sha256:6931816af1a943f471c038b278835d36692d55dec769232739296bb91b7de0f5",
+        "lastUpdated":  "2026-10-15T20:53:43.541233Z",
+        "fullSize":  84558767,
+        "amd64Digest":  "sha256:266f3807c975a22ffce3274b042b42ac6500b88496c460ad8468ee8a197992be"
+    },
+    {
+        "tag":  "4.3.5-management-alpine",
+        "digest":  "sha256:b3b8b7f95f5382a19f9ea33540e604f30aad081d37ad9aba72255135765373a1",
+        "lastUpdated":  "2026-09-10T08:53:41.166773Z",
+        "fullSize":  88869502,
+        "amd64Digest":  "sha256:109225ae255547cf13a89c6b7d72f8f78826e4f3fd00a1c8dfbad5bacad70a68"
+    },
+    {
+        "tag":  "4.3.5-management",
+        "digest":  "sha256:57bddb6fbc3498b5d8b5a14dc6f4506073ebcf94c66ba2a7678c335faa8dd631",
+        "lastUpdated":  "2026-09-10T08:53:38.462649Z",
+        "fullSize":  118456566,
+        "amd64Digest":  "sha256:6e83d26931219c9e088e6eefcc877bcca2adc3690c7603f24f4ece8968b13262"
+    },
+    {
+        "tag":  "4.3.5",
+        "digest":  "sha256:078107e036374f4d9bbeab8766799abe474bf252aedb4617ddd2edfa8e2c2c05",
+        "lastUpdated":  "2026-09-09T20:55:12.804607Z",
+        "fullSize":  113876115,
+        "amd64Digest":  "sha256:eb64de46037972028e8afbcbc3b475d595e76ab8bdd14bed9ea1023c4e52c28f"
+    },
+    {
+        "tag":  "4.3.5-alpine",
+        "digest":  "sha256:3486d98205df3d6395ed70e7924baa13b561cbac54116c0ddae5b0b7382bbabd",
+        "lastUpdated":  "2026-09-03T05:53:41.245453Z",
+        "fullSize":  84445006,
+        "amd64Digest":  "sha256:af84b2f925cf031ebea4fb811c9c7515106b0b28f4c099f079632300fd0a5fef"
+    },
+    {
+        "tag":  "4.3.4-management-alpine",
+        "digest":  "sha256:44bf7eb50fe1765885659e49ccfdc775f8e531964d979321aee380a071f49f94",
+        "lastUpdated":  "2026-08-07T14:53:40.869067Z",
+        "fullSize":  88769877,
+        "amd64Digest":  "sha256:39f934e10a7b95179171a70f15f02636201a153a2c689e961fc0f445bac275f2"
+    },
+    {
+        "tag":  "4.3.4-management",
+        "digest":  "sha256:eb5295d083325da5929a5ade766684d4019ffd2bce8bc7e43d6f9a05cafc8646",
+        "lastUpdated":  "2026-08-07T14:53:37.949938Z",
+        "fullSize":  120748202,
+        "amd64Digest":  "sha256:cd4fd60136781671d125ed68ac4b67900c0726b55e2e8b98719daa616a63240b"
+    },
+    {
+        "tag":  "4.3.4-alpine",
+        "digest":  "sha256:a762c02d0c1fa7c3de1eca5d62b4fe9812649f41a3b38d716e1afcbe7e5387ad",
+        "lastUpdated":  "2026-08-05T05:53:07.672739Z",
+        "fullSize":  84331962,
+        "amd64Digest":  "sha256:8148a52f6edfd5f9f86412937a3397d8bf1a96b8bb45829fce2e5180c7c573cd"
+    },
+    {
+        "tag":  "4.3.4",
+        "digest":  "sha256:4b336f82e93749f1ebf8d6283b4d5a98bf1efac8412ec56015a6ab5aae0f57a2",
+        "lastUpdated":  "2026-08-05T05:53:04.851249Z",
+        "fullSize":  116149940,
+        "amd64Digest":  "sha256:520c37a0469c1d872d84f2f998945f51d66a71f32562c6a89ea042713d9fa8b5"
+    },
+    {
+        "tag":  "4.3.3-management-alpine",
+        "digest":  "sha256:8fc5bf62ea0b8b2b058994727441904a2d3d0844a301e8ab7cab3f695f2c0b89",
+        "lastUpdated":  "2026-07-22T14:53:25.83222Z",
+        "fullSize":  88715980,
+        "amd64Digest":  "sha256:c427b73a15d01416346f429042125e663452e2a27e07fb3096fadb08f7033fc7"
+    },
+    {
+        "tag":  "4.3.3-management",
+        "digest":  "sha256:d8b3d416236ae5ba3f6a9f4e4651fdacda01780181a7d83a71b640248d8f0a69",
+        "lastUpdated":  "2026-07-22T14:53:22.757145Z",
+        "fullSize":  118273405,
+        "amd64Digest":  "sha256:c3e3983490121ac990711c5f41411aef6777e2df3911332c3d5b895fea80baf4"
+    },
+    {
+        "tag":  "4.3.3-alpine",
+        "digest":  "sha256:c0331b994befdadcdb35a6fff2163052e58dbd1a38c80819065df5c8114f5020",
+        "lastUpdated":  "2026-07-22T08:53:17.33463Z",
+        "fullSize":  84278063,
+        "amd64Digest":  "sha256:d177028986b08b01c99c37b9e1dee2dad31a714e4f8821ea74b156d6be6fb3d8"
+    },
+    {
+        "tag":  "4.3.3",
+        "digest":  "sha256:663fddba4ee70900e2323b065b5b49ce0a823af4edb657fafe90d656cb6a644d",
+        "lastUpdated":  "2026-07-22T05:53:01.647727Z",
+        "fullSize":  113675534,
+        "amd64Digest":  "sha256:d322d29899edc953b89b5489f1c9ec690cdc56c1107db943e58754d2b1281cf6"
+    },
+    {
+        "tag":  "4.3.2-management-alpine",
+        "digest":  "sha256:0753b75ce99094c385483d89449d532a0544fb85e4942a478b21cc497ab66d33",
+        "lastUpdated":  "2026-07-08T02:53:47.922744Z",
+        "fullSize":  88618114,
+        "amd64Digest":  "sha256:efd61e50b9d87c25f77f377df3dac3c4467bfb96473c9c1b02b5d94cd0dbedd6"
+    },
+    {
+        "tag":  "4.3.2-management",
+        "digest":  "sha256:c1e33461287f4c53049ce525575f0df77b2a00a88e2593776afbb6c1489bdb81",
+        "lastUpdated":  "2026-07-08T02:53:44.909198Z",
+        "fullSize":  118173968,
+        "amd64Digest":  "sha256:fc486b63d4416c0ffba886ac1c97605e9e9d0d9ecc6de68db6a284b93d3d3952"
+    },
+    {
+        "tag":  "4.2.8-management-alpine",
+        "digest":  "sha256:e7c2ecf4bba0e6075778a28abf784fc5102a40b911eb8f9dab0f13674ab9078f",
+        "lastUpdated":  "2026-07-08T02:53:31.685606Z",
+        "fullSize":  88635119,
+        "amd64Digest":  "sha256:7bf2a51cadbc34fc17ed2bbd13f629c62fa590e95fcd92d83324da19fd9e410b"
+    },
+    {
+        "tag":  "4.2.8-management",
+        "digest":  "sha256:2f5f2d5551a7c11e09c57b00ff6a86f363ddd424e3bde3a54c88a75c742a81e8",
+        "lastUpdated":  "2026-07-08T02:53:28.632632Z",
+        "fullSize":  118192379,
+        "amd64Digest":  "sha256:e73f81c666f59b786e47578595c67b9edf42db11301e06225c58dbaf722ee1a1"
+    },
+    {
+        "tag":  "4.3.2-alpine",
+        "digest":  "sha256:835cbc6fabceedef7a3b0ce3195a17adccb753a3ba645bdd61c5557b6e4bf580",
+        "lastUpdated":  "2026-07-07T11:53:40.99493Z",
+        "fullSize":  84180194,
+        "amd64Digest":  "sha256:05ea3d1ce60612ce7bb359f4786087bea339b9329f7b5c77a29feb01c641dff8"
+    },
+    {
+        "tag":  "4.2.8-alpine",
+        "digest":  "sha256:39d7ca3ddd2512d79b5b76280dea048002e55cf344f1143dc4583763fa1c04b8",
+        "lastUpdated":  "2026-07-07T11:53:28.598555Z",
+        "fullSize":  84197202,
+        "amd64Digest":  "sha256:1c547d3c41d99b5e6b61f912e74c4d8c0e59c8f88e588921113fd7aab1699958"
+    },
+    {
+        "tag":  "4.2.8",
+        "digest":  "sha256:7561d672fae4fd744ef6d92104ee481940e25cb34a85d3e7bfd08a9d47907df6",
+        "lastUpdated":  "2026-07-07T11:53:25.485056Z",
+        "fullSize":  113594397,
+        "amd64Digest":  "sha256:7b36d6b7682104b4ee0b9ce6f1bd91f839d1a65469ff5b66374529abf784df68"
+    },
+    {
+        "tag":  "4.3.2",
+        "digest":  "sha256:345dd3c11d67892c7b452fb2237d94f577acb2aa0569c3fd5c9841eb0c1b57fb",
+        "lastUpdated":  "2026-07-07T08:52:57.615447Z",
+        "fullSize":  113576005,
+        "amd64Digest":  "sha256:491918b34d98552b8414a9ceae4a0833fe1287a5c4e795b7be6b4e7518032d7b"
+    },
+    {
+        "tag":  "4.3.1-management-alpine",
+        "digest":  "sha256:b84c252f54ecd61522320135c2bfe19a8db3e49e8dd559737817e8429e84cb7e",
+        "lastUpdated":  "2026-06-15T02:53:39.500524Z",
+        "fullSize":  88495872,
+        "amd64Digest":  "sha256:a66f4d992654d88e66d667f5b5faa5f7c74d486f44b98454850a852da35e22bd"
+    },
+    {
+        "tag":  "4.2.7-management-alpine",
+        "digest":  "sha256:db70c8cf9713011721810136ebc69ef59ec48c6398d3b293f225cd9b0d6c05c9",
+        "lastUpdated":  "2026-06-15T02:53:26.360952Z",
+        "fullSize":  88529649,
+        "amd64Digest":  "sha256:509b27d4a557e73026b959bbf04299206eb0581eaa310dcadd297e91a8984427"
+    },
+    {
+        "tag":  "4.2.7-management",
+        "digest":  "sha256:9b931a1854b6679b67119cfbd673c02155646d93ec5618601fc258c875289684",
+        "lastUpdated":  "2026-06-15T02:53:23.278418Z",
+        "fullSize":  120637373,
+        "amd64Digest":  "sha256:d1d9f09e58b2213a083f5f6a5ba9d60608c4bab0b73ae2d6c62332300868fed4"
+    },
+    {
+        "tag":  "4.3.1-management",
+        "digest":  "sha256:8734b9e9cd03d12b2e1d973415fc4c5c941c5eca351b4bd63f721782b1bf7c8b",
+        "lastUpdated":  "2026-06-14T05:52:55.898125Z",
+        "fullSize":  120612938,
+        "amd64Digest":  "sha256:f3257086a2b814c88f74899211b900cad9f875fb74bb8eefa9e99bb983177226"
+    },
+    {
+        "tag":  "4.3.1-alpine",
+        "digest":  "sha256:740611de227445da842c1fc8be2d00c7fb6e18df813b741a41e04f871b1e5b2d",
+        "lastUpdated":  "2026-06-11T23:53:52.375902Z",
+        "fullSize":  84057952,
+        "amd64Digest":  "sha256:90ecef73594cf77d8732e21ef4c9a20293dcdfd203e6e529450233943fd8c6dc"
+    },
+    {
+        "tag":  "4.2.7-alpine",
+        "digest":  "sha256:5e6dba3baccbfcaf273ef24139d1b14de9ec5423d9683fc005c72c480aa6eae9",
+        "lastUpdated":  "2026-06-11T23:53:38.893044Z",
+        "fullSize":  84091729,
+        "amd64Digest":  "sha256:aa2f27b3090011a1f11a564bcc03f84d6ddb48ff8ee4f295fab8c15e1439e78b"
+    },
+    {
+        "tag":  "4.2.7",
+        "digest":  "sha256:fc77225daf7063fee5b9ea4377b5244ce73dc6b59c2240517dad28630063079e",
+        "lastUpdated":  "2026-06-11T23:53:35.846356Z",
+        "fullSize":  116039284,
+        "amd64Digest":  "sha256:1a7ea6955dbd3f1ce8774c84194c05ee49ffa417210c05cecb4c7a3cc0ea5677"
+    },
+    {
+        "tag":  "4.3.1",
+        "digest":  "sha256:6a46d2aef889d2a8cc28ac91b4a1ca0116a4a151de10cada219ee7685dc01c5b",
+        "lastUpdated":  "2026-06-11T20:53:02.142345Z",
+        "fullSize":  116014799,
+        "amd64Digest":  "sha256:11846d5a067c15c0f260d6c387263e34972b884a6e711561608753c22fca5221"
+    },
+    {
+        "tag":  "4.3.0-management-alpine",
+        "digest":  "sha256:1a43764bdcf116542e7c8c794adc67c79461727da16d474e9e21483fe7f716d3",
+        "lastUpdated":  "2026-05-06T11:53:44.23713Z",
+        "fullSize":  88500154,
+        "amd64Digest":  "sha256:3d8e8672b12f31d4043f4d3bcfb949a77a5409aca89655bb05f39c3a2ae63428"
+    },
+    {
+        "tag":  "4.3.0-management",
+        "digest":  "sha256:8f3ab1dc6fb3b17ff59ba4e9ceed187c1711a4af831242b733b1e6949625b315",
+        "lastUpdated":  "2026-05-06T11:53:41.384314Z",
+        "fullSize":  118088885,
+        "amd64Digest":  "sha256:f115f36e27f1a47ae987e0f97f57a28cbf621c424e93680833db6095fa9f3a14"
+    },
+    {
+        "tag":  "4.2.6-management-alpine",
+        "digest":  "sha256:5db3e0ab1ff589ed03b6d7fe5dcaef837b91379d8022be71a198ca63cf80a33d",
+        "lastUpdated":  "2026-05-06T11:53:28.580069Z",
+        "fullSize":  88552017,
+        "amd64Digest":  "sha256:a891ef4f3ef311c4f8265c0f2f8e1e8012ff5e8ccca19718d3327bafa6ba7d0f"
+    },
+    {
+        "tag":  "4.2.6-management",
+        "digest":  "sha256:3ab808deef2f6552bc10ede59bdba1437b0d5c778e29d8927c5afbfa2586c22f",
+        "lastUpdated":  "2026-05-06T11:53:25.443556Z",
+        "fullSize":  118130139,
+        "amd64Digest":  "sha256:f153635c99366bccfb869df82d466c1e4c1b0e432b0768984c4ee041c001f32c"
+    },
+    {
+        "tag":  "4.3.0-alpine",
+        "digest":  "sha256:4f4a74fe951bb8bebae41187c8592ac0737e63d929467502f17689b22e9e9204",
+        "lastUpdated":  "2026-04-26T14:53:27.582836Z",
+        "fullSize":  84063606,
+        "amd64Digest":  "sha256:e06eb1a9e4988b337bf53289aa1b7cccfe9541d029e419c7db19bb182a1077c8"
+    },
+    {
+        "tag":  "4.3.0",
+        "digest":  "sha256:46bf0bdf0d2008acae9c5475558001e961297bd0868214c9216bef107d7d2b87",
+        "lastUpdated":  "2026-04-26T14:53:24.755678Z",
+        "fullSize":  113497011,
+        "amd64Digest":  "sha256:92108e18c4196aac52c119966a1335dc2616414b6221318fd3721420849641b4"
+    },
+    {
+        "tag":  "4.2.6-alpine",
+        "digest":  "sha256:eb0bf75f2749de101492a7d3b031095e903fbb02aca3baa34dbaa27589c22efb",
+        "lastUpdated":  "2026-04-26T14:53:12.001552Z",
+        "fullSize":  84115467,
+        "amd64Digest":  "sha256:4d78587f98297429aaf352d63b11a701b7305b6669b24f7465c9cc028278e685"
+    },
+    {
+        "tag":  "4.2.6",
+        "digest":  "sha256:0f0eeaba114a94a9e4aae6a5bde40de85e0ab3b9ae7fe715a25cac19c4253643",
+        "lastUpdated":  "2026-04-26T14:53:08.885536Z",
+        "fullSize":  113538287,
+        "amd64Digest":  "sha256:21725f34040f3fd9ba165f4ef81b81b98af2b018ad9c9bac9d02867ab546a8cd"
+    },
+    {
+        "tag":  "4.3.0-rc.1-alpine",
+        "digest":  "sha256:102e3bc455192e27f7bb88bd3951d76741b2905c610bed59295c2c064bc7dc5d",
+        "lastUpdated":  "2026-04-22T08:53:19.878965Z",
+        "fullSize":  84067136,
+        "amd64Digest":  "sha256:ff110bb4baa3ca54329147e0ded1a034443a6ff627bcf537e33a149d0c3829f9"
+    },
+    {
+        "tag":  "4.3-rc-alpine",
+        "digest":  "sha256:102e3bc455192e27f7bb88bd3951d76741b2905c610bed59295c2c064bc7dc5d",
+        "lastUpdated":  "2026-04-22T08:53:13.330637Z",
+        "fullSize":  84067136,
+        "amd64Digest":  "sha256:ff110bb4baa3ca54329147e0ded1a034443a6ff627bcf537e33a149d0c3829f9"
+    },
+    {
+        "tag":  "4.2.5-alpine",
+        "digest":  "sha256:d4a3806070111cc69130a6542aa4049b612789852ef11fc3862abc94631b2572",
+        "lastUpdated":  "2026-04-22T08:53:03.232091Z",
+        "fullSize":  83574341,
+        "amd64Digest":  "sha256:cbd461e05589e7393be5ffad2a7642c1a3686d46d8ab43e3a3027bee3b683923"
+    },
+    {
+        "tag":  "4.2.5",
+        "digest":  "sha256:7c62473f2354fe988da9adb87aa9682b87cb00cf07ea10188ab4f19137018a88",
+        "lastUpdated":  "2026-04-22T08:53:00.234321Z",
+        "fullSize":  113011698,
+        "amd64Digest":  "sha256:f1fb19348638da80a2e37da25e951b468a229e8afe3441730346e238ee003e1c"
+    },
+    {
+        "tag":  "4.3.0-rc.1",
+        "digest":  "sha256:3aa89a51b7021a5501182d965e958baffeffca4e215290a623dd74c0864a9dde",
+        "lastUpdated":  "2026-04-22T05:52:52.527477Z",
+        "fullSize":  113509817,
+        "amd64Digest":  "sha256:1edbb766dbd609624ee38eb691423ed4f7e04eb04a75ac6715047565bbb5e416"
+    },
+    {
+        "tag":  "4.3-rc",
+        "digest":  "sha256:3aa89a51b7021a5501182d965e958baffeffca4e215290a623dd74c0864a9dde",
+        "lastUpdated":  "2026-04-22T05:52:46.008361Z",
+        "fullSize":  113509817,
+        "amd64Digest":  "sha256:1edbb766dbd609624ee38eb691423ed4f7e04eb04a75ac6715047565bbb5e416"
+    },
+    {
+        "tag":  "4.3.0-rc.1-management",
+        "digest":  "sha256:8a2f3fbe95cda0c31c0971a0d257ab500d1b6a8e2c2ecac2fc1c242893ffb3de",
+        "lastUpdated":  "2026-04-22T02:52:55.246453Z",
+        "fullSize":  118110117,
+        "amd64Digest":  "sha256:abb36e65b0207bc736aff852cdfd4930e6718da69f157fc02abf71f930a471c5"
+    },
+    {
+        "tag":  "4.3-rc-management",
+        "digest":  "sha256:8a2f3fbe95cda0c31c0971a0d257ab500d1b6a8e2c2ecac2fc1c242893ffb3de",
+        "lastUpdated":  "2026-04-22T02:52:48.784319Z",
+        "fullSize":  118110117,
+        "amd64Digest":  "sha256:abb36e65b0207bc736aff852cdfd4930e6718da69f157fc02abf71f930a471c5"
+    },
+    {
+        "tag":  "4.3.0-rc.1-management-alpine",
+        "digest":  "sha256:3a95c65b030079e2e25b940182c8958b1f4bea3b8e0d557c412b7a978af53e5d",
+        "lastUpdated":  "2026-04-21T23:59:01.587909Z",
+        "fullSize":  88508497,
+        "amd64Digest":  "sha256:b30e6b95488a6b7cfe92ebe5e49aea0fcfdd49906e42081d9628d9527ef79ad9"
+    },
+    {
+        "tag":  "4.3-rc-management-alpine",
+        "digest":  "sha256:3a95c65b030079e2e25b940182c8958b1f4bea3b8e0d557c412b7a978af53e5d",
+        "lastUpdated":  "2026-04-21T23:58:49.823118Z",
+        "fullSize":  88508497,
+        "amd64Digest":  "sha256:b30e6b95488a6b7cfe92ebe5e49aea0fcfdd49906e42081d9628d9527ef79ad9"
+    },
+    {
+        "tag":  "4.2.5-management-alpine",
+        "digest":  "sha256:5554af48743bc2a5fc8735f345c918edd4bfde19863f4fbbc905d3b6dd2fe91f",
+        "lastUpdated":  "2026-04-21T23:57:23.855114Z",
+        "fullSize":  88015703,
+        "amd64Digest":  "sha256:158161b361be513b9a9816107992df970e123d1e8b304705e4f0ecc03031e19b"
+    },
+    {
+        "tag":  "4.2.5-management",
+        "digest":  "sha256:e43ca03df740d48770641b56ce1a26913c74a31e47c1ed36a58e8d91c10731b9",
+        "lastUpdated":  "2026-04-21T23:57:20.869089Z",
+        "fullSize":  117611982,
+        "amd64Digest":  "sha256:4dcdb029e9fe34686c9a0d351d0594cfed1b2f31958043073c2cca3db3dc9eb9"
+    },
+    {
+        "tag":  "4.3.0-rc.0-management-alpine",
+        "digest":  "sha256:74e5bd5f2e8130470a57f19dfaf9ab62e9948ecd74647eb2847c857f94eea7f1",
+        "lastUpdated":  "2026-04-18T02:53:39.593041Z",
+        "fullSize":  87940070,
+        "amd64Digest":  "sha256:78f2e01050eff0f6aa999ff32622b3a2892dbbd1a642051a6af4fe95da09d8fa"
+    },
+    {
+        "tag":  "4.3.0-rc.0-management",
+        "digest":  "sha256:8e95cb6bab70475f54036d4b08b9884d3a2192dcd0cf79c8cc915aac82689561",
+        "lastUpdated":  "2026-04-18T02:53:36.408099Z",
+        "fullSize":  117537560,
+        "amd64Digest":  "sha256:8d98a9e1c6455dd6f4164123f03003ffeb526ef7544b5e89feb94f71e5217224"
+    },
+    {
+        "tag":  "4.3.0-rc.0-alpine",
+        "digest":  "sha256:8e8bb880447d4245dc5ba35bb59e886bf51d93f769f5c66da711925b45b2b35f",
+        "lastUpdated":  "2026-04-17T02:53:43.465539Z",
+        "fullSize":  83498715,
+        "amd64Digest":  "sha256:2204d4e4fc7abb675e6cf96efcb18695300917d74961cee5413a6211f8653103"
+    },
+    {
+        "tag":  "4.3.0-rc.0",
+        "digest":  "sha256:0f01f44ded052ebee36f8c203c791d93aeca974dae592038f7181c2054c29861",
+        "lastUpdated":  "2026-04-16T23:53:09.644319Z",
+        "fullSize":  112937318,
+        "amd64Digest":  "sha256:efd4175ebfa77c2ed4f531f8267708a1cc2a812b713a1be7cd8bdd80496bdd78"
+    }
+]

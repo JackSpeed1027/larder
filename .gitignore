@@ -1,0 +1,39 @@
+# 构建产物 / 依赖缓存 / 运行数据 / 秘密，一律不入库
+.env
+.env.*
+!.env.example
+
+node_modules/
+dist/
+frontend/dist/
+pnpm-store/
+
+target/
+*.class
+*.jar
+!.mvn/wrapper/maven-wrapper.jar
+
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+uv.lock
+!runner/uv.lock
+
+# Docker / 运行数据
+volumes/
+data/
+*.vhdx
+infra/minio/minio-linux-amd64
+infra/minio/minio.exe
+
+# 编辑器与系统
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# 本任务证据里的临时构建目录（报告目录保留日志与源码，不保留 target/.venv）
+reports/**/target/
+reports/**/.venv/
+reports/**/node_modules/

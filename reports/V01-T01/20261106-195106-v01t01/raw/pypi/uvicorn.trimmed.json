@@ -1,0 +1,10 @@
+{
+    "name":  "uvicorn",
+    "version":  "0.54.0",
+    "requiresPython":  "\u003e=3.10",
+    "license":  null,
+    "licenseExpression":  "BSD-3-Clause",
+    "summary":  "The lightning-fast ASGI server.",
+    "uploadTime":  "2026-09-25T06:52:35.829563Z",
+    "sourceUrl":  "https://pypi.org/pypi/uvicorn/json"
+}

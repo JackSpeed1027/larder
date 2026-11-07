@@ -1,0 +1,32 @@
+collectedAt=2026-11-06T19:51:50.9269072+08:00
+os=Microsoft Windows NT 10.0.26200.0
+host=MRJ user=13509
+--- java -version ---
+java.exe : openjdk version "21.0.12.1" 2026-08-18 LTS
+所在位置 行:117 字符: 56
++ ... "--- java -version ---"); $envLines.Add((& java -version 2>&1 | Out-S ...
++                                              ~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (openjdk version... 2026-08-18 LTS:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+OpenJDK Runtime Environment Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS)
+OpenJDK 64-Bit Server VM Temurin-21.0.12.1+1 (build 21.0.12.1+1-LTS, mixed mode, sharing)
+--- mvn -v ---
+Apache Maven 3.9.11 (3e54c93a704957b63ee3494413a2b544fd3d825b)
+Maven home: D:\Dev\maven\apache-maven-3.9.11
+Java version: 21.0.12.1, vendor: Eclipse Adoptium, runtime: D:\dev\java\jdk-21.0.12.1
+Default locale: zh_CN, platform encoding: UTF-8
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+--- node -v ---
+v24.22.0
+--- pnpm -v ---
+11.25.0
+--- python -V ---
+Python 3.13.16
+--- uv --version ---
+uv 0.13.1 (62faed335 2026-10-13 x86_64-pc-windows-msvc)
+--- git --version ---
+git version 2.56.0.windows.2
+--- docker --version ---
+docker CLI: NOT FOUND on PATH
+dockerDesktopInstalled=False

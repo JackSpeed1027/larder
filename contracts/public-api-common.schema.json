@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Java公开API公共响应模型",
+  "description": "成功和错误分型；HTTP状态保留。具体端点data必须替换为对应严格业务schema。Runner、SSE、文件不套壳。",
+  "$defs": {
+    "ApiResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "data",
+        "traceId"
+      ],
+      "properties": {
+        "code": {
+          "const": "OK",
+          "description": "成功业务码，非HTTP状态"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "安全可读成功说明"
+        },
+        "data": {
+          "description": "端点声明的业务结果；此公共模板不替代端点schema"
+        },
+        "traceId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "description": "链路标识"
+        }
+      }
+    },
+    "ApiErrorResponse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "traceId",
+        "retryable",
+        "details"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]{1,63}$",
+          "description": "已登记稳定错误码"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "安全具体错误描述"
+        },
+        "traceId": {
+          "type": "string",
+          "maxLength": 128,
+          "description": "链路标识"
+        },
+        "retryable": {
+          "type": "boolean",
+          "description": "是否允许在幂等预算边界内重试"
+        },
+        "details": {
+          "type": "object",
+          "maxProperties": 16,
+          "description": "按错误码登记的白名单详情；具体OpenAPI细化键和类型"
+        }
+      }
+    },
+    "CursorPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items",
+        "nextCursor",
+        "hasMore"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "maxItems": 50,
+          "description": "端点专属结果类型列表；生成时约束items schema"
+        },
+        "nextCursor": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "服务端游标；无下一页为null"
+        },
+        "hasMore": {
+          "type": "boolean",
+          "description": "是否还有下一页"
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "仅确实计算准确总数时返回"
+        }
+      }
+    }
+  }
+}

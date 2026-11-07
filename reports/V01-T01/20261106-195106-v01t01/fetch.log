@@ -1,0 +1,129 @@
+GET  https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-parent/maven-metadata.xml
+     -> 200 len=10669 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\maven\spring-boot-starter-parent.maven-metadata.xml
+GET  https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/maven-metadata.xml
+     -> 200 len=10667 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\maven\spring-boot-dependencies.maven-metadata.xml
+GET  https://repo1.maven.org/maven2/com/baomidou/mybatis-plus-spring-boot3-starter/maven-metadata.xml
+     -> 200 len=898 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\maven\mybatis-plus-spring-boot3-starter.maven-metadata.xml
+GET  https://repo1.maven.org/maven2/org/flywaydb/flyway-core/maven-metadata.xml
+     -> 200 len=10697 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\maven\flyway-core.maven-metadata.xml
+GET  https://repo1.maven.org/maven2/org/flywaydb/flyway-mysql/maven-metadata.xml
+     -> 200 len=6939 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\maven\flyway-mysql.maven-metadata.xml
+GET  https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/maven-metadata.xml
+     -> 200 len=839 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\maven\mysql-connector-j.maven-metadata.xml
+GET  https://repo1.maven.org/maven2/org/testcontainers/testcontainers/maven-metadata.xml
+     -> 200 len=3885 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\maven\testcontainers.maven-metadata.xml
+GET  https://repo1.maven.org/maven2/io/minio/minio/maven-metadata.xml
+     -> 200 len=3807 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\maven\minio-java.maven-metadata.xml
+GET  https://registry.npmjs.org/react/latest
+     -> 200 len=2150 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\react.latest.json
+GET  https://registry.npmjs.org/react-dom/latest
+     -> 200 len=3419 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\react-dom.latest.json
+GET  https://registry.npmjs.org/vite/latest
+     -> 200 len=5170 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\vite.latest.json
+GET  https://registry.npmjs.org/typescript/latest
+     -> 200 len=4833 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\typescript.latest.json
+GET  https://registry.npmjs.org/tailwindcss/latest
+     -> 200 len=3275 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\tailwindcss.latest.json
+GET  https://registry.npmjs.org/%40tanstack%2Freact-query/latest
+     -> 200 len=4459 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\_tanstack_react-query.latest.json
+GET  https://registry.npmjs.org/%40vitejs%2Fplugin-react/latest
+     -> 200 len=3194 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\_vitejs_plugin-react.latest.json
+GET  https://registry.npmjs.org/vitest/latest
+     -> 200 len=5690 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\vitest.latest.json
+GET  https://registry.npmjs.org/react-router/latest
+     -> 200 len=4196 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\react-router.latest.json
+GET  https://registry.npmjs.org/zustand/latest
+     -> 200 len=2814 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\zustand.latest.json
+GET  https://registry.npmjs.org/shadcn/latest
+     -> 200 len=5003 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\shadcn.latest.json
+GET  https://registry.npmjs.org/pnpm/latest
+     -> 200 len=2426 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\npm\pnpm.latest.json
+GET  https://pypi.org/pypi/fastapi/json
+     -> 200 len=583176 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\pypi\fastapi.full.json
+GET  https://pypi.org/pypi/uvicorn/json
+     -> 200 len=233426 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\pypi\uvicorn.full.json
+GET  https://pypi.org/pypi/pydantic/json
+     -> 200 len=1895774 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\pypi\pydantic.full.json
+GET  https://pypi.org/pypi/pydantic-settings/json
+     -> 200 len=81490 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\pypi\pydantic-settings.full.json
+GET  https://pypi.org/pypi/httpx/json
+     -> 200 len=119911 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\pypi\httpx.full.json
+GET  https://pypi.org/pypi/pytest/json
+     -> 200 len=284454 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\pypi\pytest.full.json
+GET  https://hub.docker.com/v2/repositories/library/mysql/tags?page_size=100&name=8.4
+     -> 200 len=77137 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\docker\library_mysql.tags.json
+GET  https://hub.docker.com/v2/repositories/library/redis/tags?page_size=100
+     -> 200 len=511036 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\docker\library_redis.tags.json
+GET  https://hub.docker.com/v2/repositories/library/rabbitmq/tags?page_size=100&name=4
+     -> 200 len=487183 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\docker\library_rabbitmq.tags.json
+GET  https://hub.docker.com/v2/repositories/getmeili/meilisearch/tags?page_size=100&name=v1
+     -> 200 len=145742 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\docker\getmeili_meilisearch.tags.json
+FAIL https://hub.docker.com/v2/repositories/minio/minio/tags?page_size=100
+     -> 远程服务器返回错误: (404) 未找到。
+GET  https://www.python.org/ftp/python/
+     -> 200 len=35003 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\platform\python-ftp-index.html
+GET  https://nodejs.org/dist/index.json
+     -> 200 len=336201 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\platform\node-index.json
+GET  https://docs.spring.io/spring-boot/3.5/system-requirements.html
+     -> 200 len=71334 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\platform\spring-boot-3.5-system-requirements.html
+GET  https://endoflife.date/api/spring-boot.json
+     -> 200 len=3663 D:\Work\Project\larder\reports\V01-T01\20261106-195106-v01t01\raw\platform\spring-boot-eol.json
+RUNID=20261106-195106-v01t01GET  https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-dependencies/3.5.16/spring-boot-dependencies-3.5.16.pom
+     -> 200 len=97350
+GET  https://repo1.maven.org/maven2/org/springframework/boot/spring-boot-starter-parent/3.5.16/spring-boot-starter-parent-3.5.16.pom
+     -> 200 len=13303
+GET  https://repo1.maven.org/maven2/com/baomidou/mybatis-plus-spring-boot3-starter/3.5.18/mybatis-plus-spring-boot3-starter-3.5.18.pom
+     -> 200 len=3983
+GET  https://repo1.maven.org/maven2/io/minio/minio/8.5.17/minio-8.5.17.pom
+     -> 200 len=3397
+
+FAIL https://hub.docker.com/v2/repositories/minio/minio/
+     -> 远程服务器返回错误: (404) 未找到。
+GET  https://hub.docker.com/v2/repositories/minio/
+     -> 200 len=5427
+FAIL https://quay.io/api/v1/repository/minio/minio/tag/?limit=20&onlyActiveTags=true
+     -> 远程服务器返回错误: (401) 未经授权。
+GET  https://registry.npmjs.org/@tailwindcss/vite/latest
+     -> 200 len=2148
+GET  https://registry.npmjs.org/-/package/typescript/dist-tags
+     -> 200 len=179
+GET  https://registry.npmjs.org/@types/react/latest
+     -> 200 len=4682
+GET  https://registry.npmjs.org/@types/node/latest
+     -> 200 len=3513
+GET  https://raw.githubusercontent.com/redis/redis/8.10/LICENSE.txt
+     -> 200 len=72266
+GET  https://raw.githubusercontent.com/minio/minio/master/LICENSE
+     -> 200 len=34523
+GET  https://raw.githubusercontent.com/meilisearch/meilisearch/main/LICENSE
+     -> 200 len=354
+GET  https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/main/LICENSE
+     -> 200 len=364
+GET  https://raw.githubusercontent.com/mysql/mysql-server/8.4/LICENSE
+     -> 200 len=262847
+
+GET  https://hub.docker.com/v2/repositories/bitnami/minio/tags?page_size=25
+     -> 200 len=52
+GET  https://hub.docker.com/v2/repositories/bitnamilegacy/minio/tags?page_size=25
+     -> 200 len=21635
+GET  https://hub.docker.com/v2/repositories/chrislusf/seaweedfs/tags?page_size=25
+     -> 200 len=21914
+GET  https://hub.docker.com/v2/repositories/dxflrs/garage/tags?page_size=25
+     -> 200 len=45152
+GET  https://hub.docker.com/v2/repositories/rustfs/rustfs/tags?page_size=25
+     -> 200 len=28573
+GET  https://repo1.maven.org/maven2/software/amazon/awssdk/s3/maven-metadata.xml
+     -> 200 len=61933
+GET  https://repo1.maven.org/maven2/software/amazon/awssdk/bom/maven-metadata.xml
+     -> 200 len=62185
+
+GET  https://repo1.maven.org/maven2/org/flywaydb/flyway-core/11.7.2/flyway-core-11.7.2.pom
+     -> 200 len=5637
+GET  https://repo1.maven.org/maven2/org/testcontainers/testcontainers/1.21.4/testcontainers-1.21.4.pom
+     -> 200 len=2616
+GET  https://repo1.maven.org/maven2/software/amazon/awssdk/s3/2.57.10/s3-2.57.10.pom
+     -> 200 len=9932
+GET  https://repo1.maven.org/maven2/org/flywaydb/flyway-parent/11.7.2/flyway-parent-11.7.2.pom
+     -> 200 len=36418
+GET  https://repo1.maven.org/maven2/software/amazon/awssdk/aws-sdk-java-pom/2.57.10/aws-sdk-java-pom-2.57.10.pom
+     -> 200 len=91971

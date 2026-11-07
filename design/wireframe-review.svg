@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="F10 翻卡复习线框"><title>F10 翻卡复习线框</title>
+<style>text{font-family:Segoe UI,Microsoft YaHei,sans-serif;fill:#182230}.muted{fill:#526173}.blue{fill:#1D4ED8}.white{fill:white}</style>
+<rect x="0" y="0" width="1440" height="900" rx="0" fill="#F7F8FA" stroke="#D8DEE8"/>
+<rect x="0" y="0" width="216" height="900" rx="0" fill="#FFFFFF" stroke="#D8DEE8"/>
+<rect x="216" y="0" width="1224" height="56" rx="0" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="18" y="35" font-size="21" font-weight="600" class="">Larder  拾藏</text>
+<text x="20" y="93" font-size="14" font-weight="400" class="">资料库</text>
+<text x="20" y="141" font-size="14" font-weight="400" class="">搜索</text>
+<text x="20" y="189" font-size="14" font-weight="400" class="">Agent</text>
+<rect x="8" y="212" width="200" height="40" rx="6" fill="#E8EEFC" stroke="none"/>
+<text x="20" y="237" font-size="14" font-weight="400" class="blue">学习</text>
+<text x="20" y="285" font-size="14" font-weight="400" class="">任务</text>
+<text x="20" y="333" font-size="14" font-weight="400" class="">集合</text>
+<text x="20" y="381" font-size="14" font-weight="400" class="">标签</text>
+<text x="20" y="810" font-size="14" font-weight="400" class="muted">回收站</text>
+<text x="20" y="856" font-size="14" font-weight="400" class="muted">设置</text>
+<text x="240" y="35" font-size="13" font-weight="400" class="muted">DESIGN  /  本地原创线框 · 非已实现产品</text>
+<rect x="1296" y="8" width="120" height="40" rx="8" fill="#1D4ED8" stroke="#D8DEE8"/>
+<text x="1312" y="34" font-size="14" font-weight="400" class="white">保存内容</text>
+<text x="428" y="112" font-size="26" font-weight="600" class="">今日复习</text>
+<text x="428" y="148" font-size="14" font-weight="400" class="muted">示例进度 3 / 12  ·  问答卡  ·  AI关闭仍可学习</text>
+<rect x="428" y="196" width="800" height="420" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="460" y="239" font-size="14" font-weight="400" class="muted">问题面  ·  Space / 点击显示答案</text>
+<text x="492" y="350" font-size="27" font-weight="600" class="">为什么消息确认后，任务仍需要对账？</text>
+<text x="492" y="401" font-size="17" font-weight="400" class="muted">先自己回想，再翻面核对。</text>
+<text x="460" y="568" font-size="14" font-weight="400" class="blue">来源：可靠异步任务 / 保存版本 r3 →</text>
+<rect x="696" y="648" width="264" height="40" rx="8" fill="#1D4ED8" stroke="#D8DEE8"/>
+<text x="712" y="674" font-size="14" font-weight="400" class="white">显示答案 ↻</text>
+<text x="428" y="737" font-size="14" font-weight="400" class="muted">答案揭示后才显示评分：</text>
+<rect x="428" y="760" width="176" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="444" y="786" font-size="14" font-weight="400" class="">1  重来</text>
+<rect x="636" y="760" width="176" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="652" y="786" font-size="14" font-weight="400" class="">2  困难</text>
+<rect x="844" y="760" width="176" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="860" y="786" font-size="14" font-weight="400" class="">3  良好</text>
+<rect x="1052" y="760" width="176" height="40" rx="8" fill="#FFFFFF" stroke="#D8DEE8"/>
+<text x="1068" y="786" font-size="14" font-weight="400" class="">4  轻松</text>
+<text x="428" y="850" font-size="14" font-weight="400" class="muted">280ms翻面 / 减少动画时直接切面 / 长背诵卡用展开 / 评分以服务器成功为准</text></svg>
