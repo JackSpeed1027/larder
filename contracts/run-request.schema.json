@@ -1,4 +1,6 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RunRequest",
   "type": "object",
   "properties": {
     "protocolVersion": {
@@ -273,7 +275,6 @@
     "traceId"
   ],
   "additionalProperties": false,
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "allOf": [
     {
       "if": {

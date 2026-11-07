@@ -35,7 +35,7 @@ D:\Work\Project\larder\
 |---|---|---|
 | V01-T01 版本与兼容性冻结 | **TASK_LOCAL_PASS**（R2：Boot 4.1.2 + MinIO） | `docs/versions.lock.json`、`docs/adr/versions/`、`reports/V01-T01/` |
 | V01-T02 八服务与工程骨架 | **TASK_LOCAL_PASS** | `backend/`、`runner/`、`frontend/`、`compose.yaml`、`infra/`、`scripts/dev/`、`reports/V01-T02/` |
-| V01-T03 契约/Mock/类型生成 | 未开始 | — |
+| V01-T03 契约/Mock/类型生成 | **TASK_LOCAL_PASS** | `contracts/`（27 个错误码、事件 payload 收紧）、三端生成类型、`scripts/contracts/` Mock 与 29 项检查、`reports/V01-T03/` |
 | V01-T04 认证与验收基础 | 未开始 | — |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
@@ -45,6 +45,13 @@ V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 - `flyway_schema_history` 在真实 MySQL 8.4.13 上是 `1 1`（迁移成功）；
 - `scripts/dev/verify.ps1` 10 项检查全过、exit 0；
 - 前端真实 `tsc --noEmit && vite build`，由 nginx 提供静态文件。
+
+V01-T03 的可信结论（`reports/V01-T03/20261107-1010-v01t03/`）：
+
+- 契约补齐：27 个错误码注册表、run-response 的 usage/manifest/error 收紧、run-event 7 类 payload 定向校验；
+- 三端类型由固定版本工具生成（TS/Python），Java 公开响应壳手写并做字段 parity；
+- 29 项契约检查全过：14 条正反样例、错误码、三端字段一致、Mock 与 `contracts/examples` 逐字节同源、生成可重复；
+- Mock 严格校验 `run-request`（未知字段 400），SSE 逐事件发送，contractRev 冻结为 `5719da4c…`。
 
 ## 本地运行
 

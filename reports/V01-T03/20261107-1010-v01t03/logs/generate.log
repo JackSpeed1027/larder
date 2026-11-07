@@ -1,0 +1,8 @@
+﻿== TypeScript: OpenAPI 端点类型 ==
+✨ openapi-typescript 7.13.0
+🚀 contracts/runner.openapi.json → frontend/src/generated/runner-api.ts [151.6ms]
+== TypeScript: JSON Schema 契约类型 ==
+== Python: Pydantic 模型 ==
+== Mock fixtures: 与 contracts/examples 同源 ==
+== 记录生成产物 hash ==
+generated 7 files

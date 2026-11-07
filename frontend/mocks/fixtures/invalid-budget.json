@@ -1,0 +1,23 @@
+{
+  "protocolVersion": "1",
+  "runId": "run_demo",
+  "jobId": "job_demo",
+  "mode": "INGEST",
+  "input": {
+    "kind": "TEXT",
+    "text": "用于离线契约验证的自造内容。"
+  },
+  "scope": {
+    "ownerId": "owner_demo",
+    "itemIds": [],
+    "scopeVersion": 1
+  },
+  "budget": {
+    "grantId": "grant_demo",
+    "maxSeconds": 0,
+    "maxTotalTokens": 0,
+    "maxModelCalls": 0,
+    "maxToolCalls": 0
+  },
+  "traceId": "trace_demo"
+}

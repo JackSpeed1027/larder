@@ -1,0 +1,11 @@
+{
+  "protocolVersion": "1",
+  "runId": "run_demo",
+  "seq": 9,
+  "eventId": "evt_demo_9",
+  "type": "run.succeeded",
+  "time": "2026-11-07T02:00:10Z",
+  "payload": {
+    "artifactCount": 1
+  }
+}

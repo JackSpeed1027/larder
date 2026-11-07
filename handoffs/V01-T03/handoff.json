@@ -1,0 +1,65 @@
+{
+  "taskId": "V01-T03",
+  "sliceId": "V01-T03.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "29 项契约检查全过；Java Run* DTO 与前端编译验证按计划延后，全局 DONE 由协调者在集成树验证后决定",
+  "baseSnapshot": null,
+  "baseSnapshotNote": "仓库已 git init（V01-T02 后提交），本任务基于 commit 2494312；未打 tag。",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "补齐 R1 契约：新增错误码注册表（27 码）、把 run-response 的 usage/manifest/error 与 run-event 的 payload 从无类型 object 收紧为 $defs 并加 x-eventPayloadMap，新增 8 个正/反样例；用固定版本工具生成 TS（openapi-typescript + json-schema-to-typescript）与 Python（datamodel-codegen，Pydantic v2，extra=forbid）类型；提供只读 contracts/examples 的 HTTP Mock（严格校验 run-request、SSE 发事件）与 29 项检查脚本（样例双向、payload、错误码、三端字段 parity、Mock 同源、生成可重复），contractRev 冻结为 5719da4c…。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "scripts/contracts/generate.ps1", "exitCode": 0, "passed": 7, "failed": 0, "skipped": 0, "log": "reports/V01-T03/20261107-1010-v01t03/logs/generate.log", "note": "passed 为生成文件数" },
+    { "command": "uv run --with jsonschema python scripts/contracts/check_contracts.py", "exitCode": 0, "passed": 29, "failed": 0, "skipped": 0, "log": "reports/V01-T03/20261107-1010-v01t03/logs/check.log" },
+    { "command": "mock_runner.py + curl 冒烟", "exitCode": 0, "passed": 5, "failed": 0, "skipped": 0, "log": "reports/V01-T03/20261107-1010-v01t03/logs/mock-smoke.log" },
+    { "command": "backend/mvnw.cmd -o compile", "exitCode": 0, "passed": null, "failed": 0, "skipped": 0, "log": "reports/V01-T03/20261107-1010-v01t03/logs/mvn-compile.log" }
+  ],
+  "acceptanceEvidence": {
+    "two-way-fixture-validation": "logs/check.log（14 条 case + 2 条 payload 定向）",
+    "reproducible-generation": "logs/check.log（7 文件 hash 与 generated.sha256 一致）+ scripts/contracts/generated.sha256",
+    "contract-and-design-rev": "reports/V01-T03/20261107-1010-v01t03/revs.json",
+    "mock-same-source": "logs/check.log（fixtures 逐字节一致、mock 不内联）+ logs/mock-smoke.log"
+  },
+  "notRun": [
+    "前端 tsc / Vitest（node_modules 未安装）",
+    "真实 Runner run 端点契约测试（V03 实现路由后）",
+    "Java Run* DTO 生成（无消费者，V03 与 RunnerClient 一起做）",
+    "scripts/accept.py（V01-T04）"
+  ],
+  "knownLimitations": [
+    "Java 只做公开响应壳 + parity 校验，未生成 Run* DTO，避免无消费者的假实现。",
+    "TS 生成未做 tsc 编译验证，字段一致性靠生成器 + parity 保证。",
+    "run-event 仅 7/19 事件类型冻结 payload，其余仍开放对象。",
+    "Mock 为独立 Python 进程，前端尚未接 MSW/Vite 代理。",
+    "错误码 27 个只覆盖 R1；新增必须改注册表并重跑检查。"
+  ],
+  "newDependencies": [
+    "生成期工具（不进入运行时）：openapi-typescript 7.13.0、json-schema-to-typescript 15.0.4、datamodel-code-generator 0.26.5",
+    "校验期依赖：jsonschema（通过 uv run --with 临时安装，未写入 runner/uv.lock）"
+  ],
+  "migrationNotes": "N/A：无数据库迁移。",
+  "contractChanges": [
+    "新增 contracts/error-codes.json",
+    "run-response.schema.json：usage/manifest/error 收紧为 $defs（新增 RunUsage/ArtifactManifest/ArtifactRef/RunError）",
+    "run-event.schema.json：新增 7 个 payload $defs 与 x-eventPayloadMap",
+    "三份 schema 补 title（仅影响生成类型名，不改变校验语义）",
+    "cases.json 扩到 14 条，新增 8 个 fixture",
+    "contractRev 由 f67dc0ce… 变为 5719da4c…"
+  ],
+  "commentReview": {
+    "publicSymbols": "Java record 有 Javadoc（说明与 schema 的对应关系、改字段必须同步 parity）；生成文件带工具头注释（禁止手改）；脚本有模块 docstring 与失败条件说明。",
+    "sqlComments": "N/A：无 SQL 变更。",
+    "complexMechanisms": [
+      "生成器可重复性与 hash 清单（含 BOM 坑）：generate.ps1 注释 + check_reproducible()",
+      "三端字段 parity（TS 交叉类型截块、Java 泛型逗号切分）：check_contracts.py 函数注释 + logs/check.log",
+      "Mock 与真实同源：mock_runner.py docstring + check_mock_same_source()"
+    ]
+  },
+  "nextIntegrationChecks": [
+    "V01-T04 accept.py 纳入 generate/check/mock-smoke",
+    "V02 起新增端点先改 contracts 再生成，禁止手写 DTO 绕过 parity",
+    "Runner 实现 /v1/runs 后，用同一套 fixtures 对比真实响应与 Mock"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V01-T03"]
+}

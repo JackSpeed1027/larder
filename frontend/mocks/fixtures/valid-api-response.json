@@ -1,0 +1,9 @@
+{
+  "code": "OK",
+  "message": "服务正常",
+  "data": {
+    "service": "larder-api",
+    "schemaVersion": "V1"
+  },
+  "traceId": "trace_demo"
+}

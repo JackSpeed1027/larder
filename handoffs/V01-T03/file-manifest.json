@@ -1,0 +1,450 @@
+{
+  "taskId": "V01-T03",
+  "sliceId": "V01-T03.FULL",
+  "runId": "20261107-1010-v01t03",
+  "generatedAt": "2026-11-07T02:10:42.137357+00:00",
+  "note": "baseSha256 为 null（未打 tag）；README/4 个契约文件为 modified，其余 added；生成产物与 mock fixtures 均列入，便于集成时逐文件核对。",
+  "files": [
+    {
+      "path": "backend/src/main/java/com/larder/common/contract/ApiErrorResponse.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a3fc1617c4b35b6012cdff44f133fe7332a9b6c509476e8bf2fd6473c854b0bd",
+      "size": 771
+    },
+    {
+      "path": "backend/src/main/java/com/larder/common/contract/ApiResponse.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c8c4b5f844a3cf694e3b32ba7e6aa453be89e31f9fd77a6a7b99a62416e0d1c8",
+      "size": 764
+    },
+    {
+      "path": "contracts/error-codes.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c606e900d0e5d8acb6ad64fb26ecd7edc42ed2910fc53fc86d8b7843429eefd4",
+      "size": 4628
+    },
+    {
+      "path": "contracts/examples/cases.json",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "170448cf1a6c344ef24b6fd458a0d9c7077276801053f07b56719b67a351b6a5",
+      "size": 1420
+    },
+    {
+      "path": "contracts/examples/invalid-api-error-code.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a4c4164767051f0b80866bbb70929558d9076d5787382dcafd5657186e315672",
+      "size": 149
+    },
+    {
+      "path": "contracts/examples/invalid-budget.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9ef4733f0f486f6b279aaa85283fe2b3da0a7f4d71d709df9a80cf689424df70",
+      "size": 468
+    },
+    {
+      "path": "contracts/examples/invalid-extra-field.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "6942419d0ef6717462a25c230594c24d823925ae75c5942577a573adafe9d4d1",
+      "size": 498
+    },
+    {
+      "path": "contracts/examples/invalid-mode-input.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ac47742c641ff3317f39616cfa126ea440c65b167d4f4086f6772b3eaf46e7f2",
+      "size": 470
+    },
+    {
+      "path": "contracts/examples/invalid-run-event-payload.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bd9f6fcb00e752a6d0192a24627571253a235729158222d877249c2624c30337",
+      "size": 195
+    },
+    {
+      "path": "contracts/examples/invalid-run-event-seq.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b5703af668545cca9a2ba3975f580d11962a5b434a9080e6c6c1b9d496cbf3e0",
+      "size": 191
+    },
+    {
+      "path": "contracts/examples/invalid-run-response-extra.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ce94d0525d13aa5d5a994b27f7aef7daf161464652eac28454269ac0d86c94f0",
+      "size": 94
+    },
+    {
+      "path": "contracts/examples/journal-golden.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "80ae4210bd57fe211306dbf2b80cbc0edf8f6d954237bad5e3ddb8c941f2e8ca",
+      "size": 431
+    },
+    {
+      "path": "contracts/examples/valid-api-error.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9b138a17f407e5a6ee513f4cae41a794780f648881792ee624d535244600b1dc",
+      "size": 145
+    },
+    {
+      "path": "contracts/examples/valid-api-response.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "10fa799abfcbaa96d94ed70d4b095d3ce90fe923f51f522ee7572ea46b7dcce1",
+      "size": 147
+    },
+    {
+      "path": "contracts/examples/valid-ingest.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bb828f804020bbead3b162e973468e475a0ecbfefba5cba7d687b1248b3914e1",
+      "size": 470
+    },
+    {
+      "path": "contracts/examples/valid-run-event-failed.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "0eeec42d09aaba994684b7acc531d5a04affca3ff900154e66cd49676595dd28",
+      "size": 263
+    },
+    {
+      "path": "contracts/examples/valid-run-event-succeeded.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a383d876feb8ac20efbbbe97d27e55881887c5d2669cde9701acbc5ca73791af",
+      "size": 219
+    },
+    {
+      "path": "contracts/examples/valid-run-response-queued.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "eccb3b0664f33038b770875303c2a8232ea74ecdceb69ebdf0b42c98bdeff8f0",
+      "size": 87
+    },
+    {
+      "path": "contracts/examples/valid-run-response.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d5695250e117fc5affdba55c2fd6032fbeafa4a3ccda4e69f3fae493e8dfc615",
+      "size": 465
+    },
+    {
+      "path": "contracts/journal-record.schema.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c61ddecce19231c4583fd694a3fe3b1a88f29c8474afbfb7d49b0eaabd5de370",
+      "size": 2208
+    },
+    {
+      "path": "contracts/mysql-schema.sql",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "946d5afe02ccce794ed8b2b28765946becb97e5fe7cce952eee26beaa19ffded",
+      "size": 67833
+    },
+    {
+      "path": "contracts/public-api-common.schema.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e7e4188eeeacef898d1e335f14cc854a12c295deb8a25a709b48f43a319d7965",
+      "size": 2930
+    },
+    {
+      "path": "contracts/run-event.schema.json",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "df6e4b22134505821b12e8c9cec2ba360f18a0c16e769fa7b089c0f56de558fd",
+      "size": 6484
+    },
+    {
+      "path": "contracts/run-request.schema.json",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "ef9425ef1136f7803486e4af8d324cc19a19763aa78bc54801207ab824280cfc",
+      "size": 10379
+    },
+    {
+      "path": "contracts/run-response.schema.json",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "77388754026ace044f7e4ac9e721eb6df89cc44b671e0a699c0244ca29dfd0d9",
+      "size": 5065
+    },
+    {
+      "path": "contracts/runner.openapi.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c71e889806b2958da1328365adfa3e501c55210f74bbfc1ff3463bebacec19c8",
+      "size": 123432
+    },
+    {
+      "path": "frontend/mocks/fixtures/cases.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "170448cf1a6c344ef24b6fd458a0d9c7077276801053f07b56719b67a351b6a5",
+      "size": 1420
+    },
+    {
+      "path": "frontend/mocks/fixtures/invalid-api-error-code.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a4c4164767051f0b80866bbb70929558d9076d5787382dcafd5657186e315672",
+      "size": 149
+    },
+    {
+      "path": "frontend/mocks/fixtures/invalid-budget.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9ef4733f0f486f6b279aaa85283fe2b3da0a7f4d71d709df9a80cf689424df70",
+      "size": 468
+    },
+    {
+      "path": "frontend/mocks/fixtures/invalid-extra-field.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "6942419d0ef6717462a25c230594c24d823925ae75c5942577a573adafe9d4d1",
+      "size": 498
+    },
+    {
+      "path": "frontend/mocks/fixtures/invalid-mode-input.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ac47742c641ff3317f39616cfa126ea440c65b167d4f4086f6772b3eaf46e7f2",
+      "size": 470
+    },
+    {
+      "path": "frontend/mocks/fixtures/invalid-run-event-payload.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bd9f6fcb00e752a6d0192a24627571253a235729158222d877249c2624c30337",
+      "size": 195
+    },
+    {
+      "path": "frontend/mocks/fixtures/invalid-run-event-seq.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b5703af668545cca9a2ba3975f580d11962a5b434a9080e6c6c1b9d496cbf3e0",
+      "size": 191
+    },
+    {
+      "path": "frontend/mocks/fixtures/invalid-run-response-extra.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ce94d0525d13aa5d5a994b27f7aef7daf161464652eac28454269ac0d86c94f0",
+      "size": 94
+    },
+    {
+      "path": "frontend/mocks/fixtures/journal-golden.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "80ae4210bd57fe211306dbf2b80cbc0edf8f6d954237bad5e3ddb8c941f2e8ca",
+      "size": 431
+    },
+    {
+      "path": "frontend/mocks/fixtures/valid-api-error.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9b138a17f407e5a6ee513f4cae41a794780f648881792ee624d535244600b1dc",
+      "size": 145
+    },
+    {
+      "path": "frontend/mocks/fixtures/valid-api-response.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "10fa799abfcbaa96d94ed70d4b095d3ce90fe923f51f522ee7572ea46b7dcce1",
+      "size": 147
+    },
+    {
+      "path": "frontend/mocks/fixtures/valid-ingest.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bb828f804020bbead3b162e973468e475a0ecbfefba5cba7d687b1248b3914e1",
+      "size": 470
+    },
+    {
+      "path": "frontend/mocks/fixtures/valid-run-event-failed.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "0eeec42d09aaba994684b7acc531d5a04affca3ff900154e66cd49676595dd28",
+      "size": 263
+    },
+    {
+      "path": "frontend/mocks/fixtures/valid-run-event-succeeded.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a383d876feb8ac20efbbbe97d27e55881887c5d2669cde9701acbc5ca73791af",
+      "size": 219
+    },
+    {
+      "path": "frontend/mocks/fixtures/valid-run-response-queued.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "eccb3b0664f33038b770875303c2a8232ea74ecdceb69ebdf0b42c98bdeff8f0",
+      "size": 87
+    },
+    {
+      "path": "frontend/mocks/fixtures/valid-run-response.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d5695250e117fc5affdba55c2fd6032fbeafa4a3ccda4e69f3fae493e8dfc615",
+      "size": 465
+    },
+    {
+      "path": "frontend/src/generated/run-event.ts",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5d41d3366841ac7c525fb0bffe95f7116cf8c21308220e0b7c7327e42f70ad96",
+      "size": 1468
+    },
+    {
+      "path": "frontend/src/generated/run-request.ts",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d5d90ea00f70411050a4d25d975a9abc71696456dac17f0d5e366e412eff03ca",
+      "size": 6862
+    },
+    {
+      "path": "frontend/src/generated/run-response.ts",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "40cf9bf8bdd022f305e978477c32b2a8ca049ab116fc9abf21a4ffaf5aef0643",
+      "size": 2346
+    },
+    {
+      "path": "frontend/src/generated/runner-api.ts",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "8cb96ade8a7623f08fb47127c2a621fe053a5d29d716f6ba7a01bc06892e5f5c",
+      "size": 82356
+    },
+    {
+      "path": "handoffs/V01-T03/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "27c4f6dcc46e52c9c01cb4360bc961f8f5baaa975bfbab4034554501d2aba84e",
+      "size": 4944
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "e5f4d5f25555e6c581dd545a44a239bb3ee5826f0e38b68bb197f21842d236bf",
+      "size": 6195
+    },
+    {
+      "path": "reports/V01-T03/20261107-1010-v01t03/logs/check.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "4bab7eb77bc4dc3c10ee388a4d4f0c1f8a6c83266f9fde0675bbc54b87aebb48",
+      "size": 1422
+    },
+    {
+      "path": "reports/V01-T03/20261107-1010-v01t03/logs/generate.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9a2ca9fdcfc084d0404fee7446fc7694cc78f948f2765f4bfa827c88fb265c13",
+      "size": 338
+    },
+    {
+      "path": "reports/V01-T03/20261107-1010-v01t03/logs/mock-smoke.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "76ebe7d06bd48b505c19ae9e3b7c923e672973fb2f608225af66d42af62ccc28",
+      "size": 1560
+    },
+    {
+      "path": "reports/V01-T03/20261107-1010-v01t03/logs/mvn-compile.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "52172157ec2ca98aa02ad0edfbb8ebd1119f7f9a8872de6b2bc634725e4f46d5",
+      "size": 985
+    },
+    {
+      "path": "reports/V01-T03/20261107-1010-v01t03/revs.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "beabc82ba59c4681a0f4601c8813edbee0cf492cfa010f2b4c8d40bf13c09f61",
+      "size": 290
+    },
+    {
+      "path": "reports/V01-T03/20261107-1010-v01t03/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ca8ee9d0438900cb9bf35907df786873d17dc3b1f5cb98d532deaa073ead6b9e",
+      "size": 5798
+    },
+    {
+      "path": "reports/V01-T03/20261107-1010-v01t03/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "61a34e86966e9f844dd7c0ac38abf2f9615a746cfd05934bd44caf191ae9b80d",
+      "size": 5195
+    },
+    {
+      "path": "runner/src/larder_runner/api/models/__init__.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e02484df1d501eee0c05f40412e5f845ef4c29da259cfe46ea5d0a5e5c93888a",
+      "size": 99
+    },
+    {
+      "path": "runner/src/larder_runner/api/models/run_event.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c2afef2b95e4afee49e9b222b68823a6a5941f787d9e7c07b0056cce9f5ba653",
+      "size": 4575
+    },
+    {
+      "path": "runner/src/larder_runner/api/models/run_request.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d7dfe86121edf3107aebadf3406ea8d7b9618420588d566f24e5ca0aef0479e1",
+      "size": 5521
+    },
+    {
+      "path": "runner/src/larder_runner/api/models/run_response.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "59d7e0e08c0eabdfa4cfdf0f7865f8aea417809ebf76fdb19f9f7f3f71364a90",
+      "size": 3255
+    },
+    {
+      "path": "scripts/contracts/check_contracts.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c4666768b54e24197bf4680f710261b8db874aa167262db00b067f0dc7427477",
+      "size": 12504
+    },
+    {
+      "path": "scripts/contracts/generate.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5118a41e52b3713e4169e2ddc547ffc56dac266322b4783043ec00846571b38d",
+      "size": 4070
+    },
+    {
+      "path": "scripts/contracts/generated.sha256",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "1709290294931664a09efe98b586f9b7746af4ea46a1abc4b456017ded5e2f0e",
+      "size": 763
+    },
+    {
+      "path": "scripts/contracts/mock_runner.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b859ff9920c76c4ebd0d7009a704a94f3cf8541fcf03690ed4fd5e6d727ce373",
+      "size": 5213
+    }
+  ]
+}

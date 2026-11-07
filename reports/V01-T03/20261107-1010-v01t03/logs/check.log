@@ -1,0 +1,32 @@
+﻿[PASS] case valid-ingest.json valid=True
+[PASS] case invalid-extra-field.json valid=False
+[PASS] case invalid-mode-input.json valid=False
+[PASS] case invalid-budget.json valid=False
+[PASS] case valid-run-response.json valid=True
+[PASS] case invalid-run-response-extra.json valid=False
+[PASS] case valid-run-event-succeeded.json valid=True
+[PASS] case valid-run-event-failed.json valid=True
+[PASS] case invalid-run-event-seq.json valid=False
+[PASS] case invalid-run-event-payload.json valid=False
+[PASS] case valid-api-response.json valid=True
+[PASS] case valid-api-error.json valid=True
+[PASS] case invalid-api-error-code.json valid=False
+[PASS] case journal-golden.json valid=True
+[PASS] payload valid-run-event-succeeded.json -> RunSucceededPayload
+[PASS] payload valid-run-event-failed.json -> RunFailedPayload
+[PASS] error registry: 27 codes
+[PASS] 所有合法 fixture 的错误码都在注册表中
+[PASS] TS parity RunRequest (8 fields)
+[PASS] TS parity RunResponse (7 fields)
+[PASS] TS parity RunEvent (7 fields)
+[PASS] Python parity RunRequest (8 fields)
+[PASS] Python parity RunResponse (7 fields)
+[PASS] Python parity RunEvent (7 fields)
+[PASS] Java parity ApiResponse (4 fields)
+[PASS] Java parity ApiErrorResponse (5 fields)
+[PASS] mock fixtures 同源 (16 files)
+[PASS] mock server 不内联 fixture
+[PASS] 生成产物可重复 (7 files)
+
+checks=29 failures=0
+RESULT PASS

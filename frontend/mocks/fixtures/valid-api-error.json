@@ -1,0 +1,7 @@
+{
+  "code": "NEED_LOGIN",
+  "message": "session 已失效，请重新登录",
+  "traceId": "trace_demo",
+  "retryable": false,
+  "details": {}
+}

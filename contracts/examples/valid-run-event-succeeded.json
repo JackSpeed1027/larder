@@ -1,0 +1,12 @@
+{
+  "protocolVersion": "1",
+  "runId": "run_demo",
+  "seq": 7,
+  "eventId": "evt_demo_7",
+  "type": "run.succeeded",
+  "time": "2026-11-07T02:00:00Z",
+  "payload": {
+    "durationMs": 1234,
+    "artifactCount": 1
+  }
+}

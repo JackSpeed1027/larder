@@ -1,0 +1,7 @@
+{
+  "code": "need_login",
+  "message": "错误码必须是大写下划线形式",
+  "traceId": "trace_demo",
+  "retryable": false,
+  "details": {}
+}

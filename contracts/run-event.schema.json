@@ -1,4 +1,7 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RunEvent",
+  "description": "Runner 事件。payload 为事件专用对象：R1 对已冻结的事件类型给出严格定义（见 x-eventPayloadMap），其余类型的 payload 仍为开放对象，等对应版本收紧。",
   "type": "object",
   "properties": {
     "protocolVersion": {
@@ -56,7 +59,7 @@
     },
     "payload": {
       "type": "object",
-      "description": "事件专用载荷，按对应事件schema验证"
+      "description": "事件专用载荷；R1 冻结类型按 x-eventPayloadMap 校验，其余类型暂为开放对象"
     }
   },
   "required": [
@@ -69,5 +72,167 @@
     "payload"
   ],
   "additionalProperties": false,
-  "$schema": "https://json-schema.org/draft/2020-12/schema"
+  "x-eventPayloadMap": {
+    "run.started": "RunStartedPayload",
+    "stage.started": "StageStartedPayload",
+    "stage.committed": "StageCommittedPayload",
+    "run.succeeded": "RunSucceededPayload",
+    "run.failed": "RunFailedPayload",
+    "run.needs_decision": "RunNeedsDecisionPayload",
+    "run.waiting_approval": "RunWaitingApprovalPayload"
+  },
+  "$defs": {
+    "RunStartedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage"
+      ],
+      "properties": {
+        "stage": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "description": "启动阶段名"
+        }
+      }
+    },
+    "StageStartedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage"
+      ],
+      "properties": {
+        "stage": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "description": "进入的阶段名"
+        }
+      }
+    },
+    "StageCommittedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage",
+        "durationMs"
+      ],
+      "properties": {
+        "stage": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 160,
+          "description": "已提交的阶段名"
+        },
+        "durationMs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "阶段耗时（毫秒）"
+        }
+      }
+    },
+    "RunSucceededPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "durationMs"
+      ],
+      "properties": {
+        "durationMs": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "run 总耗时（毫秒）"
+        },
+        "artifactCount": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "产物数量（明细通过 manifest 接口获取）"
+        }
+      }
+    },
+    "RunFailedPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]{2,63}$",
+          "description": "稳定错误码"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "安全可读失败原因"
+        },
+        "retryable": {
+          "type": "boolean",
+          "description": "是否允许在预算内重试"
+        }
+      }
+    },
+    "RunNeedsDecisionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "decisionId"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]{2,63}$",
+          "description": "触发决定的错误码（如 UNKNOWN_PROVIDER_RESULT）"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "需要用户决定的内容"
+        },
+        "decisionId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+          "description": "后续 resume 使用的决定标识"
+        }
+      }
+    },
+    "RunWaitingApprovalPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "approvalId",
+        "actionType",
+        "expiresAt"
+      ],
+      "properties": {
+        "approvalId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+          "description": "审批记录标识"
+        },
+        "actionType": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "description": "待审批动作类型"
+        },
+        "expiresAt": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T.*Z$",
+          "description": "审批过期时间（UTC）"
+        }
+      }
+    }
+  }
 }

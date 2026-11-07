@@ -1,0 +1,11 @@
+{
+  "protocolVersion": "1",
+  "runId": "run_demo",
+  "seq": 0,
+  "eventId": "evt_demo_0",
+  "type": "run.started",
+  "time": "2026-11-07T02:00:00Z",
+  "payload": {
+    "stage": "fetch"
+  }
+}

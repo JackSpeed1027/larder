@@ -1,27 +1,16 @@
 [
-  {
-    "file": "valid-ingest.json",
-    "schema": "run-request.schema.json",
-    "valid": true
-  },
-  {
-    "file": "invalid-extra-field.json",
-    "schema": "run-request.schema.json",
-    "valid": false
-  },
-  {
-    "file": "invalid-mode-input.json",
-    "schema": "run-request.schema.json",
-    "valid": false
-  },
-  {
-    "file": "invalid-budget.json",
-    "schema": "run-request.schema.json",
-    "valid": false
-  },
-  {
-    "file": "journal-golden.json",
-    "schema": "journal-record.schema.json",
-    "valid": true
-  }
+  { "file": "valid-ingest.json", "schema": "run-request.schema.json", "valid": true },
+  { "file": "invalid-extra-field.json", "schema": "run-request.schema.json", "valid": false },
+  { "file": "invalid-mode-input.json", "schema": "run-request.schema.json", "valid": false },
+  { "file": "invalid-budget.json", "schema": "run-request.schema.json", "valid": false },
+  { "file": "valid-run-response.json", "schema": "run-response.schema.json", "valid": true },
+  { "file": "invalid-run-response-extra.json", "schema": "run-response.schema.json", "valid": false },
+  { "file": "valid-run-event-succeeded.json", "schema": "run-event.schema.json", "valid": true },
+  { "file": "valid-run-event-failed.json", "schema": "run-event.schema.json", "valid": true },
+  { "file": "invalid-run-event-seq.json", "schema": "run-event.schema.json", "valid": false },
+  { "file": "invalid-run-event-payload.json", "schema": "run-event.schema.json", "valid": false },
+  { "file": "valid-api-response.json", "schema": "public-api-common.schema.json", "def": "ApiResponse", "valid": true },
+  { "file": "valid-api-error.json", "schema": "public-api-common.schema.json", "def": "ApiErrorResponse", "valid": true },
+  { "file": "invalid-api-error-code.json", "schema": "public-api-common.schema.json", "def": "ApiErrorResponse", "valid": false },
+  { "file": "journal-golden.json", "schema": "journal-record.schema.json", "valid": true }
 ]

@@ -1,4 +1,7 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RunResponse",
+  "description": "Runner run 快照。V01-T03 把原先无类型的 usage/manifest/error 收紧为结构化定义；收紧只增加约束，不改变已有字段语义。",
   "type": "object",
   "properties": {
     "runId": {
@@ -34,16 +37,13 @@
       "description": "当前具名处理阶段"
     },
     "usage": {
-      "type": "object",
-      "description": "已知用量与估算/未知状态，不能假装精确账单"
+      "$ref": "#/$defs/RunUsage"
     },
     "manifest": {
-      "type": "object",
-      "description": "不可变产物清单，Java重新校验内容hash"
+      "$ref": "#/$defs/ArtifactManifest"
     },
     "error": {
-      "type": "object",
-      "description": "安全可公开错误，不包含秘密或堆栈"
+      "$ref": "#/$defs/RunError"
     }
   },
   "required": [
@@ -51,5 +51,131 @@
     "status",
     "lastSeq"
   ],
-  "additionalProperties": false
+  "additionalProperties": false,
+  "$defs": {
+    "RunUsage": {
+      "type": "object",
+      "description": "已知用量与估算/未知状态；不得把未知用量伪装成精确账单",
+      "additionalProperties": false,
+      "required": [
+        "promptTokens",
+        "completionTokens",
+        "totalTokens",
+        "unknownCalls",
+        "estimated"
+      ],
+      "properties": {
+        "promptTokens": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "已确认的提示 token 数"
+        },
+        "completionTokens": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "已确认的输出 token 数"
+        },
+        "totalTokens": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "已确认的总 token 数"
+        },
+        "unknownCalls": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "用量未知的调用次数，单独计数"
+        },
+        "estimated": {
+          "type": "boolean",
+          "description": "是否包含估算值（供应商未回传精确用量）"
+        }
+      }
+    },
+    "ArtifactManifest": {
+      "type": "object",
+      "description": "不可变产物清单；Java 侧会重新校验每个产物的 sha256 与大小",
+      "additionalProperties": false,
+      "required": [
+        "artifacts"
+      ],
+      "properties": {
+        "artifacts": {
+          "type": "array",
+          "maxItems": 200,
+          "description": "本次 run 产出的对象列表",
+          "items": {
+            "$ref": "#/$defs/ArtifactRef"
+          }
+        }
+      }
+    },
+    "ArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifactId",
+        "sha256",
+        "bytes",
+        "mime"
+      ],
+      "properties": {
+        "artifactId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+          "description": "产物标识；只能通过该 run 的产物接口读取"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "内容 sha256，十六进制小写"
+        },
+        "bytes": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "字节数"
+        },
+        "mime": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 160,
+          "description": "MIME 类型"
+        }
+      }
+    },
+    "RunError": {
+      "type": "object",
+      "description": "可公开的安全错误；错误码必须来自 contracts/error-codes.json",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "retryable"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^[A-Z][A-Z0-9_]{2,63}$",
+          "description": "稳定错误码"
+        },
+        "message": {
+          "type": "string",
+          "maxLength": 512,
+          "description": "安全可读说明，不含堆栈/秘密"
+        },
+        "retryable": {
+          "type": "boolean",
+          "description": "是否可在预算内重试"
+        },
+        "decisionId": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 64,
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$",
+          "description": "需要人工决定时的 decision 标识（NEEDS_DECISION 场景）"
+        }
+      }
+    }
+  }
 }

@@ -1,0 +1,23 @@
+{
+  "runId": "run_demo",
+  "status": "SUCCEEDED",
+  "lastSeq": 7,
+  "stage": "publish",
+  "usage": {
+    "promptTokens": 1200,
+    "completionTokens": 300,
+    "totalTokens": 1500,
+    "unknownCalls": 0,
+    "estimated": false
+  },
+  "manifest": {
+    "artifacts": [
+      {
+        "artifactId": "art_demo",
+        "sha256": "d558ea067279d0e723cc5ec3025fd7afdb296bb423315b08d3c35abd5050a011",
+        "bytes": 20,
+        "mime": "text/plain"
+      }
+    ]
+  }
+}
