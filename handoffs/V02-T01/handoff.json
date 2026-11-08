@@ -1,0 +1,60 @@
+{
+  "taskId": "V02-T01",
+  "sliceId": "V02-T01.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "accept 五项全过（后端 21 用例、契约 29、compose 配置、内容端到端 9 项）；迁移 V2 由契约生成并在真实 MySQL 执行成功",
+  "baseSnapshot": "0085289",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "落地内容核心模型与幂等收录：V2 迁移从 contracts/mysql-schema.sql 抽取 owner/item/content_revision/job/outbox/idempotency_request 六表；实现 UrlNormalizer（保守规范化 + SHA-256）、规范化 JSON 与转义、OwnerService（username→owner，REQUIRES_NEW 先提交）、IdempotencyStore（REQUIRES_NEW 抢占，主键保证并发唯一）、ItemIngestService（一次事务写 item+job+outbox+幂等完成态，READ_COMMITTED）、POST /api/items（强制 Idempotency-Key，owner 来自认证主体）。语义：首次 202、同 key 同 body 重放 200、同 key 不同 body 409、同 URL 去重 200、8 并发只产生 1 条 item。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "python scripts/accept.py --task V02-T01 --profile offline --run-id 20261108-1545-v02t01", "exitCode": 0, "passed": 5, "failed": 0, "skipped": 0, "log": "reports/V02-T01/20261108-1545-v02t01/summary.json", "note": "passed 为检查项数" },
+    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 21, "failed": 0, "skipped": 0, "log": "reports/V02-T01/20261108-1545-v02t01/logs/backend_tests.log" },
+    { "command": "python scripts/contracts/check_contracts.py", "exitCode": 0, "passed": 29, "failed": 0, "skipped": 0, "log": "reports/V02-T01/20261108-1545-v02t01/logs/contracts.log" },
+    { "command": "scripts/dev/verify-content.ps1（真实 MySQL 容器 + HTTP）", "exitCode": 0, "passed": 9, "failed": 0, "skipped": 0, "log": "reports/V02-T01/20261108-1545-v02t01/logs/content_e2e.log" }
+  ],
+  "acceptanceEvidence": {
+    "same-key-same-body": "content_e2e.log 第 4 项（200，itemId 不变）",
+    "same-key-different-body": "content_e2e.log 第 5 项（409 IDEMPOTENCY_CONFLICT）",
+    "concurrent-uniqueness": "content_e2e.log 第 7/8 项（8 并发 200，MySQL item/job/outbox=1/1/1）",
+    "migration-repeatable": "content_e2e.log 第 9 项（V1/V2 success，重启后迁移数不变）",
+    "url-dedupe": "content_e2e.log 第 6 项（不同 key 同 URL → 200 同一 item）"
+  },
+  "notRun": [
+    "content_revision/chunk 写入（V02-T03）",
+    "PDF/视频/音频收录（V06）",
+    "TEXT 正文去重与 revision（V02-T03）",
+    "多 owner 越权拒绝（单管理员，后续任务）",
+    "幂等记录过期清理（V03 补偿任务）"
+  ],
+  "knownLimitations": [
+    "TEXT 正文仅保存在 job.input_json 快照，未落 revision。",
+    "URL 去重仅 WEB；TEXT 未做内容级去重。",
+    "owner.password_hash 是占位值，认证仍走 V01 的内存用户。",
+    "迁移 V2 由脚本生成并直接提交，属于共享资源变更（CR-0001）。"
+  ],
+  "newDependencies": [],
+  "migrationNotes": "新增 V2__content_core.sql（6 张表，从 contracts/mysql-schema.sql 抽取）；已在真实 MySQL 8.4.13 上执行，成功记录 V1/V2 各 1 行。后续改列必须先改契约再重新生成。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "ItemIngestService/IdempotencyStore/OwnerService/UrlNormalizer 均有类级 Javadoc，说明事务边界、并发保证与失败语义；控制器注明 owner 必须来自认证主体。",
+    "sqlComments": "六张表的表/列 COMMENT 全部来自契约 DDL，未手写覆盖。",
+    "complexMechanisms": [
+      "幂等键 REQUIRES_NEW 与外键锁等待（504）：OwnerService 注释 + ItemIngestService 隔离级别注释",
+      "并发唯一由数据库约束保证（不是先查后插）：IdempotencyStore 类注释",
+      "URL 规范化规则与去重边界：UrlNormalizer 类注释 + 单测 5 条"
+    ]
+  },
+  "crossCuttingChanges": [
+    { "id": "CR-0001", "files": ["backend/src/main/resources/db/migration/V2__content_core.sql"], "reason": "迁移属共享资源" },
+    { "id": "CR-0002", "files": ["scripts/accept.py", "scripts/dev/verify-content.ps1"], "reason": "把内容端到端纳入验收入口" },
+    { "id": "CR-0003", "files": ["README.md"], "reason": "阶段表与结论同步" }
+  ],
+  "nextIntegrationChecks": [
+    "V02-T03 落 revision 后，验证 item.current_revision_id 指针与正文可读",
+    "V02-T02 接 MinIO 后，验证产物 manifest 的 sha256 与数据库引用一致",
+    "多 owner 引入后补跨 owner 拒绝用例"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V02-T01"]
+}

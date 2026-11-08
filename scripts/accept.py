@@ -304,6 +304,26 @@ def self_check() -> int:
     return 0 if failed == 0 else 1
 
 
+def check_content_e2e(logs: Path) -> Result:
+    """内容收录端到端：真实 MySQL 容器 + 真实 HTTP，验证幂等/去重/并发/迁移可重复。"""
+    name = "content_e2e"
+    log = logs / f"{name}.log"
+    script = "scripts/dev/verify-content.ps1"
+    if not (ROOT / script).exists():
+        return Result(name, "verify-content", 127, str(log), failure="脚本不存在")
+    if IS_WINDOWS:
+        cmd = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script]
+    else:
+        cmd = ["pwsh", "-NoProfile", "-File", script]
+    code, out = run_command(name, cmd, log, timeout=1800)
+    result = Result(name, " ".join(cmd), code, str(log))
+    if code != 0:
+        result.failure = f"exit={code}（看 {log.name}）"
+    elif "ALL CONTENT CHECKS PASSED" not in out:
+        result.failure = "输出中没有 ALL CONTENT CHECKS PASSED"
+    return result
+
+
 CHECKS = {
     "secrets": check_secrets,
     "backend_tests": check_backend,
@@ -311,10 +331,12 @@ CHECKS = {
     "frontend_build": check_frontend,
     "contracts": check_contracts,
     "compose_config": check_compose,
+    "content_e2e": check_content_e2e,
 }
 
 TASKS = {
     "V01-T04": ["secrets", "backend_tests", "runner_tests", "frontend_build", "contracts", "compose_config"],
+    "V02-T01": ["secrets", "backend_tests", "contracts", "compose_config", "content_e2e"],
     "V01-T03": ["secrets", "contracts", "backend_tests"],
     "V01-T02": ["secrets", "backend_tests", "runner_tests", "frontend_build", "compose_config"],
 }

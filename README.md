@@ -37,6 +37,7 @@ D:\Work\Project\larder\
 | V01-T02 八服务与工程骨架 | **TASK_LOCAL_PASS** | `backend/`、`runner/`、`frontend/`、`compose.yaml`、`infra/`、`scripts/dev/`、`reports/V01-T02/` |
 | V01-T03 契约/Mock/类型生成 | **TASK_LOCAL_PASS** | `contracts/`（27 个错误码、事件 payload 收紧）、三端生成类型、`scripts/contracts/` Mock 与 29 项检查、`reports/V01-T03/` |
 | V01-T04 认证与验收基础 | **TASK_LOCAL_PASS** | `identity/` 认证、`scripts/accept.py`、`.github/workflows/ci.yml`、`reports/V01-T04/` |
+| V02-T01 内容模型与幂等 | **TASK_LOCAL_PASS** | `content/model`、`pipeline/model`、`ingest`、`POST /api/items`、`V2__content_core.sql`、`reports/V02-T01/` |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 
@@ -58,6 +59,13 @@ V01-T04 的可信结论（`reports/V01-T04/20261108-0930-v01t04/`）：
 - 认证：单管理员 + Cookie session（HttpOnly/SameSite）+ CSRF 双提交；未登录 401、缺 CSRF 403、登出 invalidate session，**6 个后端用例全过**；
 - 验收入口 `scripts/accept.py`：六项检查（秘密扫描/后端/runner/前端/契约/compose），**零测试或缺环境一律失败**，`--self-check` 用 7 条断言证明判定有效；
 - `--profile live` 明确 BLOCKED（未实现，不伪装跑过）；CI 工作流已提交（尚未实际触发）。
+
+V02-T01 的可信结论（`reports/V02-T01/20261108-1545-v02t01/`）：
+
+- `POST /api/items`：首次 202、同 key 同 body 重放 200、同 key 不同 body 409、同规范化 URL 去重 200；
+- 8 个并发请求同一 URL → 全部 200 且 MySQL 只有 1 条 item（唯一键 `uk_item_url` 兜底）；
+- V2 迁移从 `contracts/mysql-schema.sql` 生成六张表，真实 MySQL 执行成功，重启不重复执行；
+- accept 五项全过（后端 21 用例 + 契约 29 项 + 内容端到端 9 项）。
 
 ## 本地运行
 

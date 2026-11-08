@@ -1,0 +1,331 @@
+{
+  "taskId": "V02-T01",
+  "sliceId": "V02-T01.FULL",
+  "runId": "20261108-1545-v02t01",
+  "generatedAt": "2026-11-08T07:48:22.802051+00:00",
+  "note": "baseSha256 为 null（基线 commit 0085289）；scripts/accept.py 与 README 为 modified，其余 added。",
+  "files": [
+    {
+      "path": "backend/src/main/java/com/larder/content/api/CreateItemRequest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5da39150761c2c7e9f377c52919ce418e1ba41e991c42a4740c7ba93ce9e62aa",
+      "size": 650
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/api/CreateItemResponse.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "137b4590fc61b867e10b37fbcdd35058686e27fa229e232a9947fa864103a658",
+      "size": 367
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/api/ItemController.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d7937b61056dcdeb7c0608f7b2e9721800f03065551405e8b43c7f7496fb425d",
+      "size": 4492
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/model/ContentRevision.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "aed851b0eeb4df0e4f9747eb1b8565a124422ade3e564322b5d1560b090c5e65",
+      "size": 2475
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/model/ContentRevisionMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5c1de719c821ae60bbd3a76d3f90ed42d2176fb7d84627e09f2cdf3336a23ff3",
+      "size": 315
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/model/Item.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "744a9f37fbc2666deb96344376a0226f9d1f7709e16277cde775f0cf414cd916",
+      "size": 3572
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/model/ItemKind.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5407d51c41900c01539dbd87fe8e7a0fbea0372c77fed60ce03403796374c030",
+      "size": 380
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/model/ItemMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7e2733635cd131f6f27f94e53a5cd8739b1f4836add08ad2c994c5ac73e767dd",
+      "size": 417
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/model/Owner.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "6a9c7f119e5bc9b75a0cdb669182474594b94780d9185bd03d9ec1038519c26a",
+      "size": 1490
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/model/OwnerMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "20bcc476e7f32a910346623919b950d406a906d8a707417d7b4e55e9969ac8b2",
+      "size": 240
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/CommandBody.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7b7b4d7f1b3345414bf67a3a5cb96f45c374cc622185e243a82f7553ad3eb6d2",
+      "size": 819
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/IdempotencyStore.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e70e9fc70b8baf208cad7a03584a9f39fa959e22c61f8601080bf6dddfbfcf5b",
+      "size": 3108
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/Ids.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "41365b497fd6f9a5fe0141dc7120d5d46ef650097b015c2b0c893f5156b7b5a1",
+      "size": 706
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/IngestOutcome.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "4e1b880d18fc237713f9263109c696d756ad4c02536b5e08db03f786b2409add",
+      "size": 469
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/IngestRejectedException.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "4984b2eb6c446323f1c5fd772318f381b94ada75af9541ec809604b69b60f675",
+      "size": 1181
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/ItemIngestService.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c4cbdb37ff090032484eef49bc5ffc4db4285baef55a52b87084e247c99b5b61",
+      "size": 11760
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/Json.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "eec18dec94db879dea72f01e8f6f81ac91a30da5e217f7c3d9e9a49ddc92c78f",
+      "size": 2828
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/JsonValue.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "80b70ac5777c725b867036002fe528aa72efe6c385739df78c82750dd7d9e9b2",
+      "size": 729
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/OwnerService.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "293211bfd25ff2e9ebf20c3550bc29a4433d855e8b94b23b6231c392a9980865",
+      "size": 2484
+    },
+    {
+      "path": "backend/src/main/java/com/larder/ingest/UrlNormalizer.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "01cf63d7abe487eb183b2e371deae7baadb0528e01bd661f32454b62d4447add",
+      "size": 2388
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/IdempotencyRequest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ff0f9fffcd6d5e6cc23de813b0d4a8281f804cb11282d50c42f609517c3030a7",
+      "size": 2319
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/IdempotencyRequestMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "79317a75081581973e68debcecb6e5133db91ae6a0f2635f65dfa33caf03006b",
+      "size": 280
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/IdempotencyState.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "3f25e5779c812f0aeed00d8110513d4f8f35037e37b73c006d299d213ae93516",
+      "size": 135
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/Job.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b43cb57e94e2323b9a03933e5a7aeac93bad20fac4270d6b6677dff978d1639e",
+      "size": 2826
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/JobKind.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "aaedd2524c89415d6ef63224487ec5d3b48861f67145c01bcb22dd903b808fd9",
+      "size": 218
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/JobMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b3afae35a5463eb881cb225155734a5fd47f3bc3aa9cb75977f0fa4248d6a131",
+      "size": 235
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/JobState.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c255fcebf3d53a3d506d28363a9096106d37cc995dfd6ddd30a608d20a7e7ade",
+      "size": 244
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/OutboxEvent.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9fe355dd01ac5278a1770e8b98709ed0a9c761b7f4f7c1c95b080889cba354a2",
+      "size": 2681
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/OutboxEventMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f5b6a43193a677e2c054fd3c9c922d887dd483f792bc7a6713877e127d5b876a",
+      "size": 259
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/model/OutboxState.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "31a206cb013190117e1848876b38b665ed243682a06980a1aad115bb3f945ac0",
+      "size": 151
+    },
+    {
+      "path": "backend/src/main/resources/db/migration/V2__content_core.sql",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5b190c0eb5bcceaad7fc50d170eee06f2b30fe60117acb03171092b446e80798",
+      "size": 14385
+    },
+    {
+      "path": "backend/src/test/java/com/larder/content/api/ItemControllerTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2ce8ee3b4085e2b588065b7618eb841c6d781de6bc33815684793e6f241d8ee9",
+      "size": 4914
+    },
+    {
+      "path": "backend/src/test/java/com/larder/ingest/ItemIngestServiceTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5bd108b87a5f02557cc65655ff43ee43c2d3e184ea3d847fe290ceffbac1878b",
+      "size": 8309
+    },
+    {
+      "path": "backend/src/test/java/com/larder/ingest/UrlNormalizerTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bcb93e76ff47e7c73a72c660cdfe8d87747791905ce9cca7a85d7d38e9d311a6",
+      "size": 2762
+    },
+    {
+      "path": "handoffs/V02-T01/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "de9c17b35597067df39254fb1be627f4dcd6b19567073c531acd606e4e56d4d1",
+      "size": 4812
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "dff31d4b3e9996ff3588089ea462910ef84b6e612ae7f1d38e391d1ac8eec472",
+      "size": 7548
+    },
+    {
+      "path": "reports/V02-T01/20261108-1545-v02t01/logs/backend_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c774c1f91112285bca5b2504a175ee04c98f1cecea042e069900826bd4c81395",
+      "size": 9429
+    },
+    {
+      "path": "reports/V02-T01/20261108-1545-v02t01/logs/compose_config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "273e38007d5718ca6c3fa2670eaeaf4b32663026be01f4b80fa72bc856d577b5",
+      "size": 81
+    },
+    {
+      "path": "reports/V02-T01/20261108-1545-v02t01/logs/content_e2e.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e89c5023c92b71cb83152070bb8e259a38adeddb2199d0826b10616b2c62b99e",
+      "size": 3025
+    },
+    {
+      "path": "reports/V02-T01/20261108-1545-v02t01/logs/contracts.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6e3860632cbdc3aeb0894d561c25057bc7747ccff508b5de6f911bdf8bea00e",
+      "size": 1523
+    },
+    {
+      "path": "reports/V02-T01/20261108-1545-v02t01/logs/secrets.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2298c6d9c64a00e1f2b78c89bf71cd300f5cc44472725430d31ef79429f02be6",
+      "size": 29796
+    },
+    {
+      "path": "reports/V02-T01/20261108-1545-v02t01/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "3e95232ee0a84bee36f9f41a0ba82555c79ebf701998371f9fb8d7567fad051c",
+      "size": 2206
+    },
+    {
+      "path": "reports/V02-T01/20261108-1545-v02t01/tools/gen_migration.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "172a5364562752fe7b4d1b51e8ec1caeeac421d0e0654548ae08434e1d4cb35c",
+      "size": 1609
+    },
+    {
+      "path": "reports/V02-T01/20261108-1545-v02t01/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f2563d103c4450fe25616029a1bdc62f5272a07fcfb90f0987b8f3519a7df5a8",
+      "size": 5383
+    },
+    {
+      "path": "scripts/accept.py",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "1068b344ea057d2c058c0abe5fa60a7a777129b3609013eb5ad5de7900647197",
+      "size": 17109
+    },
+    {
+      "path": "scripts/dev/verify-content.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a39a837f1ab5005994063b731af6f5863e8caf37493b9b2b78f42470c1a58498",
+      "size": 8516
+    }
+  ]
+}
