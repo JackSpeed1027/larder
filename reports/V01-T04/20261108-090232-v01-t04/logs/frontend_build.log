@@ -1,0 +1,4 @@
+$ pnpm --dir frontend build
+(cwd=D:\Work\Project\larder)
+
+COMMAND NOT FOUND: pnpm

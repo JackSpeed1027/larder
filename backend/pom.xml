@@ -39,6 +39,11 @@
 
     <!-- 数据访问：MyBatis-Plus 必须用 boot4 starter（Boot 3 的 starter 引 autoconfigure 3.x API） -->
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
       <version>${mybatis-plus.version}</version>
@@ -63,6 +68,16 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webmvc-test</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>

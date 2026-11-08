@@ -1,0 +1,9 @@
+﻿[PASS] backend 零测试: verdict='零测试：Maven 没有执行任何用例（-DfailIfNoTests=true 应失败）'
+[PASS] backend 失败: verdict='失败/错误 1'
+[PASS] backend 正常: verdict=None
+[PASS] runner 零测试: verdict='零测试：pytest 没有收集到用例'
+[PASS] runner 失败: verdict='失败 1'
+[PASS] runner 正常: verdict=None
+[PASS] runner 退出码非0: verdict='exit=1'
+
+self-check failures=0

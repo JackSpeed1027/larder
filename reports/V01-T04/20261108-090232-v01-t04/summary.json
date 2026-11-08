@@ -1,0 +1,87 @@
+{
+  "task": "V01-T04",
+  "profile": "offline",
+  "runId": "20261108-090232-v01-t04",
+  "result": "FAIL",
+  "generatedAt": "2026-11-08T01:03:38.789236+00:00",
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.16",
+    "node": "D:\\dev\\node\\node-v24.22.0-win-x64\\node.EXE",
+    "docker": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.EXE",
+    "uv": "D:\\dev\\python\\3.13.16\\Scripts\\uv.EXE"
+  },
+  "checks": [
+    {
+      "name": "secrets",
+      "command": "git ls-files + secret scan",
+      "exitCode": 1,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V01-T04/20261108-090232-v01-t04/logs/secrets.log",
+      "note": "",
+      "failure": "reports/V01-T01/20261106-195106-v01t01/raw/platform/spring-boot-3.5-system-requirements.html: 疑似硬编码 api-key; reports/V01-T01/20261106-2045-v01t01-r2/raw/platform/spring-boot-3.5-system-requirements.html: 疑似硬编码 api-key"
+    },
+    {
+      "name": "backend_tests",
+      "command": "D:\\Work\\Project\\larder\\backend\\mvnw.cmd -B -ntp -f backend/pom.xml verify -DfailIfNoTests=true",
+      "exitCode": 0,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T04/20261108-090232-v01-t04/logs/backend_tests.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "runner_tests",
+      "command": "uv run --project runner pytest runner/tests -m not live -q",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T04/20261108-090232-v01-t04/logs/runner_tests.log",
+      "note": "",
+      "failure": "零测试：pytest 没有收集到用例"
+    },
+    {
+      "name": "frontend_build",
+      "command": "pnpm --dir frontend build",
+      "exitCode": 127,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V01-T04/20261108-090232-v01-t04/logs/frontend_build.log",
+      "note": "",
+      "failure": "exit=127（看 frontend_build.log）"
+    },
+    {
+      "name": "contracts",
+      "command": "uv run --with jsonschema python scripts/contracts/check_contracts.py",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V01-T04/20261108-090232-v01-t04/logs/contracts.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "compose_config",
+      "command": "docker compose -f compose.yaml config --quiet",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V01-T04/20261108-090232-v01-t04/logs/compose_config.log",
+      "note": "",
+      "failure": null
+    }
+  ],
+  "failures": [
+    "secrets: reports/V01-T01/20261106-195106-v01t01/raw/platform/spring-boot-3.5-system-requirements.html: 疑似硬编码 api-key; reports/V01-T01/20261106-2045-v01t01-r2/raw/platform/spring-boot-3.5-system-requirements.html: 疑似硬编码 api-key",
+    "runner_tests: 零测试：pytest 没有收集到用例",
+    "frontend_build: exit=127（看 frontend_build.log）"
+  ]
+}

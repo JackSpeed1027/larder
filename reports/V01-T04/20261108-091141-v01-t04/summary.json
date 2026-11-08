@@ -1,0 +1,85 @@
+{
+  "task": "V01-T04",
+  "profile": "offline",
+  "runId": "20261108-091141-v01-t04",
+  "result": "FAIL",
+  "generatedAt": "2026-11-08T01:12:21.257769+00:00",
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.16",
+    "node": "D:\\dev\\node\\node-v24.22.0-win-x64\\node.EXE",
+    "docker": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.EXE",
+    "uv": "D:\\dev\\python\\3.13.16\\Scripts\\uv.EXE"
+  },
+  "checks": [
+    {
+      "name": "secrets",
+      "command": "git ls-files + secret scan",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V01-T04/20261108-091141-v01-t04/logs/secrets.log",
+      "note": "扫描 448 个跟踪文件",
+      "failure": null
+    },
+    {
+      "name": "backend_tests",
+      "command": "D:\\Work\\Project\\larder\\backend\\mvnw.cmd -B -ntp -f backend/pom.xml verify -DfailIfNoTests=true",
+      "exitCode": 0,
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T04/20261108-091141-v01-t04/logs/backend_tests.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "runner_tests",
+      "command": "uv run --directory runner pytest tests -m not live -q",
+      "exitCode": 0,
+      "passed": 0,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V01-T04/20261108-091141-v01-t04/logs/runner_tests.log",
+      "note": "",
+      "failure": "零测试：pytest 没有收集到用例"
+    },
+    {
+      "name": "frontend_build",
+      "command": "D:\\dev\\node\\node-v24.22.0-win-x64\\pnpm.CMD --dir frontend build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V01-T04/20261108-091141-v01-t04/logs/frontend_build.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "contracts",
+      "command": "uv run --with jsonschema python scripts/contracts/check_contracts.py",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V01-T04/20261108-091141-v01-t04/logs/contracts.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "compose_config",
+      "command": "docker compose -f compose.yaml config --quiet",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V01-T04/20261108-091141-v01-t04/logs/compose_config.log",
+      "note": "",
+      "failure": null
+    }
+  ],
+  "failures": [
+    "runner_tests: 零测试：pytest 没有收集到用例"
+  ]
+}

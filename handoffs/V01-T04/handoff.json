@@ -1,0 +1,66 @@
+{
+  "taskId": "V01-T04",
+  "sliceId": "V01-T04.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "accept.py 六项检查全过（backend 6 用例、runner 2 用例、前端构建、契约 29 项、compose 配置、秘密扫描）；跨 owner 与 CI 实跑未验证，全局 DONE 由协调者决定",
+  "baseSnapshot": "aa52d0d",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "实现最小认证闭环：单管理员账号只来自环境变量（bcrypt hash 或开发期明文启动时现算），Cookie session（HttpOnly/SameSite）配 CSRF 双提交，POST/GET/DELETE /api/session，未登录 401、缺 CSRF 403、登出 invalidate session；6 个可证伪测试覆盖上述行为。建立 scripts/accept.py 验收入口（secrets/backend/runner/frontend/contracts/compose 六项，零测试或缺环境一律失败，含 --self-check 证明判定有效）与 GitHub Actions CI。前端提供 auth api（credentials + CSRF 头）与登录表单三态。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "python scripts/accept.py --task V01-T04 --profile offline --run-id 20261108-0930-v01t04", "exitCode": 0, "passed": 6, "failed": 0, "skipped": 0, "log": "reports/V01-T04/20261108-0930-v01t04/summary.json", "note": "passed 为此处 6 项检查，不是用例数" },
+    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 6, "failed": 0, "skipped": 0, "log": "reports/V01-T04/20261108-0930-v01t04/logs/backend_tests.log" },
+    { "command": "uv run --directory runner pytest tests -m 'not live'", "exitCode": 0, "passed": 2, "failed": 0, "skipped": 0, "log": "reports/V01-T04/20261108-0930-v01t04/logs/runner_tests.log" },
+    { "command": "pnpm --dir frontend build", "exitCode": 0, "passed": null, "failed": 0, "skipped": 0, "log": "reports/V01-T04/20261108-0930-v01t04/logs/frontend_build.log" },
+    { "command": "python scripts/contracts/check_contracts.py", "exitCode": 0, "passed": 29, "failed": 0, "skipped": 0, "log": "reports/V01-T04/20261108-0930-v01t04/logs/contracts.log" },
+    { "command": "python scripts/accept.py --self-check", "exitCode": 0, "passed": 7, "failed": 0, "skipped": 0, "log": "reports/V01-T04/20261108-0930-v01t04/logs/self-check.log" },
+    { "command": "python scripts/accept.py --profile live", "exitCode": 2, "passed": 0, "failed": 0, "skipped": 0, "log": "reports/V01-T04/20261108-0930-v01t04/logs/profile-live-blocked.log", "note": "故意 BLOCKED：live profile 未实现" }
+  ],
+  "acceptanceEvidence": {
+    "unauthenticated-and-csrf": "backend_tests.log（401 / 403 / 401 wrong password / session 持久 / 登出失效）",
+    "zero-test-and-missing-env-fail": "self-check.log（7 条判定断言）+ accept.py 判定函数",
+    "secrets-not-in-repo": "logs/secrets.log（448 跟踪文件）",
+    "fix-wrappers-and-ci": ".github/workflows/ci.yml + backend/mvnw + frontend/pnpm-lock.yaml + runner/uv.lock"
+  },
+  "notRun": [
+    "跨 owner 拒绝（owner/item 模型 V02 才有）",
+    "前端登录 E2E（无 Playwright，frontend/e2e/auth 未建）",
+    "GitHub Actions 实际运行（工作流已提交，尚未触发）",
+    "live profile（真实模型）"
+  ],
+  "knownLimitations": [
+    "session 存内存，未落 DB（docs/06 要求，等 V02 数据层）。",
+    "accept 的 secrets 扫描跳过 reports/ 与 docs/（外部快照/规格含示例 key），只扫代码与配置。",
+    "compose 配置检查是 client-side，不代表容器能起（Docker 守护进程当前未启动）。",
+    "Java 测试是 WebMvc 切片，没有连真实 MySQL；auth 与 DB 无关，属于合理选择。"
+  ],
+  "newDependencies": [
+    "org.springframework.boot:spring-boot-starter-security（CR-0001）",
+    "org.springframework.security:spring-security-test（test）",
+    "org.springframework.boot:spring-boot-starter-webmvc-test（test，Boot 4 的 @WebMvcTest 所在模块）"
+  ],
+  "migrationNotes": "N/A：无数据库迁移。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "SecurityConfig/SessionController/CsrfCookieFilter 均有类级 Javadoc（职责、边界、已知限制）；测试类说明每条用例能抓到什么错误实现。",
+    "sqlComments": "N/A。",
+    "complexMechanisms": [
+      "CSRF 延迟生成导致 cookie 不下发：CsrfCookieFilter 注释 + 测试 2",
+      "登录必须 saveContext 才能跨请求：SessionController 注释 + 测试 5",
+      "零测试/缺环境必须失败：judge_* 函数 + --self-check 7 条断言"
+    ]
+  },
+  "crossCuttingChanges": [
+    { "id": "CR-0001", "files": ["backend/pom.xml"], "reason": "认证与测试必需的三个 starter", "approvedBy": "待协调者追认" },
+    { "id": "CR-0002", "files": ["backend/src/main/resources/application.yml"], "reason": "session cookie 与 identity 配置", "approvedBy": "待协调者追认" },
+    { "id": "CR-0003", "files": ["compose.yaml", ".env.example", ".env(本地)"], "reason": "api 容器注入 admin 密码", "approvedBy": "待协调者追认" },
+    { "id": "CR-0004", "files": ["backend/src/main/java/com/larder/LarderApplication.java"], "reason": "移除与 @Mapper 重复的 @MapperScan", "approvedBy": "待协调者追认" }
+  ],
+  "nextIntegrationChecks": [
+    "V02 起补 owner/item 模型后，把跨 owner 拒绝加入 accept 用例",
+    "CI 首次 push 后确认真实跑通（不是只看 yml）",
+    "Docker 守护进程启动后跑一次 compose up --wait，确认 api 带 LARDER_ADMIN_PASSWORD 能起"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V01-T04"]
+}

@@ -1,0 +1,4 @@
+$ uv run --project runner --directory runner pytest tests -m not live -q
+(cwd=D:\Work\Project\larder)
+
+error: Project directory `runner` does not exist

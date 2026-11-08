@@ -1,0 +1,14 @@
+$ D:\dev\node\node-v24.22.0-win-x64\pnpm.CMD --dir frontend build
+(cwd=D:\Work\Project\larder)
+
+vite v8.3.6 building client environment for production...
+transforming...
+✓ 16 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.28 kB
+dist/assets/index-DysyR3ZY.css    7.21 kB │ gzip:  2.38 kB
+dist/assets/index-BRVB73FP.js   220.97 kB │ gzip: 69.28 kB
+
+✓ built in 247ms
+$ tsc --noEmit && vite build

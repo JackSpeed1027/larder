@@ -1,0 +1,9 @@
+﻿python.exe : usage: accept.py [-h] [--task TASK] [--profile {offline,live}]
+所在位置 行:9 字符: 1
++ & python scripts/accept.py --profile live 2>&1 | Out-File "reports/V0 ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (usage: accept.p...{offline,live}]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+                 [--run-id RUN_ID] [--self-check]
+accept.py: error: --task 是必填项（--self-check 除外）

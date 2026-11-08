@@ -36,7 +36,7 @@ D:\Work\Project\larder\
 | V01-T01 版本与兼容性冻结 | **TASK_LOCAL_PASS**（R2：Boot 4.1.2 + MinIO） | `docs/versions.lock.json`、`docs/adr/versions/`、`reports/V01-T01/` |
 | V01-T02 八服务与工程骨架 | **TASK_LOCAL_PASS** | `backend/`、`runner/`、`frontend/`、`compose.yaml`、`infra/`、`scripts/dev/`、`reports/V01-T02/` |
 | V01-T03 契约/Mock/类型生成 | **TASK_LOCAL_PASS** | `contracts/`（27 个错误码、事件 payload 收紧）、三端生成类型、`scripts/contracts/` Mock 与 29 项检查、`reports/V01-T03/` |
-| V01-T04 认证与验收基础 | 未开始 | — |
+| V01-T04 认证与验收基础 | **TASK_LOCAL_PASS** | `identity/` 认证、`scripts/accept.py`、`.github/workflows/ci.yml`、`reports/V01-T04/` |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 
@@ -52,6 +52,12 @@ V01-T03 的可信结论（`reports/V01-T03/20261107-1010-v01t03/`）：
 - 三端类型由固定版本工具生成（TS/Python），Java 公开响应壳手写并做字段 parity；
 - 29 项契约检查全过：14 条正反样例、错误码、三端字段一致、Mock 与 `contracts/examples` 逐字节同源、生成可重复；
 - Mock 严格校验 `run-request`（未知字段 400），SSE 逐事件发送，contractRev 冻结为 `5719da4c…`。
+
+V01-T04 的可信结论（`reports/V01-T04/20261108-0930-v01t04/`）：
+
+- 认证：单管理员 + Cookie session（HttpOnly/SameSite）+ CSRF 双提交；未登录 401、缺 CSRF 403、登出 invalidate session，**6 个后端用例全过**；
+- 验收入口 `scripts/accept.py`：六项检查（秘密扫描/后端/runner/前端/契约/compose），**零测试或缺环境一律失败**，`--self-check` 用 7 条断言证明判定有效；
+- `--profile live` 明确 BLOCKED（未实现，不伪装跑过）；CI 工作流已提交（尚未实际触发）。
 
 ## 本地运行
 

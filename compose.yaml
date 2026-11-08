@@ -32,6 +32,8 @@ services:
       LARDER_DB_USER: ${LARDER_DB_USER:-larder}
       LARDER_DB_PASSWORD: ${LARDER_DB_PASSWORD:?set LARDER_DB_PASSWORD in .env}
       LARDER_VERSION: ${LARDER_VERSION:-0.1.0}
+      LARDER_ADMIN_USERNAME: ${LARDER_ADMIN_USERNAME:-admin}
+      LARDER_ADMIN_PASSWORD: ${LARDER_ADMIN_PASSWORD:?set LARDER_ADMIN_PASSWORD in .env}
     depends_on:
       mysql:
         condition: service_healthy
