@@ -1,0 +1,240 @@
+{
+  "taskId": "V02-T02",
+  "sliceId": "V02-T02.FULL",
+  "runId": "20261108-2125-v02t02",
+  "generatedAt": "2026-11-08T13:37:34.182354+00:00",
+  "note": "baseSha256 为 null（基线 commit 1d9803f）；6 个文件为 modified，其余 added。",
+  "files": [
+    {
+      "path": "backend/pom.xml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "d6292fce9bc3e97814e59faec84666831e9abd9017bcdc8fe60edb0dfa4377e7",
+      "size": 3698
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/Artifact.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f8d8e6d4e6408e352a6b17f11fd0d4bc0a9509e5a38cf927ffced5ff8c534b04",
+      "size": 2247
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/ArtifactConflictException.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2b6207d786129ecff96d7b4db81d3bf2ae2963b32445104e75265b4cf0fe0019",
+      "size": 472
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/ArtifactKeys.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "1516359c76adf659f4a31af957df3376513c9ffae23b71538c87230a83d6b19e",
+      "size": 1412
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/ArtifactMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a4989ebb78cb0dbe4ac1f4a5e3e370687c32621221ad8e38914b49dc6845e842",
+      "size": 242
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/ArtifactService.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bae5b709844787d229505b9bf7da34f59e3d7ebb9f9ed65e964350f62b7eac3d",
+      "size": 4995
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/ArtifactStorageException.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2e46b8e11d746855b2f5d5db723a58220befd44e27521eb93df4b955fff43dbb",
+      "size": 1209
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/ArtifactView.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "745d22392da493cb3311f14c632ca2ce298eb04c4dc5ff8e5869979e89686173",
+      "size": 493
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/ObjectStore.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "0661ca8ab7b0551571a170f49bcf69f42fc3f5bba5d94914e96342bb8a32c656",
+      "size": 1140
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/OrphanRecorder.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6386553cc77488aeeb07ea12819ff49e3dcabf79c39c449e921d947965819b2",
+      "size": 2001
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/storage/S3ObjectStore.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f37aa1c76e6107387f28c17a1064608200e09d0cabdbe7bf3131ee0f4d8f3d21",
+      "size": 5236
+    },
+    {
+      "path": "backend/src/main/java/com/larder/runner/artifacts/ArtifactManifestValidator.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7c8774f99d9a781db462c52550a3396a4cbc2c83bdd2e02005e2e74e4d9cd4ac",
+      "size": 2480
+    },
+    {
+      "path": "backend/src/main/java/com/larder/runner/artifacts/ClaimedArtifact.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a7dd6628cdcc75cb8d31bc4bc1139f452b989c98a72cce7b36a47e4f5ede7e78",
+      "size": 426
+    },
+    {
+      "path": "backend/src/main/resources/application.yml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "b5d5525fe6f3ab4989b7b77d684e6aef8cbc4dfe252e8ff8f50c339bd3311dc7",
+      "size": 2027
+    },
+    {
+      "path": "backend/src/main/resources/db/migration/V3__artifacts.sql",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "728103e5f5110f1bcdb88c375816bb8aa10697b3543eb7debd1fce162499cbcd",
+      "size": 3012
+    },
+    {
+      "path": "backend/src/test/java/com/larder/content/storage/ArtifactServiceTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "6da0d1a93583f1b4178ada0c05c94fe2ca2c1426e159b2a2997c6ddaf4d1a504",
+      "size": 7542
+    },
+    {
+      "path": "backend/src/test/java/com/larder/content/storage/S3ObjectStoreIT.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "07726876b8c32c57af9aedbefbffc22c47c4e9916ac52e81089e6fdb4fe1f8d6",
+      "size": 2337
+    },
+    {
+      "path": "backend/src/test/java/com/larder/runner/artifacts/ArtifactManifestValidatorTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d4c98e8a4d5c6292d2c31decbebff528a40e81892d207f57a1bdf68c7017ba18",
+      "size": 2096
+    },
+    {
+      "path": "compose.yaml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "f771b7f8ae1a49de311d82e8a1b13f0c25a87256cc6f358e89552ca8118f14a2",
+      "size": 5693
+    },
+    {
+      "path": "docs/项目记忆.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "84618bbcc5fcb60e4e394a196e95efa0b86b6bf4c0517e3bc883a373d7b3af17",
+      "size": 9878
+    },
+    {
+      "path": "handoffs/V02-T02/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "396d9a13225fa18f74392ebc7c842e4c27c7829a6839230493f2b8d82dcb0f97",
+      "size": 5112
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "19ab79870c97cb5dd47bfff55164345d28c5a9db062f13d5229060ab202d5090",
+      "size": 8388
+    },
+    {
+      "path": "reports/V02-T02/20261108-2125-v02t02/logs/artifact_e2e.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "34a24c4a9501548b4b46c370841bddeaa59967cb1fa576e7178193b1a8b307e2",
+      "size": 1123
+    },
+    {
+      "path": "reports/V02-T02/20261108-2125-v02t02/logs/backend_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "73567a618b778f716eedda628a84d135bd52cccbc4f36271831a8749c0e643b1",
+      "size": 9863
+    },
+    {
+      "path": "reports/V02-T02/20261108-2125-v02t02/logs/compose_config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "273e38007d5718ca6c3fa2670eaeaf4b32663026be01f4b80fa72bc856d577b5",
+      "size": 81
+    },
+    {
+      "path": "reports/V02-T02/20261108-2125-v02t02/logs/contracts.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6e3860632cbdc3aeb0894d561c25057bc7747ccff508b5de6f911bdf8bea00e",
+      "size": 1523
+    },
+    {
+      "path": "reports/V02-T02/20261108-2125-v02t02/logs/secrets.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "64ff57f184ccfae685837333eb2fff7fac83b616a12f816f69ae110797319058",
+      "size": 32602
+    },
+    {
+      "path": "reports/V02-T02/20261108-2125-v02t02/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7153c15dae98a6354ec04d61973a7d00a1da3b372a2e1403050217fbb7504c4e",
+      "size": 2210
+    },
+    {
+      "path": "reports/V02-T02/20261108-2125-v02t02/tools/gen_migration_v3.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f1fc1720e82c6a6a2809cac0b38ba5ad13d66f608acc277b3350f68483e7d7b9",
+      "size": 1183
+    },
+    {
+      "path": "reports/V02-T02/20261108-2125-v02t02/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d0685a9753533509f9f9d696788a14abb695f47fd068a8d4e33403cdbc209da9",
+      "size": 4812
+    },
+    {
+      "path": "reports/V02-T02/s3-it.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "30d913ae59b3095830fd32ececf05dad95f3d891be371a17f742f14710b20690",
+      "size": 1949
+    },
+    {
+      "path": "scripts/accept.py",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "b2b6cc21283f3edc347cde39cf96b3b943e5f4cbe553ba24e65269666d22d9c3",
+      "size": 18146
+    },
+    {
+      "path": "scripts/dev/verify-artifacts.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d44b8ee97377f2cb5bfe15e8d89ae6c86f5ead585d8c033885464afcb8cf1ba6",
+      "size": 3998
+    }
+  ]
+}

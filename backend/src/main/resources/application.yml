@@ -56,3 +56,14 @@ larder:
     username: ${LARDER_ADMIN_USERNAME:admin}
     password: ${LARDER_ADMIN_PASSWORD:}
     password-hash: ${LARDER_ADMIN_PASSWORD_HASH:}
+
+  storage:
+    # S3 兼容端点；容器内指向 minio 服务，本机调试指向 127.0.0.1:9000
+    endpoint: ${LARDER_S3_ENDPOINT:http://127.0.0.1:9000}
+    region: ${LARDER_S3_REGION:us-east-1}
+    bucket: ${LARDER_S3_BUCKET:larder-artifacts}
+    access-key: ${LARDER_S3_ACCESS_KEY:}
+    secret-key: ${LARDER_S3_SECRET_KEY:}
+    max-bytes: ${LARDER_ARTIFACT_MAX_BYTES:20971520}
+    # 对象已写、元数据落库失败时的孤立对象清单（挂卷持久化）
+    orphan-file: ${LARDER_ORPHAN_FILE:/var/lib/larder/orphans.jsonl}

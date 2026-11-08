@@ -1,0 +1,64 @@
+{
+  "taskId": "V02-T02",
+  "sliceId": "V02-T02.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "accept 五项全过；真实 MinIO 上验证写入/读取/幂等/拒绝覆盖；产物 HTTP 接收端点按计划留到 V03",
+  "baseSnapshot": "1d9803f",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "实现受控产物存储：V3 迁移从契约 DDL 生成 artifact/revision_artifact 两表；ObjectStore 端口 + S3ObjectStore（AWS SDK v2，path-style，bucket 自动创建）；key 由内容 sha256 派生（artifacts/{owner}/{前两位}/{sha}），服务端算 hash、声明的 hash 只用于比对、绝不使用 multipart ETag；ArtifactService 先写不可变对象再发布 DB 引用，同内容幂等复用，同 key 不同内容拒绝覆盖；对象写失败不落库，落库失败写孤立对象 JSONL；ArtifactManifestValidator 校验 Runner 清单结构。真实 MinIO 集成测试 1/1 通过，单元测试新增 12 个。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "python scripts/accept.py --task V02-T02 --profile offline --run-id 20261108-2125-v02t02", "exitCode": 0, "passed": 5, "failed": 0, "skipped": 0, "log": "reports/V02-T02/20261108-2125-v02t02/summary.json" },
+    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 33, "failed": 0, "skipped": 0, "log": "reports/V02-T02/20261108-2125-v02t02/logs/backend_tests.log" },
+    { "command": "python scripts/contracts/check_contracts.py", "exitCode": 0, "passed": 29, "failed": 0, "skipped": 0, "log": "reports/V02-T02/20261108-2125-v02t02/logs/contracts.log" },
+    { "command": "scripts/dev/verify-artifacts.ps1（真实 MinIO + S3 SDK + 真实 MySQL 迁移）", "exitCode": 0, "passed": 3, "failed": 0, "skipped": 0, "log": "reports/V02-T02/20261108-2125-v02t02/logs/artifact_e2e.log", "note": "3 项：MinIO health=200、S3ObjectStoreIT 1/0/0/0、flyway V3 success=1" }
+  ],
+  "acceptanceEvidence": {
+    "object-write-failure-no-reference": "ArtifactServiceTest.doesNotPersistWhenObjectWriteFails + S3 集成测试",
+    "no-etag-as-hash": "ArtifactKeys.sha256 由字节计算；S3ObjectStore 从不读取 ETag",
+    "no-overwrite-different-content": "S3ObjectStoreIT（同 key 不同内容抛 ArtifactConflictException，原对象未变）+ FakeStore 单测",
+    "orphan-list": "ArtifactServiceTest.recordsOrphanWhenDbFails（JSONL 含 key/sha）"
+  },
+  "notRun": [
+    "Runner → Java 的产物上传 HTTP 协议（V03-T02/T03）",
+    "revision_artifact 绑定写入（V02-T03）",
+    "孤立对象自动对账/清理（V03）",
+    "S3 Object Lock / WORM（V12 评估）"
+  ],
+  "knownLimitations": [
+    "不可变靠内容寻址 + 不覆盖策略，未启用对象锁。",
+    "bucket 自动创建适合单机；生产应 init 容器。",
+    "孤立对象只记录不清理。",
+    "MinIO 测试用 root 凭据，生产需受限账号。"
+  ],
+  "newDependencies": [
+    "software.amazon.awssdk:bom:2.57.10（dependencyManagement）",
+    "software.amazon.awssdk:s3（运行时）"
+  ],
+  "migrationNotes": "新增 V3__artifacts.sql（artifact、revision_artifact），由契约 DDL 生成；artifact_e2e 会重建 api、重启并查询 flyway_schema_history，确认 V3 success=1（真实 MySQL）。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "ObjectStore/S3ObjectStore/ArtifactService/OrphanRecorder 均有类级 Javadoc，解释不可变语义、写入顺序、孤立对象策略；测试类说明每个用例能抓到什么错误实现。",
+    "sqlComments": "两表 COMMENT 全部来自契约 DDL。",
+    "complexMechanisms": [
+      "内容寻址 key 与不覆盖策略：ArtifactKeys + S3ObjectStore 注释 + 集成测试",
+      "先写对象后写 DB（避免坏引用）：ArtifactService 类注释 + 两个失败路径单测",
+      "孤立对象保留而非删除：OrphanRecorder 注释（并发复用风险）"
+    ]
+  },
+  "crossCuttingChanges": [
+    { "id": "CR-0001", "files": ["backend/src/main/resources/db/migration/V3__artifacts.sql"], "reason": "迁移属共享资源" },
+    { "id": "CR-0002", "files": ["backend/pom.xml"], "reason": "AWS SDK s3 依赖与 BOM" },
+    { "id": "CR-0003", "files": ["backend/src/main/resources/application.yml"], "reason": "larder.storage.* 配置" },
+    { "id": "CR-0004", "files": ["compose.yaml"], "reason": "api 的 S3 环境变量与孤立对象卷" },
+    { "id": "CR-0005", "files": ["scripts/accept.py"], "reason": "新增 artifact_e2e 检查与任务" },
+    { "id": "CR-0006", "files": ["README.md", "docs/项目记忆.md"], "reason": "阶段表与记忆同步" }
+  ],
+  "nextIntegrationChecks": [
+    "V02-T03 落 revision 后，验证 revision_artifact 绑定与 manifest sha256 一致",
+    "V03 实现产物接收端点后，用真实 Runner 上传再跑一遍本任务的集成测试",
+    "Docker 启动 api 时确认 V3 迁移记录 success=1"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V02-T02"]
+}

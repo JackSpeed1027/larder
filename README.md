@@ -38,6 +38,7 @@ D:\Work\Project\larder\
 | V01-T03 契约/Mock/类型生成 | **TASK_LOCAL_PASS** | `contracts/`（27 个错误码、事件 payload 收紧）、三端生成类型、`scripts/contracts/` Mock 与 29 项检查、`reports/V01-T03/` |
 | V01-T04 认证与验收基础 | **TASK_LOCAL_PASS** | `identity/` 认证、`scripts/accept.py`、`.github/workflows/ci.yml`、`reports/V01-T04/` |
 | V02-T01 内容模型与幂等 | **TASK_LOCAL_PASS** | `content/model`、`pipeline/model`、`ingest`、`POST /api/items`、`V2__content_core.sql`、`reports/V02-T01/` |
+| V02-T02 MinIO 不可变产物 | **TASK_LOCAL_PASS** | `content/storage`、`runner/artifacts`、`V3__artifacts.sql`、`reports/V02-T02/` |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 
@@ -66,6 +67,13 @@ V02-T01 的可信结论（`reports/V02-T01/20261108-1545-v02t01/`）：
 - 8 个并发请求同一 URL → 全部 200 且 MySQL 只有 1 条 item（唯一键 `uk_item_url` 兜底）；
 - V2 迁移从 `contracts/mysql-schema.sql` 生成六张表，真实 MySQL 执行成功，重启不重复执行；
 - accept 五项全过（后端 21 用例 + 契约 29 项 + 内容端到端 9 项）。
+
+V02-T02 的可信结论（`reports/V02-T02/20261108-2125-v02t02/`）：
+
+- 产物 key 由内容 sha256 派生（`artifacts/{owner}/{前两位}/{sha256}`），服务端算 hash，声明的 hash 只用于比对；
+- 先写不可变对象、再发布 DB 引用：对象写失败不落库，落库失败登记孤立对象（JSONL），不产生坏引用；
+- 同内容重复接收幂等复用；同 key 不同内容拒绝覆盖；**从不把 multipart ETag 当 hash**；
+- 真实 MinIO 集成测试 1/1 通过，accept 五项全过（后端 33 用例）。
 
 ## 本地运行
 

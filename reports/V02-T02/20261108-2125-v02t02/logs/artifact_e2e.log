@@ -1,0 +1,28 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-artifacts.ps1
+(cwd=D:\Work\Project\larder)
+
+== 启动 MinIO（开发端口）==
+[PASS] MinIO 端口可达: health/live=200
+[PASS] 真实 S3 集成测试（写入/读取/幂等/拒绝覆盖）: Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[PASS] V3 迁移已应用到真实 MySQL: flyway V3 success=1
+
+ALL ARTIFACT CHECKS PASSED
+ Container larder-minio-1 Running 
+ Container larder-minio-1 Waiting 
+ Container larder-minio-1 Healthy 
+ Image larder/api:0.1.0 Building 
+ Image larder/api:0.1.0 Built 
+ Container larder-web-1 Running 
+ Container larder-mysql-1 Running 
+ Container larder-api-1 Running 
+ Container larder-mysql-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-web-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-web-1 Healthy 
+mysql: [Warning] Using a password on the command line interface can be insecure.

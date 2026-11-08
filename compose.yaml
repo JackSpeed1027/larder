@@ -34,6 +34,13 @@ services:
       LARDER_VERSION: ${LARDER_VERSION:-0.1.0}
       LARDER_ADMIN_USERNAME: ${LARDER_ADMIN_USERNAME:-admin}
       LARDER_ADMIN_PASSWORD: ${LARDER_ADMIN_PASSWORD:?set LARDER_ADMIN_PASSWORD in .env}
+      LARDER_S3_ENDPOINT: http://minio:9000
+      LARDER_S3_BUCKET: ${LARDER_S3_BUCKET:-larder-artifacts}
+      LARDER_S3_ACCESS_KEY: ${LARDER_MINIO_ROOT_USER:-larder}
+      LARDER_S3_SECRET_KEY: ${LARDER_MINIO_ROOT_PASSWORD:?set LARDER_MINIO_ROOT_PASSWORD in .env}
+      LARDER_ORPHAN_FILE: /var/lib/larder/orphans.jsonl
+    volumes:
+      - api-orphans:/var/lib/larder
     depends_on:
       mysql:
         condition: service_healthy
@@ -152,3 +159,4 @@ volumes:
   meili-data:
   minio-data:
   runner-journal:
+  api-orphans:
