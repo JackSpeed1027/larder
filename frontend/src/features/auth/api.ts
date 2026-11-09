@@ -14,7 +14,7 @@ export function login(username: string, password: string): Promise<{ data: Sessi
   return apiFetch("/api/session", {
     method: "POST",
     body: JSON.stringify({ username, password }),
-  });
+  }, { suppressAuthEvent: true });
 }
 
 export function logout(): Promise<void> {
@@ -22,5 +22,5 @@ export function logout(): Promise<void> {
 }
 
 export function currentSession(): Promise<{ data: SessionView }> {
-  return apiFetch("/api/session");
+  return apiFetch("/api/session", {}, { suppressAuthEvent: true });
 }

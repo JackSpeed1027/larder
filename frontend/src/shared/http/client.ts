@@ -35,7 +35,11 @@ function csrfToken(): string | null {
   return match ? decodeURIComponent(match[1]) : null;
 }
 
-export async function apiFetch<T>(path: string, init: RequestInit = {}): Promise<T> {
+export async function apiFetch<T>(
+  path: string,
+  init: RequestInit = {},
+  options: { suppressAuthEvent?: boolean } = {},
+): Promise<T> {
   const method = (init.method ?? "GET").toUpperCase();
   const headers = new Headers(init.headers);
   headers.set("Accept", "application/json");
@@ -50,7 +54,7 @@ export async function apiFetch<T>(path: string, init: RequestInit = {}): Promise
   }
 
   const response = await fetch(path, { ...init, headers, credentials: "same-origin" });
-  if (response.status === 401) {
+  if (response.status === 401 && !options.suppressAuthEvent) {
     window.dispatchEvent(new CustomEvent("auth:unauthorized"));
   }
   if (!response.ok) {

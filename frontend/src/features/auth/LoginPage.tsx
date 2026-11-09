@@ -120,6 +120,7 @@ export default function LoginPage({ mode = "login", onSignedIn }: Props) {
               <span style={{ color: "var(--larder-muted)" }}>账号</span>
               <input
                 value={username}
+                aria-label="账号"
                 autoComplete="username"
                 autoFocus
                 onChange={(event) => setUsername(event.target.value)}
@@ -133,6 +134,7 @@ export default function LoginPage({ mode = "login", onSignedIn }: Props) {
               <span className="flex items-center gap-2">
                 <input
                   type={showPassword ? "text" : "password"}
+                  aria-label="密码"
                   value={password}
                   autoComplete="current-password"
                   onChange={(event) => setPassword(event.target.value)}
