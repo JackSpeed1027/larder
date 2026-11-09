@@ -64,17 +64,21 @@ class Report:
         return "PASS" if not self.failures else "FAIL"
 
 
-def run_command(name: str, cmd: list[str], log_path: Path, timeout: int = 1800) -> tuple[int, str]:
+def run_command(name: str, cmd: list[str], log_path: Path, timeout: int = 1800,
+                cwd: Path | None = None, extra_env: dict[str, str] | None = None) -> tuple[int, str]:
     """执行命令并落日志；命令不存在返回 127 而不是抛栈。"""
     log_path.parent.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
     env.setdefault("PYTHONUTF8", "1")
     env.setdefault("PYTHONIOENCODING", "utf-8")
-    header = f"$ {' '.join(cmd)}\n(cwd={ROOT})\n\n"
+    workdir = cwd or ROOT
+    if extra_env:
+        env.update(extra_env)
+    header = f"$ {' '.join(cmd)}\n(cwd={workdir})\n\n"
     try:
         proc = subprocess.run(
             cmd,
-            cwd=ROOT,
+            cwd=workdir,
             capture_output=True,
             text=True,
             encoding="utf-8",
@@ -186,6 +190,17 @@ def check_runner(logs: Path) -> Result:
     # 不再叠加 -q：pyproject 的 addopts 已有 -q，再加一个会变成 -qq 并吞掉 "N passed" 汇总行
     cmd = ["uv", "run", "--directory", "runner", "pytest", "tests", "-m", "not live"]
     code, out = run_command(name, cmd, log)
+    if code != 0 and ("Failed to spawn" in out or "Application Control" in out
+                      or "应用程序控制策略" in out):
+        # 环境兜底：Windows Smart App Control 会拦截 uv 新建 venv 里的可执行文件。
+        # 用系统 Python 执行同一套测试（依赖需已安装），并在日志中注明，绝不静默跳过。
+        import sys
+        fallback = [sys.executable, "-m", "pytest", "tests", "-m", "not live"]
+        code, out = run_command(name, fallback, log, cwd=ROOT / "runner",
+                                extra_env={"PYTHONPATH": str(ROOT / "runner" / "src")})
+        with log.open("a", encoding="utf-8") as fh:
+            fh.write("\n# FALLBACK: uv 被 Smart App Control 拦截，已改用系统 Python 执行同一套测试\n")
+        cmd = fallback
     passed, failed, skipped = parse_pytest(out)
     result = Result(name, " ".join(cmd), code, str(log), passed, failed, skipped)
     verdict = judge_runner(code, passed, failed, skipped)
@@ -424,7 +439,7 @@ TASKS = {
     "V02-T02": ["secrets", "backend_tests", "contracts", "compose_config", "artifact_e2e"],
     "V03-T01": ["secrets", "backend_tests", "contracts", "compose_config", "outbox_e2e"],
     "V03-T02": ["secrets", "backend_tests", "contracts", "compose_config", "inbox_e2e"],
-    "V03-T03": ["secrets", "backend_tests", "contracts", "compose_config", "lease_e2e"],
+    "V03-T03": ["secrets", "backend_tests", "runner_tests", "contracts", "compose_config", "lease_e2e"],
     "V01-T03": ["secrets", "contracts", "backend_tests"],
     "V01-T02": ["secrets", "backend_tests", "runner_tests", "frontend_build", "compose_config"],
 }

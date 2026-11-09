@@ -26,6 +26,8 @@ packages = ["app"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+# src/ 布局：测试需要能 import larder_runner
+pythonpath = ["src"]
 markers = [
     "live: 需要真实模型/外部服务的用例，默认不跑",
 ]

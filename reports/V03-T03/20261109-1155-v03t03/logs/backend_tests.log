@@ -1,0 +1,121 @@
+$ D:\Work\Project\larder\backend\mvnw.cmd -B -ntp -f backend/pom.xml verify -DfailIfNoTests=true
+(cwd=D:\Work\Project\larder)
+
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.larder:larder-backend >----------------------
+[INFO] Building larder-backend 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ larder-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 4 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ larder-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ larder-backend ---
+[INFO] skip non existing resourceDirectory D:\Work\Project\larder\backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ larder-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.6:test (default-test) @ larder-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.larder.content.api.ItemControllerTest
+11:46:30.276 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.larder.content.api.ItemControllerTest]: ItemControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:46:30.648 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.larder.LarderApplication for test class com.larder.content.api.ItemControllerTest
+11:46:30.654 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.larder.content.api.ItemControllerTest]: ItemControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+11:46:30.677 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.larder.LarderApplication for test class com.larder.content.api.ItemControllerTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-09T11:46:31.797+08:00  INFO 18424 --- [larder-api] [           main] c.larder.content.api.ItemControllerTest  : Starting ItemControllerTest using Java 21.0.12.1 with PID 18424 (started by 13509 in D:\Work\Project\larder\backend)
+2026-11-09T11:46:31.801+08:00  INFO 18424 --- [larder-api] [           main] c.larder.content.api.ItemControllerTest  : No active profile set, falling back to 1 default profile: "default"
+2026-11-09T11:46:40.047+08:00  INFO 18424 --- [larder-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-11-09T11:46:41.747+08:00  INFO 18424 --- [larder-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-09T11:46:41.748+08:00  INFO 18424 --- [larder-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-09T11:46:41.758+08:00  INFO 18424 --- [larder-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 10 ms
+2026-11-09T11:46:41.888+08:00  INFO 18424 --- [larder-api] [           main] c.larder.content.api.ItemControllerTest  : Started ItemControllerTest in 11.062 seconds (process running for 17.286)
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.37 s -- in com.larder.content.api.ItemControllerTest
+[INFO] Running com.larder.content.storage.ArtifactServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.935 s -- in com.larder.content.storage.ArtifactServiceTest
+[INFO] Running com.larder.identity.SessionSecurityTest
+2026-11-09T11:46:44.097+08:00  INFO 18424 --- [larder-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.larder.identity.SessionSecurityTest]: SessionSecurityTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-09T11:46:44.185+08:00  INFO 18424 --- [larder-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.larder.LarderApplication for test class com.larder.identity.SessionSecurityTest
+2026-11-09T11:46:44.187+08:00  INFO 18424 --- [larder-api] [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.larder.identity.SessionSecurityTest]: SessionSecurityTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2026-11-09T11:46:44.205+08:00  INFO 18424 --- [larder-api] [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.larder.LarderApplication for test class com.larder.identity.SessionSecurityTest
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.2)
+
+2026-11-09T11:46:44.304+08:00  INFO 18424 --- [larder-api] [           main] c.larder.identity.SessionSecurityTest    : Starting SessionSecurityTest using Java 21.0.12.1 with PID 18424 (started by 13509 in D:\Work\Project\larder\backend)
+2026-11-09T11:46:44.305+08:00  INFO 18424 --- [larder-api] [           main] c.larder.identity.SessionSecurityTest    : No active profile set, falling back to 1 default profile: "default"
+2026-11-09T11:46:45.030+08:00  INFO 18424 --- [larder-api] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2026-11-09T11:46:45.158+08:00  INFO 18424 --- [larder-api] [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2026-11-09T11:46:45.158+08:00  INFO 18424 --- [larder-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2026-11-09T11:46:45.162+08:00  INFO 18424 --- [larder-api] [           main] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 4 ms
+2026-11-09T11:46:45.177+08:00  INFO 18424 --- [larder-api] [           main] c.larder.identity.SessionSecurityTest    : Started SessionSecurityTest in 0.957 seconds (process running for 20.574)
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.717 s -- in com.larder.identity.SessionSecurityTest
+[INFO] Running com.larder.ingest.ItemIngestServiceTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.497 s -- in com.larder.ingest.ItemIngestServiceTest
+[INFO] Running com.larder.ingest.UrlNormalizerTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in com.larder.ingest.UrlNormalizerTest
+[INFO] Running com.larder.pipeline.inbox.InboxHandlerTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.127 s -- in com.larder.pipeline.inbox.InboxHandlerTest
+[INFO] Running com.larder.pipeline.lease.JobLeaseServiceTest
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.115 s -- in com.larder.pipeline.lease.JobLeaseServiceTest
+[INFO] Running com.larder.pipeline.outbox.OutboxBackoffTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in com.larder.pipeline.outbox.OutboxBackoffTest
+[INFO] Running com.larder.pipeline.outbox.OutboxRelayTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.170 s -- in com.larder.pipeline.outbox.OutboxRelayTest
+[INFO] Running com.larder.pipeline.outbox.OutboxStoreTest
+[INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.107 s -- in com.larder.pipeline.outbox.OutboxStoreTest
+[INFO] Running com.larder.pipeline.reconcile.JobReconcilerTest
+2026-11-09T11:46:46.897+08:00  WARN 18424 --- [larder-api] [           main] c.l.pipeline.reconcile.JobReconciler     : job ��Լ�������ڣ���� FAILED: jobId=job_1 attempt=3
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.022 s -- in com.larder.pipeline.reconcile.JobReconcilerTest
+[INFO] Running com.larder.runner.artifacts.ArtifactManifestValidatorTest
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.029 s -- in com.larder.runner.artifacts.ArtifactManifestValidatorTest
+[INFO] Running com.larder.runner.client.RunnerClientTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.552 s -- in com.larder.runner.client.RunnerClientTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 64, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ larder-backend ---
+[INFO] 
+[INFO] --- spring-boot:4.1.2:repackage (repackage) @ larder-backend ---
+[INFO] Replacing main artifact D:\Work\Project\larder\backend\target\larder-backend-0.1.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to D:\Work\Project\larder\backend\target\larder-backend-0.1.0-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  31.796 s
+[INFO] Finished at: 2026-11-09T11:46:50+08:00
+[INFO] ------------------------------------------------------------------------
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+WARNING: A Java agent has been loaded dynamically (C:\Users\13509\.m2\repository\net\bytebuddy\byte-buddy-agent\1.18.15\byte-buddy-agent-1.18.15.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended

@@ -1,18 +1,55 @@
 {
   "taskId": "V03-T03",
-  "sliceId": "V03-T03.JAVA",
+  "sliceId": "V03-T03.FULL",
   "result": "TASK_LOCAL_PASS",
-  "resultScope": "Java 侧 lease/reconcile/SSE/runner-client 完成并通过 accept；Python 侧 scheduler/cancellation/events 未实现（属同一任务卡，留给后续 slice）",
+  "resultScope": "accept 六项全过（后端 64 + runner 19 + 租约端到端）；Python 模块尚未装配进 app，真实执行器仍属 V05",
   "baseSnapshot": "2f1e7bc",
   "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
   "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
-  "summary": "实现租约 fencing 与对账：JobLeaseService 提供 renew、稳定 runId 分配、按 token+epoch+runId+租约有效性提交；过期 RUNNING job 由 JobReconciler 收回（attempt+1 退避回 QUEUED 或达到上限 FAILED）并重写 outbox 事件重新派发；SSE 端点先发权威 snapshot 再推状态变化，支持 Last-Event-ID 重连；RunnerClient 以 runId 作幂等键为 V05 预留。真实环境验证 SSE 快照/重连与租约过期后 token 1→2 的重新接管；64 个后端用例全过。",
+  "summary": "实现租约 fencing 与对账（Java）：renew、稳定 runId、按 token+epoch+runId+租约有效性提交；过期 RUNNING 由 reconcile 收回（attempt+1 退避或达到上限 FAILED）并重写 outbox 重新派发；SSE 端点先发权威 snapshot 再推状态变化，支持 Last-Event-ID；RunnerClient 以 runId 作幂等键。补齐 Python 侧：协作式取消令牌（幂等/父子传播/回调）、有界并发调度（FIFO/取消语义）、事件日志与 SSE 编码（snapshot 兜底 + Last-Event-ID 增量 + 路由）。真实环境验证 SSE 快照/重连与租约过期 token 1→2 的重新接管；后端 64 用例、runner 19 用例全过。",
   "changedFilesManifest": "file-manifest.json",
   "checks": [
-    { "command": "python scripts/accept.py --task V03-T03 --profile offline --run-id 20261109-1130-v03t03", "exitCode": 0, "passed": 5, "failed": 0, "skipped": 0, "log": "reports/V03-T03/20261109-1130-v03t03/summary.json" },
-    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 64, "failed": 0, "skipped": 0, "log": "reports/V03-T03/20261109-1130-v03t03/logs/backend_tests.log" },
-    { "command": "python scripts/contracts/check_contracts.py", "exitCode": 0, "passed": 29, "failed": 0, "skipped": 0, "log": "reports/V03-T03/20261109-1130-v03t03/logs/contracts.log" },
-    { "command": "scripts/dev/verify-lease.ps1（真实 MySQL/RabbitMQ/SSE）", "exitCode": 0, "passed": 4, "failed": 0, "skipped": 0, "log": "reports/V03-T03/20261109-1130-v03t03/logs/lease_e2e.log" }
+    {
+      "command": "python scripts/accept.py --task V03-T03 --profile offline --run-id 20261109-1155-v03t03",
+      "exitCode": 0,
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V03-T03/20261109-1155-v03t03/summary.json"
+    },
+    {
+      "command": "backend mvnw verify -DfailIfNoTests=true",
+      "exitCode": 0,
+      "passed": 64,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V03-T03/20261109-1155-v03t03/logs/backend_tests.log"
+    },
+    {
+      "command": "uv run --directory runner pytest tests -m 'not live'（Smart App Control 回退到系统 Python）",
+      "exitCode": 0,
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V03-T03/20261109-1155-v03t03/logs/runner_tests.log",
+      "note": "日志含 FALLBACK 标记：uv venv 被本机 Smart App Control 拦截"
+    },
+    {
+      "command": "python scripts/contracts/check_contracts.py",
+      "exitCode": 0,
+      "passed": 29,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V03-T03/20261109-1155-v03t03/logs/contracts.log"
+    },
+    {
+      "command": "scripts/dev/verify-lease.ps1（真实 MySQL/RabbitMQ/SSE）",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V03-T03/20261109-1155-v03t03/logs/lease_e2e.log"
+    }
   ],
   "acceptanceEvidence": {
     "stale-worker-rejected": "JobLeaseServiceTest（token/epoch/runId 不匹配 → false / StaleLeaseException）",
@@ -21,7 +58,7 @@
     "minimal-persistent-run": "JobLeaseService.startRun 复用/分配 runId；RunnerClient 以 runId 作 Idempotency-Key（RunnerClientTest）"
   },
   "notRun": [
-    "Python 侧 runtime/scheduler.py、runtime/cancellation.py、api/events.py",
+    "Python 模块装配进 FastAPI app（V05）",
     "真实执行器心跳与 Runner 派发链路（V05）",
     "多进程旧 worker 迟到的实跑验证",
     "SSE 事件的持久化序号（job_event 表）"
@@ -29,9 +66,9 @@
   "knownLimitations": [
     "renew/commit 目前只有测试调用，没有真实执行器接入。",
     "SSE seq 为 DB seq + 内存自增近似，非严格事件流。",
+    "Python 的事件路由/调度器尚未注册到 app/main.py。",
     "对账达到上限直接 FAILED，无人工重试接口。",
-    "RunnerClient 尚未接入派发链路。",
-    "Python 侧事件/调度未实现，Runner 仍只有 /ping 与 /v1/health。"
+    "本机 Smart App Control 拦截 uv venv，runner 测试走系统 Python 3.13（CI 用 uv + 3.12）。"
   ],
   "newDependencies": [],
   "migrationNotes": "无新增迁移（job 表的 run_id/lease/epoch 列在 V2 已存在）。",
@@ -46,15 +83,56 @@
     ]
   },
   "crossCuttingChanges": [
-    { "id": "CR-0001", "files": ["backend/src/main/resources/application.yml"], "reason": "lease/reconcile/runner 配置" },
-    { "id": "CR-0002", "files": ["compose.yaml"], "reason": "打开对账与 Runner 地址" },
-    { "id": "CR-0003", "files": ["scripts/accept.py"], "reason": "lease_e2e 与 V03-T03 任务" },
-    { "id": "CR-0004", "files": ["README.md", "docs/项目记忆.md"], "reason": "阶段表与记忆同步" }
+    {
+      "id": "CR-0001",
+      "files": [
+        "backend/src/main/resources/application.yml"
+      ],
+      "reason": "lease/reconcile/runner 配置"
+    },
+    {
+      "id": "CR-0002",
+      "files": [
+        "compose.yaml"
+      ],
+      "reason": "打开对账与 Runner 地址"
+    },
+    {
+      "id": "CR-0003",
+      "files": [
+        "scripts/accept.py"
+      ],
+      "reason": "lease_e2e 与 V03-T03 任务"
+    },
+    {
+      "id": "CR-0004",
+      "files": [
+        "README.md",
+        "docs/项目记忆.md"
+      ],
+      "reason": "阶段表与记忆同步"
+    },
+    {
+      "id": "CR-0005",
+      "files": [
+        "runner/pyproject.toml"
+      ],
+      "reason": "pytest pythonpath=src"
+    },
+    {
+      "id": "CR-0006",
+      "files": [
+        "scripts/accept.py"
+      ],
+      "reason": "runner 测试的 Smart App Control 回退分支"
+    }
   ],
   "nextIntegrationChecks": [
     "V02-T03 接入真实抓取后，验证 revision 与 SSE 进度一致",
     "V05 执行器接入后验证 renew/commit 真实路径",
     "多实例部署验证 SKIP LOCKED 与 fencing 不会双跑"
   ],
-  "locksToReleaseAfterIntegration": ["workpackage:V03-T03"]
+  "locksToReleaseAfterIntegration": [
+    "workpackage:V03-T03"
+  ]
 }
