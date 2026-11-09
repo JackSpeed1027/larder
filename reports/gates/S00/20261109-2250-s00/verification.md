@@ -21,7 +21,13 @@
 - 23 个新任务：S00 IN_PROGRESS，其余 PLANNED；
 - 任何项标 DONE 必须由协调者在集成树验证后写入并附 evidence/verifiedAt。
 
-## 验证
+## 验证（重要：本轮 selftest 实际 FAIL）
+
+- ssert-isolation.ps1 -Selftest 当前 **exit=1**：合规样例被判定为不合规（回归），详见 logs/assert-isolation.log；
+- 因此本任务只能标 **TASK_LOCAL_FAIL**，脚本本身尚不可用于故障注入门禁；
+- 账本 JSON 生成与 status 枚举校验通过（生成器 assert 通过）。
+
+## 原验证（已失效，保留以示对照）
 
 - ssert-isolation.ps1 -Selftest：合规样例通过、不合规样例被拒（见 logs/assert-isolation.log）；
 - 账本 JSON 由生成器校验 status 枚举，非法值直接 assert 失败。
@@ -30,3 +36,4 @@
 
 - 未运行任何故障注入（属于 S01–S06，且必须在隔离 project 中执行）；
 - 未修改迁移、未安装依赖、未改用户文档。
+

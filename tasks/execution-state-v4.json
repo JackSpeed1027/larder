@@ -1,1178 +1,1584 @@
-{
-  "specRev": "larder-spec-v4-2026-11-09",
-  "generatedAt": "2026-11-09T14:41:58.282744+00:00",
-  "baseSnapshot": "10d49e2",
-  "dirtyFileCount": 36,
-  "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-  "contractRevMethod": "sha256 over sorted contracts/**: relpath utf8 + bytes",
-  "schemaHash": "946d5afe02ccce794ed8b2b28765946becb97e5fe7cce952eee26beaa19ffded",
-  "versionsLockHash": "36eecb8950de553f8765d1bc35a8088817855fa187e38d62d890089bf64b9854",
-  "statePolicy": "只有集成验证后才能 DONE；历史报告不等于 v4 门禁证据",
-  "taskCount": 79,
-  "tasks": {
-    "V01-T01": {
-      "taskId": "V01-T01",
-      "title": "版本与兼容性冻结",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V01-T01/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V01-T02": {
-      "taskId": "V01-T02",
-      "title": "八服务与工程骨架",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V01-T02/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V01-T03": {
-      "taskId": "V01-T03",
-      "title": "契约/Mock/类型生成",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V01-T03/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V01-T04": {
-      "taskId": "V01-T04",
-      "title": "认证与验收基础",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V01-T04/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V02-T01": {
-      "taskId": "V02-T01",
-      "title": "内容模型与幂等",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V02-T01/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V02-T02": {
-      "taskId": "V02-T02",
-      "title": "MinIO不可变产物",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V02-T02/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V02-T03": {
-      "taskId": "V02-T03",
-      "title": "真实网页/粘贴链路",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V02-T03/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V02-T04": {
-      "taskId": "V02-T04",
-      "title": "阅读/标签/笔记基础",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V02-T04/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V03-T01": {
-      "taskId": "V03-T01",
-      "title": "Outbox投递与confirm",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V03-T01/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V03-T02": {
-      "taskId": "V03-T02",
-      "title": "Inbox及持久接管",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V03-T02/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V03-T03": {
-      "taskId": "V03-T03",
-      "title": "lease/reconcile/SSE",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V03-T03/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V03-T04": {
-      "taskId": "V03-T04",
-      "title": "取消/重试/故障矩阵",
-      "status": "VERIFYING",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [
-        "reports/V03-T04/"
-      ],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
-    },
-    "V04-T01": {
-      "taskId": "V04-T01",
-      "title": "GenerationBuilder",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V04-T02": {
-      "taskId": "V04-T02",
-      "title": "校验与CAS发布",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V04-T03": {
-      "taskId": "V04-T03",
-      "title": "搜索复核/分页",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V04-T04": {
-      "taskId": "V04-T04",
-      "title": "导出/回收站/恢复基线",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V05-T01": {
-      "taskId": "V05-T01",
-      "title": "JSONL writer和段恢复",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V05-T02": {
-      "taskId": "V05-T02",
-      "title": "Checkpoint与重放",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V05-T03": {
-      "taskId": "V05-T03",
-      "title": "call/UNKNOWN状态",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V05-T04": {
-      "taskId": "V05-T04",
-      "title": "崩溃/尾写/损坏测试",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V06-T01": {
-      "taskId": "V06-T01",
-      "title": "PDF/字幕/合法音频",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V06-T02": {
-      "taskId": "V06-T02",
-      "title": "模型与结构化产物",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V06-T03": {
-      "taskId": "V06-T03",
-      "title": "预算与引用验证",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V06-T04": {
-      "taskId": "V06-T04",
-      "title": "UI/降级与真实样例",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V07-T01": {
-      "taskId": "V07-T01",
-      "title": "embedding/profile",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V07-T02": {
-      "taskId": "V07-T02",
-      "title": "双路召回和RRF",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V07-T03": {
-      "taskId": "V07-T03",
-      "title": "Redis限流与缓存",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V07-T04": {
-      "taskId": "V07-T04",
-      "title": "query/qrels与归因评测",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V08-T01": {
-      "taskId": "V08-T01",
-      "title": "工具registry和scope",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V08-T02": {
-      "taskId": "V08-T02",
-      "title": "并发/去重/大结果",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V08-T03": {
-      "taskId": "V08-T03",
-      "title": "proposal/approval/apply",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V08-T04": {
-      "taskId": "V08-T04",
-      "title": "Agent循环与端到端",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V09-T01": {
-      "taskId": "V09-T01",
-      "title": "记忆模型/显式写入",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V09-T02": {
-      "taskId": "V09-T02",
-      "title": "召回/撤销/call授权",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V09-T03": {
-      "taskId": "V09-T03",
-      "title": "完整预算/压缩提交",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V09-T04": {
-      "taskId": "V09-T04",
-      "title": "记忆+压缩恢复/消融",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V10-T01": {
-      "taskId": "V10-T01",
-      "title": "四卡型schema/UI",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V10-T02": {
-      "taskId": "V10-T02",
-      "title": "调度/评分幂等",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V10-T03": {
-      "taskId": "V10-T03",
-      "title": "leech/统计/组织完善",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V10-T04": {
-      "taskId": "V10-T04",
-      "title": "学习端到端和离线功能",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V11-T01": {
-      "taskId": "V11-T01",
-      "title": "八类任务与rubric",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V11-T02": {
-      "taskId": "V11-T02",
-      "title": "Verifier与Trace",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V11-T03": {
-      "taskId": "V11-T03",
-      "title": "真实模型/消融对照",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V11-T04": {
-      "taskId": "V11-T04",
-      "title": "性能/故障证据汇总",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V12-T01": {
-      "taskId": "V12-T01",
-      "title": "镜像/配置/doctor",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V12-T02": {
-      "taskId": "V12-T02",
-      "title": "备份/升级/独立恢复",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V12-T03": {
-      "taskId": "V12-T03",
-      "title": "安全与发布演练",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "V12-T04": {
-      "taskId": "V12-T04",
-      "title": "文档/截图/简历证据",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "L01": {
-      "taskId": "L01",
-      "title": "MySQL隔离与锁实验",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "L02": {
-      "taskId": "L02",
-      "title": "SQL执行计划与索引实验",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "L03": {
-      "taskId": "L03",
-      "title": "Redis热点与回源实验",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "L04": {
-      "taskId": "L04",
-      "title": "三节点quorum故障实验",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "L05": {
-      "taskId": "L05",
-      "title": "S3分片与发布失败实验",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "L06": {
-      "taskId": "L06",
-      "title": "OpenTelemetry跨端链路",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "L07": {
-      "taskId": "L07",
-      "title": "Flyway升级兼容实验",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "L08": {
-      "taskId": "L08",
-      "title": "真实依赖与Mock语义对照",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/tasks.json",
-      "dependsOn": [],
-      "note": "无历史报告"
-    },
-    "S00": {
-      "taskId": "S00",
-      "title": "基线与隔离护栏",
-      "status": "IN_PROGRESS",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": []
-    },
-    "S01": {
-      "taskId": "S01",
-      "title": "幂等与响应合同",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "S00"
-      ]
-    },
-    "S02": {
-      "taskId": "S02",
-      "title": "真实Runner执行链",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "S00"
-      ]
-    },
-    "S03": {
-      "taskId": "S03",
-      "title": "产物与fenced发布",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "S01",
-        "S02"
-      ]
-    },
-    "S04": {
-      "taskId": "S04",
-      "title": "租约回收与背压",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "S02"
-      ]
-    },
-    "S05": {
-      "taskId": "S05",
-      "title": "SSE与收录状态",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "S01",
-        "S02"
-      ]
-    },
-    "S06": {
-      "taskId": "S06",
-      "title": "抓取安全与可靠性集成门禁",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "S03",
-        "S04",
-        "S05"
-      ]
-    },
-    "U00": {
-      "taskId": "U00",
-      "title": "笔记与导出契约冻结",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "S00",
-        "S01"
-      ]
-    },
-    "U01": {
-      "taskId": "U01",
-      "title": "前端组件与编辑器底座",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "S00"
-      ]
-    },
-    "U02": {
-      "taskId": "U02",
-      "title": "笔记版本与CAS后端",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U00"
-      ]
-    },
-    "U03": {
-      "taskId": "U03",
-      "title": "Markdown编辑与预览",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U00",
-        "U01"
-      ]
-    },
-    "U04": {
-      "taskId": "U04",
-      "title": "草稿与保存竞态",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U02",
-        "U03"
-      ]
-    },
-    "U05": {
-      "taskId": "U05",
-      "title": "笔记页面与来源整合",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U04"
-      ]
-    },
-    "U06": {
-      "taskId": "U06",
-      "title": "笔记真实链路验收",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U05"
-      ]
-    },
-    "U07": {
-      "taskId": "U07",
-      "title": "确定版本导出格式与下载",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U06"
-      ]
-    },
-    "U08": {
-      "taskId": "U08",
-      "title": "授权目录写入与恢复",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U07"
-      ]
-    },
-    "U09": {
-      "taskId": "U09",
-      "title": "Obsidian设置与降级",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U08"
-      ]
-    },
-    "U10": {
-      "taskId": "U10",
-      "title": "附件与相对引用导出",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U02",
-        "U09"
-      ]
-    },
-    "U11": {
-      "taskId": "U11",
-      "title": "含附件交付验收",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U10"
-      ]
-    },
-    "U12": {
-      "taskId": "U12",
-      "title": "笔记检索投影",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U06",
-        "S06"
-      ]
-    },
-    "U13": {
-      "taskId": "U13",
-      "title": "Agent笔记提议与审批",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U06",
-        "S06"
-      ]
-    },
-    "U14": {
-      "taskId": "U14",
-      "title": "全站体验与四卡型收口",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U09",
-        "U11",
-        "U12",
-        "U13"
-      ]
-    },
-    "U15": {
-      "taskId": "U15",
-      "title": "发布文档与新机恢复验收",
-      "status": "PLANNED",
-      "owner": null,
-      "baseSnapshot": "10d49e2",
-      "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
-      "verifiedAt": null,
-      "blockers": [],
-      "source": "tasks/supplement-v4.json",
-      "dependsOn": [
-        "U14"
-      ]
-    }
-  }
+﻿{
+    "specRev":  "larder-spec-v4-2026-11-09",
+    "generatedAt":  "2026-11-09T14:41:58.282744+00:00",
+    "baseSnapshot":  "10d49e2",
+    "dirtyFileCount":  36,
+    "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+    "contractRevMethod":  "sha256 over sorted contracts/**: relpath utf8 + bytes",
+    "schemaHash":  "946d5afe02ccce794ed8b2b28765946becb97e5fe7cce952eee26beaa19ffded",
+    "versionsLockHash":  "36eecb8950de553f8765d1bc35a8088817855fa187e38d62d890089bf64b9854",
+    "statePolicy":  "只有集成验证后才能 DONE；历史报告不等于 v4 门禁证据",
+    "taskCount":  79,
+    "tasks":  {
+                  "V01-T01":  {
+                                  "taskId":  "V01-T01",
+                                  "title":  "版本与兼容性冻结",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V01-T01/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V01-T02":  {
+                                  "taskId":  "V01-T02",
+                                  "title":  "八服务与工程骨架",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V01-T02/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V01-T03":  {
+                                  "taskId":  "V01-T03",
+                                  "title":  "契约/Mock/类型生成",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V01-T03/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V01-T04":  {
+                                  "taskId":  "V01-T04",
+                                  "title":  "认证与验收基础",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V01-T04/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V02-T01":  {
+                                  "taskId":  "V02-T01",
+                                  "title":  "内容模型与幂等",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V02-T01/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V02-T02":  {
+                                  "taskId":  "V02-T02",
+                                  "title":  "MinIO不可变产物",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V02-T02/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V02-T03":  {
+                                  "taskId":  "V02-T03",
+                                  "title":  "真实网页/粘贴链路",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V02-T03/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V02-T04":  {
+                                  "taskId":  "V02-T04",
+                                  "title":  "阅读/标签/笔记基础",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V02-T04/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V03-T01":  {
+                                  "taskId":  "V03-T01",
+                                  "title":  "Outbox投递与confirm",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V03-T01/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V03-T02":  {
+                                  "taskId":  "V03-T02",
+                                  "title":  "Inbox及持久接管",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V03-T02/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V03-T03":  {
+                                  "taskId":  "V03-T03",
+                                  "title":  "lease/reconcile/SSE",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V03-T03/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V03-T04":  {
+                                  "taskId":  "V03-T04",
+                                  "title":  "取消/重试/故障矩阵",
+                                  "status":  "VERIFYING",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+                                                   "reports/V03-T04/"
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "历史证据存在，但 v4 要求重新核验；不得直接视为 DONE"
+                              },
+                  "V04-T01":  {
+                                  "taskId":  "V04-T01",
+                                  "title":  "GenerationBuilder",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V04-T02":  {
+                                  "taskId":  "V04-T02",
+                                  "title":  "校验与CAS发布",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V04-T03":  {
+                                  "taskId":  "V04-T03",
+                                  "title":  "搜索复核/分页",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V04-T04":  {
+                                  "taskId":  "V04-T04",
+                                  "title":  "导出/回收站/恢复基线",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V05-T01":  {
+                                  "taskId":  "V05-T01",
+                                  "title":  "JSONL writer和段恢复",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V05-T02":  {
+                                  "taskId":  "V05-T02",
+                                  "title":  "Checkpoint与重放",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V05-T03":  {
+                                  "taskId":  "V05-T03",
+                                  "title":  "call/UNKNOWN状态",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V05-T04":  {
+                                  "taskId":  "V05-T04",
+                                  "title":  "崩溃/尾写/损坏测试",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V06-T01":  {
+                                  "taskId":  "V06-T01",
+                                  "title":  "PDF/字幕/合法音频",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V06-T02":  {
+                                  "taskId":  "V06-T02",
+                                  "title":  "模型与结构化产物",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V06-T03":  {
+                                  "taskId":  "V06-T03",
+                                  "title":  "预算与引用验证",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V06-T04":  {
+                                  "taskId":  "V06-T04",
+                                  "title":  "UI/降级与真实样例",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V07-T01":  {
+                                  "taskId":  "V07-T01",
+                                  "title":  "embedding/profile",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V07-T02":  {
+                                  "taskId":  "V07-T02",
+                                  "title":  "双路召回和RRF",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V07-T03":  {
+                                  "taskId":  "V07-T03",
+                                  "title":  "Redis限流与缓存",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V07-T04":  {
+                                  "taskId":  "V07-T04",
+                                  "title":  "query/qrels与归因评测",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V08-T01":  {
+                                  "taskId":  "V08-T01",
+                                  "title":  "工具registry和scope",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V08-T02":  {
+                                  "taskId":  "V08-T02",
+                                  "title":  "并发/去重/大结果",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V08-T03":  {
+                                  "taskId":  "V08-T03",
+                                  "title":  "proposal/approval/apply",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V08-T04":  {
+                                  "taskId":  "V08-T04",
+                                  "title":  "Agent循环与端到端",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V09-T01":  {
+                                  "taskId":  "V09-T01",
+                                  "title":  "记忆模型/显式写入",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V09-T02":  {
+                                  "taskId":  "V09-T02",
+                                  "title":  "召回/撤销/call授权",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V09-T03":  {
+                                  "taskId":  "V09-T03",
+                                  "title":  "完整预算/压缩提交",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V09-T04":  {
+                                  "taskId":  "V09-T04",
+                                  "title":  "记忆+压缩恢复/消融",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V10-T01":  {
+                                  "taskId":  "V10-T01",
+                                  "title":  "四卡型schema/UI",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V10-T02":  {
+                                  "taskId":  "V10-T02",
+                                  "title":  "调度/评分幂等",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V10-T03":  {
+                                  "taskId":  "V10-T03",
+                                  "title":  "leech/统计/组织完善",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V10-T04":  {
+                                  "taskId":  "V10-T04",
+                                  "title":  "学习端到端和离线功能",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V11-T01":  {
+                                  "taskId":  "V11-T01",
+                                  "title":  "八类任务与rubric",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V11-T02":  {
+                                  "taskId":  "V11-T02",
+                                  "title":  "Verifier与Trace",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V11-T03":  {
+                                  "taskId":  "V11-T03",
+                                  "title":  "真实模型/消融对照",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V11-T04":  {
+                                  "taskId":  "V11-T04",
+                                  "title":  "性能/故障证据汇总",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V12-T01":  {
+                                  "taskId":  "V12-T01",
+                                  "title":  "镜像/配置/doctor",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V12-T02":  {
+                                  "taskId":  "V12-T02",
+                                  "title":  "备份/升级/独立恢复",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V12-T03":  {
+                                  "taskId":  "V12-T03",
+                                  "title":  "安全与发布演练",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "V12-T04":  {
+                                  "taskId":  "V12-T04",
+                                  "title":  "文档/截图/简历证据",
+                                  "status":  "PLANNED",
+                                  "owner":  null,
+                                  "baseSnapshot":  "10d49e2",
+                                  "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                                  "evidence":  [
+
+                                               ],
+                                  "verifiedAt":  null,
+                                  "blockers":  [
+
+                                               ],
+                                  "source":  "tasks/tasks.json",
+                                  "dependsOn":  [
+
+                                                ],
+                                  "note":  "无历史报告"
+                              },
+                  "L01":  {
+                              "taskId":  "L01",
+                              "title":  "MySQL隔离与锁实验",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/tasks.json",
+                              "dependsOn":  [
+
+                                            ],
+                              "note":  "无历史报告"
+                          },
+                  "L02":  {
+                              "taskId":  "L02",
+                              "title":  "SQL执行计划与索引实验",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/tasks.json",
+                              "dependsOn":  [
+
+                                            ],
+                              "note":  "无历史报告"
+                          },
+                  "L03":  {
+                              "taskId":  "L03",
+                              "title":  "Redis热点与回源实验",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/tasks.json",
+                              "dependsOn":  [
+
+                                            ],
+                              "note":  "无历史报告"
+                          },
+                  "L04":  {
+                              "taskId":  "L04",
+                              "title":  "三节点quorum故障实验",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/tasks.json",
+                              "dependsOn":  [
+
+                                            ],
+                              "note":  "无历史报告"
+                          },
+                  "L05":  {
+                              "taskId":  "L05",
+                              "title":  "S3分片与发布失败实验",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/tasks.json",
+                              "dependsOn":  [
+
+                                            ],
+                              "note":  "无历史报告"
+                          },
+                  "L06":  {
+                              "taskId":  "L06",
+                              "title":  "OpenTelemetry跨端链路",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/tasks.json",
+                              "dependsOn":  [
+
+                                            ],
+                              "note":  "无历史报告"
+                          },
+                  "L07":  {
+                              "taskId":  "L07",
+                              "title":  "Flyway升级兼容实验",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/tasks.json",
+                              "dependsOn":  [
+
+                                            ],
+                              "note":  "无历史报告"
+                          },
+                  "L08":  {
+                              "taskId":  "L08",
+                              "title":  "真实依赖与Mock语义对照",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/tasks.json",
+                              "dependsOn":  [
+
+                                            ],
+                              "note":  "无历史报告"
+                          },
+                  "S00":  {
+                              "taskId":  "S00",
+                              "title":  "基线与隔离护栏",
+                              "status":  "BLOCKED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+                                               "assert-isolation.ps1 -Selftest 失败：合规标识被拒，需修复后再作为 S 门禁"
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+
+                                            ]
+                          },
+                  "S01":  {
+                              "taskId":  "S01",
+                              "title":  "幂等与响应合同",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "S00"
+                                            ]
+                          },
+                  "S02":  {
+                              "taskId":  "S02",
+                              "title":  "真实Runner执行链",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "S00"
+                                            ]
+                          },
+                  "S03":  {
+                              "taskId":  "S03",
+                              "title":  "产物与fenced发布",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "S01",
+                                                "S02"
+                                            ]
+                          },
+                  "S04":  {
+                              "taskId":  "S04",
+                              "title":  "租约回收与背压",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "S02"
+                                            ]
+                          },
+                  "S05":  {
+                              "taskId":  "S05",
+                              "title":  "SSE与收录状态",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "S01",
+                                                "S02"
+                                            ]
+                          },
+                  "S06":  {
+                              "taskId":  "S06",
+                              "title":  "抓取安全与可靠性集成门禁",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "S03",
+                                                "S04",
+                                                "S05"
+                                            ]
+                          },
+                  "U00":  {
+                              "taskId":  "U00",
+                              "title":  "笔记与导出契约冻结",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "S00",
+                                                "S01"
+                                            ]
+                          },
+                  "U01":  {
+                              "taskId":  "U01",
+                              "title":  "前端组件与编辑器底座",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "S00"
+                                            ]
+                          },
+                  "U02":  {
+                              "taskId":  "U02",
+                              "title":  "笔记版本与CAS后端",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U00"
+                                            ]
+                          },
+                  "U03":  {
+                              "taskId":  "U03",
+                              "title":  "Markdown编辑与预览",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U00",
+                                                "U01"
+                                            ]
+                          },
+                  "U04":  {
+                              "taskId":  "U04",
+                              "title":  "草稿与保存竞态",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U02",
+                                                "U03"
+                                            ]
+                          },
+                  "U05":  {
+                              "taskId":  "U05",
+                              "title":  "笔记页面与来源整合",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U04"
+                                            ]
+                          },
+                  "U06":  {
+                              "taskId":  "U06",
+                              "title":  "笔记真实链路验收",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U05"
+                                            ]
+                          },
+                  "U07":  {
+                              "taskId":  "U07",
+                              "title":  "确定版本导出格式与下载",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U06"
+                                            ]
+                          },
+                  "U08":  {
+                              "taskId":  "U08",
+                              "title":  "授权目录写入与恢复",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U07"
+                                            ]
+                          },
+                  "U09":  {
+                              "taskId":  "U09",
+                              "title":  "Obsidian设置与降级",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U08"
+                                            ]
+                          },
+                  "U10":  {
+                              "taskId":  "U10",
+                              "title":  "附件与相对引用导出",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U02",
+                                                "U09"
+                                            ]
+                          },
+                  "U11":  {
+                              "taskId":  "U11",
+                              "title":  "含附件交付验收",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U10"
+                                            ]
+                          },
+                  "U12":  {
+                              "taskId":  "U12",
+                              "title":  "笔记检索投影",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U06",
+                                                "S06"
+                                            ]
+                          },
+                  "U13":  {
+                              "taskId":  "U13",
+                              "title":  "Agent笔记提议与审批",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U06",
+                                                "S06"
+                                            ]
+                          },
+                  "U14":  {
+                              "taskId":  "U14",
+                              "title":  "全站体验与四卡型收口",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U09",
+                                                "U11",
+                                                "U12",
+                                                "U13"
+                                            ]
+                          },
+                  "U15":  {
+                              "taskId":  "U15",
+                              "title":  "发布文档与新机恢复验收",
+                              "status":  "PLANNED",
+                              "owner":  null,
+                              "baseSnapshot":  "10d49e2",
+                              "contractRev":  "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
+                              "evidence":  [
+
+                                           ],
+                              "verifiedAt":  null,
+                              "blockers":  [
+
+                                           ],
+                              "source":  "tasks/supplement-v4.json",
+                              "dependsOn":  [
+                                                "U14"
+                                            ]
+                          }
+              }
 }

@@ -1,8 +1,8 @@
 ﻿{
     "taskId":  "S00",
     "sliceId":  "S00.LEDGER",
-    "result":  "TASK_LOCAL_PASS",
-    "summary":  "建立 v4 执行账本与隔离护栏自检；只读盘点，不运行故障注入",
+    "result":  "TASK_LOCAL_FAIL",
+    "summary":  "账本与基线证据已生成；隔离自检脚本 -Selftest 失败（合规样例被拒），脚本不可用于门禁",
     "checks":  [
                    {
                        "exitCode":  0,
