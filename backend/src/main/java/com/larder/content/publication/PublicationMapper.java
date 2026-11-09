@@ -18,7 +18,8 @@ import java.time.LocalDateTime;
 public interface PublicationMapper {
 
     @Select("SELECT id AS jobId, owner_id AS ownerId, item_id AS itemId, state AS state, "
-            + "processing_epoch AS processingEpoch, run_id AS runId FROM job WHERE id = #{jobId} FOR UPDATE")
+            + "processing_epoch AS processingEpoch, run_id AS runId, cancel_requested_at AS cancelRequestedAt "
+            + "FROM job WHERE id = #{jobId} FOR UPDATE")
     JobPublishRow lockJob(@Param("jobId") String jobId);
 
     @Select("SELECT COALESCE(MAX(revision_no), 0) FROM content_revision "
@@ -48,7 +49,7 @@ public interface PublicationMapper {
     @Update("UPDATE job SET state = 'SUCCEEDED', lease_owner = NULL, lease_until = NULL, "
             + "last_event_seq = last_event_seq + 1, row_version = row_version + 1, updated_at = UTC_TIMESTAMP(6) "
             + "WHERE id = #{jobId} AND state = 'RUNNING' AND run_id = #{runId} "
-            + "AND processing_epoch = #{epoch}")
+            + "AND processing_epoch = #{epoch} AND cancel_requested_at IS NULL")
     int commitJob(@Param("jobId") String jobId, @Param("runId") String runId, @Param("epoch") long epoch);
 
     @Select("SELECT id FROM content_revision WHERE owner_id = #{ownerId} AND item_id = #{itemId} "

@@ -1,0 +1,38 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-control.ps1
+(cwd=D:\Work\Project\larder)
+
+== 构建并启动 ==
+[PASS] api 就绪: UP
+[PASS] 登录: HTTP 200
+[PASS] 收录并进入 RUNNING: RUNNING + runId
+[PASS] 任务中心列表与详情: total=1 state=RUNNING
+[PASS] 取消 RUNNING 任务：写 cancel_requested_at: cancelRequestedAt 已写
+[PASS] 取消后迟到产物不能发布（A07）: 409 CANCELLED_CONFLICT，revision=0
+[PASS] 失败任务可重试：attempt+1 并重新派发: 3	QUEUED，outbox 1→2
+
+ALL CONTROL CHECKS PASSED
+ Image larder/api:0.1.0 Building 
+ Image larder/api:0.1.0 Built 
+ Container larder-mysql-1 Running 
+ Container larder-minio-1 Running 
+ Container larder-web-1 Running 
+ Container larder-api-1 Running 
+ Container larder-rabbitmq-1 Running 
+ Container larder-mysql-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-api-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-minio-1 Waiting 
+ Container larder-web-1 Waiting 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-minio-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-api-1 Healthy 
+ Container larder-web-1 Healthy 
+ Container larder-web-1 Restarting 
+ Container larder-web-1 Started 

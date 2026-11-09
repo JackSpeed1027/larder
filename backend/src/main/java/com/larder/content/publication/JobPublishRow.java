@@ -11,6 +11,7 @@ public class JobPublishRow {
     private String state;
     private Long processingEpoch;
     private String runId;
+    private java.time.LocalDateTime cancelRequestedAt;
 
     public String getJobId() {
         return jobId;
@@ -50,6 +51,14 @@ public class JobPublishRow {
 
     public void setProcessingEpoch(Long processingEpoch) {
         this.processingEpoch = processingEpoch;
+    }
+
+    public java.time.LocalDateTime getCancelRequestedAt() {
+        return cancelRequestedAt;
+    }
+
+    public void setCancelRequestedAt(java.time.LocalDateTime cancelRequestedAt) {
+        this.cancelRequestedAt = cancelRequestedAt;
     }
 
     public String getRunId() {

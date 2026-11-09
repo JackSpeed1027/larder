@@ -1,0 +1,149 @@
+{
+  "taskId": "V03-T04",
+  "sliceId": "V03-T04.BACKEND",
+  "runId": "20261109-1945-v03t04",
+  "generatedAt": "2026-11-09T11:48:08.683296+00:00",
+  "note": "baseSha256 为 null（基线 commit 2c38f0d）；7 个文件 modified。",
+  "files": [
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/JobPublishRow.java",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "2531e57f4b3b72a5f18e8b94ee6e66b396642e6b8b8d814c5294a3f3aaba5023",
+      "size": 1587
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/PublicationException.java",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "9601fece5939247a8c01a64718c38f6b9010826723f1cd48f21fd7a6e2dd4b0a",
+      "size": 1376
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/PublicationMapper.java",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "6f7f0242c5cee50daae3e511af76ffc82b2c01c48de7871ffd451a88d105decd",
+      "size": 3955
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/RevisionPublisher.java",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "e59f042a1fa9f7895c56bd44ed5c747732f707cf972ded7af2af4527bb531947",
+      "size": 4533
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/control/JobControlController.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e8b7e626e9b2881c3f6bcd540f813bfccf3f3fcf192f4304c054365fd90bf2e2",
+      "size": 2251
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/control/JobControlMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bfcaeadd82e0eac5b9050e0dc00b887be1d62756e22dec9306bc25b66f894509",
+      "size": 3570
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/control/JobControlService.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e7785475c414576dc067a26af2295f3f6b017cf8c0cf92aec256f76c54555596",
+      "size": 5152
+    },
+    {
+      "path": "backend/src/test/java/com/larder/pipeline/control/JobControlServiceTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "37db735510696f2ba035d41ca02864b484d6ebb1cd8f2f2983f1a06c22bcf10e",
+      "size": 4275
+    },
+    {
+      "path": "docs/项目记忆.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e8531ea6e48efceeb18289ee163f526951ce12bf41ab8a5e67a56e0aa0e218df",
+      "size": 10536
+    },
+    {
+      "path": "handoffs/V03-T04/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5f439850ae317a6261be3e33aadff4fde5d131958040441d440fd7a74bdd360c",
+      "size": 3472
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "847092fe3a0868ede3fbb26d8e3a9550df902aa48696544f66865d4ac36f5329",
+      "size": 13093
+    },
+    {
+      "path": "reports/V03-T04/20261109-1945-v03t04/logs/backend_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "321c6c73be6f59bf1965d762b265336c5492723187e23b708202df33dbd43685",
+      "size": 15044
+    },
+    {
+      "path": "reports/V03-T04/20261109-1945-v03t04/logs/compose_config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "273e38007d5718ca6c3fa2670eaeaf4b32663026be01f4b80fa72bc856d577b5",
+      "size": 81
+    },
+    {
+      "path": "reports/V03-T04/20261109-1945-v03t04/logs/contracts.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6e3860632cbdc3aeb0894d561c25057bc7747ccff508b5de6f911bdf8bea00e",
+      "size": 1523
+    },
+    {
+      "path": "reports/V03-T04/20261109-1945-v03t04/logs/control_e2e.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5e632719b5f2ce048b7f1329a2713df2afc308d519a86ed0f998c7bc5683cd09",
+      "size": 1472
+    },
+    {
+      "path": "reports/V03-T04/20261109-1945-v03t04/logs/secrets.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c96b6991657a40cd4a7c362067f2875e2afe6fd12269b6f45bb9b6041afe3a0b",
+      "size": 41946
+    },
+    {
+      "path": "reports/V03-T04/20261109-1945-v03t04/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "80260abf2f2a8f9197180ddecdc2794aa38a6787eb62568c3dbaf1fa45d545ac",
+      "size": 2206
+    },
+    {
+      "path": "reports/V03-T04/20261109-1945-v03t04/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "132c9542f71b82aa5b7ea5e87edec2bfd5da15b9f1331ee96066f1c9d17fbfb7",
+      "size": 4079
+    },
+    {
+      "path": "scripts/accept.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c35987366e826b3beda0d03031d1b8aa070d00bd168eaa9d645b75aeff404ab3",
+      "size": 25273
+    },
+    {
+      "path": "scripts/dev/verify-control.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d6a26c777fdf26ebdb807720b6bb7a38c8020afcf894f81641aef9033fe8d505",
+      "size": 7210
+    }
+  ]
+}

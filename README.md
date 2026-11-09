@@ -44,6 +44,7 @@ D:\Work\Project\larder\
 | V03-T03 lease/reconcile/SSE | **TASK_LOCAL_PASS**（Java slice） | `pipeline/lease`、`pipeline/reconcile`、`runner/client`、`scripts/dev/verify-lease.ps1`、`reports/V03-T03/` |
 | V02-T03 真实网页/粘贴链路 | **TASK_LOCAL_PASS** | `runner/stages`、`content/publication`、`runner/ingest`、`scripts/dev/verify-publication.ps1`、`reports/V02-T03/` |
 | V02-T04 阅读/标签/笔记基础 | **TASK_LOCAL_PASS**（后端 slice） | `organize`、`V5__organize.sql`、`scripts/dev/verify-organize.ps1`、`reports/V02-T04/` |
+| V03-T04 取消/重试/任务中心 | **TASK_LOCAL_PASS**（后端 slice） | `pipeline/control`、`scripts/dev/verify-control.ps1`、`reports/V03-T04/` |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 
@@ -114,7 +115,15 @@ V02-T04 的可信结论（`reports/V02-T04/20261109-1630-v02t04/`，后端 slice
 - 阅读必须带固定 `revisionId`，正文从 MinIO 读并校验 sha256，不符即拒绝（不伪造正文）；
 - 标签/笔记/集合/阅读位置全部按 owner 归属；空笔记、跨条目 revision 一律 400；
 - 真实端到端 8 项：发布 revision → 列表 → 详情 → 阅读 → 阅读状态过滤 → 标签过滤 → 笔记 → 阅读位置；
-- accept 六项全过（后端 84 用例）。**前端页面仍未做。****Python 侧 scheduler/cancellation/events 未做。**
+- accept 六项全过（后端 84 用例）。**前端页面仍未做。**
+
+V03-T04 的可信结论（`reports/V03-T04/20261109-1945-v03t04/`，后端 slice）：
+
+- 任务中心：列表/详情/取消/重试；取消区分 QUEUED（直接 CANCELLED）与 RUNNING（只写 cancel_requested_at）；
+- **取消生效后迟到产物不能发布**：发布事务带 `cancel_requested_at IS NULL`，实测 409 `CANCELLED_CONFLICT`、revision=0；
+- 重试仅限 FAILED/CANCELLED，attempt+1 并写 outbox 重新派发（实测 outbox 1→2）；
+- A02–A07 逐项映射到既有端到端与单测证据；
+- **R1 的 12 个任务全部完成**（V02-T04、V03-T04 为后端 slice，前端页面待补）。**Python 侧 scheduler/cancellation/events 未做。**
 
 ## 本地运行
 

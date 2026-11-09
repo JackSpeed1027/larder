@@ -1,0 +1,57 @@
+{
+  "taskId": "V03-T04",
+  "sliceId": "V03-T04.BACKEND",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "后端：取消/重试/任务中心 + A07 取消-发布竞争；前端 jobs 页面未做",
+  "baseSnapshot": "2c38f0d",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "实现任务中心：列表/详情/取消/重试。取消区分状态（QUEUED→CANCELLED 清租约；RUNNING 只写 cancel_requested_at），已结束任务拒绝取消；重试仅限 FAILED/CANCELLED，attempt+1 并写 outbox 重新派发。发布事务增加 cancel_requested_at IS NULL 条件：取消先行则迟到产物 409 CANCELLED_CONFLICT 且不写 revision（A07）。真实端到端 6 项、后端 90 用例全过；A02–A06 复用前序任务证据并给出映射。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "python scripts/accept.py --task V03-T04 --profile offline --run-id 20261109-1945-v03t04", "exitCode": 0, "passed": 5, "failed": 0, "skipped": 0, "log": "reports/V03-T04/20261109-1945-v03t04/summary.json" },
+    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 90, "failed": 0, "skipped": 0, "log": "reports/V03-T04/20261109-1945-v03t04/logs/backend_tests.log" },
+    { "command": "scripts/dev/verify-control.ps1", "exitCode": 0, "passed": 6, "failed": 0, "skipped": 0, "log": "reports/V03-T04/20261109-1945-v03t04/logs/control_e2e.log" }
+  ],
+  "acceptanceEvidence": {
+    "A02-A07": "见 verification.md §3 映射；A07 由本任务 verify-control.ps1 证明",
+    "cancel-blocks-publish": "verify-control.ps1：409 CANCELLED_CONFLICT，revision=0",
+    "unknown-not-success": "重试只针对 FAILED/CANCELLED；RUNNING 重试 409（单测）",
+    "no-real-corruption": "取消/重试只改状态机与 outbox，不删数据；rev 历史保留",
+    "job-center": "GET /api/jobs、GET /api/jobs/{id}（端到端 total=1）"
+  },
+  "notRun": [
+    "前端 jobs 页面与 e2e",
+    "Runner 取消通道（V05）",
+    "删除任务/条目",
+    "独立故障注入框架"
+  ],
+  "knownLimitations": [
+    "前端未做。",
+    "取消不会通知 Runner（无 /v1/runs 取消）。",
+    "故障矩阵为脚本+单测组合，不是注入框架。",
+    "删除未实现。"
+  ],
+  "newDependencies": [],
+  "migrationNotes": "无新增迁移。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "JobControlService 说明取消两态与 A07 仲裁；Mapper 注释说明状态条件；Controller 简短。",
+    "sqlComments": "无新增迁移。",
+    "complexMechanisms": [
+      "取消与完成竞争：Service 注释 + 发布事务条件 + 端到端",
+      "重试重新派发走 outbox：Service emitRequeue + 端到端 outbox 计数"
+    ]
+  },
+  "crossCuttingChanges": [
+    { "id": "CR-0001", "files": ["content/publication 四个文件"], "reason": "A07 发布事务检查取消标志" },
+    { "id": "CR-0002", "files": ["scripts/accept.py"], "reason": "control_e2e 与任务" },
+    { "id": "CR-0003", "files": ["README.md", "docs/项目记忆.md"], "reason": "阶段表与记忆同步" }
+  ],
+  "nextIntegrationChecks": [
+    "R1 全量集成：所有 verify 脚本 + 全任务 accept",
+    "前端 jobs 页面接入任务中心 API",
+    "V05 Runner 取消通道"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V03-T04"]
+}

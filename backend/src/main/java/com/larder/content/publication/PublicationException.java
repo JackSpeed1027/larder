@@ -24,6 +24,10 @@ public class PublicationException extends RuntimeException {
         return new PublicationException("EPOCH_SUPERSEDED", "旧处理代次的结果不能发布", 409);
     }
 
+    public static PublicationException cancelledConflict() {
+        return new PublicationException("CANCELLED_CONFLICT", "任务已取消，迟到产物不能发布", 409);
+    }
+
     public static PublicationException staleRun() {
         return new PublicationException("STALE_RUN", "run 与 job 当前租约不匹配", 409);
     }

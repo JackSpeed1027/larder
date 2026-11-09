@@ -43,6 +43,9 @@ public class RevisionPublisher {
         if (job == null) {
             throw PublicationException.jobNotFound();
         }
+        if (job.getCancelRequestedAt() != null) {
+            throw PublicationException.cancelledConflict();
+        }
         if (!request.runId().equals(job.getRunId())) {
             throw PublicationException.staleRun();
         }
@@ -80,6 +83,10 @@ public class RevisionPublisher {
             throw PublicationException.corrupt("item 指针更新失败");
         }
         if (mapper.commitJob(job.getJobId(), request.runId(), request.processingEpoch()) != 1) {
+            JobPublishRow after = mapper.lockJob(request.jobId());
+            if (after != null && after.getCancelRequestedAt() != null) {
+                throw PublicationException.cancelledConflict();
+            }
             throw PublicationException.staleRun();
         }
         return new PublicationResult(revisionId, "CREATED");
