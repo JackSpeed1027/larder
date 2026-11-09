@@ -1,0 +1,32 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-lease.ps1
+(cwd=D:\Work\Project\larder)
+
+== 构建 api 并启动依赖 ==
+[PASS] api 就绪: UP
+[PASS] 登录: HTTP 200
+[PASS] 收录并接管 job: job_b44e939e79c45bc13601 RUNNING
+[PASS] SSE 首发 snapshot（权威状态）: snapshot: RUNNING
+[PASS] SSE 断流重连（Last-Event-ID）仍能还原状态: resumedFrom=0，snapshot 再次下发
+[PASS] 租约过期 → 对账收回 → 重新派发并接管（fencing 代次递增）: token 1 → 2，attempt=2，outbox=2
+
+ALL LEASE CHECKS PASSED
+ Image larder/api:0.1.0 Building 
+ Image larder/api:0.1.0 Built 
+ Container larder-mysql-1 Running 
+ Container larder-web-1 Running 
+ Container larder-rabbitmq-1 Running 
+ Container larder-api-1 Running 
+ Container larder-mysql-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-mysql-1 Waiting 
+ Container larder-web-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-api-1 Waiting 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-web-1 Healthy 
+ Container larder-api-1 Healthy 
+ Container larder-mysql-1 Healthy 

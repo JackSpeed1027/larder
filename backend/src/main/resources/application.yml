@@ -84,3 +84,13 @@ larder:
     worker-id: ${LARDER_INBOX_WORKER_ID:worker-local}
     lease-seconds: ${LARDER_INBOX_LEASE_SECONDS:120}
     prefetch: ${LARDER_INBOX_PREFETCH:5}
+
+  lease:
+    renew-seconds: ${LARDER_LEASE_RENEW_SECONDS:30}
+  reconcile:
+    enabled: ${LARDER_RECONCILE_ENABLED:false}
+    max-attempts: ${LARDER_RECONCILE_MAX_ATTEMPTS:5}
+    poll-ms: ${LARDER_RECONCILE_POLL_MS:5000}
+  runner:
+    base-url: ${LARDER_RUNNER_BASE_URL:http://runner:8000}
+    timeout-ms: ${LARDER_RUNNER_TIMEOUT_MS:10000}

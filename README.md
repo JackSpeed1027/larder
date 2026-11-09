@@ -41,6 +41,7 @@ D:\Work\Project\larder\
 | V02-T02 MinIO 不可变产物 | **TASK_LOCAL_PASS** | `content/storage`、`runner/artifacts`、`V3__artifacts.sql`、`reports/V02-T02/` |
 | V03-T01 Outbox 投递与 confirm | **TASK_LOCAL_PASS** | `pipeline/outbox`、`scripts/dev/verify-outbox.ps1`、`reports/V03-T01/` |
 | V03-T02 Inbox 及持久接管 | **TASK_LOCAL_PASS** | `pipeline/inbox`、`V4__inbox.sql`、`scripts/dev/verify-inbox.ps1`、`reports/V03-T02/` |
+| V03-T03 lease/reconcile/SSE | **TASK_LOCAL_PASS**（Java slice） | `pipeline/lease`、`pipeline/reconcile`、`runner/client`、`scripts/dev/verify-lease.ps1`、`reports/V03-T03/` |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 
@@ -90,6 +91,14 @@ V03-T02 的可信结论（`reports/V03-T02/20261109-0915-v03t02/`）：
 - 重复消息（同 event_id 重发）不会重复接管：lease_token 不变、inbox 仍 1 行；
 - 坏消息（缺 jobId/job 不存在/payload 冲突）进 DLQ 且不写 inbox；有界 prefetch + 手动 ack；
 - accept 五项全过（后端 51 用例 + 消费端到端 6 项）。
+
+V03-T03 的可信结论（`reports/V03-T03/20261109-1130-v03t03/`，Java slice）：
+
+- 提交 fencing = `token + processing_epoch + run_id + 租约未过期`，旧 worker 的迟到提交更新 0 行；
+- 对账把过期 RUNNING 收回（attempt+1 退避）并重写 outbox 事件重新派发，达到上限转 FAILED；
+- SSE 每次连接先发权威 snapshot，支持 `Last-Event-ID` 重连；实测断流重连 `resumedFrom=0`；
+- 真实环境实测：租约过期后 `lease_token 1 → 2`、`attempt=2`、`outbox=2`（对账+重派生效）；
+- accept 五项全过（后端 64 用例 + 租约端到端 4 项）。**Python 侧 scheduler/cancellation/events 未做。**
 
 ## 本地运行
 

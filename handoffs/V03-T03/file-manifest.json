@@ -1,0 +1,198 @@
+{
+  "taskId": "V03-T03",
+  "sliceId": "V03-T03.JAVA",
+  "runId": "20261109-1130-v03t03",
+  "generatedAt": "2026-11-09T03:30:07.152624+00:00",
+  "note": "baseSha256 为 null（基线 commit 2f1e7bc）；5 个文件为 modified，其余 added；Python 侧文件不在本 slice。",
+  "files": [
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/lease/JobEventsController.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e3b0de5cf29432e8412be6853ee89458acb74e460605d98ea822cf983a95c817",
+      "size": 4657
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/lease/JobLeaseMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7df778b3c836bcaaa128fb7aca418ab501ff9339b0e5c329f2a4f9c019defe97",
+      "size": 4889
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/lease/JobLeaseRow.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e721fb7758226f261788bfc614814169edfd51e5c747dac223cc59ddf4415c87",
+      "size": 2445
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/lease/JobLeaseService.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7bb7e6c4634d825b92d80580c176a66f9fe36da6b92b58c346cf7df3da924984",
+      "size": 4139
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/lease/JobProgress.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bf990e746545415107c3f4db21f05d8d60511f386ef9b81b07b1b997a7c24db8",
+      "size": 545
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/lease/StaleLeaseException.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b3f2bec7d1b1debc0edf6ef81234c3c9fbed57e7890c3196fd75ee68bc4a0f38",
+      "size": 279
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/reconcile/JobReconciler.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c636ba008541a066fd823d2d50d6133d082544a3f4dcc1b7f48ff4d08fa96cf5",
+      "size": 3871
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/reconcile/ReconcileSchedulingConfig.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "98c2a3c18551f23468aeb38a1aa61b7ee02962f61231c2ea407ae960402e0d55",
+      "size": 1046
+    },
+    {
+      "path": "backend/src/main/java/com/larder/runner/client/RunnerClient.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a1b3c5be79cb1d6b2889f4b16a46d0ae3e3a133d35ed4d0dbb59800e1896b4aa",
+      "size": 2421
+    },
+    {
+      "path": "backend/src/main/java/com/larder/runner/client/RunnerUnavailableException.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "dc8bfd005b26b02260ff2d989ae18d486a8ae8e34d76294f67bc02c0d8a80534",
+      "size": 290
+    },
+    {
+      "path": "backend/src/main/resources/application.yml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "4b755981ca0f168f4255f6d427d0897a91f2bef7560bf689439162e405fcdd63",
+      "size": 3153
+    },
+    {
+      "path": "backend/src/test/java/com/larder/pipeline/lease/JobLeaseServiceTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "cc57d795ecafa66d0fc63db6aa58d1532af2275bbd4c832a0dcfdfe66579af5d",
+      "size": 4584
+    },
+    {
+      "path": "backend/src/test/java/com/larder/pipeline/reconcile/JobReconcilerTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7e850b6a31907ac4baf2f17f8cde7689cce39f15a19c6d0da4b604d06d66c15a",
+      "size": 3400
+    },
+    {
+      "path": "backend/src/test/java/com/larder/runner/client/RunnerClientTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5a3c5c6e4caab2b74cd365e71c44c71ff083d71cc84c83814daea5c97c4314da",
+      "size": 3046
+    },
+    {
+      "path": "compose.yaml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "d2024a38729d8cec0b3bee7a2fc56d7c01649fabe65407fd4c894cfcbc7727f6",
+      "size": 6282
+    },
+    {
+      "path": "docs/项目记忆.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "90afe680f47bbb20e5d3de16b5cbed3dff13908bde2e278865918b8259d8c426",
+      "size": 10327
+    },
+    {
+      "path": "handoffs/V03-T03/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2b5f5ac820fa52c1766f63dc6d0f07f10b8213a0989ab75a20ec23c3a095d8a9",
+      "size": 4497
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "bce6b2fc49295f2c562ff9c46a2fa99597ce8682184463ca14b34a472697e538",
+      "size": 10566
+    },
+    {
+      "path": "reports/V03-T03/20261109-1130-v03t03/logs/backend_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "950bfbf7f310bba3f343a643492e0ca6c56c2d3fbb5360986253f2947c5a327e",
+      "size": 11395
+    },
+    {
+      "path": "reports/V03-T03/20261109-1130-v03t03/logs/compose_config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "273e38007d5718ca6c3fa2670eaeaf4b32663026be01f4b80fa72bc856d577b5",
+      "size": 81
+    },
+    {
+      "path": "reports/V03-T03/20261109-1130-v03t03/logs/contracts.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6e3860632cbdc3aeb0894d561c25057bc7747ccff508b5de6f911bdf8bea00e",
+      "size": 1523
+    },
+    {
+      "path": "reports/V03-T03/20261109-1130-v03t03/logs/lease_e2e.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "341567adcb4a9324f2521a0ebaa9d9bc217fa77db72793dcbbd499f7d1021b48",
+      "size": 1295
+    },
+    {
+      "path": "reports/V03-T03/20261109-1130-v03t03/logs/secrets.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ef6f023bc45f9f139859a1d14ba6c2bebde7bad7db6fcac6d97b59568d3c4f5a",
+      "size": 36858
+    },
+    {
+      "path": "reports/V03-T03/20261109-1130-v03t03/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "432000f9e71a5814f84e90a65d03e00c68c0dada7e1ba45cc920445f6a5e248b",
+      "size": 2200
+    },
+    {
+      "path": "reports/V03-T03/20261109-1130-v03t03/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ca1b207ac61f401c0022072ad5d368eba98a06a800dd3900d26ba1cb66658315",
+      "size": 4641
+    },
+    {
+      "path": "scripts/accept.py",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "55f6b1ca2d137098420faca8c5738a7b7516fe4bbd9145618d4220490d63bc94",
+      "size": 21139
+    },
+    {
+      "path": "scripts/dev/verify-lease.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "663cf18bf11c4a6b90d240898bcded893f16808b9ab219be9b42c01d4322f573",
+      "size": 6517
+    }
+  ]
+}
