@@ -1,0 +1,58 @@
+{
+  "taskId": "V02-T04",
+  "sliceId": "V02-T04.BACKEND",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "仅后端：阅读（固定 revision + sha 校验）/标签/笔记/集合/阅读位置；前端 library/capture/reader/organization 未做",
+  "baseSnapshot": "28004d9",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "新增 V5 迁移（chunk/tag/item_tag/collection/collection_item/note/reading_position，chunk 先建以满足 note 外键）；实现 OrganizeMapper/Service/Controller：条目列表（query/tag/status/分页）、详情、固定 revision 阅读（从 MinIO 读正文并校验 sha256，不符即拒绝）、阅读状态、标签 CRUD+挂/摘、笔记 CRUD（绑定固定 revision、空内容 400）、集合基础、阅读位置 upsert（0..1）。真实端到端 8 项全过，后端 84 用例。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "python scripts/accept.py --task V02-T04 --profile offline --run-id 20261109-1630-v02t04", "exitCode": 0, "passed": 6, "failed": 0, "skipped": 0, "log": "reports/V02-T04/20261109-1630-v02t04/summary.json" },
+    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 84, "failed": 0, "skipped": 0, "log": "reports/V02-T04/20261109-1630-v02t04/logs/backend_tests.log" },
+    { "command": "uv run --directory runner pytest tests -m 'not live'（Smart App Control 回退）", "exitCode": 0, "passed": 34, "failed": 0, "skipped": 0, "log": "reports/V02-T04/20261109-1630-v02t04/logs/runner_tests.log" },
+    { "command": "scripts/dev/verify-organize.ps1", "exitCode": 0, "passed": 8, "failed": 0, "skipped": 0, "log": "reports/V02-T04/20261109-1630-v02t04/logs/organize_e2e.log" }
+  ],
+  "acceptanceEvidence": {
+    "save-read-note-back-to-list": "organize_e2e 8 项：revision 发布→列表→详情→阅读→笔记→标签过滤",
+    "empty-failure-longtext-mobile": "空笔记 400；正文长文本经 sha 校验；移动端属前端未做",
+    "no-fake-body": "OrganizeService 校验 sha256，不符抛 CORRUPT_ARTIFACT（单测 + 阅读接口）",
+    "fixed-revision": "阅读/笔记/阅读位置都必须带 revisionId，不提供读最新"
+  },
+  "notRun": [
+    "前端 library/capture/reader/organization 页面与 e2e",
+    "chunk 落库（V04）",
+    "笔记 Markdown 渲染与消毒（前端）"
+  ],
+  "knownLimitations": [
+    "本 slice 无前端改动。",
+    "集合无归档/排序/批量。",
+    "chunk 表为空，等 V04。",
+    "列表 offset 分页。",
+    "读接口只返回纯文本，无高亮/对照。"
+  ],
+  "newDependencies": [],
+  "migrationNotes": "新增 V5__organize.sql（7 张表，从契约 DDL 生成）；chunk 先于 note 创建以满足外键。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "OrganizeService 强调固定 revision 与 sha 校验；Mapper 注释说明 owner 条件；Controller 说明不提供读最新。",
+    "sqlComments": "V5 全部列注释来自契约。",
+    "complexMechanisms": [
+      "固定 revision + 正文校验：Service 注释 + 单测",
+      "标签/笔记归属校验：Service + 单测",
+      "阅读位置 upsert 与范围校验：Service + 单测"
+    ]
+  },
+  "crossCuttingChanges": [
+    { "id": "CR-0001", "files": ["backend/src/main/resources/db/migration/V5__organize.sql"], "reason": "迁移属共享资源" },
+    { "id": "CR-0002", "files": ["scripts/accept.py"], "reason": "organize_e2e 与任务" },
+    { "id": "CR-0003", "files": ["README.md", "docs/项目记忆.md"], "reason": "阶段表与记忆同步" }
+  ],
+  "nextIntegrationChecks": [
+    "前端 F01/F02/F03 接入后跑真实浏览器 E2E",
+    "V04 落 chunk 后验证阅读锚点",
+    "多 owner 时补越权用例"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V02-T04"]
+}

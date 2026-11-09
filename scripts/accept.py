@@ -439,6 +439,26 @@ def check_publication_e2e(logs: Path) -> Result:
     return result
 
 
+def check_organize_e2e(logs: Path) -> Result:
+    """组织端到端：保存→阅读→标签→笔记→列表。"""
+    name = "organize_e2e"
+    log = logs / f"{name}.log"
+    script = "scripts/dev/verify-organize.ps1"
+    if not (ROOT / script).exists():
+        return Result(name, "verify-organize", 127, str(log), failure="脚本不存在")
+    if IS_WINDOWS:
+        cmd = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script]
+    else:
+        cmd = ["pwsh", "-NoProfile", "-File", script]
+    code, out = run_command(name, cmd, log, timeout=2400)
+    result = Result(name, " ".join(cmd), code, str(log))
+    if code != 0:
+        result.failure = f"exit={code}（看 {log.name}）"
+    elif "ALL ORGANIZE CHECKS PASSED" not in out:
+        result.failure = "输出中没有 ALL ORGANIZE CHECKS PASSED"
+    return result
+
+
 CHECKS = {
     "secrets": check_secrets,
     "backend_tests": check_backend,
@@ -452,6 +472,7 @@ CHECKS = {
     "inbox_e2e": check_inbox_e2e,
     "lease_e2e": check_lease_e2e,
     "publication_e2e": check_publication_e2e,
+    "organize_e2e": check_organize_e2e,
 }
 
 TASKS = {
@@ -462,6 +483,7 @@ TASKS = {
     "V03-T02": ["secrets", "backend_tests", "contracts", "compose_config", "inbox_e2e"],
     "V03-T03": ["secrets", "backend_tests", "runner_tests", "contracts", "compose_config", "lease_e2e"],
     "V02-T03": ["secrets", "backend_tests", "runner_tests", "contracts", "compose_config", "publication_e2e"],
+    "V02-T04": ["secrets", "backend_tests", "runner_tests", "contracts", "compose_config", "organize_e2e"],
     "V01-T03": ["secrets", "contracts", "backend_tests"],
     "V01-T02": ["secrets", "backend_tests", "runner_tests", "frontend_build", "compose_config"],
 }

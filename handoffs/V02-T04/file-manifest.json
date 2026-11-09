@@ -1,0 +1,142 @@
+{
+  "taskId": "V02-T04",
+  "sliceId": "V02-T04.BACKEND",
+  "runId": "20261109-1630-v02t04",
+  "generatedAt": "2026-11-09T08:33:06.339392+00:00",
+  "note": "baseSha256 为 null（基线 commit 28004d9）；3 个文件 modified。",
+  "files": [
+    {
+      "path": "backend/src/main/java/com/larder/organize/OrganizeController.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b4f17d3563d1453a30113350085d125ba42ae90390d2e784f9b6f0d1149016b8",
+      "size": 7822
+    },
+    {
+      "path": "backend/src/main/java/com/larder/organize/OrganizeMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5bbc8bff9f070765559aa9ba768abbc3f9aa20450cd8e88d15fb8ddbb67cfa73",
+      "size": 10628
+    },
+    {
+      "path": "backend/src/main/java/com/larder/organize/OrganizeService.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "45d1252c482c85926132868464819aa13aabb69968900aae16f9ae93f1b4c09b",
+      "size": 10694
+    },
+    {
+      "path": "backend/src/main/resources/db/migration/V5__organize.sql",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d6313281f3eb892385751e8d834f856f707c0336bb7d4594bcee6c3c1d3d35f6",
+      "size": 9163
+    },
+    {
+      "path": "backend/src/test/java/com/larder/organize/OrganizeServiceTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "8723ede9e8694a155fce00ded7aeb9e263c9424c7afbc6fb87bda13c79b5454e",
+      "size": 6669
+    },
+    {
+      "path": "docs/项目记忆.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "13a2140fdd36f05db1c0e9f8a215c17758f42c05e50836de09cc3939bd9dfe5c",
+      "size": 10508
+    },
+    {
+      "path": "handoffs/V02-T04/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ddb79ea40d457f3aa0012bdf405c16429f1af1e754d7bb2305da96ae58b9ddec",
+      "size": 3939
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "059c56436683dcce5c825409bc283f83d851f124e9e7fcf7df96ea5ed81f6a1c",
+      "size": 12299
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/logs/backend_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "adf9a68be16bd38ad7233bceb3864e1de58d079860e9c8260fe91143e5fbfac0",
+      "size": 14842
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/logs/compose_config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "273e38007d5718ca6c3fa2670eaeaf4b32663026be01f4b80fa72bc856d577b5",
+      "size": 81
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/logs/contracts.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6e3860632cbdc3aeb0894d561c25057bc7747ccff508b5de6f911bdf8bea00e",
+      "size": 1523
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/logs/organize_e2e.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "97ccb8cd8a2007d0318d4c0f80b60461e0f8f4465fb7c96b7dd66acdfd76e687",
+      "size": 1700
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/logs/runner_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "efbfed4d066bd034ed4bf4735cbca9f8c359ee7669e976bd9003cad2beb0dd59",
+      "size": 668
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/logs/secrets.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "38511dbebe49bb5fa8b2c8e5bc72810a3c8f129df19af28284b45dc12721eb47",
+      "size": 41001
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bfda8453aa6dcb04bcc6631ed1b90d31b2ca1a7497a9f51ce3c9f2c18e33dee8",
+      "size": 2529
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/tools/gen_migration_v5.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "21f5f417f3401cc2e4e57541ad28ee0029e94f6963927e68036f4aa31c36713b",
+      "size": 1377
+    },
+    {
+      "path": "reports/V02-T04/20261109-1630-v02t04/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "83355332ac8e1852653480c273c7b1a698927a6a51453cd555aec781c61f7dc8",
+      "size": 3452
+    },
+    {
+      "path": "scripts/accept.py",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "17504f4072f76f73d36c975cd9dad33a62ed4d62268d91f11180ead8e6142dda",
+      "size": 24266
+    },
+    {
+      "path": "scripts/dev/verify-organize.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "cadecb2b7aaa0bcd5c4f7c387555e69778b49c48d41c3c8605a0c1e5cde0b466",
+      "size": 9988
+    }
+  ]
+}
