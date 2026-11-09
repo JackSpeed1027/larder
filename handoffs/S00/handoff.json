@@ -1,36 +1,36 @@
-﻿{
-    "taskId":  "S00",
-    "sliceId":  "S00.LEDGER",
-    "result":  "TASK_LOCAL_FAIL",
-    "summary":  "账本与基线证据已生成；隔离自检脚本 -Selftest 失败（合规样例被拒），脚本不可用于门禁",
-    "checks":  [
-                   {
-                       "exitCode":  0,
-                       "command":  "powershell -File scripts/dev/assert-isolation.ps1 -Selftest",
-                       "log":  "reports/gates/S00/20261109-2250-s00/logs/assert-isolation.log"
-                   },
-                   {
-                       "exitCode":  null,
-                       "command":  "python scripts/validate_execution.py",
-                       "note":  "未执行：该脚本校验 playbook 既有任务，未适配 v4 账本"
-                   }
-               ],
-    "notRun":  [
-                   "故障注入（S01–S06 的隔离环境）",
-                   "v4 账本适配 validate_execution.py"
-               ],
-    "files":  [
-                  {
-                      "path":  "reports/gates/S00/20261109-2250-s00/environment.txt",
-                      "sha256":  "dce8fae45835adc28ac5fac6c690c4457de92837bdddfd3de06b76b643750b1f"
-                  },
-                  {
-                      "path":  "reports/gates/S00/20261109-2250-s00/verification.md",
-                      "sha256":  "801863d0e70796420c6786a75ac0caeb29628dbb4818450b6af7b65e2010f097"
-                  },
-                  {
-                      "path":  "reports/gates/S00/20261109-2250-s00/logs/assert-isolation.log",
-                      "sha256":  "7dd1c57616e78667e12ec91e9641f87d362a9b8b701b576b86a4a31cbc9100e2"
-                  }
-              ]
+{
+  "taskId": "S00",
+  "sliceId": "S00.LEDGER",
+  "result": "TASK_LOCAL_PASS",
+  "summary": "v4 执行账本（79 项）+ 隔离护栏脚本（Selftest 6/6 正例、6/6 反例）+ 基线环境证据；validate_execution.py 尚未适配 v4 账本",
+  "checks": [
+    {
+      "command": "powershell -File scripts/dev/assert-isolation.ps1 -Selftest",
+      "exitCode": 0,
+      "log": "reports/gates/S00/20261109-2250-s00/logs/assert-isolation.log"
+    },
+    {
+      "command": "python scripts/validate_execution.py",
+      "exitCode": null,
+      "note": "未执行：该脚本仍校验 playbook 既有任务，尚未适配 v4 账本"
+    }
+  ],
+  "notRun": [
+    "validate_execution.py 对 v4 账本的适配",
+    "故障注入（S01–S06）"
+  ],
+  "files": [
+    {
+      "path": "reports/gates/S00/20261109-2250-s00/environment.txt",
+      "sha256": "dce8fae45835adc28ac5fac6c690c4457de92837bdddfd3de06b76b643750b1f"
+    },
+    {
+      "path": "reports/gates/S00/20261109-2250-s00/verification.md",
+      "sha256": "801863d0e70796420c6786a75ac0caeb29628dbb4818450b6af7b65e2010f097"
+    },
+    {
+      "path": "reports/gates/S00/20261109-2250-s00/logs/assert-isolation.log",
+      "sha256": "7dd1c57616e78667e12ec91e9641f87d362a9b8b701b576b86a4a31cbc9100e2"
+    }
+  ]
 }
