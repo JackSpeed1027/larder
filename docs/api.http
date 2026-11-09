@@ -1,0 +1,76 @@
+### Larder 调试请求集（IDEA HTTP Client / VS Code REST Client 均可）
+### 用法：
+###   1) 先起依赖：.\scripts\dev\up.ps1 -Dev
+###   2) 把 adminPassword 换成本机 .env 里的 LARDER_ADMIN_PASSWORD（或运行 scripts/dev/print-debug-env.ps1 查看）
+###   3) 从第 1 个请求开始按顺序执行；登录响应会写入全局变量 xsrf / session
+###
+@host = http://127.0.0.1:8080
+@adminPassword = REPLACE_WITH_LARDER_ADMIN_PASSWORD
+@internalToken = REPLACE_WITH_LARDER_INTERNAL_TOKEN
+
+### 1. 未登录访问：应 401，并在 Set-Cookie 里下发 XSRF-TOKEN
+GET {{host}}/api/session
+
+> {%
+  const cookie = response.headers.valueOf("Set-Cookie") || "";
+  const match = cookie.match(/XSRF-TOKEN=([^;]+)/);
+  if (match) { client.global.set("xsrf", decodeURIComponent(match[1])); }
+%}
+
+### 2. 登录：必须带 X-XSRF-TOKEN（值来自上一步的 cookie）
+POST {{host}}/api/session
+Content-Type: application/json
+X-XSRF-TOKEN: {{xsrf}}
+
+{"username": "admin", "password": "{{adminPassword}}"}
+
+> {%
+  client.test("login ok", function () {
+    client.assert(response.status === 200, "登录应 200，实际 " + response.status);
+  });
+%}
+
+### 3. 当前会话（应 200，返回 username/role）
+GET {{host}}/api/session
+
+### 4. 收录一个网页：首次 202；同 key 再执行一次返回 200（幂等重放）
+###    响应里的 itemId / jobId 会写入全局变量，供后续请求使用
+POST {{host}}/api/items
+Content-Type: application/json
+X-XSRF-TOKEN: {{xsrf}}
+Idempotency-Key: debug-item-0001
+
+{"kind": "WEB", "url": "https://example.com/debug", "title": "调试样例"}
+
+> {%
+  if (response.body && response.body.data) {
+    client.global.set("itemId", response.body.data.itemId || "");
+    client.global.set("jobId", response.body.data.jobId || "");
+  }
+%}
+
+### 5. 任务进度 SSE：IDEA 会把流式响应显示为文本（curl 更直观，见 README 备注）
+GET {{host}}/api/jobs/{{jobId}}/events
+Accept: text/event-stream
+Last-Event-ID: 0
+
+### 6. 模拟 Runner 回传正文（内部接口，不走用户 session，用共享令牌）
+###    runId 必须等于 job 当前 run_id；processingEpoch 必须等于 job.processing_epoch
+###    正文 sha256 可用：printf '%s' 'hello' | sha256sum    （Windows: 见 scripts/dev/print-debug-env.ps1 底部提示）
+POST {{host}}/internal/runs/{{runId}}/result
+Content-Type: application/json
+X-Internal-Token: {{internalToken}}
+
+{
+  "jobId": "{{jobId}}",
+  "runId": "{{runId}}",
+  "processingEpoch": 0,
+  "text": "调试正文：第一段。\n\n第二段。",
+  "contentSha256": "REPLACE_WITH_SHA256_OF_TEXT",
+  "extractorVersion": "extract-v1",
+  "chunkerVersion": "chunk-v1",
+  "manifestJson": "{\"chunks\": 2}"
+}
+
+### 7. 元数据：迁移与版本
+GET {{host}}/actuator/health
