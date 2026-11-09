@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import LoginPage from "../features/auth/LoginPage";
 import { AppShell } from "../shared/layout/AppShell";
 import { Button, EmptyState, ErrorState, Skeleton } from "../shared/ui";
 
@@ -79,6 +80,14 @@ export default function App() {
     );
   }
 
+  if (path === "/login" || path === "/") {
+    return (
+      <LoginPage
+        onSignedIn={() => navigate("/library")}
+      />
+    );
+  }
+
   return (
     <AppShell
       currentPath={path}
@@ -88,8 +97,6 @@ export default function App() {
     >
       {route ? (
         <PendingPage route={route} />
-      ) : path === "/" || path === "/login" ? (
-        <LoginPlaceholder />
       ) : (
         <NotFound onBack={() => navigate("/library")} />
       )}
@@ -118,15 +125,6 @@ function PendingPage({ route }: { route: RouteDef }) {
       />
       <Skeleton lines={2} />
     </section>
-  );
-}
-
-function LoginPlaceholder() {
-  return (
-    <EmptyState
-      title="登录页（F14）"
-      description="认证接口已存在（GET/POST /api/session + CSRF）；登录表单与跳转在 F14 实现。"
-    />
   );
 }
 

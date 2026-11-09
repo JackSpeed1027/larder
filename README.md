@@ -46,6 +46,7 @@ D:\Work\Project\larder\
 | V02-T04 阅读/标签/笔记基础 | **TASK_LOCAL_PASS**（后端 slice） | `organize`、`V5__organize.sql`、`scripts/dev/verify-organize.ps1`、`reports/V02-T04/` |
 | V03-T04 取消/重试/任务中心 | **TASK_LOCAL_PASS**（后端 slice） | `pipeline/control`、`scripts/dev/verify-control.ps1`、`reports/V03-T04/` |
 | F00 应用底座 | **MOCK_READY（基础版）** | `src/app`、`src/shared`、`reports/frontend/F00/` |
+| F14 登录初始化 | **TASK_LOCAL_PASS**（功能） | eatures/auth、真实 session+CSRF、eports/frontend/F14/ |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 
