@@ -1,0 +1,60 @@
+{
+  "taskId": "V03-T02",
+  "sliceId": "V03-T02.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "accept 五项全过；真实 RabbitMQ 验证去重、坏消息死信、inbox 与接管同事务；job 真正执行仍是 V03-T03",
+  "baseSnapshot": "ec0e2e5",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "实现消费去重与持久接管：V4 迁移建 inbox；InboxHandler 在同一事务内写 inbox（唯一键 consumer+event_id）并条件接管 job（QUEUED/RETRY_WAIT→RUNNING，lease_token+1）；InboxListener 手动 ack（事务提交后），坏消息 nack(false)→DLQ，瞬时失败 nack(true) 重投；InboxRabbitConfig 有界 prefetch + 手动 ack + 不回队列；RabbitTopology 增加 DLX/DLQ。真实 RabbitMQ 端到端 6 项通过：重复投递 lease_token 不变、inbox 1 行；坏消息进 DLQ 且不写 inbox。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "python scripts/accept.py --task V03-T02 --profile offline --run-id 20261109-0915-v03t02", "exitCode": 0, "passed": 5, "failed": 0, "skipped": 0, "log": "reports/V03-T02/20261109-0915-v03t02/summary.json" },
+    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 51, "failed": 0, "skipped": 0, "log": "reports/V03-T02/20261109-0915-v03t02/logs/backend_tests.log" },
+    { "command": "python scripts/contracts/check_contracts.py", "exitCode": 0, "passed": 29, "failed": 0, "skipped": 0, "log": "reports/V03-T02/20261109-0915-v03t02/logs/contracts.log", "note": "日期以 summary.json 为准" },
+    { "command": "scripts/dev/verify-inbox.ps1（真实 MySQL + RabbitMQ）", "exitCode": 0, "passed": 6, "failed": 0, "skipped": 0, "log": "reports/V03-T02/20261109-0915-v03t02/logs/inbox_e2e.log" }
+  ],
+  "acceptanceEvidence": {
+    "crash-before-after-ack": "inbox 插入与 job 接管同事务（InboxHandler @Transactional）；提交前崩溃全部回滚，提交后崩溃重投只 ack",
+    "inbox-not-hiding-unexecuted-job": "InboxHandler 在 job 仍 QUEUED 时抛错重投（InboxHandlerTest.doesNotHideUnclaimedJob / throwsWhenClaimUnexpectedlyFails）",
+    "duplicate-no-reprocess": "inbox_e2e 第 5 项：同 event_id 重发后 lease_token 仍为 1、inbox 仍 1 行",
+    "dead-letter-diagnosable": "inbox_e2e 第 6 项：坏消息进 DLQ 1 条、inbox 0 行"
+  },
+  "notRun": [
+    "job 真正执行与心跳续租（V03-T03）",
+    "租约过期后的 job 接管与旧结果拒绝（V03-T03）",
+    "DLQ 自动重放（V12）",
+    "inbox 历史清理"
+  ],
+  "knownLimitations": [
+    "job 只被接管为 RUNNING，没有执行器。",
+    "DLQ 只能人工诊断与重投。",
+    "inbox 行永久保留。",
+    "e2e 脚本会删除开发队列（清空测试消息）。"
+  ],
+  "newDependencies": [],
+  "migrationNotes": "新增 V4__inbox.sql（inbox 表），由契约 DDL 生成；随 api 启动在真实 MySQL 执行（e2e 已验证 inbox 可写入）。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "InboxHandler 六项说明（含同事务原因）、InboxListener ack 策略、InboxRabbitConfig 为何手动 ack/prefetch/DLQ。",
+    "sqlComments": "InboxMapper 注释说明条件更新即持久接管。",
+    "complexMechanisms": [
+      "inbox 与接管同事务：InboxHandler 类注释 + 单测两条",
+      "ack 策略分支：InboxListener 类注释",
+      "DLX/DLQ：RabbitTopology 注释"
+    ]
+  },
+  "crossCuttingChanges": [
+    { "id": "CR-0001", "files": ["backend/src/main/resources/db/migration/V4__inbox.sql"], "reason": "迁移属共享资源" },
+    { "id": "CR-0002", "files": ["backend/src/main/java/com/larder/pipeline/outbox/RabbitTopology.java"], "reason": "队列挂 DLX/DLQ" },
+    { "id": "CR-0003", "files": ["backend/src/main/resources/application.yml"], "reason": "larder.inbox.* 配置" },
+    { "id": "CR-0004", "files": ["scripts/accept.py"], "reason": "inbox_e2e 与 V03-T02 任务" },
+    { "id": "CR-0005", "files": ["README.md", "docs/项目记忆.md"], "reason": "阶段表与记忆同步" }
+  ],
+  "nextIntegrationChecks": [
+    "V03-T03 执行器接入后，验证 RUNNING job 的心跳与过期接管",
+    "验证 processing_epoch 拒绝旧结果",
+    "验证 SSE 进度与原 job 状态一致"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V03-T02"]
+}

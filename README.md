@@ -40,6 +40,7 @@ D:\Work\Project\larder\
 | V02-T01 内容模型与幂等 | **TASK_LOCAL_PASS** | `content/model`、`pipeline/model`、`ingest`、`POST /api/items`、`V2__content_core.sql`、`reports/V02-T01/` |
 | V02-T02 MinIO 不可变产物 | **TASK_LOCAL_PASS** | `content/storage`、`runner/artifacts`、`V3__artifacts.sql`、`reports/V02-T02/` |
 | V03-T01 Outbox 投递与 confirm | **TASK_LOCAL_PASS** | `pipeline/outbox`、`scripts/dev/verify-outbox.ps1`、`reports/V03-T01/` |
+| V03-T02 Inbox 及持久接管 | **TASK_LOCAL_PASS** | `pipeline/inbox`、`V4__inbox.sql`、`scripts/dev/verify-inbox.ps1`、`reports/V03-T02/` |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 
@@ -82,6 +83,13 @@ V03-T01 的可信结论（`reports/V03-T01/20261109-0800-v03t01/`）：
 - mandatory + correlated confirm + returns：**unroutable 即使 ack 也不标 SENT**，退避后进 DEAD；
 - 真实 RabbitMQ 上验证：正常 SENT、broker 断开时保留未完成状态、恢复后补投（第 4 次尝试成功）、无路由事件最终 DEAD；
 - accept 五项全过（后端 44 用例 + 投递端到端 6 项）。
+
+V03-T02 的可信结论（`reports/V03-T02/20261109-0915-v03t02/`）：
+
+- inbox 与 job 接管**同事务**：崩溃在提交前全部回滚，提交后重投只 ack、不重复执行；
+- 重复消息（同 event_id 重发）不会重复接管：lease_token 不变、inbox 仍 1 行；
+- 坏消息（缺 jobId/job 不存在/payload 冲突）进 DLQ 且不写 inbox；有界 prefetch + 手动 ack；
+- accept 五项全过（后端 51 用例 + 消费端到端 6 项）。
 
 ## 本地运行
 

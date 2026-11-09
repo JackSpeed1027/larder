@@ -77,3 +77,10 @@ larder:
     max-attempts: ${LARDER_OUTBOX_MAX_ATTEMPTS:5}
     poll-interval-ms: ${LARDER_OUTBOX_POLL_MS:1000}
     confirm-timeout-ms: ${LARDER_OUTBOX_CONFIRM_TIMEOUT_MS:5000}
+
+  inbox:
+    # 消费去重命名空间；多实例共享同一 consumer 名才能互斥去重
+    consumer: ${LARDER_INBOX_CONSUMER:ingest-consumer}
+    worker-id: ${LARDER_INBOX_WORKER_ID:worker-local}
+    lease-seconds: ${LARDER_INBOX_LEASE_SECONDS:120}
+    prefetch: ${LARDER_INBOX_PREFETCH:5}

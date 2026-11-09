@@ -2,6 +2,7 @@ package com.larder.pipeline.outbox;
 
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.core.TopicExchange;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -25,6 +26,9 @@ public class RabbitTopology {
     public static final String EXCHANGE = "larder.events";
     public static final String INGEST_QUEUE = "larder.events.ingest";
     public static final String INGEST_ROUTING_KEY = "job.queued.#";
+    /** 死信交换机与队列：坏消息不重投，进 DLQ 供诊断与人工重放（V03-T02）。 */
+    public static final String DLX = "larder.events.dlx";
+    public static final String INGEST_DLQ = "larder.events.ingest.dlq";
 
     @Bean
     public CachingConnectionFactory rabbitConnectionFactory(
@@ -55,7 +59,24 @@ public class RabbitTopology {
 
     @Bean
     public Queue ingestQueue() {
-        return new Queue(INGEST_QUEUE, true);
+        // x-dead-letter-exchange：被 reject 的消息进 DLQ，而不是静默丢弃
+        return new Queue(INGEST_QUEUE, true, false, false,
+                java.util.Map.of("x-dead-letter-exchange", DLX));
+    }
+
+    @Bean
+    public Queue ingestDeadLetterQueue() {
+        return new Queue(INGEST_DLQ, true);
+    }
+
+    @Bean
+    public FanoutExchange deadLetterExchange() {
+        return new FanoutExchange(DLX, true, false);
+    }
+
+    @Bean
+    public Binding deadLetterBinding(Queue ingestDeadLetterQueue, FanoutExchange deadLetterExchange) {
+        return BindingBuilder.bind(ingestDeadLetterQueue).to(deadLetterExchange);
     }
 
     @Bean

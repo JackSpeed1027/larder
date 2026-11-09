@@ -1,0 +1,170 @@
+{
+  "taskId": "V03-T02",
+  "sliceId": "V03-T02.FULL",
+  "runId": "20261109-0915-v03t02",
+  "generatedAt": "2026-11-09T01:09:12.049000+00:00",
+  "note": "baseSha256 为 null（基线 commit ec0e2e5）；5 个文件为 modified，其余 added。",
+  "files": [
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/inbox/InboxHandler.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b6547e1802fd19ac1a0536fb158a7fdb5e939e5a871a212bee5bd8eabae27a66",
+      "size": 3454
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/inbox/InboxListener.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "92b9d2e832263fa30541e65005225b56f03bae84a69a62a5aa9d1eda3997f790",
+      "size": 3358
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/inbox/InboxMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "6ea0defd5ebb3cd3a66aa54b509baa2130206bc2794244bce5ece8f8afb7ca66",
+      "size": 1975
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/inbox/InboxOutcome.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "30c0e1b98416e8c122be784edb0d33fd2547bfb9a42d8f170025a6746167717a",
+      "size": 846
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/inbox/InboxRabbitConfig.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9ca7cd12ae7a572f8336d7eb3c9365a43da2f78fd1f3d9b83eaef72223f2c9d4",
+      "size": 1719
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/inbox/InboxRecord.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "584387a0ee69e5a316b13e691032d58f1c100b79f5a33cbcee9346be05dd8280",
+      "size": 1640
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/RabbitTopology.java",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "d4b823566c3ee56e700b6d73833c09cd5fca412785ba735dd434d0053353e415",
+      "size": 3614
+    },
+    {
+      "path": "backend/src/main/resources/application.yml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "588ddf5e82021c9462ba746acc88dc2e82eae7bc21d517547f4b67a5406a26c0",
+      "size": 2803
+    },
+    {
+      "path": "backend/src/main/resources/db/migration/V4__inbox.sql",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "429d50942106b5e6047d7f966a854c4c781826d43653119f3b571d606378fd62",
+      "size": 1257
+    },
+    {
+      "path": "backend/src/test/java/com/larder/pipeline/inbox/InboxHandlerTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ba43ed3641546467422cfe09fcd2d635449cfbf2d4769cc60a0662053d7a983d",
+      "size": 5526
+    },
+    {
+      "path": "docs/项目记忆.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "b3d41d2622bc45c85e06f63040f8bd2f964f8bc4ad9e02bff4d913aaa756c0e8",
+      "size": 10156
+    },
+    {
+      "path": "handoffs/V03-T02/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "aa61740ccb342172a2ead1c41a89b6a6ff4dc203b89fce8177ed6a712beeb4a3",
+      "size": 4504
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "420cb1fab61e6d88bce3ee496cc72ace728c19ca3a6aeafa66537170c3c74789",
+      "size": 9698
+    },
+    {
+      "path": "reports/V03-T02/20261109-0915-v03t02/logs/backend_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b400828e880c0c889e3c4ed1c3c420420598b582eee938406e86f0c44760dc81",
+      "size": 10620
+    },
+    {
+      "path": "reports/V03-T02/20261109-0915-v03t02/logs/compose_config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "273e38007d5718ca6c3fa2670eaeaf4b32663026be01f4b80fa72bc856d577b5",
+      "size": 81
+    },
+    {
+      "path": "reports/V03-T02/20261109-0915-v03t02/logs/contracts.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6e3860632cbdc3aeb0894d561c25057bc7747ccff508b5de6f911bdf8bea00e",
+      "size": 1523
+    },
+    {
+      "path": "reports/V03-T02/20261109-0915-v03t02/logs/inbox_e2e.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "af2e2de80e383c757e363917156dc83bc84b4c8faff90a3d9c0812409981f0f8",
+      "size": 1699
+    },
+    {
+      "path": "reports/V03-T02/20261109-0915-v03t02/logs/secrets.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "520f22ca11b118eb69ca534484fc658bd6b7b5c07e3b81bc041594e1b4dc7a63",
+      "size": 35767
+    },
+    {
+      "path": "reports/V03-T02/20261109-0915-v03t02/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "ac25157726d896a853487ac4b8a9cd783a3194fddff08a9597117f008f8e2edb",
+      "size": 2200
+    },
+    {
+      "path": "reports/V03-T02/20261109-0915-v03t02/tools/gen_migration_v4.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9fe1bd8c479600b5c25826c2b1967b47e562634cb469ad1595cc74d6dc6f878b",
+      "size": 845
+    },
+    {
+      "path": "reports/V03-T02/20261109-0915-v03t02/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "857bb06e4078f87c8fcfb1e7f4c7d8a90bc20e84620ea69e3ff99d20e5ab240b",
+      "size": 4839
+    },
+    {
+      "path": "scripts/accept.py",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "c8ab2dfc0f1beaad150d3ba00292b89eca57b8488cdbf52faf39783fe3094ceb",
+      "size": 20139
+    },
+    {
+      "path": "scripts/dev/verify-inbox.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "138147d3e4cf5b65d9e73b418206ee6f803d3a5bde75245314f9f0559abbe918",
+      "size": 7877
+    }
+  ]
+}

@@ -364,6 +364,26 @@ def check_outbox_e2e(logs: Path) -> Result:
     return result
 
 
+def check_inbox_e2e(logs: Path) -> Result:
+    """消费去重端到端：重复投递不重复接管 + 坏消息进死信。"""
+    name = "inbox_e2e"
+    log = logs / f"{name}.log"
+    script = "scripts/dev/verify-inbox.ps1"
+    if not (ROOT / script).exists():
+        return Result(name, "verify-inbox", 127, str(log), failure="脚本不存在")
+    if IS_WINDOWS:
+        cmd = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script]
+    else:
+        cmd = ["pwsh", "-NoProfile", "-File", script]
+    code, out = run_command(name, cmd, log, timeout=2400)
+    result = Result(name, " ".join(cmd), code, str(log))
+    if code != 0:
+        result.failure = f"exit={code}（看 {log.name}）"
+    elif "ALL INBOX CHECKS PASSED" not in out:
+        result.failure = "输出中没有 ALL INBOX CHECKS PASSED"
+    return result
+
+
 CHECKS = {
     "secrets": check_secrets,
     "backend_tests": check_backend,
@@ -374,6 +394,7 @@ CHECKS = {
     "content_e2e": check_content_e2e,
     "artifact_e2e": check_artifact_e2e,
     "outbox_e2e": check_outbox_e2e,
+    "inbox_e2e": check_inbox_e2e,
 }
 
 TASKS = {
@@ -381,6 +402,7 @@ TASKS = {
     "V02-T01": ["secrets", "backend_tests", "contracts", "compose_config", "content_e2e"],
     "V02-T02": ["secrets", "backend_tests", "contracts", "compose_config", "artifact_e2e"],
     "V03-T01": ["secrets", "backend_tests", "contracts", "compose_config", "outbox_e2e"],
+    "V03-T02": ["secrets", "backend_tests", "contracts", "compose_config", "inbox_e2e"],
     "V01-T03": ["secrets", "contracts", "backend_tests"],
     "V01-T02": ["secrets", "backend_tests", "runner_tests", "frontend_build", "compose_config"],
 }
