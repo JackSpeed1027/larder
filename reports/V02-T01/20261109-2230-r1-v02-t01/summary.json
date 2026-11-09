@@ -1,0 +1,72 @@
+{
+  "task": "V02-T01",
+  "profile": "offline",
+  "runId": "20261109-2230-r1-v02-t01",
+  "result": "PASS",
+  "generatedAt": "2026-11-09T13:32:37.221622+00:00",
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.16",
+    "node": "D:\\dev\\node\\node-v24.22.0-win-x64\\node.EXE",
+    "docker": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.EXE",
+    "uv": "D:\\dev\\python\\3.13.16\\Scripts\\uv.EXE"
+  },
+  "checks": [
+    {
+      "name": "secrets",
+      "command": "git ls-files + secret scan",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V02-T01/20261109-2230-r1-v02-t01/logs/secrets.log",
+      "note": "扫描 848 个跟踪文件",
+      "failure": null
+    },
+    {
+      "name": "backend_tests",
+      "command": "D:\\Work\\Project\\larder\\backend\\mvnw.cmd -B -ntp -f backend/pom.xml verify -DfailIfNoTests=true",
+      "exitCode": 0,
+      "passed": 90,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/V02-T01/20261109-2230-r1-v02-t01/logs/backend_tests.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "contracts",
+      "command": "uv run --with jsonschema python scripts/contracts/check_contracts.py",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V02-T01/20261109-2230-r1-v02-t01/logs/contracts.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "compose_config",
+      "command": "docker compose -f compose.yaml config --quiet",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V02-T01/20261109-2230-r1-v02-t01/logs/compose_config.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "content_e2e",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-content.ps1",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/V02-T01/20261109-2230-r1-v02-t01/logs/content_e2e.log",
+      "note": "",
+      "failure": null
+    }
+  ],
+  "failures": []
+}

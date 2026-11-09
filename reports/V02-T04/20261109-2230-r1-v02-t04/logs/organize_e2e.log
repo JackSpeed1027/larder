@@ -1,0 +1,41 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-organize.ps1
+(cwd=D:\Work\Project\larder)
+
+== 构建并启动 ==
+[PASS] api 就绪: UP
+[PASS] 登录: HTTP 200
+[PASS] 收录并发布固定 revision: itm_94ae6d005e3e0e746d84 / rev_eb6a6c41bb27cf614c19
+[PASS] 列表包含新条目: total=53
+[PASS] 详情返回固定 revision 与标签/笔记计数: currentRevisionId 一致
+[PASS] 阅读固定 revision：正文与哈希一致: 正文可读且 sha 一致
+[PASS] 改阅读状态 → 列表按状态过滤: READING 过滤命中
+[PASS] 打标签 → 按标签过滤: 标签过滤命中
+[PASS] 写笔记 → 列表/详情可见，空笔记 400: 笔记 1 条，空笔记 400
+[PASS] 保存阅读位置并按固定 revision 读取: progress=0.42
+
+ALL ORGANIZE CHECKS PASSED
+ Image larder/api:0.1.0 Building 
+ Image larder/api:0.1.0 Built 
+ Container larder-mysql-1 Running 
+ Container larder-api-1 Running 
+ Container larder-web-1 Running 
+ Container larder-minio-1 Running 
+ Container larder-rabbitmq-1 Running 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-minio-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-api-1 Waiting 
+ Container larder-web-1 Waiting 
+ Container larder-minio-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-api-1 Healthy 
+ Container larder-web-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-web-1 Restarting 
+ Container larder-web-1 Started 

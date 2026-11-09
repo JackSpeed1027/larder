@@ -1,0 +1,41 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-inbox.ps1
+(cwd=D:\Work\Project\larder)
+
+== 启动 mysql/rabbitmq，重建队列，再起 api ==
+[PASS] 队列与死信队列已声明: ingest + dlq 均存在
+[PASS] 登录: HTTP 200
+[PASS] 收录产生事件: job_ef151cb3a760765d8e11 → out_6813d68997098ed86916
+[PASS] 消费者接管 job（RUNNING + 租约）并写 inbox: job=RUNNING	worker-local	1	1 inbox=1	1
+[PASS] 重复投递（同 event_id 重发）不重复接管: lease_token 仍为 1，inbox=1
+[PASS] 坏消息进死信队列（可诊断），不写 inbox: DLQ 收到 1 条，inbox=0
+
+ALL INBOX CHECKS PASSED
+ Container larder-mysql-1 Running 
+ Container larder-rabbitmq-1 Running 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-api-1 Stopping 
+ Container larder-api-1 Stopped 
+ Image larder/api:0.1.0 Building 
+ Image larder/api:0.1.0 Built 
+ Container larder-rabbitmq-1 Running 
+ Container larder-web-1 Running 
+ Container larder-mysql-1 Running 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-api-1 Starting 
+ Container larder-api-1 Started 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-web-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-api-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-api-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-web-1 Healthy 

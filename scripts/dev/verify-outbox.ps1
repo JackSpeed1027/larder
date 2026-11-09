@@ -97,10 +97,11 @@ Check '收录写入 outbox 事件' {
 Check 'Outbox 被投递并标记 SENT（真实 confirm ack）' {
     $row = Wait-Outbox $eventId 'SENT' 90
     Assert-True ($row -match "^SENT") "最终状态: $row"
-    $q = (& docker compose exec -T rabbitmq rabbitmqctl list_queues name messages 2>$null | Out-String)
-    $line = ($q -split "`r?`n" | Where-Object { $_ -match 'larder\.events\.ingest' })
-    Assert-True ($line -match '\s([1-9]\d*)$') "队列里没有消息: $line"
-    "state=SENT，队列消息: $line"
+    # 消费者可能在检查前就把消息取走，队列深度不是稳定断言；
+    # 用 inbox 行证明“事件被消费”，用 state=SENT 证明“confirm ack 成功”。
+    $inbox = Mysql "select count(*) from inbox where event_id='$eventId'"
+    Assert-True ([int]$inbox -ge 1) "事件未被消费: inbox=$inbox"
+    "state=SENT，inbox=$inbox"
 }
 
 Check 'DB 写入成功、MQ 断开：事件保留 PENDING，恢复后补投 SENT' {

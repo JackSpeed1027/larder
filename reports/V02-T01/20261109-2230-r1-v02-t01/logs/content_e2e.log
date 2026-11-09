@@ -1,0 +1,88 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-content.ps1
+(cwd=D:\Work\Project\larder)
+
+== 重新构建 api 并启动 mysql/api/web ==
+#1 [internal] load local bake definitions
+#1 reading from stdin 513B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 602B done
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre@sha256:0b99b3376fbb50dbf9c0af8535fdd5b8eb0d3fdfc8b1e4967f383b6919f6901a
+#3 DONE 0.0s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 195B done
+#4 DONE 0.0s
+
+#5 [1/3] FROM docker.io/library/eclipse-temurin:21-jre@sha256:0b99b3376fbb50dbf9c0af8535fdd5b8eb0d3fdfc8b1e4967f383b6919f6901a
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 90B done
+#6 DONE 0.0s
+
+#7 [2/3] WORKDIR /app
+#7 CACHED
+
+#8 [3/3] COPY target/larder-backend-0.1.0-SNAPSHOT.jar /app/app.jar
+#8 CACHED
+
+#9 exporting to image
+#9 exporting layers done
+#9 writing image sha256:986026726f436b2840a55eb0b9ccbf5781e97f15ac328aed29c945a608beb30f done
+#9 naming to docker.io/larder/api:0.1.0 done
+#9 DONE 0.0s
+
+#10 resolving provenance for metadata file
+#10 DONE 0.0s
+[PASS] api 健康: {"groups":["liveness","readiness"],"status":"UP"}
+[PASS] GET /api/session 下发 CSRF cookie: csrf=dc770233...
+[PASS] 登录成功: HTTP 200
+[PASS] 首次收录返回 202 + itemId/jobId: itm_deb550170af7677176a0 / job_1da9cf7d93271787e4db
+[PASS] 同 key 同 body 重放返回 200 且 itemId 不变: HTTP 200 / itm_deb550170af7677176a0
+[PASS] 同 key 不同 body 返回 409 IDEMPOTENCY_CONFLICT: IDEMPOTENCY_CONFLICT
+[PASS] 不同 key 同规范化 URL 返回 200 同一 item: itm_deb550170af7677176a0
+[PASS] 8 个并发请求同 URL 只产生 1 个 item: statuses=200,200,200,200,200,200,200,200
+[PASS] MySQL 中该 item 只有 1 条，且有 1 个 job / 1 条 outbox: 1/1/1
+[PASS] Flyway 迁移记录包含 V2 且成功: 1	1 / 2	1 / 3	1 / 4	1 / 5	1
+[PASS] 重启 api 后迁移不重复执行: migrations=5（重启前后一致）
+
+ALL CONTENT CHECKS PASSED
+ Image larder/api:0.1.0 Building 
+ Image larder/api:0.1.0 Built 
+ Container larder-web-1 Running 
+ Container larder-mysql-1 Recreate 
+ Container larder-rabbitmq-1 Recreate 
+ Container larder-rabbitmq-1 Recreated 
+ Container larder-mysql-1 Recreated 
+ Container larder-api-1 Recreate 
+ Container larder-api-1 Recreated 
+ Container larder-rabbitmq-1 Starting 
+ Container larder-mysql-1 Starting 
+ Container larder-rabbitmq-1 Started 
+ Container larder-mysql-1 Started 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-api-1 Starting 
+ Container larder-api-1 Started 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-web-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-api-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-web-1 Healthy 
+ Container larder-api-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+mysql: [Warning] Using a password on the command line interface can be insecure.
+mysql: [Warning] Using a password on the command line interface can be insecure.
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ Container larder-api-1 Restarting 
+ Container larder-api-1 Started 
+mysql: [Warning] Using a password on the command line interface can be insecure.

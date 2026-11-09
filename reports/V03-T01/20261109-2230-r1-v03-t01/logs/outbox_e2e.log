@@ -1,0 +1,36 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-outbox.ps1
+(cwd=D:\Work\Project\larder)
+
+== 构建 api 并启动 mysql/rabbitmq/api/web ==
+[PASS] api/rabbitmq 就绪: health=UP，队列已声明
+[PASS] 登录: HTTP 200
+[PASS] 收录写入 outbox 事件: job_6ae46040240057f39f85 → out_b1daa994fc31d3da85ac
+[PASS] Outbox 被投递并标记 SENT（真实 confirm ack）: state=SENT，inbox=1
+[PASS] DB 写入成功、MQ 断开：事件保留 PENDING，恢复后补投 SENT: 断开时=PUBLISHING	0 → 恢复后=SENT	3
+[PASS] unroutable（无绑定）：不能标 SENT，退避后进 DEAD: state=DEAD attempt=5
+
+ALL OUTBOX CHECKS PASSED
+ Image larder/api:0.1.0 Building 
+ Image larder/api:0.1.0 Built 
+ Container larder-web-1 Running 
+ Container larder-rabbitmq-1 Running 
+ Container larder-api-1 Running 
+ Container larder-mysql-1 Running 
+ Container larder-mysql-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-api-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-web-1 Waiting 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-api-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-web-1 Healthy 
+ Container larder-rabbitmq-1 Stopping 
+ Container larder-rabbitmq-1 Stopped 
+ Container larder-rabbitmq-1 Starting 
+ Container larder-rabbitmq-1 Started 

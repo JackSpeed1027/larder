@@ -1,0 +1,3 @@
+$ docker compose -f compose.yaml config --quiet
+(cwd=D:\Work\Project\larder)
+

@@ -1,0 +1,43 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-publication.ps1
+(cwd=D:\Work\Project\larder)
+
+== 构建并启动 ==
+[PASS] api 就绪: UP
+[PASS] 登录: HTTP 200
+[PASS] 收录并接管 job: job_d27b14e41a6c2f1e0309 RUNNING, runId=run_e2e_1109213449
+[PASS] Runner 回传：200 + revisionId，revision/artifact/指针/job 全部落库: rev=rev_e36ab584ba04c93378c0 revCount=1 pointer=OK job=SUCCEEDED artifact=1
+[PASS] 重复回传（Runner 重试）幂等：200 同一 revisionId，不重复写: dedupe=REPLAYED，revCount=1
+[PASS] 旧 processing_epoch 不能发布：409 EPOCH_SUPERSEDED，且不写 revision: 409 EPOCH_SUPERSEDED，revCount=0
+
+ALL PUBLICATION CHECKS PASSED
+ Image larder/api:0.1.0 Building 
+ Image larder/api:0.1.0 Built 
+ Container larder-web-1 Running 
+ Container larder-mysql-1 Recreate 
+ Container larder-rabbitmq-1 Recreate 
+ Container larder-rabbitmq-1 Recreated 
+ Container larder-mysql-1 Recreated 
+ Container larder-api-1 Recreate 
+ Container larder-api-1 Recreated 
+ Container larder-mysql-1 Starting 
+ Container larder-rabbitmq-1 Starting 
+ Container larder-mysql-1 Started 
+ Container larder-rabbitmq-1 Started 
+ Container larder-mysql-1 Waiting 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-mysql-1 Healthy 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-api-1 Starting 
+ Container larder-api-1 Started 
+ Container larder-api-1 Waiting 
+ Container larder-api-1 Healthy 
+ Container larder-rabbitmq-1 Waiting 
+ Container larder-web-1 Waiting 
+ Container larder-mysql-1 Waiting 
+ Container larder-api-1 Waiting 
+ Container larder-rabbitmq-1 Healthy 
+ Container larder-mysql-1 Healthy 
+ Container larder-web-1 Healthy 
+ Container larder-api-1 Healthy 
+ Container larder-web-1 Restarting 
+ Container larder-web-1 Started 

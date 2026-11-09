@@ -1,0 +1,21 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-web-e2e.ps1
+(cwd=D:\Work\Project\larder)
+
+
+Running 4 tests using 3 workers
+
+(node:46652) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+(node:48200) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/4] e2e\auth\login.spec.ts:8:1 › 登录 → 资料库（真实 API + CSRF）
+(node:33296) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/4] e2e\journey\capture-read-job.spec.ts:8:1 › 保存 → 资料库 → 阅读（无正文）→ 笔记 → 任务取消
+[3/4] e2e\a11y\keyboard.spec.ts:9:1 › 键盘可达性：登录页 Tab 顺序与 focus-visible
+[4/4] e2e\a11y\keyboard.spec.ts:35:1 › 768 视口：资料库不产生横向滚动
+  4 passed (8.7s)
+
