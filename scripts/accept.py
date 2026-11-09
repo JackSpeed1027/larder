@@ -479,6 +479,28 @@ def check_control_e2e(logs: Path) -> Result:
     return result
 
 
+def check_frontend_tests(logs: Path) -> Result:
+    """前端单元测试（vitest）：零测试或失败即 FAIL。"""
+    name = "frontend_tests"
+    log = logs / f"{name}.log"
+    if shutil.which("pnpm") is None:
+        return Result(name, "pnpm test", 127, str(log), failure="pnpm 未安装（环境缺失，不跳过）")
+    cmd = pnpm_command("test")
+    code, out = run_command(name, cmd, log, cwd=ROOT / "frontend")
+    passed, failed, skipped = 0, 0, 0
+    import re
+    match = re.search(r"Tests\s+(\d+) passed", out)
+    if match:
+        passed = int(match.group(1))
+    if code != 0:
+        failure = f"exit={code}（看 {log.name}）"
+    elif passed == 0:
+        failure = "零测试：vitest 没有执行任何用例"
+    else:
+        failure = None
+    return Result(name, " ".join(cmd), code, str(log), passed, failed, skipped, failure)
+
+
 CHECKS = {
     "secrets": check_secrets,
     "backend_tests": check_backend,
@@ -494,6 +516,7 @@ CHECKS = {
     "publication_e2e": check_publication_e2e,
     "organize_e2e": check_organize_e2e,
     "control_e2e": check_control_e2e,
+    "frontend_tests": check_frontend_tests,
 }
 
 TASKS = {
@@ -506,6 +529,7 @@ TASKS = {
     "V02-T03": ["secrets", "backend_tests", "runner_tests", "contracts", "compose_config", "publication_e2e"],
     "V02-T04": ["secrets", "backend_tests", "runner_tests", "contracts", "compose_config", "organize_e2e"],
     "V03-T04": ["secrets", "backend_tests", "contracts", "compose_config", "control_e2e"],
+    "F01": ["secrets", "frontend_tests", "contracts"],
     "V01-T03": ["secrets", "contracts", "backend_tests"],
     "V01-T02": ["secrets", "backend_tests", "runner_tests", "frontend_build", "compose_config"],
 }
