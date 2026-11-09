@@ -1,0 +1,49 @@
+{
+  "taskId": "U00",
+  "sliceId": "U00.FREEZE",
+  "result": "TASK_LOCAL_PASS",
+  "summary": "冻结笔记与导出契约草案：notes.schema.json、16 个错误码、正反 fixture、冻结说明与迁移计划；未实现功能",
+  "checks": [
+    {
+      "command": "python scripts/validate_notes_contract.py",
+      "exitCode": 0,
+      "log": "reports/U00/20261109-2300-u00/verification.md"
+    }
+  ],
+  "notRun": [
+    "笔记后端 revision/CAS（U02）",
+    "V6 迁移",
+    "组件 spike（U01）",
+    "导出（U07–U11）"
+  ],
+  "files": [
+    {
+      "path": "contracts/notes.schema.json",
+      "sha256": "4622330b970981e3ad02ed802c21c867ea0b254b9aade8d23e32dd2bd384c7ad"
+    },
+    {
+      "path": "contracts/error-codes.json",
+      "sha256": "3d8c50ace24bc3c7566738bbfac2bba9288b976bcaeaaa1ac2ff40f5f79033c8"
+    },
+    {
+      "path": "docs/notes-api-freeze-v1.md",
+      "sha256": "105907977fb2ad87a41923a3a11caf0c5f3cf3dcc070d1eb749775833f6b6dd3"
+    },
+    {
+      "path": "contracts/examples/notes/valid-create-source.json",
+      "sha256": "4849fdb36c4116a856eefe64dfa58156a73fa25f876140c3ed092bc80c60fff8"
+    },
+    {
+      "path": "contracts/examples/notes/valid-create-standalone.json",
+      "sha256": "31316e5951c19e4b0f238efaa44b84349c918f75eda7843a334a1f1337a203d4"
+    },
+    {
+      "path": "contracts/examples/notes/valid-patch.json",
+      "sha256": "defcd4b100ddbece9b9766ee50d0f3da5e63249f1f84bb59e5ed0c1d63f4c521"
+    },
+    {
+      "path": "contracts/examples/notes/invalid-patch-missing-version.json",
+      "sha256": "34c6b6f0463d9ab8bafbb9088afbbc18a9ddb4985fd58623df1e98a45698ef23"
+    }
+  ]
+}

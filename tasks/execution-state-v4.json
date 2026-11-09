@@ -933,11 +933,15 @@
     "U00": {
       "taskId": "U00",
       "title": "笔记与导出契约冻结",
-      "status": "PLANNED",
+      "status": "READY_FOR_INTEGRATION",
       "owner": null,
       "baseSnapshot": "10d49e2",
       "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
-      "evidence": [],
+      "evidence": [
+        "reports/U00/20261109-2300-u00/verification.md",
+        "contracts/notes.schema.json",
+        "docs/notes-api-freeze-v1.md"
+      ],
       "verifiedAt": null,
       "blockers": [],
       "source": "tasks/supplement-v4.json",

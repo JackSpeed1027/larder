@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://larder.local/contracts/notes.schema.json",
+  "title": "Notes API v1 (frozen by U00)",
+  "description": "版本号与正文以字符串/null 明确：version 为十进制字符串避免 JS 精度问题；markdown 必填。",
+  "$defs": {
+    "NoteSource": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "itemId",
+        "revisionId"
+      ],
+      "properties": {
+        "itemId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+        },
+        "revisionId": {
+          "type": "string",
+          "pattern": "^[A-Za-z][A-Za-z0-9_-]{1,63}$"
+        }
+      }
+    },
+    "NoteCreate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "markdown"
+      ],
+      "properties": {
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "markdown": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1048576
+        },
+        "source": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/NoteSource"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "NotePatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "expectedVersion"
+      ],
+      "minProperties": 2,
+      "properties": {
+        "expectedVersion": {
+          "type": "string",
+          "pattern": "^[0-9]{1,19}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256
+        },
+        "markdown": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1048576
+        }
+      }
+    },
+    "NoteDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "markdown",
+        "version",
+        "revisionId",
+        "contentHash",
+        "source",
+        "deletedAt",
+        "createdAt",
+        "updatedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^note_[A-Za-z0-9_-]{6,60}$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "markdown": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]{1,19}$"
+        },
+        "revisionId": {
+          "type": "string",
+          "pattern": "^nrev_[A-Za-z0-9_-]{6,60}$"
+        },
+        "contentHash": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "source": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/NoteSource"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deletedAt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/NoteCreate"
+    },
+    {
+      "$ref": "#/$defs/NotePatch"
+    },
+    {
+      "$ref": "#/$defs/NoteDetail"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "title": "示例笔记",
+  "markdown": "# 标题\n\n正文，含中文与 Markdown。",
+  "source": {
+    "itemId": "itm_abc123def456",
+    "revisionId": "rev_abc123def456"
+  }
+}
