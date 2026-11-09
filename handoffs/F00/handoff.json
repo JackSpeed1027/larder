@@ -1,0 +1,56 @@
+{
+  "taskId": "F00",
+  "sliceId": "F00.BASE",
+  "result": "MOCK_READY",
+  "resultScope": "应用壳/路由/HTTP+CSRF/Query key/tokens/四类状态；截图/E2E/完整组件集未做",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "实现 F00 基础版：tokens.css 消费 design/tokens.json；统一 HTTP 客户端（cookie/XSRF/ApiError/401 事件/SSE）；Query key 工厂；AppShell（侧栏216、<1280 rail64、顶栏56、离线横幅、保存入口）；共享基础组件 5 个；hash 路由表 12 条 + 404/会话过期/离线状态。前端构建通过。",
+  "checks": [
+    {
+      "command": "pnpm --dir frontend build",
+      "exitCode": 0,
+      "passed": null,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/frontend/F00/20261109-2025-f00/build.log",
+      "note": "tsc --noEmit && vite build"
+    }
+  ],
+  "notRun": [
+    "1440/390/暗色/平板截图",
+    "键盘焦点检查",
+    "跨页 E2E",
+    "状态 fixture",
+    "真实 API 接入",
+    "F14 登录"
+  ],
+  "knownLimitations": [
+    "共享组件只有 Button/EmptyState/ErrorState/Skeleton/StatusBadge",
+    "页面仍是占位（F01-F15）",
+    "旧 src/App.tsx 未删除",
+    "hash 路由是 F00 基础实现，后续如换 react-router 需按 CR 迁移"
+  ],
+  "crossCuttingChanges": [
+    {
+      "id": "CR-0001",
+      "files": [
+        "frontend/src/main.tsx"
+      ],
+      "reason": "入口挂载 app/App 并引入 tokens.css（不在 F00 allowlist）"
+    },
+    {
+      "id": "CR-0002",
+      "files": [
+        "docs/项目记忆.md",
+        "README.md"
+      ],
+      "reason": "阶段/前端进度同步"
+    }
+  ],
+  "nextIntegrationChecks": [
+    "F14 登录接真实 session",
+    "F01 列表接 GET /api/items",
+    "补齐状态 fixture 与截图"
+  ]
+}

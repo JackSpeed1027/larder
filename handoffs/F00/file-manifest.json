@@ -1,0 +1,93 @@
+{
+  "taskId": "F00",
+  "sliceId": "F00.BASE",
+  "runId": "20261109-2025-f00",
+  "generatedAt": "2026-11-09T12:24:19.315256+00:00",
+  "note": "baseSha256 为 null（基线 commit 8eb9a43）。",
+  "files": [
+    {
+      "path": "docs/项目记忆.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "e8531ea6e48efceeb18289ee163f526951ce12bf41ab8a5e67a56e0aa0e218df",
+      "size": 10536
+    },
+    {
+      "path": "frontend/src/app/App.tsx",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "0a2edecf1540cbd45c90d0088dff4f8f82809d7274ff354e8ca145a05dc97b52",
+      "size": 5140
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "791716d1abedfb3568dee0defa165a4f5b2a7068b14fe1243f7105329d2c9d35",
+      "size": 271
+    },
+    {
+      "path": "frontend/src/shared/http/client.ts",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6b4431b976bc18f4f99c8608a323668f3288f168fa7ee678020386ecd7b18e6",
+      "size": 2668
+    },
+    {
+      "path": "frontend/src/shared/layout/AppShell.tsx",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "bfd34d84d8967b8212ea3c447d1c885c8dfcabfd4ae2b63e7516a3f8c1e2d892",
+      "size": 4213
+    },
+    {
+      "path": "frontend/src/shared/query/keys.ts",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e5f6158c4aca36931bd2a767bf498497da0b85d8fdb160e9b061d5d15c69cd25",
+      "size": 1029
+    },
+    {
+      "path": "frontend/src/shared/styles/tokens.css",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b92322394881bdd40316bb3d416a1fe038e2887e2e68d8909a92b410797c1e49",
+      "size": 1790
+    },
+    {
+      "path": "frontend/src/shared/ui/index.tsx",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "5b5cb50fab95692278c747717a94a7f486941bdccf057664f362354c3c67c9a4",
+      "size": 3374
+    },
+    {
+      "path": "handoffs/F00/handoff.json",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "e1c772ca0fa54191a8f24c3d4b6c4965795238022b8ffad4e8cb3ebbc8d41415",
+      "size": 1957
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "d1bd4b18f1f83383c04bf4f3b414e4e241474de49305ccfbcc6960eac3088694",
+      "size": 13200
+    },
+    {
+      "path": "reports/frontend/F00/20261109-2025-f00/build.log",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "3b470fbf9a9a890a7501f156743a28171f5d7d9a1edc107849b07b7897f9b1b3",
+      "size": 694
+    },
+    {
+      "path": "reports/frontend/F00/20261109-2025-f00/verification.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "0126e187baa59c12d4a078db32f63b9f2132db9e61e88ccad4a235da586bbcc7",
+      "size": 2757
+    }
+  ]
+}

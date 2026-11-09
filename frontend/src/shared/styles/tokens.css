@@ -1,0 +1,72 @@
+/* F00：设计 token 的唯一来源（值来自 design/tokens.json，不在这里另造颜色）。 */
+:root {
+  --larder-bg: #f7f8fa;
+  --larder-surface: #ffffff;
+  --larder-text: #182230;
+  --larder-muted: #526173;
+  --larder-border: #d8dee8;
+  --larder-primary: #1d4ed8;
+  --larder-on-primary: #ffffff;
+  --larder-danger: #b42318;
+  --larder-danger-bg: #fef3f2;
+  --larder-success: #166534;
+  --larder-success-bg: #f0fdf4;
+  --larder-warning: #854d0e;
+  --larder-warning-bg: #fefce8;
+
+  --larder-sidebar: 216px;
+  --larder-rail: 64px;
+  --larder-topbar: 56px;
+  --larder-page-padding: 24px;
+  --larder-content-max: 1440px;
+
+  --larder-ui-size: 14px;
+  --larder-ui-line: 22px;
+  --larder-secondary-size: 12px;
+  --larder-secondary-line: 18px;
+  --larder-title-size: 24px;
+  --larder-title-line: 32px;
+  --larder-reading-size: 18px;
+  --larder-reading-line: 1.8;
+  --larder-reading-max: 720px;
+
+  --larder-radius-control: 6px;
+  --larder-radius-card: 8px;
+  --larder-radius-dialog: 12px;
+}
+
+/* 暗色主题：同一组变量换值，组件不写死颜色（docs/14）。 */
+:root[data-theme="dark"] {
+  --larder-bg: #101722;
+  --larder-surface: #172131;
+  --larder-text: #e9eef5;
+  --larder-muted: #aab8ca;
+  --larder-border: #3b4a60;
+  --larder-primary: #8fb5ff;
+  --larder-on-primary: #101722;
+  --larder-danger: #ffb4ab;
+  --larder-danger-bg: #3a1d24;
+  --larder-success: #91d5a4;
+  --larder-success-bg: #143025;
+  --larder-warning: #f0cf83;
+  --larder-warning-bg: #342b17;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 1279px) {
+  :root {
+    --larder-sidebar: var(--larder-rail);
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --larder-page-padding: 16px;
+  }
+}
