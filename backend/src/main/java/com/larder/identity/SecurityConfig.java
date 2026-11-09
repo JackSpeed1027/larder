@@ -39,7 +39,9 @@ public class SecurityConfig {
 
     /** 公开路径：登录/登出/当前用户、健康检查。其余 /api 一律要求已认证。 */
     private static final String[] PUBLIC_PATHS = {
-            "/api/session", "/actuator/health", "/actuator/health/**", "/healthz"
+            "/api/session", "/actuator/health", "/actuator/health/**", "/healthz",
+            // 内部服务回调：由 X-Internal-Token 校验，不使用用户 session
+            "/internal/**"
     };
 
     @Bean
@@ -87,6 +89,8 @@ public class SecurityConfig {
 
         http
                 .csrf(csrf -> csrf
+                        // 内部服务回调：认证靠 X-Internal-Token，不适用浏览器 CSRF 双提交
+                        .ignoringRequestMatchers("/internal/**")
                         .csrfTokenRepository(csrfTokenRepository)
                         .csrfTokenRequestHandler(requestHandler))
                 .addFilterAfter(new CsrfCookieFilter(csrfTokenRepository), CsrfFilter.class)

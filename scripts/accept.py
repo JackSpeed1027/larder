@@ -419,6 +419,26 @@ def check_lease_e2e(logs: Path) -> Result:
     return result
 
 
+def check_publication_e2e(logs: Path) -> Result:
+    """发布端到端：Runner 回传 → 不可变 revision → 指针 → job 成功；重放/旧 epoch。"""
+    name = "publication_e2e"
+    log = logs / f"{name}.log"
+    script = "scripts/dev/verify-publication.ps1"
+    if not (ROOT / script).exists():
+        return Result(name, "verify-publication", 127, str(log), failure="脚本不存在")
+    if IS_WINDOWS:
+        cmd = ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass", "-File", script]
+    else:
+        cmd = ["pwsh", "-NoProfile", "-File", script]
+    code, out = run_command(name, cmd, log, timeout=2400)
+    result = Result(name, " ".join(cmd), code, str(log))
+    if code != 0:
+        result.failure = f"exit={code}（看 {log.name}）"
+    elif "ALL PUBLICATION CHECKS PASSED" not in out:
+        result.failure = "输出中没有 ALL PUBLICATION CHECKS PASSED"
+    return result
+
+
 CHECKS = {
     "secrets": check_secrets,
     "backend_tests": check_backend,
@@ -431,6 +451,7 @@ CHECKS = {
     "outbox_e2e": check_outbox_e2e,
     "inbox_e2e": check_inbox_e2e,
     "lease_e2e": check_lease_e2e,
+    "publication_e2e": check_publication_e2e,
 }
 
 TASKS = {
@@ -440,6 +461,7 @@ TASKS = {
     "V03-T01": ["secrets", "backend_tests", "contracts", "compose_config", "outbox_e2e"],
     "V03-T02": ["secrets", "backend_tests", "contracts", "compose_config", "inbox_e2e"],
     "V03-T03": ["secrets", "backend_tests", "runner_tests", "contracts", "compose_config", "lease_e2e"],
+    "V02-T03": ["secrets", "backend_tests", "runner_tests", "contracts", "compose_config", "publication_e2e"],
     "V01-T03": ["secrets", "contracts", "backend_tests"],
     "V01-T02": ["secrets", "backend_tests", "runner_tests", "frontend_build", "compose_config"],
 }

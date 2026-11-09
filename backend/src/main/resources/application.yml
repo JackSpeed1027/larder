@@ -94,3 +94,7 @@ larder:
   runner:
     base-url: ${LARDER_RUNNER_BASE_URL:http://runner:8000}
     timeout-ms: ${LARDER_RUNNER_TIMEOUT_MS:10000}
+
+  internal:
+    # Runner → Java 内部回传令牌；未配置时接口直接 503（fail closed）
+    token: ${LARDER_INTERNAL_TOKEN:}

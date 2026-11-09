@@ -1,0 +1,240 @@
+{
+  "taskId": "V02-T03",
+  "sliceId": "V02-T03.FULL",
+  "runId": "20261109-1520-v02t03",
+  "generatedAt": "2026-11-09T07:20:22.961421+00:00",
+  "note": "baseSha256 为 null（基线 commit 85baf61）；8 个文件 modified，其余 added。",
+  "files": [
+    {
+      "path": ".env.example",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "6712c254f6929c4c6e39438ed1da5cebcce0b77013febe80887eb14c95b24ae4",
+      "size": 1262
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/JobPublishRow.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b03910531e8ec8cd580b9046f89dc0d23f2f55f21e541cd5d3210206d9a0c13b",
+      "size": 1219
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/PublicationException.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "79ba42fd44c5f59875cf931f716508404ca9417f30b41d51c4092a3249f1a5a5",
+      "size": 1152
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/PublicationMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f0904ffeaaa71de376a5c7f003ac032c04cb85eafdcd22489c0fb1257301d56a",
+      "size": 3801
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/PublicationResult.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "53f4438646309eba6755dda627bbeee64dcd76e7caecd9d271e9ca4a3439d2ce",
+      "size": 190
+    },
+    {
+      "path": "backend/src/main/java/com/larder/content/publication/RevisionPublisher.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "0150cb0a16f6643821769608fc139725d9988a16babbd2f5a77a291e20e8fe0b",
+      "size": 4101
+    },
+    {
+      "path": "backend/src/main/java/com/larder/identity/SecurityConfig.java",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "37197ba113446c00a444033966e96fc87cb28e908542279f80352d8b168c1ff9",
+      "size": 5644
+    },
+    {
+      "path": "backend/src/main/java/com/larder/runner/ingest/RunnerResultController.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "66f473ebb4937a9080d1a79f2219d8c8599379af50cfab7dcad571b57351fe55",
+      "size": 3148
+    },
+    {
+      "path": "backend/src/main/java/com/larder/runner/ingest/RunnerResultRequest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "87487cfd152ccab82a5cb955656d4e46f1b9ca0f73eaefbfee950dd00e9db068",
+      "size": 814
+    },
+    {
+      "path": "backend/src/main/resources/application.yml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "f4287878b2f1f503ce0a2b01bee7abdc9c5d2473cb0e266cd66cabca2ef84968",
+      "size": 3296
+    },
+    {
+      "path": "backend/src/test/java/com/larder/content/publication/RevisionPublisherTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "309156fccae88b5757fc5231a08eb6af039ed90be515fb0bb9fb4e6b627468b2",
+      "size": 6508
+    },
+    {
+      "path": "backend/src/test/java/com/larder/runner/ingest/RunnerResultControllerTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "9ad492f6d3ba5295a89e7c34c1dad96df973ded4f54a218149081570e830e853",
+      "size": 3703
+    },
+    {
+      "path": "compose.dev.yaml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "3f70fc9fa93fa41d462d48298f85c54721088c8322b856c51a694220cb0f9723",
+      "size": 664
+    },
+    {
+      "path": "compose.yaml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "707d2fd87e941f225d0b2be42de1ccff9c59a129628c7d8a5b39c57f82f70544",
+      "size": 6372
+    },
+    {
+      "path": "docs/项目记忆.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "78758e2c923bc9d3b30298226835cb5ac2de23961b4149870efc1f83c80709e9",
+      "size": 10416
+    },
+    {
+      "path": "handoffs/V02-T03/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c454e5d9142eaa1f6f9f7d9af598d0e67d48a476de8e79f7b606ffa708cab9cb",
+      "size": 5047
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "11e6be6b34bd5ec36a8fb59fd542b6923541e6c064b9bdf098c077617d0e9d4f",
+      "size": 11349
+    },
+    {
+      "path": "reports/V02-T03/20261109-1520-v02t03/logs/backend_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2f8f8969b67d959b9956b2c13c823988ff5cd3c1fe65fdb97c391424d08c8661",
+      "size": 14660
+    },
+    {
+      "path": "reports/V02-T03/20261109-1520-v02t03/logs/compose_config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "273e38007d5718ca6c3fa2670eaeaf4b32663026be01f4b80fa72bc856d577b5",
+      "size": 81
+    },
+    {
+      "path": "reports/V02-T03/20261109-1520-v02t03/logs/contracts.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6e3860632cbdc3aeb0894d561c25057bc7747ccff508b5de6f911bdf8bea00e",
+      "size": 1523
+    },
+    {
+      "path": "reports/V02-T03/20261109-1520-v02t03/logs/publication_e2e.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2bfe8de350f8a97c9d65e6b758c8bae4e0fcaf50e852941a3ed5414edd8c51f8",
+      "size": 1497
+    },
+    {
+      "path": "reports/V02-T03/20261109-1520-v02t03/logs/runner_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "872255ee456bc9a214b668ad3278b621b2c02ac9fc9cb543f076e59f8737a490",
+      "size": 669
+    },
+    {
+      "path": "reports/V02-T03/20261109-1520-v02t03/logs/secrets.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "586848b10f9a2f6d7e08cb14446bdc7e012e8899e482e921001b10d8e52742e9",
+      "size": 39377
+    },
+    {
+      "path": "reports/V02-T03/20261109-1520-v02t03/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d7cbf3f17201f09fce127929947cce56a8b1013154e30d65eb7c309f896f0bd3",
+      "size": 2538
+    },
+    {
+      "path": "reports/V02-T03/20261109-1520-v02t03/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "95a0dea36d946b34d30cba79b81bf19f3027e3ffd8a2a384992a337a63cae7dd",
+      "size": 5227
+    },
+    {
+      "path": "runner/src/larder_runner/stages/chunk.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "99820a8df6abbfff986d2145004c095409655f39aae42d0b5bafe08d164c5199",
+      "size": 2559
+    },
+    {
+      "path": "runner/src/larder_runner/stages/extract.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a01f22f18dcae2b2b5311ba96ce95ac62ecaa2bb69ed2a273569e18000ac99bf",
+      "size": 3079
+    },
+    {
+      "path": "runner/src/larder_runner/stages/fetch.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "776a64ced0dd2b702bb1a817703cca8f82d4bb720ddf0bbe0cdc0e87d14bb2ad",
+      "size": 4516
+    },
+    {
+      "path": "runner/tests/stages/chunk/test_chunk.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "610a43b998beb848e9c7a0ed5b83a844688b56e68737d43cce8aa11aa840be0f",
+      "size": 1330
+    },
+    {
+      "path": "runner/tests/stages/extract/test_extract.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e52a018c124a3f8d451871d50f96aa51d85a2b6f4898806464af1e7fc7c9601b",
+      "size": 1233
+    },
+    {
+      "path": "runner/tests/stages/fetch/test_fetch.py",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "a7c22e83f780194d979de99d28926974ea5dd1e3f96913c0e9cdb892a8c2f6f4",
+      "size": 3382
+    },
+    {
+      "path": "scripts/accept.py",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "246f2fd8509f82964689a1fa1fb8531be4ebc0326a269e6b163747dc9940c7aa",
+      "size": 23240
+    },
+    {
+      "path": "scripts/dev/verify-publication.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "4fcb0217cb6267db4165c71922844f52aaa4d5502790fb5fd354246aa079179e",
+      "size": 9055
+    }
+  ]
+}

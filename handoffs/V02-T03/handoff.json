@@ -1,0 +1,65 @@
+{
+  "taskId": "V02-T03",
+  "sliceId": "V02-T03.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "accept 六项全过（后端 74 + runner 34 + 发布端到端 4）；Runner 尚未装配 /v1/runs，发布端到端用 curl 模拟 Runner 回传",
+  "baseSnapshot": "85baf61",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "实现真实网页/粘贴链路：Runner 侧 fetch（每跳 SSRF 校验、重定向限制、大小/类型限制）、extract（HTML→正文+标题，空内容报错）、chunk（段落优先、偏移可回溯、hash 稳定）；Java 侧 RevisionPublisher 在一个事务内锁 job、校验 runId+epoch、存正文 artifact、写不可变 content_revision、绑定 revision_artifact、移动 item 指针、提交 job SUCCEEDED；RunnerResultController 用 X-Internal-Token 鉴权（未配置即 503），重放幂等，旧 epoch 409 且不写任何行。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "python scripts/accept.py --task V02-T03 --profile offline --run-id 20261109-1520-v02t03", "exitCode": 0, "passed": 6, "failed": 0, "skipped": 0, "log": "reports/V02-T03/20261109-1520-v02t03/summary.json" },
+    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 74, "failed": 0, "skipped": 0, "log": "reports/V02-T03/20261109-1520-v02t03/logs/backend_tests.log" },
+    { "command": "uv run --directory runner pytest tests -m 'not live'（Smart App Control 回退系统 Python）", "exitCode": 0, "passed": 34, "failed": 0, "skipped": 0, "log": "reports/V02-T03/20261109-1520-v02t03/logs/runner_tests.log" },
+    { "command": "python scripts/contracts/check_contracts.py", "exitCode": 0, "passed": 29, "failed": 0, "skipped": 0, "log": "reports/V02-T03/20261109-1520-v02t03/logs/contracts.log" },
+    { "command": "scripts/dev/verify-publication.ps1（真实 MySQL/MinIO/HTTP）", "exitCode": 0, "passed": 4, "failed": 0, "skipped": 0, "log": "reports/V02-T03/20261109-1520-v02t03/logs/publication_e2e.log" }
+  ],
+  "acceptanceEvidence": {
+    "web-and-paste-readable": "stage 测试（HTML/纯文本）+ publication_e2e（revision 落库、指针切换）",
+    "failure-keeps-input": "fetch/extract 失败抛错不写 revision；job.input_json 保留输入（单测 + 端到端旧 epoch 不写入）",
+    "stale-epoch-rejected": "publication_e2e 第 4 项：409 EPOCH_SUPERSEDED，revision=0",
+    "ai-off": "整条链路无模型调用",
+    "ssrf-per-hop": "fetch 测试：redirect handler 每次调用 guard；guard 拒绝 loopback/private/169.254.169.254"
+  },
+  "notRun": [
+    "Runner /v1/runs 执行入口（V05）",
+    "真实公网网页抓取（测试用本地 HTTP 服务，避免外部依赖）",
+    "JS 渲染页面（V06 评估）",
+    "chunk 表落库（V04 索引构建）",
+    "ORIGINAL 原始 HTML 产物（V06）"
+  ],
+  "knownLimitations": [
+    "发布端到端用 curl 模拟 Runner 回传，不是 Runner 真实执行。",
+    "只支持文本类内容类型，无 JS 渲染。",
+    "artifact 只有 BODY 纯文本，没有 ORIGINAL。",
+    "chunk 只进 manifest JSON，未落 chunk 表。",
+    "内部令牌为共享密钥，无轮换。"
+  ],
+  "newDependencies": [],
+  "migrationNotes": "无新增迁移（revision/artifact 表在 V2/V3 已存在）。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "fetch/extract/chunk 模块级 docstring 说明安全边界与可复现性；RevisionPublisher 六项说明；RunnerResultController 说明内部令牌与 fail-closed。",
+    "sqlComments": "PublicationMapper 注释说明最后一步条件更新即 fencing。",
+    "complexMechanisms": [
+      "每跳 SSRF：fetch 类注释 + 测试",
+      "发布事务与旧 epoch 拒绝：RevisionPublisher 注释 + 单测 + 端到端",
+      "内部令牌 fail closed：Controller 注释 + 4 个 WebMvc 用例"
+    ]
+  },
+  "crossCuttingChanges": [
+    { "id": "CR-0001", "files": ["backend/src/main/java/com/larder/identity/SecurityConfig.java"], "reason": "/internal/** permitAll 且跳过 CSRF" },
+    { "id": "CR-0002", "files": ["backend/src/main/resources/application.yml"], "reason": "larder.internal.token" },
+    { "id": "CR-0003", "files": ["compose.yaml", ".env.example", ".env(本地)"], "reason": "注入内部令牌" },
+    { "id": "CR-0004", "files": ["compose.dev.yaml"], "reason": "api 开发端口 8081" },
+    { "id": "CR-0005", "files": ["scripts/accept.py"], "reason": "publication_e2e + V02-T03 任务" },
+    { "id": "CR-0006", "files": ["README.md", "docs/项目记忆.md"], "reason": "阶段表与记忆同步" }
+  ],
+  "nextIntegrationChecks": [
+    "V05 装配 /v1/runs 后，用真实 Runner 跑完整 fetch→extract→chunk→publish",
+    "V04 落 chunk 表后，验证 chunk hash 与 manifest 一致",
+    "V06 增加 ORIGINAL 产物与 PDF 后，验证多产物绑定"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V02-T03"]
+}
