@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import LoginPage from "../features/auth/LoginPage";
+import LibraryPage from "../features/library/LibraryPage";
 import { AppShell } from "../shared/layout/AppShell";
 import { Button, EmptyState, ErrorState, Skeleton } from "../shared/ui";
 
@@ -95,7 +96,11 @@ export default function App() {
       onQuickSave={() => navigate("/capture")}
       offline={offline}
     >
-      {route ? (
+      {path === "/library" ? (
+        <LibraryPage
+          onOpen={(item) => navigate(`/reader?itemId=${item.id}&revisionId=${item.currentRevisionId ?? ""}`)}
+        />
+      ) : route ? (
         <PendingPage route={route} />
       ) : (
         <NotFound onBack={() => navigate("/library")} />
