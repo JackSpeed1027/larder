@@ -16,9 +16,9 @@ test("保存 → 资料库 → 阅读（无正文）→ 笔记 → 任务取消"
   const url = `https://example.com/e2e/${Date.now()}`;
   await page.goto("/#/capture");
   await page.getByLabel("网址（http/https）").fill(url);
-  await page.screenshot({ path: path.join(shots, "..", "F02", "screenshots", "capture-1440.png"), fullPage: true });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F02", "screenshots", "capture-1440.png"), fullPage: true });
   await page.setViewportSize({ width: 768, height: 1024 });
-  await page.screenshot({ path: path.join(shots, "..", "F02", "screenshots", "capture-768.png"), fullPage: true });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F02", "screenshots", "capture-768.png"), fullPage: true });
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.getByRole("button", { name: "保存", exact: true }).last().click();
   await expect(page.getByRole("heading", { name: "资料库" })).toBeVisible({ timeout: 15_000 });
@@ -46,10 +46,10 @@ test("保存 → 资料库 → 阅读（无正文）→ 笔记 → 任务取消"
   await page.getByLabel("笔记内容").fill(noteText);
   await page.getByRole("button", { name: "添加笔记", exact: true }).click();
   await expect(page.getByText(noteText).first()).toBeVisible({ timeout: 15_000 });
-  await page.screenshot({ path: path.join(shots, "..", "F01", "screenshots", "reader-note-1440.png"), fullPage: true });
-  await page.screenshot({ path: path.join(shots, "..", "F03", "screenshots", "reader-1440.png"), fullPage: true });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F01", "screenshots", "reader-note-1440.png"), fullPage: true });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F03", "screenshots", "reader-1440.png"), fullPage: true });
   await page.setViewportSize({ width: 768, height: 1024 });
-  await page.screenshot({ path: path.join(shots, "..", "F03", "screenshots", "reader-768.png"), fullPage: true });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F03", "screenshots", "reader-768.png"), fullPage: true });
   await page.setViewportSize({ width: 1440, height: 900 });
 
   await page.goto("/#/jobs");
@@ -59,7 +59,7 @@ test("保存 → 资料库 → 阅读（无正文）→ 笔记 → 任务取消"
     await cancel.click();
     await expect(page.getByText("CANCELLED").first()).toBeVisible({ timeout: 15_000 });
   }
-  await page.screenshot({ path: path.join(shots, "..", "F01", "screenshots", "jobs-1440.png"), fullPage: true });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F01", "screenshots", "jobs-1440.png"), fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({ path: path.join(shots, "..", "F04", "screenshots", "jobs-390.png"), fullPage: true });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F04", "screenshots", "jobs-390.png"), fullPage: true });
 });
