@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { ApiError } from "../../shared/http/client";
 import { Button, EmptyState, ErrorState, Skeleton, StatusBadge } from "../../shared/ui";
-import { PageHeader, Pagination } from "../../shared/ui/navigation";
+import { ConfirmAction, PageHeader, Pagination } from "../../shared/ui/navigation";
 import { cancelJob, listJobs, retryJob, type JobPage } from "./api";
 
 const ACTIVE = new Set(["QUEUED", "RUNNING", "RETRY_WAIT", "NEEDS_DECISION"]);
@@ -101,7 +101,13 @@ export default function JobsPage() {
               <div className="flex items-center gap-2">
                 <StatusBadge state={job.state} />
                 {ACTIVE.has(job.state) ? (
-                  <Button variant="danger" disabled={busy === job.id} onClick={() => act(job.id, "cancel")}>取消</Button>
+                  <ConfirmAction
+                    label="取消"
+                    confirmLabel="确认取消这个任务？"
+                    description="取消后，迟到的产物不会发布；任务记录会保留。"
+                    disabled={busy === job.id}
+                    onConfirm={() => act(job.id, "cancel")}
+                  />
                 ) : null}
                 {job.state === "FAILED" || job.state === "CANCELLED" ? (
                   <Button variant="outline" disabled={busy === job.id} onClick={() => act(job.id, "retry")}>重试</Button>

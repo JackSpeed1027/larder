@@ -8,6 +8,8 @@ const shots = path.resolve(process.cwd(), "..", "reports", "frontend", "F01", "s
 test("保存 → 资料库 → 阅读（无正文）→ 笔记 → 任务取消", async ({ page }) => {
   test.skip(!password, "缺少 E2E_ADMIN_PASSWORD");
 
+  page.on("dialog", (dialog) => dialog.accept());
+
   await page.goto("/#/login");
   await page.locator('input[type="password"]').fill(password);
   await page.getByRole("button", { name: "登录", exact: true }).click();
