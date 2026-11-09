@@ -1,0 +1,45 @@
+$ powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-web-e2e.ps1
+(cwd=D:\Work\Project\larder)
+
+
+Running 4 tests using 3 workers
+
+(node:45756) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+(node:32900) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[1/4] e2e\auth\login.spec.ts:8:1 › 登录 → 资料库（真实 API + CSRF）
+(node:36340) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[2/4] e2e\journey\capture-read-job.spec.ts:8:1 › 保存 → 资料库 → 阅读（无正文）→ 笔记 → 任务取消
+[3/4] e2e\a11y\keyboard.spec.ts:8:1 › 键盘可达性：登录页 Tab 顺序与 focus-visible
+  1) e2e\a11y\keyboard.spec.ts:8:1 › 键盘可达性：登录页 Tab 顺序与 focus-visible ───────────────────────────────
+
+    Error: expect(received).toContain(expected) // indexOf
+
+    Expected value: ""
+    Received array: ["账号", "密码", "显示密码"]
+
+      13 |   await page.keyboard.press("Tab");
+      14 |   const first = await page.evaluate(() => (document.activeElement as HTMLElement)?.getAttribute("aria-label") ?? "");
+    > 15 |   expect(["账号", "密码", "显示密码"]).toContain(first);
+         |                                ^
+      16 |
+      17 |   // 连续 Tab 不能丢失焦点（activeElement 一直是带标签的控件）
+      18 |   for (let i = 0; i < 4; i += 1) {
+        at D:\Work\Project\larder\frontend\e2e\a11y\keyboard.spec.ts:15:32
+
+    Error Context: test-results\a11y-keyboard-键盘可达性：登录页-Tab-顺序与-focus-visible\error-context.md
+
+
+(node:23052) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+
+[4/4] e2e\a11y\keyboard.spec.ts:28:1 › 768 视口：资料库不产生横向滚动
+  1 failed
+    e2e\a11y\keyboard.spec.ts:8:1 › 键盘可达性：登录页 Tab 顺序与 focus-visible ────────────────────────────────
+  3 passed (7.5s)
+
