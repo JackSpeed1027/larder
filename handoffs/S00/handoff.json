@@ -2,7 +2,7 @@
   "taskId": "S00",
   "sliceId": "S00.LEDGER",
   "result": "TASK_LOCAL_PASS",
-  "summary": "v4 执行账本（79 项）+ 隔离护栏脚本（Selftest 6/6 正例、6/6 反例）+ 基线环境证据；validate_execution.py 尚未适配 v4 账本",
+  "summary": "v4 账本（79 项）+ 隔离护栏自检 + 账本校验器；S00 进入 READY_FOR_INTEGRATION，等待协调者集成验证后标 DONE",
   "checks": [
     {
       "command": "powershell -File scripts/dev/assert-isolation.ps1 -Selftest",
@@ -10,14 +10,14 @@
       "log": "reports/gates/S00/20261109-2250-s00/logs/assert-isolation.log"
     },
     {
-      "command": "python scripts/validate_execution.py",
-      "exitCode": null,
-      "note": "未执行：该脚本仍校验 playbook 既有任务，尚未适配 v4 账本"
+      "command": "python scripts/validate_ledger_v4.py",
+      "exitCode": 0,
+      "log": "reports/gates/S00/20261109-2250-s00/logs/validate-ledger.log"
     }
   ],
   "notRun": [
-    "validate_execution.py 对 v4 账本的适配",
-    "故障注入（S01–S06）"
+    "故障注入（S01–S06，需要隔离 compose project）",
+    "核心 48 任务的 v4 重新核验"
   ],
   "files": [
     {

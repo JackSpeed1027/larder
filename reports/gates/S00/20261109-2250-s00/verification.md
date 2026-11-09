@@ -37,3 +37,9 @@
 - 未运行任何故障注入（属于 S01–S06，且必须在隔离 project 中执行）；
 - 未修改迁移、未安装依赖、未改用户文档。
 
+
+## v4 账本校验
+
+- `python scripts/validate_ledger_v4.py` → exit 0，输出 `LEDGER OK: 79 tasks, contractRev=11fece5379a5…`；
+- 校验内容：任务集合与 tasks.json + supplement-v4.json 一致、必填字段、状态枚举、DONE 必须有 verifiedAt/evidence 且路径存在、BLOCKED 必须有 blockers、contractRev 与 contracts/ 当前内容一致；
+- 当前状态分布：PLANNED=66、VERIFYING=13（核心任务有历史报告，等待 v4 重新核验）。

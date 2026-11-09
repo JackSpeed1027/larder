@@ -821,13 +821,14 @@
     "S00": {
       "taskId": "S00",
       "title": "基线与隔离护栏",
-      "status": "VERIFYING",
+      "status": "READY_FOR_INTEGRATION",
       "owner": null,
       "baseSnapshot": "10d49e2",
       "contractRev": "11fece5379a51ee96caef5a5a443f6aa2d1a8772fe4203cd179be3004103b972",
       "evidence": [
         "reports/gates/S00/20261109-2250-s00/verification.md",
         "scripts/dev/assert-isolation.ps1",
+        "scripts/validate_ledger_v4.py",
         "tasks/execution-state-v4.json"
       ],
       "verifiedAt": null,
