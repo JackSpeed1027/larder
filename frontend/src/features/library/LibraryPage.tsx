@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { ApiError } from "../../shared/http/client";
 import { Button, EmptyState, ErrorState, Skeleton, StatusBadge } from "../../shared/ui";
+import { PageHeader, Pagination } from "../../shared/ui/navigation";
 import { listItems, listTags, type ItemPage, type ItemSummary, type TagView } from "./api";
 
 /**
@@ -59,17 +60,11 @@ export default function LibraryPage({ onOpen }: { onOpen: (item: ItemSummary) =>
 
   return (
     <section className="space-y-4">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="font-semibold" style={{ fontSize: "var(--larder-title-size)", lineHeight: "var(--larder-title-line)" }}>
-            资料库
-          </h1>
-          <p className="mt-1 text-sm" style={{ color: "var(--larder-muted)" }}>
-            共 {page?.total ?? 0} 条；当前显示 {page?.items.length ?? 0} 条
-          </p>
-        </div>
-        <Button variant="outline" onClick={reset}>清除筛选</Button>
-      </header>
+      <PageHeader
+        title="资料库"
+        description={`共 ${page?.total ?? 0} 条；当前显示 ${page?.items.length ?? 0} 条`}
+        actions={<Button variant="outline" onClick={reset}>清除筛选</Button>}
+      />
 
       <div className="flex flex-wrap gap-2">
         <input
@@ -149,22 +144,8 @@ export default function LibraryPage({ onOpen }: { onOpen: (item: ItemSummary) =>
         </ul>
       ) : null}
 
-      {page && page.total > page.limit ? (
-        <nav className="flex items-center justify-between" aria-label="分页">
-          <Button variant="outline" disabled={offset === 0} onClick={() => setOffset(Math.max(0, offset - page.limit))}>
-            上一页
-          </Button>
-          <span className="text-xs" style={{ color: "var(--larder-muted)" }}>
-            {offset + 1}–{Math.min(offset + page.limit, page.total)} / {page.total}
-          </span>
-          <Button
-            variant="outline"
-            disabled={offset + page.limit >= page.total}
-            onClick={() => setOffset(offset + page.limit)}
-          >
-            下一页
-          </Button>
-        </nav>
+      {page ? (
+        <Pagination offset={offset} limit={page.limit} total={page.total} onChange={setOffset} />
       ) : null}
     </section>
   );

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { ApiError } from "../../shared/http/client";
 import { Button, EmptyState, ErrorState, Skeleton, StatusBadge } from "../../shared/ui";
+import { PageHeader, Pagination } from "../../shared/ui/navigation";
 import { cancelJob, listJobs, retryJob, type JobPage } from "./api";
 
 const ACTIVE = new Set(["QUEUED", "RUNNING", "RETRY_WAIT", "NEEDS_DECISION"]);
@@ -54,33 +55,29 @@ export default function JobsPage() {
 
   return (
     <section className="space-y-4">
-      <header className="flex flex-wrap items-end justify-between gap-3">
-        <div>
-          <h1 className="font-semibold" style={{ fontSize: "var(--larder-title-size)", lineHeight: "var(--larder-title-line)" }}>
-            任务中心
-          </h1>
-          <p className="mt-1 text-sm" style={{ color: "var(--larder-muted)" }}>
-            共 {page?.total ?? 0} 个任务；取消只对进行中的任务生效，重试只对失败/已取消的任务生效。
-          </p>
-        </div>
-        <div className="flex gap-2">
-          <select
-            aria-label="任务状态"
-            value={state}
-            onChange={(event) => setState(event.target.value)}
-            className="h-9 rounded-[var(--larder-radius-control)] border px-2 text-sm"
-            style={{ borderColor: "var(--larder-border)", background: "var(--larder-surface)", color: "var(--larder-text)" }}
-          >
-            <option value="">全部</option>
-            <option value="QUEUED">排队</option>
-            <option value="RUNNING">运行中</option>
-            <option value="FAILED">失败</option>
-            <option value="CANCELLED">已取消</option>
-            <option value="SUCCEEDED">成功</option>
-          </select>
-          <Button variant="outline" onClick={() => load()}>刷新</Button>
-        </div>
-      </header>
+      <PageHeader
+        title="任务中心"
+        description="取消只对进行中的任务生效，重试只对失败/已取消的任务生效。"
+        actions={
+          <>
+            <select
+              aria-label="任务状态"
+              value={state}
+              onChange={(event) => setState(event.target.value)}
+              className="h-9 rounded-[var(--larder-radius-control)] border px-2 text-sm"
+              style={{ borderColor: "var(--larder-border)", background: "var(--larder-surface)", color: "var(--larder-text)" }}
+            >
+              <option value="">全部</option>
+              <option value="QUEUED">排队</option>
+              <option value="RUNNING">运行中</option>
+              <option value="FAILED">失败</option>
+              <option value="CANCELLED">已取消</option>
+              <option value="SUCCEEDED">成功</option>
+            </select>
+            <Button variant="outline" onClick={() => load()}>刷新</Button>
+          </>
+        }
+      />
 
       {loading ? <Skeleton lines={6} /> : null}
       {error ? <ErrorState title="任务操作或加载失败" message={error} onRetry={() => load()} /> : null}
@@ -115,14 +112,8 @@ export default function JobsPage() {
         </ul>
       ) : null}
 
-      {page && page.total > page.limit ? (
-        <nav className="flex items-center justify-between" aria-label="任务分页">
-          <Button variant="outline" disabled={offset === 0} onClick={() => setOffset(Math.max(0, offset - page.limit))}>上一页</Button>
-          <span className="text-xs" style={{ color: "var(--larder-muted)" }}>
-            {offset + 1}–{Math.min(offset + page.limit, page.total)} / {page.total}
-          </span>
-          <Button variant="outline" disabled={offset + page.limit >= page.total} onClick={() => setOffset(offset + page.limit)}>下一页</Button>
-        </nav>
+      {page ? (
+        <Pagination offset={offset} limit={page.limit} total={page.total} onChange={setOffset} />
       ) : null}
     </section>
   );
