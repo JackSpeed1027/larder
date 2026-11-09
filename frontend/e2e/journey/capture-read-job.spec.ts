@@ -64,4 +64,21 @@ test("保存 → 资料库 → 阅读（无正文）→ 笔记 → 任务取消"
   await page.screenshot({ path: path.join(shots, "..", "..", "F01", "screenshots", "jobs-1440.png"), fullPage: true });
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: path.join(shots, "..", "..", "F04", "screenshots", "jobs-390.png"), fullPage: true });
+  await page.setViewportSize({ width: 1440, height: 900 });
+
+  // F15：标签与集合的创建
+  const tagName = "E2E 标签 " + Date.now();
+  await page.goto("/#/tags");
+  await page.getByLabel("新标签名").fill(tagName);
+  await page.getByRole("button", { name: "新建标签" }).click();
+  await expect(page.getByText(tagName).first()).toBeVisible({ timeout: 15_000 });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F15", "screenshots", "tags-1440.png"), fullPage: true });
+
+  const collectionName = "E2E 集合 " + Date.now();
+  await page.goto("/#/collections");
+  await page.getByLabel("新集合名").fill(collectionName);
+  await page.getByRole("button", { name: "新建集合" }).click();
+  await expect(page.getByText(collectionName).first()).toBeVisible({ timeout: 15_000 });
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.screenshot({ path: path.join(shots, "..", "..", "F15", "screenshots", "collections-768.png"), fullPage: true });
 });

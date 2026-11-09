@@ -557,6 +557,7 @@ TASKS = {
     "F02": ["secrets", "frontend_tests", "frontend_e2e", "contracts"],
     "F03": ["secrets", "frontend_tests", "frontend_e2e", "contracts"],
     "F04": ["secrets", "frontend_tests", "frontend_e2e", "contracts"],
+    "F15": ["secrets", "frontend_tests", "frontend_e2e", "contracts"],
     "V01-T03": ["secrets", "contracts", "backend_tests"],
     "V01-T02": ["secrets", "backend_tests", "runner_tests", "frontend_build", "compose_config"],
 }

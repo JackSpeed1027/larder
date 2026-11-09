@@ -4,6 +4,7 @@ import LibraryPage from "../features/library/LibraryPage";
 import CapturePage from "../features/capture/CapturePage";
 import JobsPage from "../features/jobs/JobsPage";
 import ReaderPage from "../features/reader/ReaderPage";
+import OrganizationPage from "../features/organization/OrganizationPage";
 import { AppShell } from "../shared/layout/AppShell";
 import { Button, EmptyState, ErrorState, Skeleton } from "../shared/ui";
 
@@ -115,6 +116,10 @@ export default function App() {
         )
       ) : path === "/jobs" ? (
         <JobsPage />
+      ) : path === "/tags" ? (
+        <OrganizationPage tab="tags" />
+      ) : path === "/collections" ? (
+        <OrganizationPage tab="collections" />
       ) : path === "/capture" ? (
         <CapturePage onCreated={() => navigate("/library")} />
       ) : path === "/library" ? (
