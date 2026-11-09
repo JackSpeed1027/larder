@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from "react";
 import LoginPage from "../features/auth/LoginPage";
 import LibraryPage from "../features/library/LibraryPage";
 import CapturePage from "../features/capture/CapturePage";
+import JobsPage from "../features/jobs/JobsPage";
+import ReaderPage from "../features/reader/ReaderPage";
 import { AppShell } from "../shared/layout/AppShell";
 import { Button, EmptyState, ErrorState, Skeleton } from "../shared/ui";
 
@@ -82,6 +84,10 @@ export default function App() {
     );
   }
 
+  const query = new URLSearchParams(path.split("?")[1] ?? "");
+  const itemId = query.get("itemId");
+  const revisionId = query.get("revisionId");
+
   if (path === "/login" || path === "/") {
     return (
       <LoginPage
@@ -97,7 +103,19 @@ export default function App() {
       onQuickSave={() => navigate("/capture")}
       offline={offline}
     >
-      {path === "/capture" ? (
+      {path.split("?")[0] === "/reader" ? (
+        itemId && revisionId ? (
+          <ReaderPage itemId={itemId} revisionId={revisionId} onBack={() => navigate("/library")} />
+        ) : (
+          <EmptyState
+            title="阅读链接不完整"
+            description="阅读页必须带 itemId 与 revisionId（固定版本）。请从资料库进入。"
+            action={<Button onClick={() => navigate("/library")}>返回资料库</Button>}
+          />
+        )
+      ) : path === "/jobs" ? (
+        <JobsPage />
+      ) : path === "/capture" ? (
         <CapturePage onCreated={() => navigate("/library")} />
       ) : path === "/library" ? (
         <LibraryPage
