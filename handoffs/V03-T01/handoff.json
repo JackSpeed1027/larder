@@ -1,0 +1,59 @@
+{
+  "taskId": "V03-T01",
+  "sliceId": "V03-T01.FULL",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "accept 五项全过；真实 RabbitMQ 验证 confirm/return/断开恢复/死信；消费端与 DLQ 按计划留到 V03-T02/V12",
+  "baseSnapshot": "1ce3806",
+  "contractRev": "5719da4c579a10da67f4e4cf24aa152bf45dcb38d3d224ba915f4d8df5b5dc8c",
+  "designRev": "e4b3603536b12badefda0a2772db716ef625df29320108f5b2cd917a34a9d2e2",
+  "summary": "实现 Outbox 投递器：短事务领取（FOR UPDATE SKIP LOCKED）后事务外投递；mandatory + correlated publisher confirm + returns，unroutable 即使 ack 也不标 SENT；所有完成/失败更新带 relay_token 条件（fencing），租约过期可被 reclaimExpired 收回；指数退避 1/2/4…封顶 60s，超过 max-attempts 进 DEAD；RabbitTopology 声明 exchange/queue/binding；调度器由 larder.outbox.enabled 控制，默认关闭。真实 RabbitMQ 5 项端到端全过。",
+  "changedFilesManifest": "file-manifest.json",
+  "checks": [
+    { "command": "python scripts/accept.py --task V03-T01 --profile offline --run-id 20261109-0800-v03t01", "exitCode": 0, "passed": 5, "failed": 0, "skipped": 0, "log": "reports/V03-T01/20261109-0800-v03t01/summary.json" },
+    { "command": "backend mvnw verify -DfailIfNoTests=true", "exitCode": 0, "passed": 44, "failed": 0, "skipped": 0, "log": "reports/V03-T01/20261109-0800-v03t01/logs/backend_tests.log" },
+    { "command": "python scripts/contracts/check_contracts.py", "exitCode": 0, "passed": 29, "failed": 0, "skipped": 0, "log": "reports/V03-T01/20261109-0800-v03t01/logs/contracts.log" },
+    { "command": "scripts/dev/verify-outbox.ps1（真实 MySQL + RabbitMQ）", "exitCode": 0, "passed": 6, "failed": 0, "skipped": 0, "log": "reports/V03-T01/20261109-0800-v03t01/logs/outbox_e2e.log", "note": "6 项：就绪/登录/事件生成/SENT/断开恢复/死信" }
+  ],
+  "acceptanceEvidence": {
+    "db-ok-mq-down-recovers": "outbox_e2e.log：断开时 PUBLISHING attempt=0，恢复后 SENT attempt=4",
+    "confirm-lost-allows-redelivery": "confirm 超时按 TIMEOUT 退避；租约过期 reclaim；重复投递为至少一次（单测 + e2e attempt=4）",
+    "unroutable-not-sent": "outbox_e2e.log：bogus.no.route → DEAD attempt=5，期间从未 SENT",
+    "fencing": "OutboxStoreTest.staleTokenCannotMarkSent / mismatchedTokenIsIgnored"
+  },
+  "notRun": [
+    "消费端 inbox 去重（V03-T02）",
+    "RabbitMQ DLQ / 死信队列（V12）",
+    "多 relay 实例并发接管",
+    "metrics 与告警（V12）"
+  ],
+  "knownLimitations": [
+    "DEAD 是数据库状态，不是 broker 死信队列。",
+    "单实例验证；多实例依赖 SKIP LOCKED + token，未实跑。",
+    "消息只进队列，没有消费者（V03-T02）。"
+  ],
+  "newDependencies": ["org.springframework.boot:spring-boot-starter-amqp"],
+  "migrationNotes": "无新增迁移；复用 V2 的 outbox 表（relay_owner/relay_token/relay_lease_until/confirmed_at 列已在契约中）。",
+  "contractChanges": [],
+  "commentReview": {
+    "publicSymbols": "OutboxRelay 六项说明、OutboxStore 短事务与 fencing 注释、RabbitOutboxPublisher 判定顺序注释；测试类说明每条用例能抓到什么错误实现。",
+    "sqlComments": "OutboxRelayMapper 方法注释说明 token 条件与 SKIP LOCKED 用途。",
+    "complexMechanisms": [
+      "短事务领取 + 事务外投递：OutboxRelay/OutboxStore 注释",
+      "confirm/return 判定顺序：RabbitOutboxPublisher 类注释",
+      "fencing 与 reclaim：OutboxStore + OutboxStoreTest"
+    ]
+  },
+  "crossCuttingChanges": [
+    { "id": "CR-0001", "files": ["backend/pom.xml"], "reason": "AMQP starter" },
+    { "id": "CR-0002", "files": ["backend/src/main/resources/application.yml"], "reason": "larder.outbox.* 配置" },
+    { "id": "CR-0003", "files": ["compose.yaml"], "reason": "RabbitMQ 环境与投递器开关" },
+    { "id": "CR-0004", "files": ["scripts/accept.py"], "reason": "outbox_e2e 与 V03-T01 任务" },
+    { "id": "CR-0005", "files": ["README.md", "docs/项目记忆.md"], "reason": "阶段表与记忆同步" }
+  ],
+  "nextIntegrationChecks": [
+    "V03-T02 消费端接入后，验证重复投递只处理一次",
+    "多实例部署时验证 SKIP LOCKED 不会双投",
+    "V02-T03 抓取链路接入后，验证 job 从 QUEUED 推进"
+  ],
+  "locksToReleaseAfterIntegration": ["workpackage:V03-T01"]
+}

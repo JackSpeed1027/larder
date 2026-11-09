@@ -39,6 +39,7 @@ D:\Work\Project\larder\
 | V01-T04 认证与验收基础 | **TASK_LOCAL_PASS** | `identity/` 认证、`scripts/accept.py`、`.github/workflows/ci.yml`、`reports/V01-T04/` |
 | V02-T01 内容模型与幂等 | **TASK_LOCAL_PASS** | `content/model`、`pipeline/model`、`ingest`、`POST /api/items`、`V2__content_core.sql`、`reports/V02-T01/` |
 | V02-T02 MinIO 不可变产物 | **TASK_LOCAL_PASS** | `content/storage`、`runner/artifacts`、`V3__artifacts.sql`、`reports/V02-T02/` |
+| V03-T01 Outbox 投递与 confirm | **TASK_LOCAL_PASS** | `pipeline/outbox`、`scripts/dev/verify-outbox.ps1`、`reports/V03-T01/` |
 
 V01-T02 的可信结论（`reports/V01-T02/20261107-0010-v01t02/`）：
 
@@ -74,6 +75,13 @@ V02-T02 的可信结论（`reports/V02-T02/20261108-2125-v02t02/`）：
 - 先写不可变对象、再发布 DB 引用：对象写失败不落库，落库失败登记孤立对象（JSONL），不产生坏引用；
 - 同内容重复接收幂等复用；同 key 不同内容拒绝覆盖；**从不把 multipart ETag 当 hash**；
 - 真实 MinIO 集成测试 1/1 通过，accept 五项全过（后端 33 用例）。
+
+V03-T01 的可信结论（`reports/V03-T01/20261109-0800-v03t01/`）：
+
+- 短事务领取（`FOR UPDATE SKIP LOCKED`）+ 事务外投递；完成/失败更新带 `relay_token` 条件（fencing）；
+- mandatory + correlated confirm + returns：**unroutable 即使 ack 也不标 SENT**，退避后进 DEAD；
+- 真实 RabbitMQ 上验证：正常 SENT、broker 断开时保留未完成状态、恢复后补投（第 4 次尝试成功）、无路由事件最终 DEAD；
+- accept 五项全过（后端 44 用例 + 投递端到端 6 项）。
 
 ## 本地运行
 

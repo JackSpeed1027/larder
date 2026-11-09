@@ -67,3 +67,13 @@ larder:
     max-bytes: ${LARDER_ARTIFACT_MAX_BYTES:20971520}
     # 对象已写、元数据落库失败时的孤立对象清单（挂卷持久化）
     orphan-file: ${LARDER_ORPHAN_FILE:/var/lib/larder/orphans.jsonl}
+
+  outbox:
+    # 默认关闭：单机开发不必起 RabbitMQ；验证投递时用环境变量打开
+    enabled: ${LARDER_OUTBOX_ENABLED:false}
+    relay-id: ${LARDER_OUTBOX_RELAY_ID:relay-local}
+    batch-size: ${LARDER_OUTBOX_BATCH:20}
+    lease-seconds: ${LARDER_OUTBOX_LEASE_SECONDS:30}
+    max-attempts: ${LARDER_OUTBOX_MAX_ATTEMPTS:5}
+    poll-interval-ms: ${LARDER_OUTBOX_POLL_MS:1000}
+    confirm-timeout-ms: ${LARDER_OUTBOX_CONFIRM_TIMEOUT_MS:5000}

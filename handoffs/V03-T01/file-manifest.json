@@ -1,0 +1,205 @@
+{
+  "taskId": "V03-T01",
+  "sliceId": "V03-T01.FULL",
+  "runId": "20261109-0800-v03t01",
+  "generatedAt": "2026-11-09T00:04:23.293521+00:00",
+  "note": "baseSha256 为 null（基线 commit 1ce3806）；6 个文件为 modified，其余 added。",
+  "files": [
+    {
+      "path": "backend/pom.xml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "f05017f5f5e701b3debee0cb6724440d67cc4f6d420dcb5ca1e324b3ce6a9595",
+      "size": 3843
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/OutboxBackoff.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "daaa2d6a26519ea02e06427e6e1fb30a4cdd13e3120f9c170e940d19fa452cac",
+      "size": 788
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/OutboxPublisher.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "620c90131752959ceb741fd71012f131fb47b326ce7ecc78cde6043b010b0d28",
+      "size": 398
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/OutboxRelay.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f5c13246e58649f9123c144ea74db1fa81311e137d3b40c1d813c7b6a9f05234",
+      "size": 3056
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/OutboxRelayMapper.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "7e5a63eeb9dfe731f8db85ceebd890de336d9be380f53344caf76b9d2fba2dd7",
+      "size": 2857
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/OutboxRow.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "b84722b5165bb61f00315bada87d392125822785cb0940c6ee6453b9d5d6e485",
+      "size": 2762
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/OutboxSchedulingConfig.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "de2cffcc1914a007c23748d2edd2b54b5b05ce720b1f9dabf710adf744cbed3d",
+      "size": 1232
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/OutboxStore.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "3226f38260d03abb3b1dc17ba356115ad6c087c448f953708a2321ad8504f68f",
+      "size": 3807
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/PublishOutcome.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "70371e4ca827be59890b1784d85802fd1ab1938bd77531f340ba92137d7f8311",
+      "size": 719
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/RabbitOutboxPublisher.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "8586e5a137897861811f1159485347e1e0b31ea8995e2e9089b970075bda089f",
+      "size": 2908
+    },
+    {
+      "path": "backend/src/main/java/com/larder/pipeline/outbox/RabbitTopology.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "0cf46fab1a58a441a2e3947380e9abfcd1c26f8ebdd953dd6afb63d9321c12ca",
+      "size": 2645
+    },
+    {
+      "path": "backend/src/main/resources/application.yml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "cc205cea43184ec9474a771b7842b498e776a63cb0a7aff38f8c723543718193",
+      "size": 2497
+    },
+    {
+      "path": "backend/src/test/java/com/larder/pipeline/outbox/OutboxBackoffTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "13e303cb21aa03cf0629e7ef0d3717be7bd17ac77e0c04bb6c5b22dd53f0a256",
+      "size": 957
+    },
+    {
+      "path": "backend/src/test/java/com/larder/pipeline/outbox/OutboxRelayTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "e7366a5510b8066f6d4371bb74dc8933e8ef6a38786b8c9a7e2f0663c3fddf9e",
+      "size": 4180
+    },
+    {
+      "path": "backend/src/test/java/com/larder/pipeline/outbox/OutboxStoreTest.java",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "4894baa1dec0e96ee8b3be1dd8e8b051dd0c004d8efd6ca19aeec15e012f17c6",
+      "size": 3100
+    },
+    {
+      "path": "compose.yaml",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "260b86edd6e627b95bae5ce101db1601a1afce7e9e453e58512c949377fdc3b0",
+      "size": 6089
+    },
+    {
+      "path": "docs/项目记忆.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "b7cd385258c6016fa77629666461298b06c670b2a7edc630c991e40ae20d7c88",
+      "size": 10031
+    },
+    {
+      "path": "handoffs/V03-T01/handoff.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "d7c23f1f156be8e2a97ec127065c8c45872143f5617b31db7ddf89d17526e9c1",
+      "size": 4404
+    },
+    {
+      "path": "README.md",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "b8b0d75f9206e3e244c97433c06873b8245a4bb1e66ded120e926ca15738f178",
+      "size": 9070
+    },
+    {
+      "path": "reports/V03-T01/20261109-0800-v03t01/logs/backend_tests.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "3311b72e06dfb3d1451253c45a844519ba6f2a971eb33b8577eb12410e340bb1",
+      "size": 10430
+    },
+    {
+      "path": "reports/V03-T01/20261109-0800-v03t01/logs/compose_config.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "273e38007d5718ca6c3fa2670eaeaf4b32663026be01f4b80fa72bc856d577b5",
+      "size": 81
+    },
+    {
+      "path": "reports/V03-T01/20261109-0800-v03t01/logs/contracts.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "c6e3860632cbdc3aeb0894d561c25057bc7747ccff508b5de6f911bdf8bea00e",
+      "size": 1523
+    },
+    {
+      "path": "reports/V03-T01/20261109-0800-v03t01/logs/outbox_e2e.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "850e289f638492bb1a558ed175ac9bae6e4a30a6396ac7df36ad3eaac7776f9b",
+      "size": 1574
+    },
+    {
+      "path": "reports/V03-T01/20261109-0800-v03t01/logs/secrets.log",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "19fe3e5828f5dd52b6701a944fa3650d24ff34ebba7950b2ac72db362ce13136",
+      "size": 34348
+    },
+    {
+      "path": "reports/V03-T01/20261109-0800-v03t01/summary.json",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "f77ea4fd122dd09a19784cdb270de8105a1c92f83d0a830d2f62e64d442e5cc6",
+      "size": 2203
+    },
+    {
+      "path": "reports/V03-T01/20261109-0800-v03t01/verification.md",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "2319a152bf7cf13cd1a9ebce96bad606ea5c981ddd3fcadf4de567918f34b786",
+      "size": 4993
+    },
+    {
+      "path": "scripts/accept.py",
+      "changeType": "modified",
+      "baseSha256": null,
+      "resultSha256": "492e934c78fc98a2b1145b395a83296d52cae59efa9832eb7ef33fd5b4bd45ad",
+      "size": 19144
+    },
+    {
+      "path": "scripts/dev/verify-outbox.ps1",
+      "changeType": "added",
+      "baseSha256": null,
+      "resultSha256": "468ff1f33b13f480e2befe49fbe317d42075596bde93b975446d063fbf32912b",
+      "size": 7723
+    }
+  ]
+}
