@@ -42,8 +42,10 @@ export default function ReaderPage({ itemId, revisionId, onBack }: {
     const onScroll = () => {
       const node = articleRef.current;
       if (!node) return;
-      const total = node.scrollHeight - window.innerHeight;
-      const progress = total > 0 ? Math.min(1, Math.max(0, window.scrollY / total)) : 0;
+      // 以正文元素自身的高度计算进度：长文/图片下比 window.scrollY 更准
+      const rect = node.getBoundingClientRect();
+      const total = node.offsetHeight - window.innerHeight;
+      const progress = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 1;
       const now = Date.now();
       if (now - lastSaved.current < 3000) return;
       lastSaved.current = now;

@@ -9,6 +9,7 @@ const ACTIVE = new Set(["QUEUED", "RUNNING", "RETRY_WAIT", "NEEDS_DECISION"]);
 /** F04 任务中心：列表、状态筛选、取消/重试；每次操作后刷新，失败不静默。 */
 export default function JobsPage() {
   const [state, setState] = useState("");
+  const [offset, setOffset] = useState(0);
   const [page, setPage] = useState<JobPage | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,7 +19,7 @@ export default function JobsPage() {
     const controller = new AbortController();
     setLoading(true);
     setError(null);
-    listJobs({ state, limit: 20, offset: 0 }, controller.signal)
+    listJobs({ state, limit: 20, offset }, controller.signal)
       .then((result) => { setPage(result); setLoading(false); })
       .catch((err: unknown) => {
         if (controller.signal.aborted) return;
@@ -26,9 +27,17 @@ export default function JobsPage() {
         setLoading(false);
       });
     return () => controller.abort();
-  }, [state]);
+  }, [state, offset]);
 
   useEffect(() => load(), [load]);
+
+  // 有进行中的任务时自动轮询；全部结束就停，避免空转
+  useEffect(() => {
+    const hasActive = (page?.jobs ?? []).some((job) => ACTIVE.has(job.state));
+    if (!hasActive) return;
+    const timer = window.setInterval(() => load(), 5000);
+    return () => window.clearInterval(timer);
+  }, [page, load]);
 
   async function act(jobId: string, action: "cancel" | "retry") {
     setBusy(jobId);
@@ -104,6 +113,16 @@ export default function JobsPage() {
             </li>
           ))}
         </ul>
+      ) : null}
+
+      {page && page.total > page.limit ? (
+        <nav className="flex items-center justify-between" aria-label="任务分页">
+          <Button variant="outline" disabled={offset === 0} onClick={() => setOffset(Math.max(0, offset - page.limit))}>上一页</Button>
+          <span className="text-xs" style={{ color: "var(--larder-muted)" }}>
+            {offset + 1}–{Math.min(offset + page.limit, page.total)} / {page.total}
+          </span>
+          <Button variant="outline" disabled={offset + page.limit >= page.total} onClick={() => setOffset(offset + page.limit)}>下一页</Button>
+        </nav>
       ) : null}
     </section>
   );
