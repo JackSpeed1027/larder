@@ -21,7 +21,7 @@
 - 23 个新任务：S00 IN_PROGRESS，其余 PLANNED；
 - 任何项标 DONE 必须由协调者在集成树验证后写入并附 evidence/verifiedAt。
 
-## 验证（重要：本轮 selftest 实际 FAIL）
+## 验证
 
 - ssert-isolation.ps1 -Selftest 当前 **exit=1**：合规样例被判定为不合规（回归），详见 logs/assert-isolation.log；
 - 因此本任务只能标 **TASK_LOCAL_FAIL**，脚本本身尚不可用于故障注入门禁；
