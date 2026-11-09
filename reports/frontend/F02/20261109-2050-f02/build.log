@@ -1,0 +1,17 @@
+﻿cmd.exe : $ tsc --noEmit && vite build
+所在位置 行:32 字符: 32
++   Push-Location "$p\frontend"; & cmd /c "pnpm build" 2>&1 | Out-File  ...
++                                ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ($ tsc --noEmit && vite build:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+vite v8.3.6 building client environment for production...
+transforming...
+✓ 26 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.40 kB │ gzip:  0.28 kB
+dist/assets/index-C3Hjugoa.css   12.98 kB │ gzip:  3.73 kB
+dist/assets/index-BL2cDB8d.js   242.40 kB │ gzip: 75.46 kB
+
+✓ built in 309ms
