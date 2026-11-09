@@ -1,0 +1,15 @@
+$ D:\dev\node\node-v24.22.0-win-x64\pnpm.CMD test
+(cwd=D:\Work\Project\larder\frontend)
+
+
+ RUN  v5.1.0 D:/Work/Project/larder/frontend
+
+ ✓ src/shared/http/client.test.ts (3 tests) 34ms
+ ✓ src/features/auth/safeReturnTo.test.ts (2 tests) 6ms
+
+ Test Files  2 passed (2)
+      Tests  5 passed (5)
+   Start at  21:15:28
+   Duration  1.43s (environment 92%, import 3%, transform 2%, tests 2%, worker 1%)
+
+$ vitest run

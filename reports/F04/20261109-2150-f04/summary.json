@@ -1,0 +1,61 @@
+{
+  "task": "F04",
+  "profile": "offline",
+  "runId": "20261109-2150-f04",
+  "result": "PASS",
+  "generatedAt": "2026-11-09T13:16:19.459441+00:00",
+  "environment": {
+    "os": "Windows-11-10.0.26200-SP0",
+    "python": "3.13.16",
+    "node": "D:\\dev\\node\\node-v24.22.0-win-x64\\node.EXE",
+    "docker": "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.EXE",
+    "uv": "D:\\dev\\python\\3.13.16\\Scripts\\uv.EXE"
+  },
+  "checks": [
+    {
+      "name": "secrets",
+      "command": "git ls-files + secret scan",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/F04/20261109-2150-f04/logs/secrets.log",
+      "note": "扫描 817 个跟踪文件",
+      "failure": null
+    },
+    {
+      "name": "frontend_tests",
+      "command": "D:\\dev\\node\\node-v24.22.0-win-x64\\pnpm.CMD test",
+      "exitCode": 0,
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/F04/20261109-2150-f04/logs/frontend_tests.log",
+      "note": null,
+      "failure": null
+    },
+    {
+      "name": "frontend_e2e",
+      "command": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/dev/verify-web-e2e.ps1",
+      "exitCode": 0,
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0,
+      "log": "reports/F04/20261109-2150-f04/logs/frontend_e2e.log",
+      "note": "",
+      "failure": null
+    },
+    {
+      "name": "contracts",
+      "command": "uv run --with jsonschema python scripts/contracts/check_contracts.py",
+      "exitCode": 0,
+      "passed": null,
+      "failed": null,
+      "skipped": null,
+      "log": "reports/F04/20261109-2150-f04/logs/contracts.log",
+      "note": "",
+      "failure": null
+    }
+  ],
+  "failures": []
+}
