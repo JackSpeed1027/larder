@@ -24,7 +24,9 @@ export default function ReaderPage({ itemId, revisionId, onBack }: {
     const controller = new AbortController();
     setLoading(true);
     setError(null);
-    Promise.all([getItem(itemId, controller.signal), readRevision(itemId, revisionId, controller.signal)])
+    const detailRequest = getItem(itemId, controller.signal);
+    const revisionRequest = revisionId ? readRevision(itemId, revisionId, controller.signal) : Promise.resolve(null);
+    Promise.all([detailRequest, revisionRequest])
       .then(([detail, text]) => {
         setItem(detail);
         setRevision(text);

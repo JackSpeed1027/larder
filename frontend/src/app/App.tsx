@@ -104,8 +104,8 @@ export default function App() {
       offline={offline}
     >
       {path.split("?")[0] === "/reader" ? (
-        itemId && revisionId ? (
-          <ReaderPage itemId={itemId} revisionId={revisionId} onBack={() => navigate("/library")} />
+        itemId ? (
+          <ReaderPage itemId={itemId} revisionId={revisionId ?? ""} onBack={() => navigate("/library")} />
         ) : (
           <EmptyState
             title="阅读链接不完整"
