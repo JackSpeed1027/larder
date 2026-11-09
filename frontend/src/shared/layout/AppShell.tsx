@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 export type NavItem = { path: string; label: string; group?: "main" | "organize" | "bottom" };
 
@@ -31,6 +31,14 @@ export function AppShell({
   offline: boolean;
   children: ReactNode;
 }) {
+  const [theme, setTheme] = useState(() => localStorage.getItem("larder-theme") ?? "light");
+  const toggleTheme = () => {
+    const next = theme === "dark" ? "light" : "dark";
+    setTheme(next);
+    document.documentElement.dataset.theme = next;
+    localStorage.setItem("larder-theme", next);
+  };
+
   const renderItem = (item: NavItem) => {
     const active = currentPath === item.path || currentPath.startsWith(`${item.path}/`);
     return (
@@ -75,6 +83,10 @@ export function AppShell({
           style={{ height: "var(--larder-topbar)", borderColor: "var(--larder-border)", background: "var(--larder-surface)" }}
         >
           <div className="text-sm" style={{ color: "var(--larder-muted)" }}>个人内容与学习工作台</div>
+          <button type="button" onClick={toggleTheme} aria-label="切换主题" className="mr-2 h-9 rounded px-3 text-sm"
+            style={{ border: "1px solid var(--larder-border)", color: "var(--larder-text)" }}>
+            {theme === "dark" ? "浅色" : "深色"}
+          </button>
           <button
             type="button"
             onClick={onQuickSave}

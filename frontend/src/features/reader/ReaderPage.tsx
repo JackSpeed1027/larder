@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ApiError } from "../../shared/http/client";
 import { Button, EmptyState, ErrorState, Skeleton, StatusBadge } from "../../shared/ui";
 import { getItem, markRead, readRevision, savePosition, type ItemDetail, type RevisionText } from "./api";
+import NotesPanel from "./NotesPanel";
 
 /**
  * F03 阅读器：只读固定 revision（URL 里带 revisionId），不隐式跟随最新版本。
@@ -62,11 +63,14 @@ export default function ReaderPage({ itemId, revisionId, onBack }: {
   if (!item) return <EmptyState title="条目不存在" description="链接可能失效。" action={<Button onClick={onBack}>返回资料库</Button>} />;
   if (!revision) {
     return (
-      <EmptyState
-        title="这条内容还没有正文"
-        description="抓取任务可能仍在排队或失败。到任务中心查看进度，或重新收录。"
-        action={<Button onClick={onBack}>返回资料库</Button>}
-      />
+      <>
+        <EmptyState
+          title="这条内容还没有正文"
+          description="抓取任务可能仍在排队或失败。到任务中心查看进度，或重新收录。"
+          action={<Button onClick={onBack}>返回资料库</Button>}
+        />
+        <NotesPanel itemId={itemId} revisionId={revisionId} />
+      </>
     );
   }
 
@@ -96,6 +100,8 @@ export default function ReaderPage({ itemId, revisionId, onBack }: {
       >
         {revision.text}
       </div>
+
+      <NotesPanel itemId={itemId} revisionId={revisionId} />
     </article>
   );
 }

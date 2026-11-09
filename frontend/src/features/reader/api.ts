@@ -1,4 +1,4 @@
-/** F03 阅读器 API：固定 revision 正文 + 阅读位置。 */
+/** F03 阅读器 API：固定 revision 正文 + 阅读位置 + 笔记。 */
 import { apiFetch } from "../../shared/http/client";
 
 export type ItemDetail = {
@@ -15,6 +15,8 @@ export type RevisionText = {
   sha256: string;
   text: string;
 };
+
+export type NoteView = { id: string; markdown: string; revisionId: string | null; createdAt: string };
 
 export function getItem(itemId: string, signal?: AbortSignal): Promise<ItemDetail> {
   return apiFetch<ItemDetail>(`/api/items/${itemId}`, { signal });
@@ -35,5 +37,16 @@ export function markRead(itemId: string, readStatus: "UNREAD" | "READING" | "REA
   return apiFetch(`/api/items/${itemId}`, {
     method: "PATCH",
     body: JSON.stringify({ readStatus }),
+  });
+}
+
+export function listNotes(itemId: string): Promise<NoteView[]> {
+  return apiFetch<NoteView[]>(`/api/items/${itemId}/notes`);
+}
+
+export function createNote(itemId: string, revisionId: string | null, markdown: string): Promise<NoteView> {
+  return apiFetch<NoteView>(`/api/items/${itemId}/notes`, {
+    method: "POST",
+    body: JSON.stringify({ revisionId, markdown }),
   });
 }
