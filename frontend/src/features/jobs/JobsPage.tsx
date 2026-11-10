@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { ApiError } from "../../shared/http/client";
 import { Button, EmptyState, ErrorState, Skeleton, StatusBadge } from "../../shared/ui";
 import { ConfirmAction, PageHeader, Pagination } from "../../shared/ui/navigation";
 import { cancelJob, listJobs, retryJob, type JobPage } from "./api";
+import { BASE_DELAY_MS, nextDelay } from "./polling";
 
 const ACTIVE = new Set(["QUEUED", "RUNNING", "RETRY_WAIT", "NEEDS_DECISION"]);
 
@@ -15,15 +16,17 @@ export default function JobsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
+  const lastLoadOk = useRef(true);
 
   const load = useCallback(() => {
     const controller = new AbortController();
     setLoading(true);
     setError(null);
     listJobs({ state, limit: 20, offset }, controller.signal)
-      .then((result) => { setPage(result); setLoading(false); })
+      .then((result) => { lastLoadOk.current = true; setPage(result); setLoading(false); })
       .catch((err: unknown) => {
         if (controller.signal.aborted) return;
+        lastLoadOk.current = false;
         setError(err instanceof ApiError ? `${err.code}：${err.message}` : String(err));
         setLoading(false);
       });
@@ -32,12 +35,38 @@ export default function JobsPage() {
 
   useEffect(() => load(), [load]);
 
-  // 有进行中的任务时自动轮询；全部结束就停，避免空转
+  // 有进行中的任务时自动轮询；全部结束就停，避免空转。
+  // S05：失败指数退避、隐藏页降频到 60s、回到前台立即刷新一次。
   useEffect(() => {
     const hasActive = (page?.jobs ?? []).some((job) => ACTIVE.has(job.state));
     if (!hasActive) return;
-    const timer = window.setInterval(() => load(), 5000);
-    return () => window.clearInterval(timer);
+    let cancelled = false;
+    let timer = 0;
+    let delay = BASE_DELAY_MS;
+
+    const schedule = () => {
+      timer = window.setTimeout(() => {
+        if (cancelled) return;
+        load();
+        delay = nextDelay(delay, lastLoadOk.current, document.visibilityState === "hidden");
+        schedule();
+      }, delay);
+    };
+    schedule();
+
+    const onVisibility = () => {
+      if (document.visibilityState !== "visible" || cancelled) return;
+      window.clearTimeout(timer);
+      delay = BASE_DELAY_MS;
+      load();
+      schedule();
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      cancelled = true;
+      window.clearTimeout(timer);
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
   }, [page, load]);
 
   async function act(jobId: string, action: "cancel" | "retry") {

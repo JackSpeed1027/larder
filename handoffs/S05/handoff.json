@@ -1,8 +1,8 @@
 {
   "taskId": "S05",
-  "sliceId": "S05.BOUNDED+EVENT_LOG+TRANSITIONS+CURSOR",
+  "sliceId": "S05.BOUNDED+EVENT_LOG+TRANSITIONS+CURSOR+RACE+UI_POLL",
   "result": "TASK_LOCAL_PASS",
-  "resultScope": "有界 SSE；job_event 覆盖 RUNNING/QUEUED/FAILED/SUCCEEDED；CANCEL_REQUESTED 待核验；前端降级未做",
+  "resultScope": "后端 SSE 有界/事件日志/竞态 e2e；前端轮询退避与隐藏页降频；仅剩事件表保留策略",
   "checks": [
     {
       "command": "backend mvnw test",
@@ -43,10 +43,23 @@
       "command": "scripts/dev/verify-lease.ps1（含竞态）",
       "exitCode": 0,
       "log": "reports/S05/s05-20261110/verify-lease-race.log"
+    },
+    {
+      "command": "frontend pnpm test",
+      "exitCode": 0,
+      "passed": 8
+    },
+    {
+      "command": "scripts/dev/verify-web-e2e.ps1",
+      "exitCode": 0,
+      "log": "reports/S05/s05-20261110/verify-web-e2e-polling.log"
+    },
+    {
+      "command": "scripts/accept.py --task F04",
+      "exitCode": 0
     }
   ],
   "notRun": [
-    "前端轮询降级/隐藏页降频（需 frontend/ 作用域）",
-    "job_event 保留策略"
+    "job_event 保留期/清理策略"
   ]
 }

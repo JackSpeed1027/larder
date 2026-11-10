@@ -129,3 +129,23 @@ verify-lease.ps1 → ALL LEASE CHECKS PASSED
 
 - 前端轮询降级 / 隐藏页降频（需改 `frontend/`，与 U02 窗口冲突）；
 - `job_event` 保留期/清理策略。
+
+## 追加：前端轮询退避 + 隐藏页降频（S05.UI_POLL）
+
+- `features/jobs/polling.ts`：`nextDelay(currentMs, ok, hidden)`；
+  - 成功 → 5s；失败 → 指数退避（5→10→20→30s 封顶）；隐藏页 → 60s；
+- `JobsPage`：`setInterval` 改为自调度 `setTimeout`；失败时用上次结果退避；`visibilitychange` 回到前台立即刷新并重置间隔；
+- 单测：`polling.test.ts` 3 个用例（成功/退避封顶/隐藏页）。
+
+### 实测
+
+```
+pnpm test       3 files / 8 tests passed
+pnpm build      ✓ built
+verify-web-e2e  4 passed
+accept F04      RESULT PASS（frontend_tests + frontend_e2e + contracts）
+```
+
+### 说明
+
+前端目前用轮询（不是 SSE），所以“连接恢复”等价为：回到前台立即刷新 + 失败退避；SSE 只在后端就绪，前端接入不在 S05 范围。
