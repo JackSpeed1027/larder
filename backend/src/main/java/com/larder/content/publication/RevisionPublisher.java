@@ -3,27 +3,21 @@ package com.larder.content.publication;
 import com.larder.content.storage.ArtifactService;
 import com.larder.content.storage.ArtifactView;
 import com.larder.content.storage.ArtifactKeys;
-import com.larder.ingest.Ids;
-import com.larder.ingest.Json;
+import com.larder.content.storage.OrphanRecorder;
 import com.larder.runner.ingest.RunnerResultRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 
 /**
- * 发布：把 Runner 的抓取结果落成不可变 revision，并移动 item 指针。
+ * 发布编排（S03）：先校验/去重，再**在事务外**上传 artifact，最后调用短事务绑定。
  *
- * <p>六项说明：
+ * <p>顺序不可颠倒：
  * <ol>
- *   <li>做什么：校验 run/epoch → 存正文 artifact → 写 content_revision → 绑定 artifact → 移动指针 → job SUCCEEDED。</li>
- *   <li>为什么：正文必须不可变、可追溯；job 的成功只能由"写入成功"推导，不能由 HTTP 请求推导。</li>
- *   <li>正常流程：一次事务提交，任一步失败全部回滚（不会出现指针指向半成品）。</li>
- *   <li>竞争：job 行 FOR UPDATE；最终 commitJob 带 run_id+epoch 条件，旧 run 结果被拒绝。</li>
- *   <li>幂等：同一个 run 重复提交（Runner 重试）返回已有 revision，不重复写。</li>
- *   <li>限制：只处理文本正文；PDF/音视频在 V06。</li>
+ *   <li>预检（无锁读）：job 存在、run/epoch 匹配、未取消；已成功的 run 直接重放；</li>
+ *   <li>上传正文到对象存储（外部 I/O，绝不能持有数据库事务/行锁）；</li>
+ *   <li>短事务绑定 revision + 指针 + job（{@link RevisionBinder}），事务内复核 fencing；</li>
+ *   <li>绑定失败：对象与 artifact 行已存在，登记为孤立对象，保留供对账，不删。</li>
  * </ol>
  */
 @Service
@@ -31,15 +25,19 @@ public class RevisionPublisher {
 
     private final PublicationMapper mapper;
     private final ArtifactService artifactService;
+    private final RevisionBinder binder;
+    private final OrphanRecorder orphanRecorder;
 
-    public RevisionPublisher(PublicationMapper mapper, ArtifactService artifactService) {
+    public RevisionPublisher(PublicationMapper mapper, ArtifactService artifactService,
+                             RevisionBinder binder, OrphanRecorder orphanRecorder) {
         this.mapper = mapper;
         this.artifactService = artifactService;
+        this.binder = binder;
+        this.orphanRecorder = orphanRecorder;
     }
 
-    @Transactional
     public PublicationResult publish(RunnerResultRequest request) {
-        JobPublishRow job = mapper.lockJob(request.jobId());
+        JobPublishRow job = mapper.findJob(request.jobId());
         if (job == null) {
             throw PublicationException.jobNotFound();
         }
@@ -49,7 +47,7 @@ public class RevisionPublisher {
         if (!request.runId().equals(job.getRunId())) {
             throw PublicationException.staleRun();
         }
-        if (!request.processingEpoch().equals(job.getProcessingEpoch())) {
+        if (!java.util.Objects.equals(request.processingEpoch(), job.getProcessingEpoch())) {
             throw PublicationException.epochSuperseded();
         }
 
@@ -66,29 +64,19 @@ public class RevisionPublisher {
             }
             return new PublicationResult(existing, "REPLAYED");
         }
-        if (!"RUNNING".equals(job.getState())) {
-            throw PublicationException.staleRun();
-        }
 
+        // 外部 I/O 在事务外：短暂失败不应拖住行锁
         ArtifactView artifact = artifactService.store(job.getOwnerId(), text, actualSha, "text/plain");
+
         String manifestJson = request.manifestJson() == null || request.manifestJson().isBlank()
-                ? Json.canonical("chunks", "0") : request.manifestJson();
-        String revisionId = Ids.next("rev");
-        long revisionNo = mapper.maxRevisionNo(job.getOwnerId(), job.getItemId()) + 1;
-        mapper.insertRevision(revisionId, job.getOwnerId(), job.getItemId(), revisionNo, actualSha,
-                request.extractorVersion(), request.chunkerVersion(),
-                Json.sha256(manifestJson), manifestJson, LocalDateTime.now(ZoneOffset.UTC));
-        mapper.bindBodyArtifact(job.getOwnerId(), revisionId, artifact.id());
-        if (mapper.pointCurrentRevision(job.getOwnerId(), job.getItemId(), revisionId) != 1) {
-            throw PublicationException.corrupt("item 指针更新失败");
+                ? "{\"chunks\":0}" : request.manifestJson();
+        try {
+            return binder.bind(request.jobId(), request.runId(), request.processingEpoch(), artifact.id(),
+                    actualSha, request.extractorVersion(), request.chunkerVersion(), manifestJson);
+        } catch (RuntimeException bindFailure) {
+            // 对象已写入但未绑定：登记孤立对象供对账；不删除，避免并发复用被破坏
+            orphanRecorder.record(artifact.objectKey(), actualSha, text.length, "text/plain");
+            throw bindFailure;
         }
-        if (mapper.commitJob(job.getJobId(), request.runId(), request.processingEpoch()) != 1) {
-            JobPublishRow after = mapper.lockJob(request.jobId());
-            if (after != null && after.getCancelRequestedAt() != null) {
-                throw PublicationException.cancelledConflict();
-            }
-            throw PublicationException.staleRun();
-        }
-        return new PublicationResult(revisionId, "CREATED");
     }
 }

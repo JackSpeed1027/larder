@@ -1,0 +1,28 @@
+{
+  "taskId": "S03",
+  "sliceId": "S03.STAGE_THEN_BIND",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "上传移出事务 + 短事务 fencing（run/epoch/cancel/lease_until/deleted）；lease_token 未入提交条件",
+  "checks": [
+    {
+      "command": "backend mvnw test",
+      "exitCode": 0,
+      "passed": 108
+    },
+    {
+      "command": "scripts/dev/verify-run-exec.ps1",
+      "exitCode": 0,
+      "log": "reports/S03/s03-20261110/verify-run-exec.log"
+    },
+    {
+      "command": "scripts/dev/verify-publication.ps1",
+      "exitCode": 0,
+      "log": "reports/S03/s03-20261110/verify-publication.log"
+    }
+  ],
+  "notRun": [
+    "lease_token 提交条件",
+    "孤立对象对账/回收",
+    "对象复用 HEAD/PUT CAS"
+  ]
+}

@@ -2,14 +2,11 @@ package com.larder.content.publication;
 
 import com.larder.content.storage.ArtifactService;
 import com.larder.content.storage.ArtifactView;
-import com.larder.content.storage.ArtifactKeys;
+import com.larder.content.storage.OrphanRecorder;
 import com.larder.runner.ingest.RunnerResultRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-
-import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -20,119 +17,124 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
-/** 发布事务：旧代次/旧 run 被拒绝，重放幂等，写入顺序正确。 */
+/** 发布编排（S03）：外部上传在事务外，绑定交给 RevisionBinder。 */
 class RevisionPublisherTest {
+
+    private static final String SHA =
+            com.larder.content.storage.ArtifactKeys.sha256("hello".getBytes(java.nio.charset.StandardCharsets.UTF_8));
 
     private PublicationMapper mapper;
     private ArtifactService artifactService;
+    private RevisionBinder binder;
+    private OrphanRecorder orphanRecorder;
     private RevisionPublisher publisher;
-    private String sha;
-
-    private static final String TEXT = "hello revision";
 
     @BeforeEach
     void setUp() {
         mapper = mock(PublicationMapper.class);
         artifactService = mock(ArtifactService.class);
-        publisher = new RevisionPublisher(mapper, artifactService);
-        sha = ArtifactKeys.sha256(TEXT.getBytes(StandardCharsets.UTF_8));
+        binder = mock(RevisionBinder.class);
+        orphanRecorder = mock(OrphanRecorder.class);
+        publisher = new RevisionPublisher(mapper, artifactService, binder, orphanRecorder);
     }
 
-    @Test
-    @DisplayName("正常发布：写 revision、绑定 artifact、移动指针、提交 job")
-    void publishesRevision() {
-        when(mapper.lockJob("job_1")).thenReturn(job("RUNNING", 0, "run_1"));
-        when(mapper.maxRevisionNo("own_1", "itm_1")).thenReturn(0L);
-        when(artifactService.store(eq("own_1"), any(), eq(sha), eq("text/plain")))
-                .thenReturn(new ArtifactView("art_1", sha, TEXT.length(), "text/plain", "artifacts/own_1/aa/" + sha, "VERIFIED"));
-        when(mapper.pointCurrentRevision(eq("own_1"), eq("itm_1"), anyString())).thenReturn(1);
-        when(mapper.insertRevision(anyString(), eq("own_1"), eq("itm_1"), eq(1L), eq(sha),
-                anyString(), anyString(), anyString(), anyString(), any())).thenReturn(1);
-        when(mapper.commitJob(eq("job_1"), eq("run_1"), eq(0L))).thenReturn(1);
-
-        PublicationResult result = publisher.publish(request("run_1", 0L, sha));
-
-        assertThat(result.dedupe()).isEqualTo("CREATED");
-        assertThat(result.revisionId()).startsWith("rev_");
-        verify(mapper).bindBodyArtifact(eq("own_1"), eq(result.revisionId()), eq("art_1"));
-        ArgumentCaptor<Long> no = ArgumentCaptor.forClass(Long.class);
-        verify(mapper).insertRevision(anyString(), eq("own_1"), eq("itm_1"), no.capture(), eq(sha),
-                anyString(), anyString(), anyString(), anyString(), any());
-        assertThat(no.getValue()).isEqualTo(1L);
+    private RunnerResultRequest request(String jobId, String runId, long epoch, String sha) {
+        return new RunnerResultRequest(jobId, runId, epoch, "hello", sha, "extract-v1", "chunk-v1", "{\"chunks\":0}");
     }
 
-    @Test
-    @DisplayName("旧 processing_epoch：409 EPOCH_SUPERSEDED，且不写任何东西")
-    void rejectsSupersededEpoch() {
-        when(mapper.lockJob("job_1")).thenReturn(job("RUNNING", 1, "run_1"));
-
-        assertThatThrownBy(() -> publisher.publish(request("run_1", 0L, sha)))
-                .isInstanceOf(PublicationException.class)
-                .satisfies(ex -> assertThat(((PublicationException) ex).code()).isEqualTo("EPOCH_SUPERSEDED"));
-        verify(artifactService, never()).store(anyString(), any(), anyString(), anyString());
-        verify(mapper, never()).insertRevision(anyString(), anyString(), anyString(), anyLong(),
-                anyString(), anyString(), anyString(), anyString(), anyString(), any());
-    }
-
-    @Test
-    @DisplayName("run_id 不匹配：409 STALE_RUN")
-    void rejectsStaleRun() {
-        when(mapper.lockJob("job_1")).thenReturn(job("RUNNING", 0, "run_other"));
-
-        assertThatThrownBy(() -> publisher.publish(request("run_1", 0L, sha)))
-                .isInstanceOf(PublicationException.class)
-                .satisfies(ex -> assertThat(((PublicationException) ex).code()).isEqualTo("STALE_RUN"));
-    }
-
-    @Test
-    @DisplayName("job 已成功且 revision 已存在：REPLAYED，不重复写")
-    void replaysExistingRevision() {
-        when(mapper.lockJob("job_1")).thenReturn(job("SUCCEEDED", 0, "run_1"));
-        when(mapper.findRevisionBySource("own_1", "itm_1", sha)).thenReturn("rev_existing");
-
-        PublicationResult result = publisher.publish(request("run_1", 0L, sha));
-
-        assertThat(result.dedupe()).isEqualTo("REPLAYED");
-        assertThat(result.revisionId()).isEqualTo("rev_existing");
-        verify(artifactService, never()).store(anyString(), any(), anyString(), anyString());
-        verify(mapper, never()).insertRevision(anyString(), anyString(), anyString(), anyLong(),
-                anyString(), anyString(), anyString(), anyString(), anyString(), any());
-    }
-
-    @Test
-    @DisplayName("正文 hash 不符：CORRUPT_ARTIFACT")
-    void rejectsHashMismatch() {
-        when(mapper.lockJob("job_1")).thenReturn(job("RUNNING", 0, "run_1"));
-
-        assertThatThrownBy(() -> publisher.publish(request("run_1", 0L, "b".repeat(64))))
-                .isInstanceOf(PublicationException.class)
-                .satisfies(ex -> assertThat(((PublicationException) ex).code()).isEqualTo("CORRUPT_ARTIFACT"));
-    }
-
-    @Test
-    @DisplayName("job 不存在：404")
-    void rejectsMissingJob() {
-        when(mapper.lockJob("job_1")).thenReturn(null);
-        assertThatThrownBy(() -> publisher.publish(request("run_1", 0L, sha)))
-                .isInstanceOf(PublicationException.class)
-                .satisfies(ex -> assertThat(((PublicationException) ex).httpStatus()).isEqualTo(404));
-    }
-
-    private RunnerResultRequest request(String runId, long epoch, String contentSha) {
-        return new RunnerResultRequest("job_1", runId, epoch, TEXT, contentSha,
-                "extract-v1", "chunk-v1", "{\"chunks\":1}");
-    }
-
-    private JobPublishRow job(String state, long epoch, String runId) {
+    private JobPublishRow job(String state, String runId, long epoch) {
         JobPublishRow row = new JobPublishRow();
         row.setJobId("job_1");
         row.setOwnerId("own_1");
         row.setItemId("itm_1");
         row.setState(state);
-        row.setProcessingEpoch(epoch);
         row.setRunId(runId);
+        row.setProcessingEpoch(epoch);
         return row;
+    }
+
+    @Test
+    @DisplayName("正常发布：先上传（事务外）再绑定，返回 CREATED")
+    void publishesRevision() {
+        when(mapper.findJob("job_1")).thenReturn(job("RUNNING", "run_1", 2));
+        when(artifactService.store(eq("own_1"), any(), anyString(), eq("text/plain")))
+                .thenReturn(new ArtifactView("art_1", SHA, 5, "text/plain", "own_1/" + SHA, "VERIFIED"));
+        when(binder.bind("job_1", "run_1", 2, "art_1", SHA, "extract-v1", "chunk-v1", "{\"chunks\":0}"))
+                .thenReturn(new PublicationResult("rev_1", "CREATED"));
+
+        PublicationResult result = publisher.publish(request("job_1", "run_1", 2, SHA));
+
+        assertThat(result).isEqualTo(new PublicationResult("rev_1", "CREATED"));
+        verify(artifactService).store(eq("own_1"), any(), eq(SHA), eq("text/plain"));
+        verify(binder).bind("job_1", "run_1", 2, "art_1", SHA, "extract-v1", "chunk-v1", "{\"chunks\":0}");
+    }
+
+    @Test
+    @DisplayName("epoch 过期：不写对象、不进绑定事务")
+    void rejectsSupersededEpoch() {
+        when(mapper.findJob("job_1")).thenReturn(job("RUNNING", "run_1", 1));
+
+        assertThatThrownBy(() -> publisher.publish(request("job_1", "run_1", 0, SHA)))
+                .isInstanceOf(PublicationException.class);
+        verifyNoInteractions(artifactService, binder);
+    }
+
+    @Test
+    @DisplayName("runId 不一致：拒绝旧 worker")
+    void rejectsStaleRun() {
+        when(mapper.findJob("job_1")).thenReturn(job("RUNNING", "run_2", 0));
+
+        assertThatThrownBy(() -> publisher.publish(request("job_1", "run_1", 0, SHA)))
+                .isInstanceOf(PublicationException.class);
+        verifyNoInteractions(artifactService, binder);
+    }
+
+    @Test
+    @DisplayName("已 SUCCEEDED：同 hash 重放，不重复上传")
+    void replaysExistingRevision() {
+        when(mapper.findJob("job_1")).thenReturn(job("SUCCEEDED", "run_1", 0));
+        when(mapper.findRevisionBySource("own_1", "itm_1", SHA)).thenReturn("rev_old");
+
+        PublicationResult result = publisher.publish(request("job_1", "run_1", 0, SHA));
+
+        assertThat(result).isEqualTo(new PublicationResult("rev_old", "REPLAYED"));
+        verifyNoInteractions(artifactService, binder);
+    }
+
+    @Test
+    @DisplayName("sha256 不一致：拒绝，不上传")
+    void rejectsHashMismatch() {
+        when(mapper.findJob("job_1")).thenReturn(job("RUNNING", "run_1", 0));
+
+        assertThatThrownBy(() -> publisher.publish(request("job_1", "run_1", 0, "b".repeat(64))))
+                .isInstanceOf(PublicationException.class);
+        verifyNoInteractions(artifactService, binder);
+    }
+
+    @Test
+    @DisplayName("job 不存在：404 语义")
+    void rejectsMissingJob() {
+        when(mapper.findJob("job_1")).thenReturn(null);
+
+        assertThatThrownBy(() -> publisher.publish(request("job_1", "run_1", 0, SHA)))
+                .isInstanceOf(PublicationException.class);
+        verify(artifactService, never()).store(anyString(), any(), anyString(), anyString());
+    }
+
+    @Test
+    @DisplayName("绑定失败：对象已上传 → 登记孤立对象并上抛")
+    void recordsOrphanWhenBindFails() {
+        when(mapper.findJob("job_1")).thenReturn(job("RUNNING", "run_1", 0));
+        when(artifactService.store(anyString(), any(), anyString(), anyString()))
+                .thenReturn(new ArtifactView("art_1", SHA, 5, "text/plain", "own_1/" + SHA, "VERIFIED"));
+        when(binder.bind(anyString(), anyString(), anyLong(), anyString(), anyString(), anyString(), anyString(), anyString()))
+                .thenThrow(PublicationException.staleRun());
+
+        assertThatThrownBy(() -> publisher.publish(request("job_1", "run_1", 0, SHA)))
+                .isInstanceOf(PublicationException.class);
+        verify(orphanRecorder).record("own_1/" + SHA, SHA, 5, "text/plain");
     }
 }
