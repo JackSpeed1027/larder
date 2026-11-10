@@ -911,11 +911,14 @@
     "S05": {
       "taskId": "S05",
       "title": "SSE与收录状态",
-      "status": "PLANNED",
+      "status": "IN_PROGRESS",
       "owner": null,
       "baseSnapshot": "10d49e2",
       "contractRev": "70d14567b04a3f8d87386188aa995bb9347f58d7063c2016c224f9819bed064c",
-      "evidence": [],
+      "evidence": [
+        "reports/S05/s05-20261110/verification.md",
+        "reports/S05/s05-20261110/verify-lease-sse.log"
+      ],
       "verifiedAt": null,
       "blockers": [],
       "source": "tasks/supplement-v4.json",

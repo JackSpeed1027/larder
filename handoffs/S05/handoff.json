@@ -1,0 +1,24 @@
+{
+  "taskId": "S05",
+  "sliceId": "S05.BOUNDED",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "SSE 固定线程池+连接上限+503+许可归还；持久事件游标/历史 reset/前端降级未做",
+  "checks": [
+    {
+      "command": "backend mvnw test",
+      "exitCode": 0,
+      "passed": 114
+    },
+    {
+      "command": "scripts/dev/verify-lease.ps1",
+      "exitCode": 0,
+      "log": "reports/S05/s05-20261110/verify-lease-sse.log"
+    }
+  ],
+  "notRun": [
+    "持久事件日志与游标回放",
+    "历史过期 reset 语义",
+    "前端轮询降级/隐藏页降频",
+    "snapshot-events 竞态测试"
+  ]
+}

@@ -2,6 +2,7 @@ package com.larder.pipeline.lease;
 
 import com.larder.ingest.Json;
 import com.larder.ingest.OwnerService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,9 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Semaphore;
+import jakarta.annotation.PreDestroy;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 任务进度 SSE：先发 snapshot，再推状态变化；断流重连仍以 snapshot 为准。
@@ -24,6 +28,10 @@ import java.util.concurrent.Executors;
  *
  * <p>为什么轮询数据库而不是内存广播：多实例部署时别的实例改了 job，本实例必须能看见；
  * 内存广播只能当优化，不能当事实源。
+ *
+ * <p>S05 资源边界：固定大小的执行池 + 信号量限制并发连接数。超限返回 503 + Retry-After，
+ * 而不是无界创建线程（旧实现用 cachedThreadPool，每个连接一个线程，会被慢客户端拖垮）。
+ * 连接结束/超时/出错都必须归还许可，否则一次泄漏就会永久少一个连接额度。
  */
 @RestController
 @RequestMapping("/api/jobs")
@@ -34,11 +42,16 @@ public class JobEventsController {
 
     private final JobLeaseService leaseService;
     private final OwnerService ownerService;
-    private final ExecutorService pool = Executors.newCachedThreadPool();
+    private final ExecutorService pool;
+    private final Semaphore connections;
 
-    public JobEventsController(JobLeaseService leaseService, OwnerService ownerService) {
+    public JobEventsController(JobLeaseService leaseService, OwnerService ownerService,
+                               @Value("${larder.sse.pool-size:8}") int poolSize,
+                               @Value("${larder.sse.max-connections:32}") int maxConnections) {
         this.leaseService = leaseService;
         this.ownerService = ownerService;
+        this.pool = Executors.newFixedThreadPool(Math.max(1, poolSize));
+        this.connections = new Semaphore(Math.max(1, maxConnections));
     }
 
     @GetMapping(path = "/{jobId}/events", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
@@ -47,12 +60,29 @@ public class JobEventsController {
                              Authentication authentication) {
         String ownerId = ownerService.ownerIdFor(authentication.getName());
         JobProgress progress = leaseService.progress(jobId);
-        if (progress == null || !ownerId.equals(progress.ownerId())) {
+        if (progress == null || ownerId == null || !ownerId.equals(progress.ownerId())) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "job 不存在");
         }
+        if (!connections.tryAcquire()) {
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "SSE 连接数已满，请稍后重试");
+        }
         SseEmitter emitter = new SseEmitter(SSE_TIMEOUT_MS);
-        pool.submit(() -> stream(emitter, jobId, progress, lastEventId));
+        emitter.onCompletion(connections::release);
+        emitter.onTimeout(connections::release);
+        emitter.onError(error -> connections.release());
+        try {
+            pool.submit(() -> stream(emitter, jobId, progress, lastEventId));
+        } catch (RuntimeException rejected) {
+            connections.release();
+            emitter.completeWithError(rejected);
+        }
         return emitter;
+    }
+
+    /** 应用关闭时停止所有 SSE 工作线程，避免测试/停机挂住。 */
+    @PreDestroy
+    public void shutdown() {
+        pool.shutdownNow();
     }
 
     private void stream(SseEmitter emitter, String jobId, JobProgress initial, String lastEventId) {
@@ -62,7 +92,9 @@ public class JobEventsController {
             JobProgress current = initial;
             long lastSent = System.currentTimeMillis();
             while (!current.terminal()) {
-                Thread.sleep(POLL_MS);
+                if (!awaitPoll()) {
+                    break;
+                }
                 JobProgress next = leaseService.progress(jobId);
                 if (next == null) {
                     break;
@@ -80,6 +112,26 @@ public class JobEventsController {
             emitter.complete();
         } catch (Exception stop) {
             emitter.completeWithError(stop);
+        }
+    }
+
+    /** 可中断的轮询等待；线程被关闭时退出而不是继续占用连接。 */
+    private boolean awaitPoll() {
+        try {
+            return !Thread.currentThread().isInterrupted() && !Thread.interrupted()
+                    && sleepQuietly();
+        } catch (RuntimeException stop) {
+            return false;
+        }
+    }
+
+    private boolean sleepQuietly() {
+        try {
+            TimeUnit.MILLISECONDS.sleep(POLL_MS);
+            return true;
+        } catch (InterruptedException interrupted) {
+            Thread.currentThread().interrupt();
+            return false;
         }
     }
 
