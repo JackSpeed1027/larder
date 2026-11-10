@@ -18,13 +18,13 @@ import java.time.LocalDateTime;
 public interface PublicationMapper {
 
     @Select("SELECT id AS jobId, owner_id AS ownerId, item_id AS itemId, state AS state, "
-            + "processing_epoch AS processingEpoch, run_id AS runId, cancel_requested_at AS cancelRequestedAt "
+            + "processing_epoch AS processingEpoch, run_id AS runId, lease_token AS leaseToken, cancel_requested_at AS cancelRequestedAt "
             + "FROM job WHERE id = #{jobId} FOR UPDATE")
     JobPublishRow lockJob(@Param("jobId") String jobId);
 
     /** 预检用无锁读：确认存在/状态/run/epoch；不持有行锁，外部 I/O 前使用。 */
     @Select("SELECT id AS jobId, owner_id AS ownerId, item_id AS itemId, state AS state, "
-            + "processing_epoch AS processingEpoch, run_id AS runId, cancel_requested_at AS cancelRequestedAt "
+            + "processing_epoch AS processingEpoch, run_id AS runId, lease_token AS leaseToken, cancel_requested_at AS cancelRequestedAt "
             + "FROM job WHERE id = #{jobId}")
     JobPublishRow findJob(@Param("jobId") String jobId);
 
@@ -56,7 +56,8 @@ public interface PublicationMapper {
             + "last_event_seq = last_event_seq + 1, row_version = row_version + 1, updated_at = UTC_TIMESTAMP(6) "
             + "WHERE id = #{jobId} AND state = 'RUNNING' AND run_id = #{runId} "
             + "AND processing_epoch = #{epoch} AND cancel_requested_at IS NULL AND lease_until > UTC_TIMESTAMP(6)")
-    int commitJob(@Param("jobId") String jobId, @Param("runId") String runId, @Param("epoch") long epoch);
+    int commitJob(@Param("jobId") String jobId, @Param("runId") String runId, @Param("epoch") long epoch,
+                  @Param("token") long token);
 
     @Select("SELECT id FROM content_revision WHERE owner_id = #{ownerId} AND item_id = #{itemId} "
             + "AND source_hash = #{sourceHash} ORDER BY revision_no DESC LIMIT 1")

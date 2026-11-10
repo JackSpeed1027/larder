@@ -14,6 +14,7 @@ import com.larder.pipeline.model.OutboxEvent;
 import com.larder.pipeline.model.OutboxEventMapper;
 import com.larder.pipeline.model.OutboxState;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +44,10 @@ public class ItemIngestService {
     private static final int EXISTING_ITEM_STATUS = 200;
 
     private final OwnerService ownerService;
+
+    /** 背压：单 owner 活跃任务上限；<=0 表示不限制。 */
+    @Value("${larder.ingest.max-active-jobs:50}")
+    private int maxActiveJobs;
     private final IdempotencyStore idempotencyStore;
     private final ItemMapper itemMapper;
     private final JobMapper jobMapper;
@@ -84,6 +89,10 @@ public class ItemIngestService {
     }
 
     private IngestOutcome createOrDedupe(String ownerId, String key, CommandBody body, String bodyHash) {
+        // S04 背压：先检查活跃任务数；拒绝时整个事务回滚，幂等行不会残留
+        if (maxActiveJobs > 0 && jobMapper.countActiveByOwner(ownerId) >= maxActiveJobs) {
+            throw IngestRejectedException.tooManyActive("活跃任务过多，请稍后重试");
+        }
         Item existing = findByUrlHash(ownerId, body);
         if (existing != null) {
             return completeExisting(ownerId, key, existing, bodyHash);

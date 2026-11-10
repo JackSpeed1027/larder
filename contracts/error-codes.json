@@ -303,6 +303,13 @@
       "retryableDefault": false,
       "owner": "web",
       "description": "目标文件已被用户修改；不得覆盖"
+    },
+    {
+      "code": "TOO_MANY_ACTIVE_JOBS",
+      "httpStatus": 429,
+      "retryableDefault": true,
+      "owner": "api",
+      "description": "单 owner 活跃任务数超上限；按 Retry-After 退避后重试"
     }
   ],
   "v4Revision": "larder-spec-v4-2026-11-09"

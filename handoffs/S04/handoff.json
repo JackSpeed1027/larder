@@ -1,8 +1,8 @@
 {
   "taskId": "S04",
-  "sliceId": "S04.REAP_TX+S04.QUEUED_SWEEP",
+  "sliceId": "S04.REAP_TX+SWEEP+PRESSURE",
   "result": "TASK_LOCAL_PASS",
-  "resultScope": "回收+Outbox 同事务；QUEUED 补偿扫描；退避 jitter 与上界单测；lease_token 入提交条件未做",
+  "resultScope": "回收+Outbox 同事务；QUEUED 补偿扫描；背压 429+Retry-After；退避 jitter",
   "checks": [
     {
       "command": "backend mvnw test",
@@ -23,12 +23,14 @@
       "command": "scripts/dev/verify-inbox.ps1（回归）",
       "exitCode": 0,
       "log": "reports/S04/s04-20261110/verify-inbox-sweep.log"
+    },
+    {
+      "command": "scripts/dev/verify-lease-final.log",
+      "exitCode": 0,
+      "log": "reports/S04/s04-20261110/verify-lease-final.log"
     }
   ],
   "notRun": [
-    "QUEUED 补偿扫描",
-    "退避上界测试",
-    "lease_token 入 commitJob",
-    "背压配置"
+    "ack 后崩溃故障注入（S06 集成门禁）"
   ]
 }

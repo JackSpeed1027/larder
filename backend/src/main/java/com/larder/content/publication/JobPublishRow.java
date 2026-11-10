@@ -12,6 +12,7 @@ public class JobPublishRow {
     private Long processingEpoch;
     private String runId;
     private java.time.LocalDateTime cancelRequestedAt;
+    private Long leaseToken;
 
     public String getJobId() {
         return jobId;
@@ -51,6 +52,14 @@ public class JobPublishRow {
 
     public void setProcessingEpoch(Long processingEpoch) {
         this.processingEpoch = processingEpoch;
+    }
+
+    public Long getLeaseToken() {
+        return leaseToken;
+    }
+
+    public void setLeaseToken(Long leaseToken) {
+        this.leaseToken = leaseToken;
     }
 
     public java.time.LocalDateTime getCancelRequestedAt() {

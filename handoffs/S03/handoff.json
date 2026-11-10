@@ -1,8 +1,8 @@
 {
   "taskId": "S03",
-  "sliceId": "S03.STAGE_THEN_BIND",
+  "sliceId": "S03.STAGE_THEN_BIND+TOKEN",
   "result": "TASK_LOCAL_PASS",
-  "resultScope": "上传移出事务 + 短事务 fencing（run/epoch/cancel/lease_until/deleted）；lease_token 未入提交条件",
+  "resultScope": "上传移出事务；短事务 fencing 含 run/epoch/cancel/lease_token/lease_until/deleted",
   "checks": [
     {
       "command": "backend mvnw test",
@@ -18,11 +18,14 @@
       "command": "scripts/dev/verify-publication.ps1",
       "exitCode": 0,
       "log": "reports/S03/s03-20261110/verify-publication.log"
+    },
+    {
+      "command": "scripts/dev/verify-publication-token.log",
+      "exitCode": 0,
+      "log": "reports/S03/s03-20261110/verify-publication-token.log"
     }
   ],
   "notRun": [
-    "lease_token 提交条件",
-    "孤立对象对账/回收",
-    "对象复用 HEAD/PUT CAS"
+    "ack 后崩溃故障注入（S06 集成门禁）"
   ]
 }

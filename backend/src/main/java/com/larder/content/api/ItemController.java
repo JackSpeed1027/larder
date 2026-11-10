@@ -74,7 +74,11 @@ public class ItemController {
 
     @ExceptionHandler(IngestRejectedException.class)
     public ResponseEntity<ApiErrorResponse> onRejected(IngestRejectedException ex, HttpServletRequest request) {
-        return ResponseEntity.status(ex.httpStatus()).body(new ApiErrorResponse(
+        ResponseEntity.BodyBuilder builder = ResponseEntity.status(ex.httpStatus());
+        if (ex.httpStatus() == 429) {
+            builder.header("Retry-After", "5");
+        }
+        return builder.body(new ApiErrorResponse(
                 ex.code(), ex.getMessage(), traceId(request), ex.retryable(), Map.of()));
     }
 

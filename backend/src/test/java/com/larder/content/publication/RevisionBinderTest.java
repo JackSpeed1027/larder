@@ -38,6 +38,7 @@ class RevisionBinderTest {
         row.setRunId(runId);
         row.setProcessingEpoch(epoch);
         row.setCancelRequestedAt(cancelledAt);
+        row.setLeaseToken(7L);
         return row;
     }
 
@@ -47,7 +48,7 @@ class RevisionBinderTest {
         when(mapper.lockJob("job_1")).thenReturn(job("RUNNING", "run_1", 2, null));
         when(mapper.maxRevisionNo("own_1", "itm_1")).thenReturn(3L);
         when(mapper.pointCurrentRevision(eq("own_1"), eq("itm_1"), anyString())).thenReturn(1);
-        when(mapper.commitJob("job_1", "run_1", 2)).thenReturn(1);
+        when(mapper.commitJob("job_1", "run_1", 2, 7L)).thenReturn(1);
 
         PublicationResult result = binder.bind("job_1", "run_1", 2, "art_1", "a".repeat(64),
                 "extract-v1", "chunk-v1", "{\"chunks\":0}");
@@ -57,7 +58,7 @@ class RevisionBinderTest {
                 eq("extract-v1"), eq("chunk-v1"), anyString(), anyString(), any(LocalDateTime.class));
         verify(mapper).bindBodyArtifact("own_1", result.revisionId(), "art_1");
         verify(mapper).pointCurrentRevision("own_1", "itm_1", result.revisionId());
-        verify(mapper).commitJob("job_1", "run_1", 2);
+        verify(mapper).commitJob("job_1", "run_1", 2, 7L);
     }
 
     @Test
@@ -99,7 +100,7 @@ class RevisionBinderTest {
                 .thenReturn(job("RUNNING", "run_1", 2, LocalDateTime.now()));
         when(mapper.maxRevisionNo("own_1", "itm_1")).thenReturn(0L);
         when(mapper.pointCurrentRevision(anyString(), anyString(), anyString())).thenReturn(1);
-        when(mapper.commitJob("job_1", "run_1", 2)).thenReturn(0);
+        when(mapper.commitJob("job_1", "run_1", 2, 7L)).thenReturn(0);
 
         assertThatThrownBy(() -> binder.bind("job_1", "run_1", 2, "art_1", "a".repeat(64),
                 "extract-v1", "chunk-v1", "{}"))

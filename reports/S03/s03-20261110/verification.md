@@ -24,3 +24,10 @@
 - 孤立对象只有 `OrphanRecorder`（jsonl 记录），没有对账/回收任务；
 - 对象复用校验（HEAD 后 PUT 不是 CAS）未实现，当前依赖 content-addressed key + DB 唯一引用；
 - S3 慢/失败的重试与暂存记录状态机未做。
+
+## 追加：lease_token 已进入提交条件（S03 收尾）
+
+- `PublicationMapper.lockJob/findJob` 读取 `lease_token`；`JobPublishRow.leaseToken`；
+- `commitJob` 增加 `AND lease_token = #{token}`：租约被接管（token 变化）后旧 worker 的提交影响 0 行 → 回滚并报 stale/cancel；
+- 单测 `RevisionBinderTest` 覆盖 token 传入与提交失败路径；
+- `verify-publication.ps1` 全过：`ALL PUBLICATION CHECKS PASSED`（含 epoch 拒绝、重放）。

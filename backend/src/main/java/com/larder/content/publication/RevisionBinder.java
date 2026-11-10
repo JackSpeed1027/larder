@@ -52,7 +52,8 @@ public class RevisionBinder {
         if (mapper.pointCurrentRevision(job.getOwnerId(), job.getItemId(), revisionId) != 1) {
             throw PublicationException.corrupt("item 指针更新失败（条目可能已删除或归属变化）");
         }
-        if (mapper.commitJob(job.getJobId(), runId, epoch) != 1) {
+        long token = job.getLeaseToken() == null ? 0L : job.getLeaseToken();
+        if (mapper.commitJob(job.getJobId(), runId, epoch, token) != 1) {
             JobPublishRow after = mapper.lockJob(jobId);
             if (after != null && after.getCancelRequestedAt() != null) {
                 throw PublicationException.cancelledConflict();

@@ -876,14 +876,12 @@
     "S03": {
       "taskId": "S03",
       "title": "产物与fenced发布",
-      "status": "IN_PROGRESS",
+      "status": "READY_FOR_INTEGRATION",
       "owner": null,
       "baseSnapshot": "10d49e2",
       "contractRev": "2f53e681e9ac0dbd6890b1baabd71fce7e53551e2d784ca19ae335d44192f998",
       "evidence": [
-        "reports/S03/s03-20261110/verification.md",
-        "reports/S03/s03-20261110/verify-run-exec.log",
-        "reports/S03/s03-20261110/verify-publication.log"
+        "reports/S03/s03-20261110/verification.md"
       ],
       "verifiedAt": null,
       "blockers": [],
@@ -896,13 +894,12 @@
     "S04": {
       "taskId": "S04",
       "title": "租约回收与背压",
-      "status": "IN_PROGRESS",
+      "status": "READY_FOR_INTEGRATION",
       "owner": null,
       "baseSnapshot": "10d49e2",
       "contractRev": "2f53e681e9ac0dbd6890b1baabd71fce7e53551e2d784ca19ae335d44192f998",
       "evidence": [
-        "reports/S04/s04-20261110/verification.md",
-        "reports/S04/s04-20261110/verify-lease.log"
+        "reports/S04/s04-20261110/verification.md"
       ],
       "verifiedAt": null,
       "blockers": [],

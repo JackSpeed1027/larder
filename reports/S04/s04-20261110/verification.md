@@ -48,3 +48,21 @@
 - `lease_token` 尚未进入 `commitJob` 条件（S03 遗留）；
 - Java 侧背压（最大等待任务数 / 429 + Retry-After）未做；
 - 通知长期丢失的故障注入未做。
+
+## 追加：背压（S04 收尾）
+
+- `JobMapper.countActiveByOwner`：QUEUED/RETRY_WAIT/RUNNING 计数；
+- `ItemIngestService`：`larder.ingest.max-active-jobs`（默认 50）超限 → `TOO_MANY_ACTIVE_JOBS` 429（retryable），事务回滚不残留幂等行；
+- `ItemController`：429 响应带 `Retry-After: 5`；
+- 错误码注册到 `contracts/error-codes.json`；
+- 单测 `TooManyActiveJobsTest`：达到上限拒绝、code/status/retryable 断言。
+
+## 最终回归
+
+- `mvn test`：**112 passed**；
+- `verify-publication.ps1`、`verify-lease.ps1`、`verify-run-exec.ps1`：三个 **ALL … CHECKS PASSED**。
+
+## 仍未完成
+
+- “ack 后进程崩溃仍可恢复”的故障注入（属于 S06 集成门禁，建议隔离环境执行）；
+- `next_attempt_at` 的端到端退避时间断言只做了单元级（单调/封顶/jitter）。

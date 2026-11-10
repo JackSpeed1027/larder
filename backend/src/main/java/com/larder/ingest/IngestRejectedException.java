@@ -34,6 +34,11 @@ public class IngestRejectedException extends RuntimeException {
         return new IngestRejectedException("VALIDATION_FAILED", message, 400, false);
     }
 
+    /** 活跃任务数达到上限：429 + Retry-After，调用方应退避后重试（v4 S04 背压）。 */
+    public static IngestRejectedException tooManyActive(String message) {
+        return new IngestRejectedException("TOO_MANY_ACTIVE_JOBS", message, 429, true);
+    }
+
     /** 同 key 但请求体不同：不得自动换 key 重发同一用户动作（v4 S01）。 */
     public static IngestRejectedException idempotencyPayloadMismatch(String message) {
         return new IngestRejectedException("IDEMPOTENCY_PAYLOAD_MISMATCH", message, 409, false);
