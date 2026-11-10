@@ -22,6 +22,16 @@ public final class OutboxBackoff {
         return Math.min(delay, MAX_DELAY_SECONDS);
     }
 
+    /**
+     * 带 jitter 的退避：在 [base, base*1.25] 内随机，避免大量任务同一秒重试形成风暴。
+     * 仍然封顶 MAX_DELAY_SECONDS；调用方注入随机源以便测试可复现。
+     */
+    public static long delaySecondsWithJitter(int attempt, java.util.random.RandomGenerator random) {
+        long base = delaySeconds(attempt);
+        long extra = base <= 3 ? 0 : random.nextLong(0, base / 4 + 1);
+        return Math.min(base + extra, MAX_DELAY_SECONDS);
+    }
+
     public static boolean exhausted(int attempt, int maxAttempts) {
         return attempt >= maxAttempts;
     }

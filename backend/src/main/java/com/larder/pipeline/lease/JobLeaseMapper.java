@@ -67,6 +67,21 @@ public interface JobLeaseMapper {
             + "AND (lease_until IS NULL OR lease_until < UTC_TIMESTAMP(6)) LIMIT #{limit}")
     List<JobLeaseRow> selectExpired(@Param("limit") int limit);
 
+    /** QUEUED 但已到 next_attempt_at、且未被补偿扫描处理过的任务（S04）。 */
+    @Select("SELECT " + COLUMNS + " FROM job WHERE state = 'QUEUED' "
+            + "AND (next_attempt_at IS NULL OR next_attempt_at <= UTC_TIMESTAMP(6)) "
+            + "AND (next_reconcile_at IS NULL OR next_reconcile_at <= UTC_TIMESTAMP(6)) LIMIT #{limit}")
+    List<JobLeaseRow> selectQueuedDue(@Param("limit") int limit);
+
+    /** 补偿扫描防抖：短时间内不重复补发同一 job。 */
+    @Update("UPDATE job SET next_reconcile_at = #{until}, updated_at = UTC_TIMESTAMP(6) "
+            + "WHERE id = #{jobId} AND state = 'QUEUED'")
+    int markReconcile(@Param("jobId") String jobId, @Param("until") LocalDateTime until);
+
+    /** 是否已有未投递事件：有则不重复补发（relay 会负责投递）。 */
+    @Select("SELECT COUNT(*) FROM outbox WHERE job_id = #{jobId} AND state = 'PENDING'")
+    int countPendingOutbox(@Param("jobId") String jobId);
+
     /** 对账收回：条件更新保证只收回未被别人抢先续租/提交的任务。 */
     @Update("UPDATE job SET state = #{state}, attempt = #{attempt}, lease_owner = NULL, lease_until = NULL, "
             + "next_attempt_at = #{nextAttemptAt}, next_reconcile_at = NULL, error_code = #{errorCode}, "

@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 
 /**
  * 租约对账：把"声称在跑但租约已过期"的 job 收回，并重新派发事件。
@@ -59,7 +61,7 @@ public class JobReconciler {
             int attempt = (row.getAttempt() == null ? 1 : row.getAttempt()) + 1;
             boolean dead = OutboxBackoff.exhausted(attempt, maxAttempts);
             LocalDateTime nextAttemptAt = LocalDateTime.now(ZoneOffset.UTC)
-                    .plusSeconds(dead ? 0 : OutboxBackoff.delaySeconds(attempt));
+                    .plusSeconds(dead ? 0 : OutboxBackoff.delaySecondsWithJitter(attempt, ThreadLocalRandom.current()));
             int updated = leaseMapper.reclaim(row.getJobId(),
                     row.getLeaseToken() == null ? 0 : row.getLeaseToken(),
                     dead ? "FAILED" : "QUEUED",
@@ -78,7 +80,27 @@ public class JobReconciler {
                 emitRequeue(row);
             }
         }
-        return new Result(expired.size(), requeued, failed, skipped);
+        int compensated = sweepQueuedDue();
+        return new Result(expired.size(), requeued, failed, skipped, compensated);
+    }
+
+    /**
+     * QUEUED 补偿扫描（S04）：通知可能长期丢失，QUEUED 不能只依赖一次 outbox 投递。
+     * 只在没有 PENDING 事件时补发，并写 next_reconcile_at 防抖 30 秒。
+     */
+    private int sweepQueuedDue() {
+        int compensated = 0;
+        for (JobLeaseRow row : leaseMapper.selectQueuedDue(50)) {
+            if (leaseMapper.countPendingOutbox(row.getJobId()) > 0) {
+                leaseMapper.markReconcile(row.getJobId(), LocalDateTime.now(ZoneOffset.UTC).plusSeconds(30));
+                continue;
+            }
+            emitRequeue(row);
+            leaseMapper.markReconcile(row.getJobId(), LocalDateTime.now(ZoneOffset.UTC).plusSeconds(30));
+            compensated++;
+            log.info("补发 QUEUED 任务事件：jobId={}", row.getJobId());
+        }
+        return compensated;
     }
 
     private void emitRequeue(JobLeaseRow row) {
@@ -98,7 +120,7 @@ public class JobReconciler {
         outboxMapper.insert(event);
     }
 
-    /** 一轮对账计数。 */
-    public record Result(int scanned, int requeued, int failed, int skipped) {
+    /** 一轮对账计数（compensated = QUEUED 补偿补发数）。 */
+    public record Result(int scanned, int requeued, int failed, int skipped, int compensated) {
     }
 }
