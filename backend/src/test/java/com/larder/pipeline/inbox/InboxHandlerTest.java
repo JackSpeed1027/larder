@@ -30,7 +30,7 @@ class InboxHandlerTest {
     @BeforeEach
     void setUp() {
         mapper = mock(InboxMapper.class);
-        handler = new InboxHandler(mapper, "ingest-consumer", "worker-test", 120);
+        handler = new InboxHandler(mapper, org.mockito.Mockito.mock(com.larder.pipeline.lease.JobEventLog.class), "ingest-consumer", "worker-test", 120);
     }
 
     @Test

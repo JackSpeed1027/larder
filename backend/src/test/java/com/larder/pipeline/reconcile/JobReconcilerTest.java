@@ -33,7 +33,7 @@ class JobReconcilerTest {
     void setUp() {
         leaseMapper = mock(JobLeaseMapper.class);
         outboxMapper = mock(OutboxEventMapper.class);
-        reconciler = new JobReconciler(leaseMapper, outboxMapper, 3);
+        reconciler = new JobReconciler(leaseMapper, org.mockito.Mockito.mock(com.larder.pipeline.lease.JobEventLog.class), outboxMapper, 3);
     }
 
     @Test

@@ -33,7 +33,7 @@ class JobControlServiceTest {
         outboxMapper = mock(OutboxEventMapper.class);
         OwnerService ownerService = mock(OwnerService.class);
         when(ownerService.ownerIdFor("admin")).thenReturn("own_1");
-        service = new JobControlService(mapper, outboxMapper, ownerService);
+        service = new JobControlService(mapper, outboxMapper, ownerService, org.mockito.Mockito.mock(com.larder.pipeline.lease.JobEventLog.class));
     }
 
     @Test

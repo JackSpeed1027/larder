@@ -1,5 +1,6 @@
 package com.larder.pipeline.inbox;
 
+import com.larder.pipeline.lease.JobEventLog;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
@@ -26,15 +27,18 @@ import java.time.ZoneOffset;
 public class InboxHandler {
 
     private final InboxMapper mapper;
+    private final JobEventLog eventLog;
     private final String consumer;
     private final String workerId;
     private final int leaseSeconds;
 
     public InboxHandler(InboxMapper mapper,
+                        JobEventLog eventLog,
                         @Value("${larder.inbox.consumer:ingest-consumer}") String consumer,
                         @Value("${larder.inbox.worker-id:worker-local}") String workerId,
                         @Value("${larder.inbox.lease-seconds:120}") int leaseSeconds) {
         this.mapper = mapper;
+        this.eventLog = eventLog;
         this.consumer = consumer;
         this.workerId = workerId;
         this.leaseSeconds = leaseSeconds;
@@ -58,6 +62,10 @@ public class InboxHandler {
         LocalDateTime leaseUntil = LocalDateTime.now(ZoneOffset.UTC).plusSeconds(leaseSeconds);
         int claimed = mapper.claimJob(jobId, workerId, leaseUntil);
         if (claimed == 1) {
+            String ownerId = mapper.ownerOf(jobId);
+            if (ownerId != null) {
+                eventLog.append(ownerId, jobId, "RUNNING", "RUNNING", null, 0L, null);
+            }
             return InboxOutcome.ACCEPTED;
         }
 

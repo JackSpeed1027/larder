@@ -1,8 +1,8 @@
 {
   "taskId": "S05",
-  "sliceId": "S05.BOUNDED+S05.EVENT_LOG",
+  "sliceId": "S05.BOUNDED+EVENT_LOG+TRANSITIONS",
   "result": "TASK_LOCAL_PASS",
-  "resultScope": "SSE 有界；job_event 持久事件（成功路径）+ 游标回放 + reset；全状态事件/前端降级未做",
+  "resultScope": "有界 SSE；job_event 覆盖 RUNNING/QUEUED/FAILED/SUCCEEDED；CANCEL_REQUESTED 待核验；前端降级未做",
   "checks": [
     {
       "command": "backend mvnw test",
@@ -23,11 +23,17 @@
       "command": "scripts/dev/verify-lease.ps1",
       "exitCode": 0,
       "log": "reports/S05/s05-20261110/verify-lease-eventlog.log"
+    },
+    {
+      "command": "scripts/dev/verify-control.ps1",
+      "exitCode": 0,
+      "log": "reports/S05/s05-20261110/verify-control-transitions.log"
     }
   ],
   "notRun": [
-    "RUNNING/FAILED/CANCELLED 事件",
+    "CANCEL_REQUESTED 核验",
     "前端轮询降级/隐藏页降频",
-    "snapshot-events 竞态测试"
+    "snapshot-events 竞态测试",
+    "事件表保留策略"
   ]
 }

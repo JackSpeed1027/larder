@@ -32,6 +32,7 @@ public interface JobControlMapper {
     @Update("""
             UPDATE job
                SET cancel_requested_at = COALESCE(cancel_requested_at, UTC_TIMESTAMP(6)),
+                   last_event_seq = last_event_seq + 1,
                    state = CASE WHEN state IN ('QUEUED','RETRY_WAIT') THEN 'CANCELLED' ELSE state END,
                    lease_owner = CASE WHEN state = 'QUEUED' THEN NULL ELSE lease_owner END,
                    lease_until = CASE WHEN state = 'QUEUED' THEN NULL ELSE lease_until END,
@@ -43,7 +44,7 @@ public interface JobControlMapper {
 
     @Update("""
             UPDATE job
-               SET state = 'QUEUED', attempt = attempt + 1, error_code = NULL, error_message = NULL,
+               SET state = 'QUEUED', last_event_seq = last_event_seq + 1, attempt = attempt + 1, error_code = NULL, error_message = NULL,
                    cancel_requested_at = NULL, lease_owner = NULL, lease_until = NULL,
                    next_attempt_at = NULL, updated_at = UTC_TIMESTAMP(6)
              WHERE id = #{jobId} AND owner_id = #{ownerId} AND state IN ('FAILED','CANCELLED')

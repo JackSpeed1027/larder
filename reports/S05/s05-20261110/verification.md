@@ -50,3 +50,29 @@ V7 首次执行失败：`job_event.owner_id/job_id` 用 utf8mb4，而 `job.id` �
 - 事件只在发布成功路径写入；RUNNING/FAILED/CANCELLED 事件尚未接入；
 - 前端轮询降级、隐藏页降频未做；
 - snapshot→events 竞态未专门测试。
+
+## 追加：状态转移统一写入事件（S05.TRANSITIONS）
+
+| 转移 | 写入点 | 事件 |
+|---|---|---|
+| QUEUED/RETRY_WAIT → RUNNING（接管） | `InboxHandler.claim` | `RUNNING` |
+| 租约回收 / attempt 耗尽 | `JobReconciler.runOnce` | `QUEUED` / `FAILED` |
+| 用户取消 | `JobControlService.cancel` | `CANCEL_REQUESTED`（payload 带实际 state） |
+| 用户重试 | `JobControlService.retry` | `QUEUED` |
+| 发布成功 | `RevisionBinder.bind` | `SUCCEEDED` |
+
+关键修复：`last_event_seq` 原先只在发布提交时 +1，接管/取消/重试/回收都不递增，导致事件 seq 冲突或为 0 被跳过。
+现在 `claimJob` / `requestCancel` / `requeue` / `reclaim` 的 SQL 都 `last_event_seq = last_event_seq + 1`，事件与 SSE 游标共用同一序号。
+
+### 实测
+
+- `mvn test`：**116 passed**；
+- `verify-lease.ps1` / `verify-control.ps1` / `verify-publication.ps1`：三个 **ALL … CHECKS PASSED**；
+- `job_event` 实际分布：`RUNNING=6, SUCCEEDED=4, QUEUED=1, FAILED=1`（`CANCEL_REQUESTED` 本轮未出现，见下）。
+
+### 仍未完成
+
+- `CANCEL_REQUESTED` 在 e2e 中未观察到（取消路径需再核验：可能 job 已终态或 SQL 条件未命中）；
+- 前端轮询降级、隐藏页降频未做；
+- snapshot→events 竞态无专门测试；
+- 事件表无保留期/清理策略。

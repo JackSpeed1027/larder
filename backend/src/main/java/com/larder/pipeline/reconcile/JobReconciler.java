@@ -2,6 +2,7 @@ package com.larder.pipeline.reconcile;
 
 import com.larder.ingest.Ids;
 import com.larder.ingest.Json;
+import com.larder.pipeline.lease.JobEventLog;
 import com.larder.pipeline.lease.JobLeaseMapper;
 import com.larder.pipeline.lease.JobLeaseRow;
 import com.larder.pipeline.model.OutboxEvent;
@@ -39,13 +40,16 @@ public class JobReconciler {
     private static final Logger log = LoggerFactory.getLogger(JobReconciler.class);
 
     private final JobLeaseMapper leaseMapper;
+    private final JobEventLog eventLog;
     private final OutboxEventMapper outboxMapper;
     private final int maxAttempts;
 
     public JobReconciler(JobLeaseMapper leaseMapper,
+                         JobEventLog eventLog,
                          OutboxEventMapper outboxMapper,
                          @Value("${larder.reconcile.max-attempts:5}") int maxAttempts) {
         this.leaseMapper = leaseMapper;
+        this.eventLog = eventLog;
         this.outboxMapper = outboxMapper;
         this.maxAttempts = maxAttempts;
     }
@@ -72,6 +76,10 @@ public class JobReconciler {
                 skipped++;
                 continue;
             }
+            eventLog.append(row.getOwnerId(), row.getJobId(), dead ? "FAILED" : "QUEUED",
+                    dead ? "FAILED" : "QUEUED", row.getRunId(),
+                    row.getProcessingEpoch() == null ? 0L : row.getProcessingEpoch(),
+                    dead ? "LEASE_EXPIRED" : null);
             if (dead) {
                 failed++;
                 log.warn("job 租约反复过期，标记 FAILED: jobId={} attempt={}", row.getJobId(), attempt);

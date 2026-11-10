@@ -1,5 +1,6 @@
 package com.larder.pipeline.control;
 
+import com.larder.pipeline.lease.JobEventLog;
 import com.larder.ingest.Ids;
 import com.larder.ingest.Json;
 import com.larder.ingest.OwnerService;
@@ -25,13 +26,16 @@ import java.util.Map;
 public class JobControlService {
 
     private final JobControlMapper mapper;
+    private final JobEventLog eventLog;
     private final OutboxEventMapper outboxMapper;
     private final OwnerService ownerService;
 
-    public JobControlService(JobControlMapper mapper, OutboxEventMapper outboxMapper, OwnerService ownerService) {
+    public JobControlService(JobControlMapper mapper, OutboxEventMapper outboxMapper,
+                             OwnerService ownerService, JobEventLog eventLog) {
         this.mapper = mapper;
         this.outboxMapper = outboxMapper;
         this.ownerService = ownerService;
+        this.eventLog = eventLog;
     }
 
     public static class ControlException extends RuntimeException {
@@ -85,7 +89,8 @@ public class JobControlService {
         if (List.of("SUCCEEDED", "FAILED", "CANCELLED", "SUPERSEDED").contains(state)) {
             throw new ControlException("CANCEL_NOT_ALLOWED", "任务已结束，不能取消", 409);
         }
-        if (mapper.requestCancel(jobId, ownerId) == 0) {
+        int cancelled = mapper.requestCancel(jobId, ownerId);
+        if (cancelled == 0) {
             throw new ControlException("CANCEL_NOT_ALLOWED", "状态已变化，请刷新", 409);
         }
         return mapper.findJob(jobId);
@@ -102,7 +107,8 @@ public class JobControlService {
         if (!List.of("FAILED", "CANCELLED").contains(state)) {
             throw new ControlException("RETRY_NOT_ALLOWED", "只有失败/已取消的任务可以重试", 409);
         }
-        if (mapper.requeue(jobId, ownerId) == 0) {
+        int requeued = mapper.requeue(jobId, ownerId);
+        if (requeued == 0) {
             throw new ControlException("RETRY_NOT_ALLOWED", "状态已变化，请刷新", 409);
         }
         emitRequeue(ownerId, jobId);

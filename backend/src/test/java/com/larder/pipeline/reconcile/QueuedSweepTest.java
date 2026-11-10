@@ -29,7 +29,7 @@ class QueuedSweepTest {
     void setUp() {
         leaseMapper = mock(JobLeaseMapper.class);
         outboxMapper = mock(OutboxEventMapper.class);
-        reconciler = new JobReconciler(leaseMapper, outboxMapper, 5);
+        reconciler = new JobReconciler(leaseMapper, org.mockito.Mockito.mock(com.larder.pipeline.lease.JobEventLog.class), outboxMapper, 5);
         when(leaseMapper.selectExpired(50)).thenReturn(List.of());
     }
 

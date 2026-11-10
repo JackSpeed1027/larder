@@ -29,7 +29,8 @@ public interface InboxMapper {
     InboxRecord findInbox(@Param("consumer") String consumer, @Param("eventId") String eventId);
 
     /** 接管 job：QUEUED/RETRY_WAIT → RUNNING，lease_token+1。 */
-    @Update("UPDATE job SET state = 'RUNNING', lease_owner = #{owner}, lease_token = lease_token + 1, "
+    @Update("UPDATE job SET state = 'RUNNING', last_event_seq = last_event_seq + 1, "
+            + "lease_owner = #{owner}, lease_token = lease_token + 1, "
             + "lease_until = #{leaseUntil}, next_reconcile_at = #{leaseUntil}, updated_at = UTC_TIMESTAMP(6) "
             + "WHERE id = #{jobId} AND state IN ('QUEUED','RETRY_WAIT')")
     int claimJob(@Param("jobId") String jobId, @Param("owner") String owner,
@@ -44,6 +45,9 @@ public interface InboxMapper {
             + "next_attempt_at = DATE_ADD(UTC_TIMESTAMP(6), INTERVAL 2 SECOND), updated_at = UTC_TIMESTAMP(6) "
             + "WHERE id = #{jobId} AND state = 'RUNNING' AND lease_token = #{token}")
     int releaseForRetry(@Param("jobId") String jobId, @Param("token") long token);
+
+    @Select("SELECT owner_id FROM job WHERE id = #{jobId}")
+    String ownerOf(@Param("jobId") String jobId);
 
     @Select("SELECT state FROM job WHERE id = #{jobId}")
     String jobState(@Param("jobId") String jobId);

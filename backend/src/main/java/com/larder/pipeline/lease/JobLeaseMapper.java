@@ -83,7 +83,7 @@ public interface JobLeaseMapper {
     int countPendingOutbox(@Param("jobId") String jobId);
 
     /** 对账收回：条件更新保证只收回未被别人抢先续租/提交的任务。 */
-    @Update("UPDATE job SET state = #{state}, attempt = #{attempt}, lease_owner = NULL, lease_until = NULL, "
+    @Update("UPDATE job SET state = #{state}, attempt = #{attempt}, last_event_seq = last_event_seq + 1, lease_owner = NULL, lease_until = NULL, "
             + "next_attempt_at = #{nextAttemptAt}, next_reconcile_at = NULL, error_code = #{errorCode}, "
             + "row_version = row_version + 1, updated_at = UTC_TIMESTAMP(6) "
             + "WHERE id = #{jobId} AND state = 'RUNNING' AND lease_token = #{token} "
