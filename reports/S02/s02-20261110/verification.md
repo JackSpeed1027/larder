@@ -51,3 +51,23 @@ curl.exe -sS -X POST http://127.0.0.1:8000/v1/runs/run_manual_1/heartbeat
 - run 状态在进程内，重启丢失；
 - 未校验 scope 与 job 的一致性（Java 侧复核）；
 - 未接预算/审批。
+## 追加：S02.EXEC 执行器模块（未接线）
+
+- 新增 `runner/src/larder_runner/runtime/executor.py`：`RunExecutor.execute(runId, jobId, epoch, url)`
+  编排 fetch → extract → chunk → 回传 Java `/internal/runs/{runId}/result`（`X-Internal-Token`）；
+- 依赖全部注入（fetch/extract/chunk/publish），单测不联网；
+- 失败语义：抓取/抽取领域异常 → `FAILED` + 原错误码（如 `EXTRACT_EMPTY`）；
+  发布被拒（409 等）→ `FAILED` + `PUBLISH_REJECTED`；Java 不可达 → `JAVA_UNAVAILABLE`；
+- 单测：`runner/tests/runtime/executor/test_executor.py` 3 个用例（成功发布、抽取失败、发布被拒）。
+
+### 实测
+
+`python -m pytest tests -m "not live"` → **43 passed**（40 + 3）。
+
+### 尚未完成（下一 slice）
+
+- **未接入 `/v1/runs`**：当前入口只登记 + 心跳，不会真正执行；接线需要：
+  1. `RunStartRequest` 增加 `processingEpoch`（Java 派发时携带 job 的 epoch）；
+  2. 背景执行（线程/调度器）+ 状态回写 + 失败码落状态；
+  3. compose 给 runner 注入 `LARDER_INTERNAL_TOKEN` / Java base URL；
+- Java 侧 `RunnerClient` 需把 `processingEpoch` 带上（当前只发 protocolVersion/scope/input）。

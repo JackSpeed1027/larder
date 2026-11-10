@@ -14,6 +14,12 @@
       "command": "scripts/dev/verify-inbox.ps1（含派发）",
       "exitCode": 0,
       "log": "reports/S02/s02-20261110/verify-inbox-dispatch.log"
+    },
+    {
+      "command": "python -m pytest tests -m not live",
+      "exitCode": 0,
+      "passed": 43,
+      "log": "reports/S02/s02-20261110/verification.md"
     }
   ],
   "notRun": [
