@@ -75,6 +75,13 @@ Check '取消 RUNNING 任务：写 cancel_requested_at' {
     Assert-True ($null -ne $c.json.cancelRequestedAt) '没有 cancelRequestedAt'
     'cancelRequestedAt 已写'
 }
+Check '取消写入 CANCEL_REQUESTED 事件（S05）' {
+    $sql = "select count(*) from job_event where job_id='" + $jobId + "' and event_type='CANCEL_REQUESTED'"
+    $count = ($sql | & docker compose exec -T mysql sh -c 'MYSQL_PWD="$MYSQL_PASSWORD" mysql -ularder -N -B larder' | Out-String).Trim()
+    Assert-True ($count -ge '1') "CANCEL_REQUESTED 事件数=$count（应为 >=1）"
+    "CANCEL_REQUESTED=$count"
+}
+
 Check '取消后迟到产物不能发布（A07）' {
     $rb = Join-Path $env:TEMP "ctl-result-$suffix.json"
     $body = @{ jobId = $jobId; runId = $runId; processingEpoch = 0; text = $text; contentSha256 = $sha;

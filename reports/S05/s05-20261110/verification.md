@@ -76,3 +76,21 @@ V7 首次执行失败：`job_event.owner_id/job_id` 用 utf8mb4，而 `job.id` �
 - 前端轮询降级、隐藏页降频未做；
 - snapshot→events 竞态无专门测试；
 - 事件表无保留期/清理策略。
+
+## 追加：CANCEL_REQUESTED 修复（S05 收尾）
+
+根因：`JobControlService.cancel` 里**根本没有 append 调用**——上一轮的正则替换锚点没匹配（`CANCEL_NOT_ALLOWED` vs `NOT_CANCELLABLE`），只改了 `int cancelled`，漏了写事件。所以 e2e 一直查不到 `CANCEL_REQUESTED`。
+
+修复：
+
+- `cancel`：requestCancel 成功后用 `findJob` 取实际 state，写 `CANCEL_REQUESTED`；
+- `retry`：requeue 后写 `QUEUED`；
+- `verify-control.ps1` 新增断言：取消后 `job_event` 必须存在 `CANCEL_REQUESTED`（防止再次静默漏写）。
+
+### 实测
+
+```
+verify-control.ps1 → ALL CONTROL CHECKS PASSED
+  [PASS] 取消写入 CANCEL_REQUESTED 事件（S05）: CANCEL_REQUESTED=1
+job_event 分布：RUNNING=9, QUEUED=3, FAILED=4, SUCCEEDED=4, CANCEL_REQUESTED=1
+```

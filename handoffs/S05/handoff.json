@@ -28,10 +28,14 @@
       "command": "scripts/dev/verify-control.ps1",
       "exitCode": 0,
       "log": "reports/S05/s05-20261110/verify-control-transitions.log"
+    },
+    {
+      "command": "scripts/dev/verify-control.ps1（含事件断言）",
+      "exitCode": 0,
+      "log": "reports/S05/s05-20261110/verify-control-cancelevent.log"
     }
   ],
   "notRun": [
-    "CANCEL_REQUESTED 核验",
     "前端轮询降级/隐藏页降频",
     "snapshot-events 竞态测试",
     "事件表保留策略"

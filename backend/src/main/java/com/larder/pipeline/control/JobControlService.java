@@ -93,6 +93,9 @@ public class JobControlService {
         if (cancelled == 0) {
             throw new ControlException("CANCEL_NOT_ALLOWED", "状态已变化，请刷新", 409);
         }
+        Map<String, Object> afterCancel = mapper.findJob(jobId);
+        eventLog.append(ownerId, jobId, "CANCEL_REQUESTED",
+                String.valueOf(afterCancel.get("state")), null, 0L, null);
         return mapper.findJob(jobId);
     }
 
@@ -111,6 +114,7 @@ public class JobControlService {
         if (requeued == 0) {
             throw new ControlException("RETRY_NOT_ALLOWED", "状态已变化，请刷新", 409);
         }
+        eventLog.append(ownerId, jobId, "QUEUED", "QUEUED", null, 0L, null);
         emitRequeue(ownerId, jobId);
         return mapper.findJob(jobId);
     }
