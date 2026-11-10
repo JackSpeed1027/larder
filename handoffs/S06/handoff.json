@@ -1,1 +1,22 @@
-﻿{"taskId":"S06","sliceId":"S06.PROXY_GUARD","result":"TASK_LOCAL_PASS","resultScope":"禁用环境代理 + SSRF 用例；DNS 绑定未做","checks":[{"command":"python -m pytest tests -m not live","exitCode":0,"passed":54}],"notRun":["DNS 解析与连接绑定","取消/预算归属","S 全量门禁"]}
+{
+  "taskId": "S06",
+  "sliceId": "S06.PROXY_GUARD+PIN_NET",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "禁代理；解析与连接绑定（含 SNI）；真实抓取回归通过；取消/预算归属与总门禁未做",
+  "checks": [
+    {
+      "command": "python -m pytest tests -m not live",
+      "exitCode": 0,
+      "passed": 54
+    },
+    {
+      "command": "scripts/dev/verify-run-exec.ps1",
+      "exitCode": 0,
+      "log": "reports/S06/s06-20261110/verify-run-exec-pinning.log"
+    }
+  ],
+  "notRun": [
+    "取消/预算归属写入任务状态",
+    "S 全量门禁与隔离故障注入"
+  ]
+}

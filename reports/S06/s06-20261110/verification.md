@@ -20,3 +20,16 @@
 1. **DNS 绑定**：`UrlGuard.check` 解析后，urllib 仍会再次解析连接——存在 TOCTOU；需“解析一次、校验全部、连接到已验证 IP（保留 Host/SNI）”；
 2. 总耗时/响应大小/重定向次数已有限制，但没有“取消/预算归属”写入任务状态；
 3. S06 是 S 阶段总门禁，还需跑全量 verify + 故障注入（ack 后崩溃等）。
+
+## 追加：DNS 解析与连接绑定（S06.PIN_NET）
+
+- `UrlGuard.resolve_for(url)`：解析一次、校验**所有**地址（任一私网即拒绝），返回 `(host, port, pinned_ip)`；
+- `_PinnedHTTPConnection` / `_PinnedHTTPSConnection`：`connect()` 直接连 `pinned_ip`；HTTPS 仍用原 host 做 **SNI 与证书校验**；
+- `_PinnedHTTPHandler` / `_PinnedHTTPSHandler`：每跳（含重定向）在连接前重新解析+校验；
+- `build_opener()` 固定组合：无代理 + 固定 IP + 重定向重校验；
+- 单测 5 个：resolve 返回固定 IP、公私混合拒绝、HTTP 连 IP、HTTPS 保留 SNI、opener 无代理。
+
+### 实测
+
+- `pytest`：**59 passed**；
+- `verify-run-exec.ps1`：**ALL EXEC CHECKS PASSED**（真实 example.com：`job SUCCEEDED`、`rev_4cb68bbc…`、正文 156 字符），证明固定 IP + SNI 不影响正常抓取。

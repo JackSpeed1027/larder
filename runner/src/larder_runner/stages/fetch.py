@@ -1,16 +1,20 @@
 """网页抓取：每跳都做 SSRF 校验、限制重定向/大小/类型。
 
-安全边界（docs/02、AGENTS）：
+安全边界（docs/02、AGENTS、v4 S06）：
 - 只允许 http/https；
 - 目标 IP 不得是 loopback/private/link-local/保留地址（含云元数据 169.254.169.254）；
-- 每次重定向都重新解析并重新校验，防止"公网域名 302 到内网"；
-- 限制重定向次数、响应大小与内容类型，避免被大文件/流拖死；\n- 不继承系统/环境代理（显式 ProxyHandler({})），防止请求被代理改写到内网。
+- **解析与连接绑定**：校验时解析出的 IP 就是实际连接的 IP，保留 Host 与 TLS SNI；
+  避免“校验一次 DNS 后 HTTP 客户端再次自由解析”的 TOCTOU / DNS rebinding；
+- 每次重定向重新解析并重新校验，防止“公网域名 302 到内网”；
+- 限制重定向次数、响应大小与内容类型；不继承系统/环境代理。
 """
 
 from __future__ import annotations
 
+import http.client
 import ipaddress
 import socket
+import ssl
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
@@ -58,29 +62,86 @@ def _is_public_address(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> boo
 
 
 class UrlGuard:
-    """SSRF 守卫：按主机名解析出的每一个地址判断，全部必须是公网地址。"""
+    """SSRF 守卫：解析一次、校验全部地址，并返回用于连接的固定 IP。"""
 
     def __init__(self, allow_private: bool = False, resolver=socket.getaddrinfo) -> None:
         self._allow_private = allow_private
         self._resolver = resolver
 
-    def check(self, url: str) -> None:
+    def resolve_for(self, url: str) -> tuple[str, int, str]:
+        """返回 (host, port, pinned_ip)；任何地址非公网都拒绝。"""
         parts = urlsplit(url)
         if parts.scheme not in ("http", "https"):
             raise FetchError("SSRF_BLOCKED", f"不允许的协议: {parts.scheme}")
         host = parts.hostname
         if not host:
             raise FetchError("SSRF_BLOCKED", "URL 缺少主机名")
+        port = parts.port or (443 if parts.scheme == "https" else 80)
         if self._allow_private:
-            return
+            return host, port, host
         try:
-            infos = self._resolver(host, parts.port or (443 if parts.scheme == "https" else 80))
+            infos = self._resolver(host, port)
         except socket.gaierror as exc:
             raise FetchError("DNS_FAILED", f"无法解析主机 {host}") from exc
+        addresses = []
         for info in infos:
             address = ipaddress.ip_address(info[4][0])
             if not _is_public_address(address):
                 raise FetchError("SSRF_BLOCKED", f"目标地址不是公网地址: {address}")
+            addresses.append(str(address))
+        if not addresses:
+            raise FetchError("DNS_FAILED", f"主机没有可用地址: {host}")
+        return host, port, addresses[0]
+
+    def check(self, url: str) -> None:
+        self.resolve_for(url)
+
+
+class _PinnedHTTPConnection(http.client.HTTPConnection):
+    """连接到已校验的 IP，Host 头保持原主机名。"""
+
+    def __init__(self, host: str, port: int, pinned_ip: str, **kwargs) -> None:
+        super().__init__(host, port, **kwargs)
+        self._pinned_ip = pinned_ip
+
+    def connect(self) -> None:
+        self.sock = socket.create_connection((self._pinned_ip, self.port), self.timeout)
+
+
+class _PinnedHTTPSConnection(http.client.HTTPSConnection):
+    """连接到已校验的 IP，TLS SNI 仍用原主机名并做证书校验。"""
+
+    def __init__(self, host: str, port: int, pinned_ip: str, context: ssl.SSLContext | None = None, **kwargs) -> None:
+        super().__init__(host, port, context=context, **kwargs)
+        self._pinned_ip = pinned_ip
+
+    def connect(self) -> None:
+        sock = socket.create_connection((self._pinned_ip, self.port), self.timeout)
+        self.sock = self._context.wrap_socket(sock, server_hostname=self.host)
+
+
+class _PinnedHTTPHandler(urllib.request.HTTPHandler):
+    def __init__(self, guard: UrlGuard) -> None:
+        super().__init__()
+        self._guard = guard
+
+    def http_open(self, req):
+        host, port, pinned = self._guard.resolve_for(req.full_url)
+        return self.do_open(
+            lambda _h, **kw: _PinnedHTTPConnection(host, port, pinned, **kw), req
+        )
+
+
+class _PinnedHTTPSHandler(urllib.request.HTTPSHandler):
+    def __init__(self, guard: UrlGuard) -> None:
+        super().__init__()
+        self._guard = guard
+
+    def https_open(self, req):
+        host, port, pinned = self._guard.resolve_for(req.full_url)
+        return self.do_open(
+            lambda _h, **kw: _PinnedHTTPSConnection(host, port, pinned, **kw), req
+        )
 
 
 class _GuardedRedirectHandler(urllib.request.HTTPRedirectHandler):
@@ -96,6 +157,16 @@ class _GuardedRedirectHandler(urllib.request.HTTPRedirectHandler):
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
+def build_opener(guard: UrlGuard):
+    """固定为：无代理 + 固定 IP 连接 + 重定向重校验。"""
+    return urllib.request.build_opener(
+        urllib.request.ProxyHandler({}),
+        _PinnedHTTPHandler(guard),
+        _PinnedHTTPSHandler(guard),
+        _GuardedRedirectHandler(guard),
+    )
+
+
 def fetch(
     url: str,
     *,
@@ -107,7 +178,7 @@ def fetch(
     """抓取一个 URL；失败抛 FetchError。"""
     guard = guard or UrlGuard()
     guard.check(url)
-    handler = opener or urllib.request.build_opener(urllib.request.ProxyHandler({}), _GuardedRedirectHandler(guard))
+    handler = opener or build_opener(guard)
     request = urllib.request.Request(url, headers={"User-Agent": "larder-runner/0.1"})
     try:
         with handler.open(request, timeout=timeout) as response:
