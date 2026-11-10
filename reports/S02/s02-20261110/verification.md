@@ -32,3 +32,22 @@ curl.exe -sS -X POST http://127.0.0.1:8000/v1/runs -H "Content-Type: application
 # 同 body 再来一次 → dedupe=REPLAYED；改 input → 409 RUN_PAYLOAD_CONFLICT
 curl.exe -sS -X POST http://127.0.0.1:8000/v1/runs/run_manual_1/heartbeat
 ```
+## 追加：S02.DISPATCH 已打通（s02-20261110）
+
+- Java 在 Inbox 接管事务提交后调用 `RunnerClient.startRun`，请求体带冻结字段 `protocolVersion=v1 / mode=INGEST / scope{ownerId,itemId} / traceId=runId`；
+- runId 由 `JobLeaseService.startRun` 分配（稳定、唯一），失败时 `releaseForRetry` 把 job 放回 QUEUED 并递增 attempt，由 MQ 重投；
+- 实测：`verify-inbox.ps1` → **ALL INBOX CHECKS PASSED**（job RUNNING、lease_token=1、inbox 1 行、重复投递不重跑、坏消息进 DLQ）；
+- Runner 侧收到请求：api 日志 `已派发 Runner：jobId=… runId=…`，证据 `dispatch.log`。
+
+### 本轮修掉的两个真实问题
+
+1. **Runner 镜像缺 `src/`**：`larder_runner.api.runs` 导入失败（容器启动即挂），Dockerfile 增加 `COPY src /app/src` + `PYTHONPATH`；
+2. **Java 派发缺协议字段**：Runner 返回 **422**（`protocolVersion/scope` 缺失），补全后 202。
+   失败时 lease_token 会快速增长（每轮重投 +1），这也是“重试风暴”的可观测信号。
+
+### 仍未完成
+
+- `/v1/runs` 只接纳，不执行 fetch/extract/chunk（S02.EXEC）；
+- run 状态在进程内，重启丢失；
+- 未校验 scope 与 job 的一致性（Java 侧复核）；
+- 未接预算/审批。

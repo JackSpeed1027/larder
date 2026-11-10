@@ -1,1 +1,25 @@
-{"taskId":"S02","sliceId":"S02.RUN_ENTRY","result":"TASK_LOCAL_PASS","resultScope":"Runner 入口/幂等/心跳/容量；Java 派发未接入","checks":[{"command":"python -m pytest tests -m not live","exitCode":0,"passed":40,"log":"reports/S02/s02-20261110/verification.md"}],"notRun":["Java 派发装配","执行阶段接入","run 持久化"]}
+{
+  "taskId": "S02",
+  "sliceId": "S02.RUN_ENTRY",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "Runner 入口/幂等/心跳/容量；Java 派发未接入",
+  "checks": [
+    {
+      "command": "python -m pytest tests -m not live",
+      "exitCode": 0,
+      "passed": 40,
+      "log": "reports/S02/s02-20261110/verification.md"
+    },
+    {
+      "command": "scripts/dev/verify-inbox.ps1（含派发）",
+      "exitCode": 0,
+      "log": "reports/S02/s02-20261110/verify-inbox-dispatch.log"
+    }
+  ],
+  "notRun": [
+    "/v1/runs 执行 fetch/extract/chunk",
+    "run 持久化",
+    "scope 一致性复核",
+    "预算/审批"
+  ]
+}

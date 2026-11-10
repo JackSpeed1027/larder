@@ -864,7 +864,8 @@
       "contractRev": "2f53e681e9ac0dbd6890b1baabd71fce7e53551e2d784ca19ae335d44192f998",
       "evidence": [
         "reports/S02/s02-20261110/verification.md",
-        "handoffs/S02/handoff.json"
+        "reports/S02/s02-20261110/verify-inbox-dispatch.log",
+        "reports/S02/s02-20261110/dispatch.log"
       ],
       "verifiedAt": null,
       "blockers": [],
@@ -975,17 +976,23 @@
     "U02": {
       "taskId": "U02",
       "title": "笔记版本与CAS后端",
-      "status": "PLANNED",
+      "status": "READY_FOR_INTEGRATION",
       "owner": null,
       "baseSnapshot": "10d49e2",
       "contractRev": "2f53e681e9ac0dbd6890b1baabd71fce7e53551e2d784ca19ae335d44192f998",
-      "evidence": [],
+      "evidence": [
+        "reports/U02/20261110-u02-cas/verification.md",
+        "reports/U02/20261110-u02-cas/summary.json",
+        "handoffs/U02/handoff.json",
+        "backend/src/main/resources/db/migration/V6__note_revision.sql"
+      ],
       "verifiedAt": null,
       "blockers": [],
       "source": "tasks/supplement-v4.json",
       "dependsOn": [
         "U00"
-      ]
+      ],
+      "note": "accept.py --task U02 本地 PASS（102 单测 + 5 个真实 MySQL 用例）；未做 HTTP e2e、软删除、Idempotency-Key；DONE 由协调者在集成树验证后置"
     },
     "U03": {
       "taskId": "U03",

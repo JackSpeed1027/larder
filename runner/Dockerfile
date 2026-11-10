@@ -5,10 +5,13 @@ FROM python:3.12-slim@sha256:4840d514c583a4d3d8cad3940e68dee6f0f6f3635c12fcd0a3d
 WORKDIR /app
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    TZ=UTC
+    TZ=UTC \
+    PYTHONPATH=/app/src
 
 COPY pyproject.toml /app/pyproject.toml
 COPY app /app/app
+# src/ 布局的 larder_runner 包（/v1/runs、stages 等）：不复制会导致容器启动即 ImportError
+COPY src /app/src
 
 # 版本与 docs/versions.lock.json 一致；不用 requirements.txt 是避免两处版本漂移
 RUN pip install --no-cache-dir \

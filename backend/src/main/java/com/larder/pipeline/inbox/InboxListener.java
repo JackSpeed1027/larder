@@ -29,9 +29,11 @@ public class InboxListener {
     private static final Logger log = LoggerFactory.getLogger(InboxListener.class);
 
     private final InboxHandler handler;
+    private final InboxDispatcher dispatcher;
 
-    public InboxListener(InboxHandler handler) {
+    public InboxListener(InboxHandler handler, InboxDispatcher dispatcher) {
         this.handler = handler;
+        this.dispatcher = dispatcher;
     }
 
     @RabbitListener(queues = RabbitTopology.INGEST_QUEUE, containerFactory = InboxRabbitConfig.INBOX_CONTAINER_FACTORY)
@@ -57,8 +59,20 @@ public class InboxListener {
             return;
         }
 
+        if (outcome == InboxOutcome.ACCEPTED) {
+            try {
+                // 事务已提交，才做外部 HTTP 派发；失败则 nack 重投，job 已被释放回 QUEUED
+                dispatcher.dispatch(jobId);
+                channel.basicAck(tag, false);
+            } catch (RuntimeException dispatchFailure) {
+                log.warn("Runner 派发失败，消息回队列：jobId={} reason={}", jobId, dispatchFailure.toString());
+                channel.basicNack(tag, false, true);
+            }
+            return;
+        }
+
         switch (outcome) {
-            case ACCEPTED, ALREADY_RUNNING, ALREADY_DONE -> channel.basicAck(tag, false);
+            case ALREADY_RUNNING, ALREADY_DONE -> channel.basicAck(tag, false);
             default -> {
                 log.warn("不可恢复事件进入死信：eventId={} outcome={}", eventId, outcome);
                 channel.basicNack(tag, false, false);
