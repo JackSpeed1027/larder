@@ -134,16 +134,19 @@ public class JobEventsController {
             return;
         }
         var events = eventLog.after(ownerId, jobId, cursor);
-        if (events.isEmpty() && initial.seq() > cursor) {
+        SseCursor.Decision decision = SseCursor.decide(cursor, initial.seq(), events.size());
+        if (decision == SseCursor.Decision.RESET) {
             emitter.send(SseEmitter.event().id(Long.toString(initial.seq())).name("reset")
                     .data(snapshotJson(initial, lastEventId), MediaType.APPLICATION_JSON));
             return;
         }
-        for (var event : events) {
-            emitter.send(SseEmitter.event()
-                    .id(String.valueOf(event.get("seq")))
-                    .name("state")
-                    .data(String.valueOf(event.get("payloadJson")), MediaType.APPLICATION_JSON));
+        if (decision == SseCursor.Decision.REPLAY) {
+            for (var event : events) {
+                emitter.send(SseEmitter.event()
+                        .id(String.valueOf(event.get("seq")))
+                        .name("state")
+                        .data(String.valueOf(event.get("payloadJson")), MediaType.APPLICATION_JSON));
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 {
   "taskId": "S05",
-  "sliceId": "S05.BOUNDED+EVENT_LOG+TRANSITIONS",
+  "sliceId": "S05.BOUNDED+EVENT_LOG+TRANSITIONS+CURSOR",
   "result": "TASK_LOCAL_PASS",
   "resultScope": "有界 SSE；job_event 覆盖 RUNNING/QUEUED/FAILED/SUCCEEDED；CANCEL_REQUESTED 待核验；前端降级未做",
   "checks": [
@@ -33,6 +33,11 @@
       "command": "scripts/dev/verify-control.ps1（含事件断言）",
       "exitCode": 0,
       "log": "reports/S05/s05-20261110/verify-control-cancelevent.log"
+    },
+    {
+      "command": "backend mvnw test",
+      "exitCode": 0,
+      "passed": 120
     }
   ],
   "notRun": [

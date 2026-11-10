@@ -94,3 +94,12 @@ verify-control.ps1 → ALL CONTROL CHECKS PASSED
   [PASS] 取消写入 CANCEL_REQUESTED 事件（S05）: CANCEL_REQUESTED=1
 job_event 分布：RUNNING=9, QUEUED=3, FAILED=4, SUCCEEDED=4, CANCEL_REQUESTED=1
 ```
+
+## 追加：续传决策抽成纯函数并测试（S05.CURSOR）
+
+- `SseCursor.decide(lastEventId, currentSeq, replayedEvents)`：FRESH / REPLAY / RESET 三态；
+- 规则：无 cursor → FRESH；有后续事件 → REPLAY；cursor 落后且日志为空 → **RESET**；cursor 相等/超前 → FRESH（避免重复回放）；
+- Controller 改用该决策；单测 4 个（无 cursor / 有事件 / 历史缺失 / cursor 超前）；
+- `mvn test`：**120 passed**；`verify-lease.ps1`：ALL LEASE CHECKS PASSED。
+
+仍未完成：真实 HTTP 层“snapshot 后立刻状态变化”的并发 e2e（当前是决策逻辑单测 + 现有 SSE e2e）。
