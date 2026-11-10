@@ -1,0 +1,24 @@
+{
+  "taskId": "S04",
+  "sliceId": "S04.REAP_TX",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "回收+Outbox 同事务；QUEUED 补偿扫描/退避测试/lease_token 提交条件未做",
+  "checks": [
+    {
+      "command": "backend mvnw test",
+      "exitCode": 0,
+      "passed": 108
+    },
+    {
+      "command": "scripts/dev/verify-lease.ps1",
+      "exitCode": 0,
+      "log": "reports/S04/s04-20261110/verify-lease.log"
+    }
+  ],
+  "notRun": [
+    "QUEUED 补偿扫描",
+    "退避上界测试",
+    "lease_token 入 commitJob",
+    "背压配置"
+  ]
+}

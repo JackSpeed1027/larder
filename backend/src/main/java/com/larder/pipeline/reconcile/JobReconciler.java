@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -25,6 +26,10 @@ import java.util.List;
  *
  * <p>为什么重新写 outbox 事件而不是直接调用 Runner：派发必须走同一条可靠通道
  * （V03-T01 的 relay），否则又是一次双写。
+ *
+ * <p>S04：整轮对账是一个短数据库事务——回收（改 job 状态）与补发 Outbox 必须原子提交。
+ * 如果先提交 QUEUED 再单独插事件，中间崩溃会留下“QUEUED 但永远没有通知”的僵尸任务。
+ * 本方法只做数据库操作，不调用 Runner/对象存储，因此事务足够短。
  */
 @Service
 public class JobReconciler {
@@ -43,7 +48,8 @@ public class JobReconciler {
         this.maxAttempts = maxAttempts;
     }
 
-    /** 跑一轮对账。 */
+    /** 跑一轮对账；回收与 Outbox 补发在同一事务提交（S04）。 */
+    @Transactional
     public Result runOnce() {
         List<JobLeaseRow> expired = leaseMapper.selectExpired(50);
         int requeued = 0;
