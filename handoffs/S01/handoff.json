@@ -1,23 +1,28 @@
-﻿{
-    "taskId":  "S01",
-    "sliceId":  "S01.SHORT_TX",
-    "result":  "TASK_LOCAL_PASS",
-    "resultScope":  "单测 + 真实内容链路；同 key 并发压测未做",
-    "summary":  "幂等登记改与业务同事务；冲突后独立读取；PAYLOAD_MISMATCH/IN_PROGRESS 错误码落地",
-    "checks":  [
-                   {
-                       "exitCode":  0,
-                       "command":  "backend mvnw test",
-                       "log":  "reports/S01/s01-20261110/verification.md",
-                       "passed":  91
-                   },
-                   {
-                       "exitCode":  0,
-                       "command":  "scripts/dev/verify-content.ps1",
-                       "log":  "reports/S01/s01-20261110/verify-content.log"
-                   }
-               ],
-    "notRun":  [
-                   "同 key 并发压测"
-               ]
+{
+  "taskId": "S01",
+  "sliceId": "S01.SHORT_TX",
+  "result": "TASK_LOCAL_PASS",
+  "resultScope": "单测 + 真实内容链路 + 同 key 并发（202x1 + 200x7，DB 1 item）",
+  "summary": "幂等登记改与业务同事务；冲突后独立读取；PAYLOAD_MISMATCH/IN_PROGRESS 错误码落地",
+  "checks": [
+    {
+      "exitCode": 0,
+      "command": "backend mvnw test",
+      "log": "reports/S01/s01-20261110/verification.md",
+      "passed": 91
+    },
+    {
+      "exitCode": 0,
+      "command": "scripts/dev/verify-content.ps1",
+      "log": "reports/S01/s01-20261110/verify-content.log"
+    },
+    {
+      "command": "scripts/dev/verify-content.ps1（含同 key 并发）",
+      "exitCode": 0,
+      "log": "reports/S01/s01-20261110/verify-content-samekey.log"
+    }
+  ],
+  "notRun": [
+    "幂等记录过期清理"
+  ]
 }

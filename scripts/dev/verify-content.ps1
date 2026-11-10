@@ -150,6 +150,36 @@ Check '8 个并发请求同 URL 只产生 1 个 item' {
     "statuses=$($statuses -join ',')"
 }
 
+Check '同 key 并发：1 个创建 + 7 个重放，DB 只有 1 个 item' {
+    $sameId = [guid]::NewGuid().ToString('N').Substring(0, 10)
+    $sameUrl = 'https://example.com/same-key/' + $sameId
+    $sameBody = '{"kind":"WEB","url":"' + $sameUrl + '"}'
+    $sameKey = 'same-key-' + $sameId
+    $tasks = @()
+    for ($i = 0; $i -lt 8; $i++) {
+        $tasks += $client.SendAsync((New-ItemRequest $sameKey $sameBody))
+    }
+    [System.Threading.Tasks.Task]::WaitAll($tasks)
+    $codes = @()
+    $ids = @()
+    foreach ($t in $tasks) {
+        $resp = $t.Result
+        $json = ($resp.Content.ReadAsStringAsync().GetAwaiter().GetResult() | ConvertFrom-Json)
+        $codes += $resp.StatusCode.value__
+        if ($json.data.itemId) { $ids += $json.data.itemId }
+    }
+    $created = @($codes | Where-Object { $_ -eq 202 }).Count
+    $replayed = @($codes | Where-Object { $_ -eq 200 }).Count
+    $unique = @($ids | Select-Object -Unique)
+    Assert-True ($created -eq 1) "202 数量=$created（应为 1）: $($codes -join ',')"
+    Assert-True ($replayed -eq 7) "200 数量=$replayed（应为 7）: $($codes -join ',')"
+    Assert-True ($unique.Count -eq 1) "itemId 不一致: $($unique -join ',')"
+    $sql = "select count(*) from item where id='" + $unique[0] + "'"
+    $rows = ($sql | & docker compose exec -T mysql sh -c 'MYSQL_PWD="$MYSQL_PASSWORD" mysql -ularder -N -B larder' | Out-String).Trim()
+    Assert-True ($rows -eq '1') "DB 中该 URL 的 item 数=$rows（应为 1）"
+    "202×1 + 200×7，item=$($unique[0])"
+}
+
 Check 'MySQL 中该 item 只有 1 条，且有 1 个 job / 1 条 outbox' {
     $row = Mysql "select (select count(*) from item where id='$itemId'), (select count(*) from job where item_id='$itemId'), (select count(*) from outbox o join job j on o.job_id=j.id where j.item_id='$itemId')"
     Assert-True ($row -eq "1`t1`t1") "期望 1/1/1，实际: $row"

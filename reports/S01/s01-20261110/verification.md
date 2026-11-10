@@ -30,3 +30,10 @@
 ## 备注
 
 - verify-content 需先 mvn package 再重建 api 镜像，否则容器仍跑旧 jar（本轮踩到并已纠正）。
+
+## 追加：同 key 并发已实测（s01-20261110）
+
+- `verify-content.ps1` 新增“同 key 并发”检查：8 个并发同 key 同 body → **202×1 + 200×7**，itemId 全一致，DB 该 item 仅 1 行；
+- 证据：`reports/S01/s01-20261110/verify-content-samekey.log`；
+- 结论：S01 slice 从 TASK_LOCAL_PASS 升为 **READY_FOR_INTEGRATION**；
+- 手测数据与方法已整理到 `docs/手测指南.md`。

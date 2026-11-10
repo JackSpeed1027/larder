@@ -839,13 +839,14 @@
     "S01": {
       "taskId": "S01",
       "title": "幂等与响应合同",
-      "status": "IN_PROGRESS",
+      "status": "READY_FOR_INTEGRATION",
       "owner": null,
       "baseSnapshot": "10d49e2",
       "contractRev": "2f53e681e9ac0dbd6890b1baabd71fce7e53551e2d784ca19ae335d44192f998",
       "evidence": [
         "reports/S01/s01-20261110/verification.md",
-        "handoffs/S01/handoff.json"
+        "reports/S01/s01-20261110/verify-content-samekey.log",
+        "docs/手测指南.md"
       ],
       "verifiedAt": null,
       "blockers": [],
