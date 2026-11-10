@@ -11,6 +11,8 @@ from datetime import datetime, timezone
 from fastapi import FastAPI
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from larder_runner.api.runs import RunRegistry, build_runs_router
+
 APP_VERSION = "0.1.0"
 
 
@@ -25,6 +27,7 @@ class Settings(BaseSettings):
 
 settings = Settings()
 app = FastAPI(title="Larder Runner", version=APP_VERSION)
+app.include_router(build_runs_router(RunRegistry(settings.max_concurrent_runs)))
 
 
 def _now() -> str:
