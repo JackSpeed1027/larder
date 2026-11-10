@@ -128,6 +128,32 @@ Check '租约过期 → 对账收回 → 重新派发并接管（fencing 代次�
     "token $tokenBefore → $tokenAfter，attempt=$attempt，outbox=$outboxCount"
 }
 
+Check 'SSE 竞态：连接期间发布结果，收到终态事件且 DB 一致' {
+    $runId = Mysql "select run_id from job where id='$jobId'"
+    $epoch = Mysql "select processing_epoch from job where id='$jobId'"
+    $text = "race body $suffix"
+    $sha = (Get-FileHash -InputStream ([IO.MemoryStream]::new([Text.Encoding]::UTF8.GetBytes($text))) -Algorithm SHA256).Hash.ToLower()
+    $token = ((Get-Content .env | Where-Object { $_ -match '^LARDER_INTERNAL_TOKEN=' } | ForEach-Object { $_.Split('=', 2)[1] })).Trim()
+    $payloadFile = Join-Path $env:TEMP "lease-race-$suffix.json"
+    $payload = '{"jobId":"' + $jobId + '","runId":"' + $runId + '","processingEpoch":' + $epoch + ',"text":"' + $text + '","contentSha256":"' + $sha + '","extractorVersion":"extract-v1","chunkerVersion":"chunk-v1","manifestJson":"{\"chunks\":0}"}'
+    [IO.File]::WriteAllText($payloadFile, $payload, (New-Object Text.UTF8Encoding($false)))
+
+    $stream = Start-Job -ScriptBlock {
+        param($jar, $jobId)
+        & curl.exe -sS -N --max-time 10 -b $jar "http://127.0.0.1:8080/api/jobs/$jobId/events" 2>$null
+    } -ArgumentList $jar, $jobId
+    Start-Sleep -Milliseconds 800
+    # /internal 只对容器网络开放（nginx 不代理）；从 runner 容器内回传，等价于真实 Runner
+    $b64 = [Convert]::ToBase64String([Text.Encoding]::UTF8.GetBytes($payload))
+    $pub = (& docker compose exec -T runner python -c "import sys,base64,urllib.request; body=base64.b64decode(sys.argv[1]); req=urllib.request.Request('http://api:8080/internal/runs/'+sys.argv[2]+'/result', data=body, method='POST', headers={'Content-Type':'application/json','X-Internal-Token':sys.argv[3]}); print(urllib.request.urlopen(req).status)" $b64 $runId $token 2>&1 | Out-String)
+    $sse = Receive-Job -Job $stream -Wait -AutoRemoveJob -ErrorAction SilentlyContinue | Out-String
+
+    Assert-True ($pub.Trim() -eq '200') "发布失败: $pub"
+    Assert-True ($sse -match 'SUCCEEDED') "SSE 没收到终态: $sse"
+    Wait-For { (Mysql "select state from job where id='$jobId'") -eq 'SUCCEEDED' } 30 'job SUCCEEDED' | Out-Null
+    '连接期间发布：SSE 收到 SUCCEEDED，DB 一致'
+}
+
 Write-Host ''
 if ($failures.Count -gt 0) {
     Write-Host "FAILED checks: $($failures.Count)"

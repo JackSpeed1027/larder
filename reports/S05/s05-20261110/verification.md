@@ -103,3 +103,29 @@ job_event 分布：RUNNING=9, QUEUED=3, FAILED=4, SUCCEEDED=4, CANCEL_REQUESTED=
 - `mvn test`：**120 passed**；`verify-lease.ps1`：ALL LEASE CHECKS PASSED。
 
 仍未完成：真实 HTTP 层“snapshot 后立刻状态变化”的并发 e2e（当前是决策逻辑单测 + 现有 SSE e2e）。
+
+## 追加：真实 HTTP 竞态 e2e（S05.RACE_E2E）
+
+`verify-lease.ps1` 新增检查：
+
+1. job 处于 RUNNING（租约刚被重新接管）；
+2. 后台启动 `curl -N` 打开 SSE；
+3. 800ms 后**从 runner 容器内**调用 `POST http://api:8080/internal/runs/{runId}/result`（等价真实 Runner；nginx 不代理 /internal，从宿主机 8080 打会得到 405）；
+4. 断言 SSE 流里出现 `SUCCEEDED`，且 DB 中 job 状态为 `SUCCEEDED`。
+
+### 实测
+
+```
+verify-lease.ps1 → ALL LEASE CHECKS PASSED
+  [PASS] SSE 竞态：连接期间发布结果，收到终态事件且 DB 一致
+```
+
+### 踩到的两个真实环境事实
+
+- `http://127.0.0.1:8080/internal/**` 由 **nginx** 处理 → **405**（不是后端拒绝）；内部接口只暴露在容器网络；
+- 因此测试必须从容器内回传（或直接打 `api:8080`），不能走宿主机 web 端口。
+
+### S05 剩余
+
+- 前端轮询降级 / 隐藏页降频（需改 `frontend/`，与 U02 窗口冲突）；
+- `job_event` 保留期/清理策略。

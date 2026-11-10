@@ -38,11 +38,15 @@
       "command": "backend mvnw test",
       "exitCode": 0,
       "passed": 120
+    },
+    {
+      "command": "scripts/dev/verify-lease.ps1（含竞态）",
+      "exitCode": 0,
+      "log": "reports/S05/s05-20261110/verify-lease-race.log"
     }
   ],
   "notRun": [
-    "前端轮询降级/隐藏页降频",
-    "snapshot-events 竞态测试",
-    "事件表保留策略"
+    "前端轮询降级/隐藏页降频（需 frontend/ 作用域）",
+    "job_event 保留策略"
   ]
 }
