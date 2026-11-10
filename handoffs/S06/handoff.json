@@ -13,10 +13,17 @@
       "command": "scripts/dev/verify-run-exec.ps1",
       "exitCode": 0,
       "log": "reports/S06/s06-20261110/verify-run-exec-pinning.log"
+    },
+    {
+      "command": "S06 gate（全部 verify-*.ps1 + 14 个 accept）",
+      "exitCode": 0,
+      "log": "reports/gates/S06/20261110-1445-s06/summary.md"
     }
   ],
   "notRun": [
-    "取消/预算归属写入任务状态",
-    "S 全量门禁与隔离故障注入"
-  ]
+    "隔离故障注入：ack 后崩溃",
+    "取消/预算归属专项",
+    "S06 全量放行（需故障证据）"
+  ],
+  "gate": "20261110-1445-s06: 9/9 scripts PASS, 14/14 accepts PASS"
 }

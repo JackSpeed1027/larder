@@ -937,7 +937,7 @@
       "contractRev": "70d14567b04a3f8d87386188aa995bb9347f58d7063c2016c224f9819bed064c",
       "evidence": [
         "reports/S06/s06-20261110/verification.md",
-        "handoffs/S06/handoff.json"
+        "reports/gates/S06/20261110-1445-s06/summary.md"
       ],
       "verifiedAt": null,
       "blockers": [],
