@@ -59,3 +59,14 @@ ALL FAULT CHECKS PASSED
 - 本故障注入运行在**当前开发 compose**，不是独立 `larder-it` project；
 - 只创建了 `example.com/?fault=*` 测试数据，未删卷、未清库、未触碰非测试数据；
 - 严格按 docs/21 应使用独立 project/DB/vhost/端口；这一点列为**未满足**，等协调者决定是否重跑隔离版。
+
+## 隔离环境故障注入（补齐文档要求）
+
+- 新增 `compose.isolated.yaml`：`!override` 端口 → mysql 13306、rabbit 25672/25673、minio 19000/19001、api 18081、web 18080、runner 18000；
+- 以 `-p larder-it` 启动独立 project（独立卷前缀、独立 DB/队列/对象存储），与开发栈完全隔离；
+- `verify-fault-ack-crash.ps1` 参数化 `-BaseUrl/-ComposeProject/-ComposeFiles`；
+- 实测：**ALL FAULT CHECKS PASSED**
+  - 收录 → inbox=1（已 ack）
+  - 构造 RUNNING + 过期租约 + run_id=NULL
+  - 重启 api → 对账收回 → 重派 → `SUCCEEDED`，`attempt=2`，`revision=rev_dceba594…`，`inbox=2`（新尝试的新事件，合法）
+- 结束后 `docker compose -p larder-it ... down`（未删卷，未触碰开发栈）。

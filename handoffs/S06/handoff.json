@@ -2,7 +2,7 @@
   "taskId": "S06",
   "sliceId": "S06.PROXY_GUARD+PIN_NET",
   "result": "TASK_LOCAL_PASS",
-  "resultScope": "禁代理+固定IP抓取；S 门禁 9/9 脚本 + 14/14 accept；ack 后崩溃恢复实测；隔离环境未做（偏差）",
+  "resultScope": "禁代理+固定IP抓取；门禁 9/9 脚本 + 14/14 accept；ack 后崩溃在独立 larder-it 环境通过",
   "checks": [
     {
       "command": "python -m pytest tests -m not live",
@@ -23,11 +23,16 @@
       "command": "scripts/dev/verify-fault-ack-crash.ps1",
       "exitCode": 0,
       "log": "reports/gates/S06/20261110-1445-s06/fault-ack-crash.log"
+    },
+    {
+      "command": "verify-fault-ack-crash.ps1（隔离 project larder-it）",
+      "exitCode": 0,
+      "log": "reports/gates/S06/20261110-1445-s06/fault-ack-crash-isolated.log"
     }
   ],
   "notRun": [
-    "独立 larder-it 隔离环境故障注入",
-    "取消/预算归属专项"
+    "取消/预算归属专项",
+    "S-ACCEPTED 签署（协调者）"
   ],
   "gate": "20261110-1445-s06: 9/9 scripts PASS, 14/14 accepts PASS"
 }
