@@ -32,9 +32,9 @@ public class RunnerClient {
     }
 
     /** 启动一次 run；返回 runId。请求体必须带冻结的 protocolVersion/scope（S02）。 */
-    public String startRun(String runId, String jobId, String ownerId, String itemId, String inputJson) {
+    public String startRun(String runId, String jobId, String ownerId, String itemId, long processingEpoch, String inputJson) {
         String scope = "{\"ownerId\":\"" + ownerId + "\"" + (itemId == null ? "" : ",\"itemId\":\"" + itemId + "\"") + "}";
-        String body = "{\"protocolVersion\":\"v1\",\"runId\":\"" + runId + "\",\"jobId\":\"" + jobId + "\",\"mode\":\"INGEST\",\"scope\":" + scope + ",\"traceId\":\"" + runId + "\",\"input\":" + inputJson + "}";
+        String body = "{\"protocolVersion\":\"v1\",\"runId\":\"" + runId + "\",\"jobId\":\"" + jobId + "\",\"mode\":\"INGEST\",\"scope\":" + scope + ",\"traceId\":\"" + runId + "\",\"processingEpoch\":" + processingEpoch + ",\"input\":" + inputJson + "}";
         HttpRequest request = HttpRequest.newBuilder(URI.create(baseUrl + "/v1/runs"))
                 .timeout(timeout)
                 .header("Content-Type", "application/json")

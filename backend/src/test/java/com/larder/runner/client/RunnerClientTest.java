@@ -34,7 +34,7 @@ class RunnerClientTest {
         startServer();
         RunnerClient client = new RunnerClient("http://127.0.0.1:" + server.getAddress().getPort(), 3000);
 
-        String runId = client.startRun("run_abc", "job_1", "own_1", "itm_1", "{\"url\":\"https://example.com\"}");
+        String runId = client.startRun("run_abc", "job_1", "own_1", "itm_1", 0L, "{\"url\":\"https://example.com\"}");
 
         assertThat(runId).isEqualTo("run_abc");
         assertThat(capturedIdempotencyKey.get()).isEqualTo("run_abc");
@@ -48,7 +48,7 @@ class RunnerClientTest {
         startServer();
         RunnerClient client = new RunnerClient("http://127.0.0.1:" + server.getAddress().getPort(), 3000);
 
-        assertThatThrownBy(() -> client.startRun("run_x", "job_1", "own_1", "itm_1", "{}"))
+        assertThatThrownBy(() -> client.startRun("run_x", "job_1", "own_1", "itm_1", 0L, "{}"))
                 .isInstanceOf(RunnerUnavailableException.class);
     }
 
@@ -56,7 +56,7 @@ class RunnerClientTest {
     @DisplayName("Runner 不可达：抛 RunnerUnavailableException 而不是静默成功")
     void failsWhenUnreachable() {
         RunnerClient client = new RunnerClient("http://127.0.0.1:1", 500);
-        assertThatThrownBy(() -> client.startRun("run_x", "job_1", "own_1", "itm_1", "{}"))
+        assertThatThrownBy(() -> client.startRun("run_x", "job_1", "own_1", "itm_1", 0L, "{}"))
                 .isInstanceOf(RunnerUnavailableException.class);
     }
 

@@ -72,6 +72,9 @@ services:
     environment:
       LARDER_RUNNER_JOURNAL_DIR: /var/lib/larder/journal
       LARDER_RUNNER_MAX_CONCURRENT_RUNS: "2"
+      LARDER_RUNNER_EXECUTE: "true"
+      LARDER_RUNNER_JAVA_BASE_URL: http://api:8080
+      LARDER_INTERNAL_TOKEN: ${LARDER_INTERNAL_TOKEN:?set LARDER_INTERNAL_TOKEN in .env}
     volumes:
       - runner-journal:/var/lib/larder/journal
     healthcheck:

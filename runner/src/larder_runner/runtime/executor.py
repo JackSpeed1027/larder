@@ -12,9 +12,13 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import urllib.request
 from dataclasses import dataclass
 from typing import Callable, Protocol
+
+
+log = logging.getLogger("larder_runner.executor")
 
 
 class Fetched(Protocol):
@@ -103,7 +107,9 @@ class RunExecutor:
             return ExecOutcome(run_id=run_id, state="SUCCEEDED", revision_id=revision_id)
         except PublishError as exc:
             code = "PUBLISH_REJECTED" if exc.status >= 400 else "JAVA_UNAVAILABLE"
+            log.warning("run %s publish failed: %s", run_id, exc)
             return ExecOutcome(run_id=run_id, state="FAILED", error_code=code)
         except Exception as exc:  # 抓取/抽取/分段的领域异常
             code = getattr(exc, "code", None) or type(exc).__name__.upper()
+            log.warning("run %s failed code=%s url=%s", run_id, code, url, exc_info=True)
             return ExecOutcome(run_id=run_id, state="FAILED", error_code=code)

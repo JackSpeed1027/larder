@@ -12,6 +12,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
@@ -42,7 +43,7 @@ class InboxDispatcherTest {
         when(leaseService.startRun("job_1", "worker-test", 5L)).thenReturn("run_1");
 
         assertThat(dispatcher.dispatch("job_1")).isEqualTo("run_1");
-        verify(runnerClient).startRun("run_1", "job_1", "own_1", "itm_1", "{\"url\":\"https://example.com\"}");
+        verify(runnerClient).startRun("run_1", "job_1", "own_1", "itm_1", 0L, "{\"url\":\"https://example.com\"}");
     }
 
     @Test
@@ -51,7 +52,7 @@ class InboxDispatcherTest {
         when(mapper.findDispatch("job_1")).thenReturn(row("SUCCEEDED", 2L));
 
         assertThat(dispatcher.dispatch("job_1")).isNull();
-        verify(runnerClient, never()).startRun(anyString(), anyString(), anyString(), anyString(), anyString());
+        verify(runnerClient, never()).startRun(anyString(), anyString(), anyString(), anyString(), anyLong(), anyString());
     }
 
     @Test
@@ -60,7 +61,7 @@ class InboxDispatcherTest {
         when(mapper.findDispatch("job_1")).thenReturn(row("RUNNING", 7L));
         when(leaseService.startRun("job_1", "worker-test", 7L)).thenReturn("run_2");
         org.mockito.Mockito.doThrow(new RunnerUnavailableException("connection refused"))
-                .when(runnerClient).startRun("run_2", "job_1", "own_1", "itm_1", "{\"url\":\"https://example.com\"}");
+                .when(runnerClient).startRun("run_2", "job_1", "own_1", "itm_1", 0L, "{\"url\":\"https://example.com\"}");
 
         assertThatThrownBy(() -> dispatcher.dispatch("job_1"))
                 .isInstanceOf(RunnerUnavailableException.class);
@@ -73,6 +74,7 @@ class InboxDispatcherTest {
         row.put("token", token);
         row.put("inputJson", "{\"url\":\"https://example.com\"}");
         row.put("ownerId", "own_1");
+        row.put("processingEpoch", 0L);
         row.put("itemId", "itm_1");
         return row;
     }

@@ -52,11 +52,12 @@ public class InboxDispatcher {
         }
         long token = ((Number) row.get("token")).longValue();
         String inputJson = row.get("inputJson") == null ? "{}" : String.valueOf(row.get("inputJson"));
+        long epoch = ((Number) row.get("processingEpoch")).longValue();
         String ownerId = String.valueOf(row.get("ownerId"));
         String itemId = row.get("itemId") == null ? null : String.valueOf(row.get("itemId"));
         String runId = leaseService.startRun(jobId, workerId, token);
         try {
-            runnerClient.startRun(runId, jobId, ownerId, itemId, inputJson);
+            runnerClient.startRun(runId, jobId, ownerId, itemId, epoch, inputJson);
             log.info("已派发 Runner：jobId={} runId={}", jobId, runId);
             return runId;
         } catch (RuntimeException unavailable) {

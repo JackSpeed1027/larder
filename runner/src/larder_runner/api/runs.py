@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import threading
 import time
 from dataclasses import dataclass, field
@@ -19,6 +20,7 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel, ConfigDict, Field
 
 PROTOCOL_VERSION = "v1"
+log = logging.getLogger("larder_runner.runs")
 
 
 class RunLease(BaseModel):
@@ -48,6 +50,7 @@ class RunStartRequest(BaseModel):
     runId: str = Field(pattern=r"^[A-Za-z][A-Za-z0-9_-]{1,63}$")
     jobId: str = Field(pattern=r"^[A-Za-z][A-Za-z0-9_-]{1,63}$")
     mode: str = Field(default="INGEST", max_length=32)
+    processingEpoch: int = Field(default=0, ge=0)
     scope: RunScope
     budget: dict | None = None
     traceId: str | None = Field(default=None, max_length=128)
@@ -125,14 +128,27 @@ class RunRegistry:
                        dedupe=dedupe, acceptedAt=run.accepted_at, lastHeartbeatAt=run.last_heartbeat_at)
 
 
-def build_runs_router(registry: RunRegistry) -> APIRouter:
+def build_runs_router(registry: RunRegistry, executor=None) -> APIRouter:
     router = APIRouter()
+
+    def _run_in_background(request: RunStartRequest) -> None:
+        url = str(request.input.get("url", ""))
+        if not url:
+            registry.finish(request.runId, "FAILED")
+            return
+        outcome = executor.execute(request.runId, request.jobId, request.processingEpoch, url)
+        log.info("run %s finished state=%s code=%s revision=%s",
+                 outcome.run_id, outcome.state, outcome.error_code, outcome.revision_id)
+        registry.finish(request.runId, outcome.state)
 
     @router.post("/v1/runs", status_code=202)
     def start_run(request: RunStartRequest) -> RunView:
         if request.protocolVersion != PROTOCOL_VERSION:
             raise HTTPException(status_code=400, detail="PROTOCOL_VERSION_UNSUPPORTED")
-        view, _ = registry.submit(request)
+        view, created = registry.submit(request)
+        if created and executor is not None:
+            # 执行在后台进行；HTTP 先返回 202，不假装已完成
+            threading.Thread(target=_run_in_background, args=(request,), daemon=True).start()
         return view
 
     @router.get("/v1/runs/{run_id}")

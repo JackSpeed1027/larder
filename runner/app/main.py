@@ -11,7 +11,13 @@ from datetime import datetime, timezone
 from fastapi import FastAPI
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+import os
+
 from larder_runner.api.runs import RunRegistry, build_runs_router
+from larder_runner.runtime.executor import JavaPublisher, RunExecutor
+from larder_runner.stages.chunk import chunk_text
+from larder_runner.stages.extract import extract
+from larder_runner.stages.fetch import UrlGuard, fetch
 
 APP_VERSION = "0.1.0"
 
@@ -23,11 +29,21 @@ class Settings(BaseSettings):
 
     journal_dir: str = "/var/lib/larder/journal"
     max_concurrent_runs: int = 2
+    execute: bool = False
+    java_base_url: str = "http://api:8080"
 
 
 settings = Settings()
 app = FastAPI(title="Larder Runner", version=APP_VERSION)
-app.include_router(build_runs_router(RunRegistry(settings.max_concurrent_runs)))
+def _executor():
+    """按配置装配执行器；未开启时返回 None（只登记不执行）。"""
+    if not settings.execute:
+        return None
+    publisher = JavaPublisher(settings.java_base_url, os.environ.get("LARDER_INTERNAL_TOKEN", ""))
+    return RunExecutor(lambda url: fetch(url, guard=UrlGuard()), extract, chunk_text, publisher)
+
+
+app.include_router(build_runs_router(RunRegistry(settings.max_concurrent_runs), _executor()))
 
 
 def _now() -> str:

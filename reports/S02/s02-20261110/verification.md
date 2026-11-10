@@ -71,3 +71,34 @@ curl.exe -sS -X POST http://127.0.0.1:8000/v1/runs/run_manual_1/heartbeat
   2. 背景执行（线程/调度器）+ 状态回写 + 失败码落状态；
   3. compose 给 runner 注入 `LARDER_INTERNAL_TOKEN` / Java base URL；
 - Java 侧 `RunnerClient` 需把 `processingEpoch` 带上（当前只发 protocolVersion/scope/input）。
+## 追加：S02.EXEC-WIRE 全链路闭环（s02-20261110）
+
+执行器已接入 `/v1/runs`（`LARDER_RUNNER_EXECUTE=true`）：
+
+- 提交后后台线程执行 fetch → extract → chunk → 回传 Java 发布；
+- Java `RunnerClient` 发送 `processingEpoch`（来自 job.processing_epoch），否则发布必被 `EPOCH_SUPERSEDED` 拒绝；
+- compose 给 runner 注入 `LARDER_RUNNER_JAVA_BASE_URL=http://api:8080` 与 `LARDER_INTERNAL_TOKEN`；
+- 执行失败写 WARN 日志（runId/code/url + traceback），不再静默。
+
+### 实测（真实公网 example.com）
+
+```
+verify-run-exec.ps1 → ALL EXEC CHECKS PASSED
+  收录 202 → job SUCCEEDED → item.current_revision_id=rev_01809951a29e9a10515d
+  正文 len=156 sha=0a080719be9f…（Runner 抽取，经 Java 发布写入 MinIO）
+```
+
+证据：`reports/S02/s02-20261110/verify-run-exec.log`。
+
+### 过程中修掉的真实问题
+
+1. e2e 用了 `example.com/exec/<ts>`，example.com 对未知路径返回 **404** → 抓取 `HTTP_ERROR`；改为 `example.com/?exec=`（根路径 200）；
+2. 执行器原先**吞掉异常且不打日志**，容器里只看到 `FAILED` 无法定位；补 `log.warning(..., exc_info=True)` 与 outcome 日志；
+3. Runner 镜像缺 `src/`、Java 缺 `protocolVersion/scope`（前两轮已修，本轮验证生效）。
+
+### 仍未完成（S02 剩余）
+
+- run 状态仅进程内，重启丢失（持久账本/S04）；
+- scope 与 job 的一致性未在 Runner 侧复核（仅 Java 生成）；
+- 预算/审批未接入；
+- 心跳未在执行期间续租（长任务可能被 reconcile 误收回）。

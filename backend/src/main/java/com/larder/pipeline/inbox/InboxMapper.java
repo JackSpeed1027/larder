@@ -36,7 +36,7 @@ public interface InboxMapper {
                  @Param("leaseUntil") LocalDateTime leaseUntil);
 
     /** 派发所需的最小 job 快照（租约代次、状态、输入）。 */
-    @Select("SELECT lease_token AS token, state, input_json AS inputJson, owner_id AS ownerId, item_id AS itemId FROM job WHERE id = #{jobId}")
+    @Select("SELECT lease_token AS token, processing_epoch AS processingEpoch, state, input_json AS inputJson, owner_id AS ownerId, item_id AS itemId FROM job WHERE id = #{jobId}")
     Map<String, Object> findDispatch(@Param("jobId") String jobId);
 
     /** 派发失败：RUNNING → QUEUED，attempt+1，清租约，退避 2 秒后允许重投。 */
