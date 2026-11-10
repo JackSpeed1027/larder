@@ -4,7 +4,7 @@
 - 只允许 http/https；
 - 目标 IP 不得是 loopback/private/link-local/保留地址（含云元数据 169.254.169.254）；
 - 每次重定向都重新解析并重新校验，防止"公网域名 302 到内网"；
-- 限制重定向次数、响应大小与内容类型，避免被大文件/流拖死。
+- 限制重定向次数、响应大小与内容类型，避免被大文件/流拖死；\n- 不继承系统/环境代理（显式 ProxyHandler({})），防止请求被代理改写到内网。
 """
 
 from __future__ import annotations
@@ -107,7 +107,7 @@ def fetch(
     """抓取一个 URL；失败抛 FetchError。"""
     guard = guard or UrlGuard()
     guard.check(url)
-    handler = opener or urllib.request.build_opener(_GuardedRedirectHandler(guard))
+    handler = opener or urllib.request.build_opener(urllib.request.ProxyHandler({}), _GuardedRedirectHandler(guard))
     request = urllib.request.Request(url, headers={"User-Agent": "larder-runner/0.1"})
     try:
         with handler.open(request, timeout=timeout) as response:
