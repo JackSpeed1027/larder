@@ -33,3 +33,29 @@ V01-T04、V02-T01～T04、V03-T01～T04、F01～F04、F15 —— 全部 PASS。
 
 - 脚本日志：`reports/gates/S06/20261110-1445-s06/verify-*.log`
 - 验收日志：`accept-*.log` 与 `reports/<task>/20261110-1445-s06-*/`
+
+## 故障注入：ack 后崩溃（verify-fault-ack-crash.ps1）
+
+场景（确定性构造，仅测试数据）：
+
+1. 公开收录 → 等 inbox 有记录（说明消费者已 ack）；
+2. 把 job 伪造成“崩溃现场”：`RUNNING` + `lease_until` 已过期 + `run_id=NULL`；
+3. `docker compose restart api`；
+4. 断言：租约代次递增 → job 重新派发 → Runner 完成 → `SUCCEEDED`，`attempt=2`，`item.current_revision_id=rev_*`。
+
+实测：
+
+```
+[PASS] 收录并确认已 ack（inbox 有记录）: inbox=1
+[PASS] 构造“ack 后崩溃”现场
+[PASS] 重启 API：对账收回 → 重新派发 → 最终 SUCCEEDED: attempt=2，revision=rev_5ed57fe8…，inbox=2
+ALL FAULT CHECKS PASSED
+```
+
+`inbox=2` 是**预期**：对账为新一次尝试生成了新的 outbox 事件，inbox 按 `(consumer,event_id)` 合法新增；关键断言是 `attempt=2`（没有重复执行同一尝试）。
+
+## 隔离性说明（偏差，必须记录）
+
+- 本故障注入运行在**当前开发 compose**，不是独立 `larder-it` project；
+- 只创建了 `example.com/?fault=*` 测试数据，未删卷、未清库、未触碰非测试数据；
+- 严格按 docs/21 应使用独立 project/DB/vhost/端口；这一点列为**未满足**，等协调者决定是否重跑隔离版。

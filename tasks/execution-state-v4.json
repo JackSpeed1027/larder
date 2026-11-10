@@ -931,7 +931,7 @@
     "S06": {
       "taskId": "S06",
       "title": "抓取安全与可靠性集成门禁",
-      "status": "IN_PROGRESS",
+      "status": "READY_FOR_INTEGRATION",
       "owner": null,
       "baseSnapshot": "10d49e2",
       "contractRev": "70d14567b04a3f8d87386188aa995bb9347f58d7063c2016c224f9819bed064c",
