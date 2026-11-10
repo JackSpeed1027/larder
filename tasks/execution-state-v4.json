@@ -917,7 +917,7 @@
       "contractRev": "70d14567b04a3f8d87386188aa995bb9347f58d7063c2016c224f9819bed064c",
       "evidence": [
         "reports/S05/s05-20261110/verification.md",
-        "reports/S05/s05-20261110/verify-lease-sse.log"
+        "reports/S05/s05-20261110/verify-lease-eventlog.log"
       ],
       "verifiedAt": null,
       "blockers": [],

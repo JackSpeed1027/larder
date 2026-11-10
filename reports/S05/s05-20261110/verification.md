@@ -24,3 +24,29 @@
 2. `Last-Event-ID` 只回显为 `resumedFrom`，没有“历史已过期 → 明确 reset”语义；
 3. 前端轮询降级、隐藏页降频未接；
 4. snapshot→events 竞态无专门测试。
+
+## 追加：S05.EVENT_LOG（持久事件 + reset 语义）
+
+- 迁移 `V7__job_event.sql`：`job_event(owner_id, job_id, seq, event_type, payload_json, created_at)`，PK `(owner_id, job_id, seq)`，FK→`job(id)`；
+- `JobEventLog`：seq 取 `job.last_event_seq`（与业务更新同事务），没有序号就不写；
+- `RevisionBinder` 成功提交后追加 `SUCCEEDED` 事件（同事务）；
+- SSE：带 `Last-Event-ID` 时从日志回放；**日志无记录但 job 序号已前进 → 发 `reset` + 权威 snapshot**，不假装续传；
+- 单测：`JobEventLogTest`（正常追加 / 无序号不编造）。
+
+### 实测
+
+- `mvn test`：**116 passed**；
+- `verify-publication.ps1` / `verify-lease.ps1`：**ALL … CHECKS PASSED**；
+- `job_event` 实际有一行：`job_7372… seq=1 SUCCEEDED`。
+
+### 迁移过程（必须记录）
+
+V7 首次执行失败：`job_event.owner_id/job_id` 用 utf8mb4，而 `job.id` 是 ascii，外键字符集不一致。
+修正为 `CHARACTER SET ascii COLLATE ascii_bin` 后仍被 Flyway 的失败记录挡住（`Detected failed migration to version 7`）。
+处理：**仅测试库**删除 `flyway_schema_history` 中 version=7 的失败行后重新应用（V7 当时未落任何表/数据，无用户数据风险）。此后 V7 success=1。
+
+### 仍未完成
+
+- 事件只在发布成功路径写入；RUNNING/FAILED/CANCELLED 事件尚未接入；
+- 前端轮询降级、隐藏页降频未做；
+- snapshot→events 竞态未专门测试。

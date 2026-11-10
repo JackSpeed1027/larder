@@ -42,14 +42,16 @@ public class JobEventsController {
 
     private final JobLeaseService leaseService;
     private final OwnerService ownerService;
+    private final JobEventLog eventLog;
     private final ExecutorService pool;
     private final Semaphore connections;
 
-    public JobEventsController(JobLeaseService leaseService, OwnerService ownerService,
+    public JobEventsController(JobLeaseService leaseService, OwnerService ownerService, JobEventLog eventLog,
                                @Value("${larder.sse.pool-size:8}") int poolSize,
                                @Value("${larder.sse.max-connections:32}") int maxConnections) {
         this.leaseService = leaseService;
         this.ownerService = ownerService;
+        this.eventLog = eventLog;
         this.pool = Executors.newFixedThreadPool(Math.max(1, poolSize));
         this.connections = new Semaphore(Math.max(1, maxConnections));
     }
@@ -71,7 +73,7 @@ public class JobEventsController {
         emitter.onTimeout(connections::release);
         emitter.onError(error -> connections.release());
         try {
-            pool.submit(() -> stream(emitter, jobId, progress, lastEventId));
+            pool.submit(() -> stream(emitter, jobId, ownerId, progress, lastEventId));
         } catch (RuntimeException rejected) {
             connections.release();
             emitter.completeWithError(rejected);
@@ -85,10 +87,11 @@ public class JobEventsController {
         pool.shutdownNow();
     }
 
-    private void stream(SseEmitter emitter, String jobId, JobProgress initial, String lastEventId) {
+    private void stream(SseEmitter emitter, String jobId, String ownerId, JobProgress initial, String lastEventId) {
         try {
             long seq = initial.seq();
             send(emitter, "snapshot", seq, snapshotJson(initial, lastEventId));
+            replayOrReset(emitter, jobId, ownerId, initial, lastEventId);
             JobProgress current = initial;
             long lastSent = System.currentTimeMillis();
             while (!current.terminal()) {
@@ -112,6 +115,35 @@ public class JobEventsController {
             emitter.complete();
         } catch (Exception stop) {
             emitter.completeWithError(stop);
+        }
+    }
+
+    /**
+     * S05：带 Last-Event-ID 时从持久日志回放；日志没有但 job 序号已前进，
+     * 说明历史已不可用——发 reset + 权威快照，而不是假装续传。
+     */
+    private void replayOrReset(SseEmitter emitter, String jobId, String ownerId, JobProgress initial,
+                               String lastEventId) throws Exception {
+        if (lastEventId == null || lastEventId.isBlank()) {
+            return;
+        }
+        long cursor;
+        try {
+            cursor = Long.parseLong(lastEventId.trim());
+        } catch (NumberFormatException badCursor) {
+            return;
+        }
+        var events = eventLog.after(ownerId, jobId, cursor);
+        if (events.isEmpty() && initial.seq() > cursor) {
+            emitter.send(SseEmitter.event().id(Long.toString(initial.seq())).name("reset")
+                    .data(snapshotJson(initial, lastEventId), MediaType.APPLICATION_JSON));
+            return;
+        }
+        for (var event : events) {
+            emitter.send(SseEmitter.event()
+                    .id(String.valueOf(event.get("seq")))
+                    .name("state")
+                    .data(String.valueOf(event.get("payloadJson")), MediaType.APPLICATION_JSON));
         }
     }
 

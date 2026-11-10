@@ -2,6 +2,7 @@ package com.larder.content.publication;
 
 import com.larder.ingest.Ids;
 import com.larder.ingest.Json;
+import com.larder.pipeline.lease.JobEventLog;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,9 +18,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class RevisionBinder {
 
     private final PublicationMapper mapper;
+    private final JobEventLog eventLog;
 
-    public RevisionBinder(PublicationMapper mapper) {
+    public RevisionBinder(PublicationMapper mapper, JobEventLog eventLog) {
         this.mapper = mapper;
+        this.eventLog = eventLog;
     }
 
     @Transactional
@@ -60,6 +63,8 @@ public class RevisionBinder {
             }
             throw PublicationException.staleRun();
         }
+        // S05：事件与 job 更新同事务；seq 来自 job.last_event_seq
+        eventLog.append(job.getOwnerId(), job.getJobId(), "SUCCEEDED", "SUCCEEDED", runId, epoch, null);
         return new PublicationResult(revisionId, "CREATED");
     }
 }

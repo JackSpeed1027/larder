@@ -26,7 +26,7 @@ class RevisionBinderTest {
     @BeforeEach
     void setUp() {
         mapper = mock(PublicationMapper.class);
-        binder = new RevisionBinder(mapper);
+        binder = new RevisionBinder(mapper, org.mockito.Mockito.mock(com.larder.pipeline.lease.JobEventLog.class));
     }
 
     private JobPublishRow job(String state, String runId, long epoch, LocalDateTime cancelledAt) {

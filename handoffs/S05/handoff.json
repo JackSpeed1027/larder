@@ -1,8 +1,8 @@
 {
   "taskId": "S05",
-  "sliceId": "S05.BOUNDED",
+  "sliceId": "S05.BOUNDED+S05.EVENT_LOG",
   "result": "TASK_LOCAL_PASS",
-  "resultScope": "SSE 固定线程池+连接上限+503+许可归还；持久事件游标/历史 reset/前端降级未做",
+  "resultScope": "SSE 有界；job_event 持久事件（成功路径）+ 游标回放 + reset；全状态事件/前端降级未做",
   "checks": [
     {
       "command": "backend mvnw test",
@@ -13,11 +13,20 @@
       "command": "scripts/dev/verify-lease.ps1",
       "exitCode": 0,
       "log": "reports/S05/s05-20261110/verify-lease-sse.log"
+    },
+    {
+      "command": "scripts/dev/verify-publication.ps1",
+      "exitCode": 0,
+      "log": "reports/S05/s05-20261110/verify-publication-eventlog.log"
+    },
+    {
+      "command": "scripts/dev/verify-lease.ps1",
+      "exitCode": 0,
+      "log": "reports/S05/s05-20261110/verify-lease-eventlog.log"
     }
   ],
   "notRun": [
-    "持久事件日志与游标回放",
-    "历史过期 reset 语义",
+    "RUNNING/FAILED/CANCELLED 事件",
     "前端轮询降级/隐藏页降频",
     "snapshot-events 竞态测试"
   ]

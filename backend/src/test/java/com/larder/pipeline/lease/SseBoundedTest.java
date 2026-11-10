@@ -30,7 +30,8 @@ class SseBoundedTest {
         when(owner.ownerIdFor("admin")).thenReturn("own_1");
         when(lease.progress("job_1")).thenReturn(new JobProgress(
                 "job_1", "own_1", "RUNNING", 1, "run_1", 0, null, "2026-11-10T00:00:00Z", 1L));
-        controller = new JobEventsController(lease, owner, 1, maxConnections);
+        controller = new JobEventsController(lease, owner,
+                org.mockito.Mockito.mock(JobEventLog.class), 1, maxConnections);
         return controller;
     }
 
