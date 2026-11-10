@@ -15,8 +15,9 @@ import java.time.ZoneOffset;
 /**
  * 幂等键的持久化操作。
  *
- * <p>关键点：{@code tryBegin} 必须用 REQUIRES_NEW 独立事务。如果用同一个事务，
- * 插入冲突会把外层事务标记成 rollback-only，后续回读和返回 409/200 都会失败。
+ * <p>S01 合同：幂等登记必须与业务写入、Outbox、响应快照在**同一个短事务**内提交。
+ * 不用 REQUIRES_NEW 抢占：那会产生“登记成功但业务没做”的 PROCESSING 僵尸行。
+ * 并发插入冲突时，由调用方在事务结束后用 {@link #find} 独立读取结果。
  *
  * <p>主键 (owner_id, route_key, request_key) 是并发唯一的最终保证：
  * 先查后插只是优化，不能替代约束。
@@ -30,8 +31,7 @@ public class IdempotencyStore {
         this.mapper = mapper;
     }
 
-    /** 抢占幂等键；false 表示已被别人占用（可能是同请求重放，也可能是不同请求冲突）。 */
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    /** 在调用方事务内登记幂等键；false 表示键已被占用（同 key 并发或重放）。 */
     public boolean tryBegin(String ownerId, String routeKey, String requestKey, String bodyHash) {
         IdempotencyRequest row = new IdempotencyRequest();
         row.setOwnerId(ownerId);

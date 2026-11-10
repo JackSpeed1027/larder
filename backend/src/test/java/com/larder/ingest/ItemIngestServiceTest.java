@@ -137,7 +137,7 @@ class ItemIngestServiceTest {
                 .isInstanceOf(IngestRejectedException.class)
                 .satisfies(ex -> {
                     IngestRejectedException rejected = (IngestRejectedException) ex;
-                    assertThat(rejected.code()).isEqualTo("IDEMPOTENCY_CONFLICT");
+                    assertThat(rejected.code()).isEqualTo("IDEMPOTENCY_PAYLOAD_MISMATCH");
                     assertThat(rejected.httpStatus()).isEqualTo(409);
                 });
         verify(itemMapper, never()).insert(any(Item.class));
@@ -155,6 +155,25 @@ class ItemIngestServiceTest {
                 .isInstanceOf(IngestRejectedException.class)
                 .hasMessageContaining("text");
         verify(idempotencyStore, never()).tryBegin(anyString(), anyString(), anyString(), anyString());
+    }
+
+    @Test
+    @DisplayName("同 key 但赢家仍在处理：409 IDEMPOTENCY_IN_PROGRESS（retryable）")
+    void processingRowIsInProgress() {
+        when(idempotencyStore.tryBegin(eq("own_1"), anyString(), anyString(), anyString())).thenReturn(false);
+        IdempotencyRequest row = completedRow("own_1", "idem-key-0007",
+                new CommandBody(ItemKind.TEXT, "t", null, "hello", null).bodyHash(), "{}", 202);
+        row.setState(IdempotencyState.PROCESSING.name());
+        when(idempotencyStore.find("own_1", ItemIngestService.ROUTE, "idem-key-0007")).thenReturn(row);
+
+        assertThatThrownBy(() -> service.ingest("admin", "idem-key-0007",
+                new CommandBody(ItemKind.TEXT, "t", null, "hello", null)))
+                .isInstanceOf(IngestRejectedException.class)
+                .satisfies(ex -> {
+                    IngestRejectedException rejected = (IngestRejectedException) ex;
+                    assertThat(rejected.code()).isEqualTo("IDEMPOTENCY_IN_PROGRESS");
+                    assertThat(rejected.retryable()).isTrue();
+                });
     }
 
     private IdempotencyRequest completedRow(String owner, String key, String bodyHash, String json, int status) {

@@ -34,7 +34,13 @@ public class IngestRejectedException extends RuntimeException {
         return new IngestRejectedException("VALIDATION_FAILED", message, 400, false);
     }
 
-    public static IngestRejectedException idempotencyConflict(String message, boolean retryable) {
-        return new IngestRejectedException("IDEMPOTENCY_CONFLICT", message, 409, retryable);
+    /** 同 key 但请求体不同：不得自动换 key 重发同一用户动作（v4 S01）。 */
+    public static IngestRejectedException idempotencyPayloadMismatch(String message) {
+        return new IngestRejectedException("IDEMPOTENCY_PAYLOAD_MISMATCH", message, 409, false);
+    }
+
+    /** 同 key 的处理仍在进行：用原 key 原 body 查询或重试（v4 S01）。 */
+    public static IngestRejectedException idempotencyInProgress(String message) {
+        return new IngestRejectedException("IDEMPOTENCY_IN_PROGRESS", message, 409, true);
     }
 }

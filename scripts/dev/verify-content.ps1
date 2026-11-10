@@ -117,7 +117,7 @@ Check '同 key 同 body 重放返回 200 且 itemId 不变' {
 Check '同 key 不同 body 返回 409 IDEMPOTENCY_CONFLICT' {
     $conflict = Send-Json (New-ItemRequest $keyA '{"kind":"WEB","url":"https://example.com/other"}')
     Assert-True ($conflict.Status -eq 409) "期望 409，实际 $($conflict.Status)"
-    Assert-True ($conflict.Json.code -eq 'IDEMPOTENCY_CONFLICT') "错误码异常: $($conflict.Json.code)"
+    Assert-True ($conflict.Json.code -eq 'IDEMPOTENCY_PAYLOAD_MISMATCH') "错误码异常: $($conflict.Json.code)"
     $conflict.Json.code
 }
 

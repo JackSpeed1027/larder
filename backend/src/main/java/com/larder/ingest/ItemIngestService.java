@@ -136,36 +136,25 @@ public class ItemIngestService {
         return new IngestOutcome(existing.getId(), jobId, "EXISTING", EXISTING_ITEM_STATUS);
     }
 
-    /** 已有幂等记录：同 body 重放首次结果，不同 body 409；PROCESSING 短暂轮询等待赢家提交。 */
+    /**
+     * 已有幂等记录的处理（S01）：
+     * COMPLETED + 同 body → 重放首次结果；同 key 不同 body → PAYLOAD_MISMATCH；
+     * PROCESSING（并发赢家尚未提交/或历史僵尸行）→ IN_PROGRESS，要求用原 key 原 body 重试。
+     * 只读一次，不在事务内 sleep 轮询。
+     */
     private IngestOutcome resolveExisting(String ownerId, String key, String bodyHash) {
-        IdempotencyRequest row = null;
-        for (int i = 0; i < 20; i++) {
-            row = idempotencyStore.find(ownerId, ROUTE, key);
-            if (row != null && IdempotencyState.COMPLETED.name().equals(row.getState())) {
-                break;
-            }
-            if (row != null && !row.getBodyHash().equals(bodyHash)) {
-                throw IngestRejectedException.idempotencyConflict("同一 Idempotency-Key 不能用于不同请求体", false);
-            }
-            try {
-                Thread.sleep(50L);
-            } catch (InterruptedException interrupted) {
-                Thread.currentThread().interrupt();
-                break;
-            }
-        }
+        IdempotencyRequest row = idempotencyStore.find(ownerId, ROUTE, key);
         if (row == null) {
-            throw IngestRejectedException.idempotencyConflict("幂等记录不可用，请重试", true);
+            throw IngestRejectedException.idempotencyInProgress("幂等记录尚不可见，请用同一 Idempotency-Key 重试");
         }
         if (!row.getBodyHash().equals(bodyHash)) {
-            throw IngestRejectedException.idempotencyConflict("同一 Idempotency-Key 不能用于不同请求体", false);
+            throw IngestRejectedException.idempotencyPayloadMismatch("同一 Idempotency-Key 不能用于不同请求体");
         }
         if (!IdempotencyState.COMPLETED.name().equals(row.getState())) {
-            // 赢家还在处理（或已崩溃）：不猜结果，让调用方带同一 key 重试
-            throw IngestRejectedException.idempotencyConflict("相同请求正在处理中，请稍后用同一 Idempotency-Key 重试", true);
+            throw IngestRejectedException.idempotencyInProgress("相同请求正在处理中，请稍后用同一 Idempotency-Key 重试");
         }
         String json = row.getResponseJson() == null ? "{}" : row.getResponseJson();
-        // 重复请求按 docs/04 的接口语义返回 200（不是首次的 202）：结果相同、状态表示"已存在"。
+        // 重复请求按 docs/04 的接口语义返回 200（不是首次的 202）：结果相同、状态表示“已存在”。
         return new IngestOutcome(
                 JsonValue.read(json, "itemId"),
                 JsonValue.read(json, "jobId"),
